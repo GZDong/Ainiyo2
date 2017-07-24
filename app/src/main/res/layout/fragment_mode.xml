@@ -1,0 +1,21 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.huadi.android.ainiyo.frag.ModeFragment">
+
+     TODO: Update blank fragment layout
+    <TextView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="mode"
+        android:gravity="center"
+        android:textSize="24sp"
+        />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/mode_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+</FrameLayout>
