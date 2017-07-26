@@ -78,6 +78,14 @@ public class ModeFragment extends Fragment {
             mAdapter=new ModeAdapter(mList);
             mode_list_view.setAdapter(mAdapter);
 
+            //防止刷新获取数据时候，时间太短,而出现的bug,最后为0.001秒
+            mode_list_view.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mode_list_view.onRefreshComplete();
+                }
+            },1);
+
         }else {// 尾部刷新
             //mList.addAll(object.getDatas());
             mAdapter.notifyDataSetChanged();
