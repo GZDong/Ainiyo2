@@ -1,5 +1,6 @@
 package com.huadi.android.ainiyo.frag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.activity.ModeAddingActivity;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.lidroid.xutils.ViewUtils;
@@ -99,6 +101,7 @@ public class ModeFragment extends Fragment {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btn_mode_add:
+                startActivity(new Intent(getActivity(), ModeAddingActivity.class));
                 break;
         }
 
