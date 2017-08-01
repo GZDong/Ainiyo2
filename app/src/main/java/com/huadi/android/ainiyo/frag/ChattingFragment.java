@@ -30,6 +30,9 @@ import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.Friends;
+import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
+import com.huadi.android.ainiyo.util.SignInUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.EMMessageListener;
@@ -68,6 +71,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
     private String mChatId;
     // 当前会话对象
     private int mImage;
+
+    private int userImage;
     private EMConversation mConversation;
 
     private RecyclerView msgRecyclerView;
@@ -100,6 +105,11 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
         mChatId = getArguments().getString("ec_chat_id");
         mImage = getArguments().getInt("ec_chat_img");
+
+        UserInfoLab userInfoLab = UserInfoLab.get(getActivity());
+        UserInfo userInfo = userInfoLab.getUserInfo();
+        userImage = userInfo.getPicture();
+
         mMessageListener = this;
         mMessages = new ArrayList<>();
 
@@ -306,7 +316,13 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             /*Intent intent = new Intent(ECMainActivity.this, ECLoginActivity.class);
             startActivity(intent);
             finish();*/
-            signIn();
+
+            UserInfoLab userInfoLab = UserInfoLab.get(getActivity());
+            UserInfo userInfo = userInfoLab.getUserInfo();
+            String name = userInfo.getUsername();
+            String pass = userInfo.getPassword();
+            userImage = userInfo.getPicture();
+           SignInUtil.signIn(name,pass,getActivity());
 
         }
         // 添加消息监听
@@ -472,7 +488,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 holder.rightLayout.setVisibility(View.GONE);
                 holder.leftLayout.setVisibility(View.VISIBLE);
 
-                Bitmap bm = BitmapFactory.decodeResource(getResources(),R.drawable.left_image);
+                Bitmap bm = BitmapFactory.decodeResource(getResources(),userImage);
                 //加载图片
                 holder.leftImage.setImageBitmap(ScaleBitmap(bm));
                 //Glide.with(getActivity()).load(bm).fitCenter().into(holder.leftImage);

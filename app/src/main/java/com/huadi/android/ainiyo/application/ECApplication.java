@@ -17,7 +17,7 @@ import java.util.List;
 public class ECApplication extends Application {
 
     // 上下文菜单
-    private Context mContext;
+    private  static Context mContext;
 
     // 记录是否已经初始化
     private boolean isInit = false;
@@ -66,6 +66,10 @@ public class ECApplication extends Application {
                 Log.d("eeee","添加好友成功");
             }
         });*/
+    }
+
+    public static Context getContext(){
+        return mContext;
     }
 
     /**

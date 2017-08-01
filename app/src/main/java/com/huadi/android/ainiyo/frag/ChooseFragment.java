@@ -45,14 +45,14 @@ public class ChooseFragment extends Fragment {
 
    // private TextView mTextView;
 
-    public static ChooseFragment newInstance() {
+    /*public static ChooseFragment newInstance() {
 
         Bundle args = new Bundle();
 
         ChooseFragment fragment = new ChooseFragment();
         fragment.setArguments(args);
         return fragment;
-    }
+    }*/
 
 
 

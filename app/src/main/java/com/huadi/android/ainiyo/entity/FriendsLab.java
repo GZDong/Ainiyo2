@@ -39,7 +39,7 @@ public class FriendsLab {
         mFriendses.add(friend1);
         mFriendses.add(friend2);
         mFriendses.add(friend3);
-
+        //到时候再这里修改成从服务器获取好友列表
     }
 
     public List<Friends> getFriendses() {
