@@ -1,6 +1,7 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,15 +11,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.adapter.ImageAdapter;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ModeAddingActivity extends AppCompatActivity {
@@ -71,13 +79,45 @@ public class ModeAddingActivity extends AppCompatActivity {
                 break;
             case R.id.tv_mode_add:
                 Intent t1=new Intent();
-                t1.putStringArrayListExtra("images", images);
-                t1.putExtra("text",et_mode_add_saying.getText().toString());
-                setResult(2,t1);
+//                t1.putStringArrayListExtra("images", images);
+//                t1.putExtra("text",et_mode_add_saying.getText().toString());
+//                setResult(2,t1);
+                ModeInfo mi=new ModeInfo(null,et_mode_add_saying.getText().toString(),null,images);
+                ArrayList<ModeInfo> list= ToolKits.GettingModedata(ModeAddingActivity.this);
+                list.add(mi);
+                ToolKits.SavingModeData(ModeAddingActivity.this,list);
                 finish();
                 break;
 
         }
     }
 
+//    public void SavingModeData(ArrayList<ModeInfo> list)
+//    {
+//        List<ModeInfo> modeInfoList = list;
+//        SharedPreferences.Editor editor = getSharedPreferences("modeInfoList", MODE_PRIVATE).edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(modeInfoList);
+//        Log.d("hello", "saved json is "+ json);
+//        editor.putString("modeInfoList", json);
+//        editor.commit();
+//    }
+//
+//    public ArrayList<ModeInfo> GettingModedata()
+//    {
+//        ArrayList<ModeInfo> list= new ArrayList<ModeInfo>();
+//        SharedPreferences preferences = getSharedPreferences("modeInfoList", MODE_PRIVATE);
+//        String json = preferences.getString("modeInfoList", null);
+//        if (json != null)
+//        {
+//            Gson gson = new Gson();
+//            Type type = new TypeToken<List<ModeInfo>>(){}.getType();
+//            list = gson.fromJson(json, type);
+////            for(int i = 0; i < list.size(); i++)
+////            {
+////                Log.d("hi", list.get(i).getName()+":" + list.get(i).getX() + "," + list.get(i).getY());
+////            }
+//        }
+//        return list;
+//    }
 }
