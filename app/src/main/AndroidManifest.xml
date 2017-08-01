@@ -91,7 +91,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".MainActivity"
-                  >
+            android:launchMode="singleTask"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -107,9 +108,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".activity.ModeAddingActivity" android:label="@string/app_name"></activity>
         <activity android:name=".activity.ChattingActivity"
-
                   android:windowSoftInputMode="adjustResize|stateHidden"
-                  android:launchMode="singleInstance"
+                  android:launchMode="singleTask"
                   android:label="聊天"/>
 
 

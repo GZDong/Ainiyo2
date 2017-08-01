@@ -32,6 +32,7 @@ public class UserInfoLab {
         mUserInfo.setUsername("xuniji");
         mUserInfo.setPassword("123");
         mUserInfo.setPicture(R.drawable.left_image);
+
     }
 
     public UserInfo getUserInfo(){

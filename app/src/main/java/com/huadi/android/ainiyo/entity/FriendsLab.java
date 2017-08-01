@@ -3,6 +3,8 @@ package com.huadi.android.ainiyo.entity;
 import android.content.Context;
 
 import com.huadi.android.ainiyo.R;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +35,12 @@ public class FriendsLab {
 
     private void initFriends(){
         mFriendses = new ArrayList<>();
-        Friends friend1 = new Friends("shouji",R.drawable.examplepicture);
-        Friends friend2 = new Friends("xiaoming", R.drawable.user2);
-        Friends friend3 = new Friends("long",R.drawable.right_image);
+        EMConversation conversation = EMClient.getInstance().chatManager().getConversation("shouji");
+        int test = conversation.getUnreadMsgCount();
+
+        Friends friend1 = new Friends("shouji",R.drawable.examplepicture,test);
+        Friends friend2 = new Friends("xiaoming", R.drawable.user2,3);
+        Friends friend3 = new Friends("long",R.drawable.right_image,7);
         mFriendses.add(friend1);
         mFriendses.add(friend2);
         mFriendses.add(friend3);
@@ -54,4 +59,12 @@ public class FriendsLab {
         }
         return null;
     }
+
+    private void getUnreadMsg(List<Friends> firList){
+        for (Friends friends : firList){
+            EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
+            friends.setUnreadMeg(conversation.getUnreadMsgCount());
+        }
+    }
+
 }

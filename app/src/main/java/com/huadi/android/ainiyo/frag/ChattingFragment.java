@@ -1,5 +1,6 @@
 package com.huadi.android.ainiyo.frag;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -28,8 +29,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.Friends;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.SignInUtil;
@@ -116,7 +119,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         mFriendses = new ArrayList<>();
 
 
-        signIn();
+        //signIn();
 
 
     }
@@ -145,7 +148,9 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
                 return true;
             case android.R.id.home:
-                getActivity().finish();
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -360,6 +365,12 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 mHandler.sendMessage(msg);
             } else {
                 // 如果消息不是当前会话的消息发送通知栏通知
+                EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.getFrom());
+                int unread = conversation.getUnreadMsgCount();
+                Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
+                intent.putExtra("ID",message.getFrom());
+                intent.putExtra("newM",unread);
+                getActivity().sendBroadcast(intent);
             }
         }
     }
@@ -532,29 +543,29 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             return newBitmap;
         }
     }
-    private void signIn() {
-       /* mDialog = new ProgressDialog(this);
+    /*private void signIn() {
+       *//* mDialog = new ProgressDialog(this);
         mDialog.setMessage("正在登陆，请稍后...");
-        mDialog.show();*/
-        /*String username = mUsernameEdit.getText().toString().trim();
-        String password = mPasswordEdit.getText().toString().trim();*/
+        mDialog.show();*//*
+        *//*String username = mUsernameEdit.getText().toString().trim();
+        String password = mPasswordEdit.getText().toString().trim();*//*
 
         String username = "xuniji";
         String password = "123";
-        /*if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+        *//*if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
             Toast.makeText(ECLoginActivity.this, "用户名和密码不能为空", Toast.LENGTH_LONG).show();
             return;
-        }*/
+        }*//*
         EMClient.getInstance().login(username, password, new EMCallBack() {
-            /**
+            *//**
              * 登陆成功的回调
-             */
+             *//*
             @Override
             public void onSuccess() {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        /*mDialog.dismiss();*/
+                        *//*mDialog.dismiss();*//*
 
                         // 加载所有会话到内存
                         EMClient.getInstance().chatManager().loadAllConversations();
@@ -562,29 +573,29 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                         // EMClient.getInstance().groupManager().loadAllGroups();
 
                         // 登录成功跳转界面
-                       /* Intent intent = new Intent(ECLoginActivity.this, ECMainActivity.class);
+                       *//* Intent intent = new Intent(ECLoginActivity.this, ECMainActivity.class);
                         startActivity(intent);
-                        finish();*/
+                        finish();*//*
                     }
                 });
             }
 
-            /**
+            *//**
              * 登陆错误的回调
              * @param i
              * @param s
-             */
+             *//*
             @Override
             public void onError(final int i, final String s) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        /*mDialog.dismiss();*/
+                        *//*mDialog.dismiss();*//*
                         Log.d("lzan13", "登录失败 Error code:" + i + ", message:" + s);
-                        /**
+                        *//**
                          * 关于错误码可以参考官方api详细说明
                          * http://www.easemob.com/apidoc/android/chat3.0/classcom_1_1hyphenate_1_1_e_m_error.html
-                         */
+                         *//*
                         switch (i) {
                             // 网络异常 2
                             case EMError.NETWORK_ERROR:
@@ -635,7 +646,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
             }
         });
-    }
+    }*/
 
     @Override
     public void setMenuVisibility(boolean menuVisible) {

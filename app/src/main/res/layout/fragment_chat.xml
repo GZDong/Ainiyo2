@@ -78,8 +78,8 @@
 
                     <Button
                         android:id="@+id/ec_btn_send"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:text="@string/send"
                         android:background="@drawable/send"
                         android:layout_marginRight="5dp"

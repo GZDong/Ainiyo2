@@ -1,6 +1,9 @@
 package com.huadi.android.ainiyo.frag;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +27,7 @@ import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +47,8 @@ public class ChooseFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private MyAdapter mMyAdapter;
+
+    private BroadcastReceiver mBroadcastReceiver;
 
    // private TextView mTextView;
 
@@ -70,6 +77,21 @@ public class ChooseFragment extends Fragment {
         FriendsLab friendsLab = FriendsLab.get(getActivity());
         frdList = friendsLab.getFriendses();
 
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.huadi.android.ainiyo.newMessage");
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                int newMsg = intent.getIntExtra("newM",0);
+                String ID = intent.getStringExtra("ID");
+                FriendsLab friendsLab = FriendsLab.get(getActivity());
+                Friends friends = friendsLab.getFriend(ID);
+                friends.setUnreadMeg(newMsg);
+                frdList = friendsLab.getFriendses();
+                mMyAdapter.notifyDataSetChanged();
+            }
+        };
+        getActivity().registerReceiver(mBroadcastReceiver,intentFilter);
         //initFri();
        /* Log.d(")))))","____________1");
         new Thread(new Runnable() {
@@ -103,7 +125,13 @@ public class ChooseFragment extends Fragment {
         return v;
     }
 
-   /* @Override
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(mBroadcastReceiver);
+    }
+
+    /* @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_manager,menu);
@@ -130,16 +158,24 @@ public class ChooseFragment extends Fragment {
     private class MyViewHolder extends RecyclerView.ViewHolder{
         TextView textView;
         ImageView mImageView;
+        Button UnreadBtn;
 
         public MyViewHolder(View v){
             super(v);
             textView = (TextView) v.findViewById(R.id.name_fri);
             mImageView = (ImageView) v.findViewById(R.id.img_friend);
+            UnreadBtn= (Button) v.findViewById(R.id.unread_btn);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    FriendsLab friendsLab = FriendsLab.get(getActivity());
+                    Friends fri = friendsLab.getFriend(textView.getText().toString());
+                    fri.setUnreadMeg(0);
+                    EMConversation conversation = EMClient.getInstance().chatManager().getConversation(textView.getText().toString());
+                    conversation.markAllMessagesAsRead();
+                    mMyAdapter.notifyDataSetChanged();
                     if (getActivity() instanceof MainActivity){
+
                         Intent intent =  new Intent(getActivity(),ChattingActivity.class);
                         intent.putExtra("name",textView.getText());
                         for (Friends friends : frdList){
@@ -150,6 +186,8 @@ public class ChooseFragment extends Fragment {
                         intent.putExtra("img",transImg);
                         startActivity(intent);
                     } else if (getActivity() instanceof ChattingActivity){
+
+
                         ChattingActivity chattingActivity = (ChattingActivity)getActivity();
 
                         FragmentManager fm = chattingActivity.getSupportFragmentManager();
@@ -220,10 +258,18 @@ public class ChooseFragment extends Fragment {
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
             String name_fri = mList.get(position).getName();
-
+            int unreadM = mList.get(position).getUnreadMeg();
             int picture = mList.get(position).getPicture();
             holder.textView.setText(name_fri);
             holder.mImageView.setImageResource(picture);
+
+            if (unreadM > 0){
+                holder.UnreadBtn.setVisibility(View.VISIBLE);
+                holder.UnreadBtn.setText(String.valueOf(unreadM));
+            }else{
+                holder.UnreadBtn.setVisibility(View.GONE);
+            }
+
         }
 
         @Override
