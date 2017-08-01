@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.adapter.ImageAdapter;
@@ -26,6 +28,10 @@ public class ModeAddingActivity extends AppCompatActivity {
     private RecyclerView rvImage;
     private ImageAdapter mAdapter;
     private Button btn_limit;
+    private int requestCode;
+    private ArrayList<String> images;
+    @ViewInject(R.id.et_mode_add_saying)
+    EditText et_mode_add_saying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +53,13 @@ public class ModeAddingActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && data != null) {
-            ArrayList<String> images = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
+            images = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
             mAdapter.refresh(images);
         }
     }
 
 
-    @OnClick({R.id.mode_adding_back,R.id.mode_add_pic})
+    @OnClick({R.id.mode_adding_back,R.id.mode_add_pic,R.id.tv_mode_add})
     public void onClick(View v)
     {
         switch (v.getId()) {
@@ -62,7 +68,15 @@ public class ModeAddingActivity extends AppCompatActivity {
                 break;
             case R.id.mode_add_pic:
                 ImageSelectorUtils.openPhoto(ModeAddingActivity.this, REQUEST_CODE, false, 9);
-            break;
+                break;
+            case R.id.tv_mode_add:
+                Intent t1=new Intent();
+                t1.putStringArrayListExtra("images", images);
+                t1.putExtra("text",et_mode_add_saying.getText().toString());
+                setResult(2,t1);
+                finish();
+                break;
+
         }
     }
 

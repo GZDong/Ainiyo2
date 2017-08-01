@@ -1,6 +1,8 @@
 package com.huadi.android.ainiyo.frag;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,18 +11,29 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeAddingActivity;
+import com.huadi.android.ainiyo.adapter.ImageAdapter;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +51,10 @@ public class ModeFragment extends Fragment {
     private int page = 0;
     private int size = 20;
     private int count = 0;
+    private static final int REQUEST_CODE = 0x00000012;
+    private static final String phourl = "http://120.24.168.102:8080/getalumb?sessionid=5ca6b5f4b438030f123fb149ff19fd8769365789";
 
+    private ImageAdapter mAdapter1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,8 +86,19 @@ public class ModeFragment extends Fragment {
 
     private void loadDatas(final boolean direction)
     {
-        ModeInfo md1=new ModeInfo("fengsam","hello world");
-        ModeInfo md2=new ModeInfo("geange","hello world too");
+//        new HttpUtils().send(HttpRequest.HttpMethod.POST, phourl, new RequestCallBack<byte[]>() {
+//
+//            @Override
+//            public void onSuccess(ResponseInfo<byte[]> responseInfo) {
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(responseInfo.result);
+//            }
+//            @Override
+//            public void onFailure(HttpException error, String msg) {
+//
+//            }
+//        });
+        ModeInfo md1=new ModeInfo("fengsam","hello world",null,null);
+        ModeInfo md2=new ModeInfo("geange","hello world too",null,null);
         mList.add(md1);
         mList.add(md2);
         if(direction)// 头部刷新
@@ -97,15 +124,45 @@ public class ModeFragment extends Fragment {
         }
     }
 
+    private void loadDatas2(Intent data)
+    {
+        ArrayList<String> images = data.getStringArrayListExtra("images");
+        String et_mode_add_saying=data.getStringExtra("text");
+
+        ModeInfo md1=new ModeInfo("fengsam1",et_mode_add_saying,null,images);
+        mList.add(md1);
+
+            mAdapter=new ModeAdapter(mList);
+            mode_list_view.setAdapter(mAdapter);
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && data != null && resultCode==2) {
+            loadDatas2(data);
+
+        }
+    }
+
+//    @OnItemClick({R.id.mode_list_view})
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Intent intent = new Intent(getActivity(), ModeAddingActivity.class);
+//        intent.putExtra("pho", mAdapter.getPhoItem(position));
+//        startActivity(intent);
+//    }
+
     @OnClick({R.id.btn_mode_add})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btn_mode_add:
-                startActivity(new Intent(getActivity(), ModeAddingActivity.class));
+                startActivityForResult(new Intent(getActivity(), ModeAddingActivity.class),REQUEST_CODE);
                 break;
         }
 
     }
+
 
     @Override
     public void setMenuVisibility(boolean menuVisible) {
