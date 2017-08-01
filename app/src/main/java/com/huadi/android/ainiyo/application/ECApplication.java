@@ -24,6 +24,8 @@ public class ECApplication extends Application {
 
     //public static List<String> friList;
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();

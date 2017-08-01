@@ -3,31 +3,22 @@ package com.huadi.android.ainiyo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.frag.AddressBookFragment;
-import com.huadi.android.ainiyo.frag.ChattingFragment;
 import com.huadi.android.ainiyo.frag.ChooseFragment;
 import com.huadi.android.ainiyo.frag.FindingFragment;
-import com.huadi.android.ainiyo.frag.FriListFragment;
 import com.huadi.android.ainiyo.frag.MeFragment;
 import com.huadi.android.ainiyo.frag.ModeFragment;
 import com.huadi.android.ainiyo.util.SignInUtil;
-import com.hyphenate.EMCallBack;
-import com.hyphenate.EMError;
-import com.hyphenate.chat.EMClient;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnCheckedChange;

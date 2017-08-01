@@ -10,9 +10,12 @@ public class Friends {
 
     private int picture;
 
-    public Friends(String name, int picture){
+    private int unreadMeg = 0;
+
+    public Friends(String name, int picture,int unread){
         this.name = name;
         this.picture = picture;
+        this.unreadMeg = unread;
     }
     public String getName() {
         return name;
@@ -28,5 +31,13 @@ public class Friends {
 
     public void setPicture(int picture) {
         this.picture = picture;
+    }
+
+    public int getUnreadMeg() {
+        return unreadMeg;
+    }
+
+    public void setUnreadMeg(int unreadMeg) {
+        this.unreadMeg = unreadMeg;
     }
 }
