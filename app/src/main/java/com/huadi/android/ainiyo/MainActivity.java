@@ -4,15 +4,20 @@ package com.huadi.android.ainiyo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 
 
 import com.huadi.android.ainiyo.frag.AddressBookFragment;
 import com.huadi.android.ainiyo.frag.ChattingFragment;
+import com.huadi.android.ainiyo.frag.ChooseFragment;
 import com.huadi.android.ainiyo.frag.FindingFragment;
+import com.huadi.android.ainiyo.frag.FriListFragment;
 import com.huadi.android.ainiyo.frag.MeFragment;
 import com.huadi.android.ainiyo.frag.ModeFragment;
 import com.lidroid.xutils.ViewUtils;
@@ -20,7 +25,12 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnCheckedChange;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
+
+    public static String mChatId ;
+    // 当前会话对象
+    private static int mImage;
+    //private EMConversation mConversation;
 
     @ViewInject(R.id.bottom_bar)
     private RadioGroup bottom_bar;
@@ -33,6 +43,29 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ViewUtils.inject(this);
+
+        mChatId = "xuniji";
+        mImage = R.drawable.examplepicture;
+        ActionBar actionBar = getSupportActionBar();
+
+        /*try{
+            actionBar.setTitle(mChatId);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }*/
+
+        if (actionBar!= null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
+        }
+        //  mMessageListener = this;
+        /*FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.layout_content);
+        if (fragment == null) {
+            // fragment = ChooseFragment.newInstance();
+            fragment = ChattingFragment.newInstance(mChatId,mImage);
+            fm.beginTransaction().add(R.id.layout_content,fragment).commit();
+        }*/
     }
 
 
@@ -95,13 +128,13 @@ public class MainActivity extends FragmentActivity {
                     fragment =new FindingFragment();
                     break;
                 case 1://我的
-                    fragment =new AddressBookFragment();
+                    fragment =new ChooseFragment();
                     break;
                 case 2://我的
                     fragment =new ModeFragment();
                     break;
                 case 3://我的
-                    fragment =new ChattingFragment();
+                    fragment =new AddressBookFragment();
                     break;
                 case 4://我的
                     fragment =new MeFragment();

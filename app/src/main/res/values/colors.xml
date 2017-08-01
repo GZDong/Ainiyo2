@@ -6,4 +6,5 @@
     <color name="black">#ff000000</color>
     <color name="white">#ffffff</color>
     <color name="gray">#ff666666</color>
+    <color name="soothing_blue">#00bf23</color>
 </resources>
