@@ -122,6 +122,11 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         //signIn();
 
 
+        String name = userInfo.getUsername();
+        String pass = userInfo.getPassword();
+
+        SignInUtil.signIn(name,pass,getActivity());
+
     }
 
     /*@Override
@@ -353,6 +358,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
     @Override
     public void onMessageReceived(List<EMMessage> list) {
         // 循环遍历当前收到的消息
+
+        Log.d("test","yyyyyyyyyyyyyyyyyyyyyyyy");
         for (EMMessage message : list) {
             if (message.getFrom().equals(mChatId)) {
                 // 设置消息为已读
