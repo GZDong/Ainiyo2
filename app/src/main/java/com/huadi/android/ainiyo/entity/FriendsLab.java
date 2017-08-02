@@ -36,9 +36,15 @@ public class FriendsLab {
     private void initFriends(){
         mFriendses = new ArrayList<>();
         EMConversation conversation = EMClient.getInstance().chatManager().getConversation("shouji");
-        int test = conversation.getUnreadMsgCount();
+        Friends friend1;
+        int test;
+        if (conversation == null){
+            test =0;
+        }else{
+            test = conversation.getUnreadMsgCount();
+        }
+        friend1 = new Friends("shouji",R.drawable.examplepicture,test);
 
-        Friends friend1 = new Friends("shouji",R.drawable.examplepicture,test);
         Friends friend2 = new Friends("xiaoming", R.drawable.user2,3);
         Friends friend3 = new Friends("long",R.drawable.right_image,7);
         mFriendses.add(friend1);
