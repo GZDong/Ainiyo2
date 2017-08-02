@@ -37,7 +37,7 @@ public class ModeAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public ModeInfo getItem(int position) {
         return (mList == null || position>=mList.size())?null:mList.get(position);
     }
 
