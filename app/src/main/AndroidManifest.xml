@@ -6,7 +6,7 @@
 
     <!-- 项目权限配置 -->
     <!-- 相机 -->
-  <!--  <uses-permission android:name="android.permission.CAMERA"/>-->
+    <uses-permission android:name="android.permission.CAMERA"/>
     <!-- 网络 -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 录音 -->
