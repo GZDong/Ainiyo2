@@ -29,7 +29,9 @@ public class ECApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
+        mContext = getApplicationContext();
+
+
 
         // 初始化环信SDK
         initEasemob();

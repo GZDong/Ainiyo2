@@ -2,15 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.huadi.android.ainiyo">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <!-- 项目权限配置 -->
     <!-- 相机 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
+  <!--  <uses-permission android:name="android.permission.CAMERA"/>-->
     <!-- 网络 -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 录音 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
     <!-- 震动 -->
     <uses-permission android:name="android.permission.VIBRATE"/>
     <!-- 访问网络状态 -->
@@ -18,15 +18,15 @@
     <!-- 访问WIFI状态 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 读取手机状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+        <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
     <!-- 唤醒锁屏 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+   <!-- <uses-permission android:name="android.permission.WAKE_LOCK"/>-->
     <!-- 写入外部存储 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- 访问精确定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
     <!-- 修改音频设置 -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+   <!-- <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>-->
     <!-- 允许读写系统设置项 使用设置时需要 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <!-- 读取启动设置 -->
@@ -51,11 +51,11 @@
     <!-- 读取描述文件 -->
     <!-- <uses-permission android:name="android.permission.READ_PROFILE"/> -->
     <!-- 读取联系人 -->
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <!--<uses-permission android:name="android.permission.READ_CONTACTS"/>-->
 
     <!-- Demo新添加的一些属性 -->
     <!-- 访问GMail账户列表 -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+   <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS"/>-->
     <!-- 使用证书 -->
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
     <!-- 管理账户 -->
@@ -79,8 +79,6 @@
     <!-- <uses-permission android:name="android.permission.READ_CONTACTS"/> -->
 
 
-    <!-- 连续广播（允许一个程序收到广播后快速收到下一个广播） -->
-    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
 
     <application
         android:name="com.huadi.android.ainiyo.application.ECApplication"

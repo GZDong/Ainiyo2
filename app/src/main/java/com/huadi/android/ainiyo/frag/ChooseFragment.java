@@ -172,7 +172,9 @@ public class ChooseFragment extends Fragment {
                     Friends fri = friendsLab.getFriend(textView.getText().toString());
                     fri.setUnreadMeg(0);
                     EMConversation conversation = EMClient.getInstance().chatManager().getConversation(textView.getText().toString());
-                    conversation.markAllMessagesAsRead();
+                    if (conversation != null){
+                        conversation.markAllMessagesAsRead();
+                    }
                     mMyAdapter.notifyDataSetChanged();
                     if (getActivity() instanceof MainActivity){
 
