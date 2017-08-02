@@ -19,6 +19,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     private ArrayList<String> mImages;
     private LayoutInflater mInflater;
 
+
     public ImageAdapter(Context context) {
         mContext = context;
         this.mInflater = LayoutInflater.from(mContext);
