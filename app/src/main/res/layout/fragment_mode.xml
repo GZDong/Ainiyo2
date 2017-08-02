@@ -28,6 +28,9 @@
         android:id="@+id/mode_list_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:divider="#00000000"
+        android:dividerHeight="0dip"
+        android:background="#ebe3e3"
         android:layout_weight="1">
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
 </LinearLayout>

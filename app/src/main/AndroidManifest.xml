@@ -112,7 +112,7 @@
                   android:windowSoftInputMode="adjustResize|stateHidden"
                   android:launchMode="singleTask"
                   android:label="聊天"/>
-
+        <activity android:name=".activity.ModeDetailActivity"/>
 
 
         <!-- 设置环信应用的 appkey 换成自己的 -->
