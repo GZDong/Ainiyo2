@@ -129,6 +129,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
     }
 
+
+
     /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);

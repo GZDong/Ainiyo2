@@ -119,4 +119,25 @@ public class SignInUtil {
             }
         });
     }
+    public static void signOut() {
+        // 调用sdk的退出登录方法，第一个参数表示是否解绑推送的token，没有使用推送或者被踢都要传false
+        EMClient.getInstance().logout(false, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                Log.i("lzan13", "logout success");
+                // 调用退出成功，结束app
+                //  getActivity().finish();
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                Log.i("lzan13", "logout error " + i + " - " + s);
+            }
+
+            @Override
+            public void onProgress(int i, String s) {
+
+            }
+        });
+    }
 }
