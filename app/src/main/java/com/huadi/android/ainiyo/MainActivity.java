@@ -24,6 +24,7 @@ import com.huadi.android.ainiyo.frag.FindingFragment;
 import com.huadi.android.ainiyo.frag.MeFragment;
 import com.huadi.android.ainiyo.frag.ModeFragment;
 import com.huadi.android.ainiyo.util.SignInUtil;
+import com.hyphenate.chat.EMClient;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnCheckedChange;
@@ -54,13 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         ViewUtils.inject(this);
-
-        UserInfoLab userInfoLab = UserInfoLab.get(this);
-        UserInfo mUserInfo = userInfoLab.getUserInfo();
-        mChatId = mUserInfo.getUsername();
-        mImage = mUserInfo.getPicture();
-        mPasswd = mUserInfo.getPassword();
-        SignInUtil.signIn(mChatId,mPasswd,this);
 
         ActionBar actionBar = getSupportActionBar();
 
@@ -135,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
             bottom_bar.check(R.id.radio0);
             isInit = true;
         }
+
     }
 
     protected void onPause() {

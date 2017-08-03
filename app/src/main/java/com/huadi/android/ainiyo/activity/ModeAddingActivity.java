@@ -75,7 +75,7 @@ public class ModeAddingActivity extends AppCompatActivity {
                 startActivity(new Intent(ModeAddingActivity.this,MainActivity.class));
                 break;
             case R.id.mode_add_pic:
-                ImageSelectorUtils.openPhoto(ModeAddingActivity.this, REQUEST_CODE, false, 9);
+                ImageSelectorUtils.openPhoto(ModeAddingActivity.this, REQUEST_CODE);
                 break;
             case R.id.tv_mode_add:
                 Intent t1=new Intent();

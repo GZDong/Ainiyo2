@@ -19,15 +19,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ChattingActivity;
 import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.FriendsLab;
+import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
+import com.huadi.android.ainiyo.util.SignInUtil;
 import com.hyphenate.EMCallBack;
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +78,18 @@ public class ChooseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+       /* if (getActivity() instanceof MainActivity){
+            UserInfoLab userInfoLab = UserInfoLab.get(getActivity());
+            UserInfo userInfo = userInfoLab.getUserInfo();
+            String name = userInfo.getUsername();
+            String pass = userInfo.getPassword();
+
+            SignInUtil.signIn(name,pass,getActivity());
+            Log.e("_____________","onCreate() in ChooseFragment of Main");
+        }*/
+
+       // EMClient.getInstance().chatManager().addMessageListener(this);
 
         frdList = new ArrayList<>();
         FriendsLab friendsLab = FriendsLab.get(getActivity());
@@ -129,6 +147,18 @@ public class ChooseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         getActivity().unregisterReceiver(mBroadcastReceiver);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        /*if (getActivity() instanceof MainActivity){
+            EMClient.getInstance().chatManager().removeMessageListener(this);
+            signOut();
+            Log.e("_____________","onPause() in ChooseFragment of Main");
+        }*/
+
     }
 
     /* @Override
@@ -168,6 +198,7 @@ public class ChooseFragment extends Fragment {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     FriendsLab friendsLab = FriendsLab.get(getActivity());
                     Friends fri = friendsLab.getFriend(textView.getText().toString());
                     fri.setUnreadMeg(0);
@@ -175,6 +206,7 @@ public class ChooseFragment extends Fragment {
                     if (conversation != null){
                         conversation.markAllMessagesAsRead();
                     }
+                    frdList = friendsLab.getFriendses();
                     mMyAdapter.notifyDataSetChanged();
                     if (getActivity() instanceof MainActivity){
 
@@ -265,7 +297,7 @@ public class ChooseFragment extends Fragment {
             holder.textView.setText(name_fri);
             holder.mImageView.setImageResource(picture);
 
-            if (unreadM > 0){
+            if (unreadM != 0){
                 holder.UnreadBtn.setVisibility(View.VISIBLE);
                 holder.UnreadBtn.setText(String.valueOf(unreadM));
             }else{
@@ -317,4 +349,64 @@ public class ChooseFragment extends Fragment {
             this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
     }
 
+    /*@Override
+    public void onMessageReceived(List<EMMessage> messages) {
+        Log.e("_____________","onReceived in ChooseFragment of Main");
+        if (getActivity() instanceof MainActivity){
+
+                for (EMMessage message : messages) {
+
+                    EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.getFrom());
+                    if (conversation != null){
+                        int unread = conversation.getUnreadMsgCount();
+                        Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
+                        intent.putExtra("ID",message.getFrom());
+                        intent.putExtra("newM",unread);
+                        getActivity().sendBroadcast(intent);
+                    }
+
+                }
+            Log.e("_____________","onReceived in ChooseFragment of Main");
+        }
+
+
+
+
+        if (getActivity() instanceof MainActivity){
+            FriendsLab friendsLab = FriendsLab.get(getActivity());
+            List<Friends> mListFri = friendsLab.getFriendses();
+            for (EMMessage message : messages){
+                for (Friends friends : mListFri){
+                    if (message.getFrom().equals(friends.getName())){
+
+                        friends.setUnreadMeg(friends.getUnreadMeg()+1);
+
+                    }
+                }
+            }
+            frdList = friendsLab.getFriendses();
+            mMyAdapter.notifyDataSetChanged();
+        }else if (getActivity() instanceof ChattingActivity){
+
+        }
+
+    }
+    @Override
+    public void onCmdMessageReceived(List<EMMessage> messages) {
+        //收到透传消息
+    }
+
+    @Override
+    public void onMessageRead(List<EMMessage> messages) {
+        //收到已读回执
+    }
+    @Override
+    public void onMessageDelivered(List<EMMessage> message) {
+        //收到已送达回执
+    }
+
+    @Override
+    public void onMessageChanged(EMMessage message, Object change) {
+        //消息状态变动
+    }*/
 }
