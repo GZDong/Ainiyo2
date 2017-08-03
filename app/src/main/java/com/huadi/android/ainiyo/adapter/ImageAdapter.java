@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.donkingliang.imageselector.entry.Image;
 import com.huadi.android.ainiyo.R;
 
 import java.io.File;
@@ -18,7 +19,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     private Context mContext;
     private ArrayList<String> mImages;
     private LayoutInflater mInflater;
-
+    private OnItemClickListener mItemClickListener;
 
     public ImageAdapter(Context context) {
         mContext = context;
@@ -35,6 +36,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final String image = mImages.get(position);
         Glide.with(mContext).load(new File(image)).into(holder.ivImage);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mItemClickListener != null){
+                    mItemClickListener.OnItemClick(image,holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override
@@ -42,10 +52,23 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         return mImages == null ? 0 : mImages.size();
     }
 
+
+    public ArrayList<String> getData() {
+        return mImages;
+    }
+
+
     public void refresh(ArrayList<String> images) {
         mImages = images;
         notifyDataSetChanged();
     }
+
+
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -55,5 +78,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
             super(itemView);
             ivImage = (ImageView) itemView.findViewById(R.id.iv_image);
         }
+    }
+
+
+    public interface OnItemClickListener{
+        void OnItemClick(String image, int position);
     }
 }

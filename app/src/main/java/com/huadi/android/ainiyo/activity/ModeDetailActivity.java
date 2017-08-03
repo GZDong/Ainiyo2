@@ -41,23 +41,32 @@ public class ModeDetailActivity extends AppCompatActivity {
 
         mAdapter = new ImageAdapter(this);
         rvImage.setAdapter(mAdapter);
-        Intent intent=getIntent();
+        final Intent intent=getIntent();
         ArrayList<String> mPhoList=intent.getStringArrayListExtra("item");
         mAdapter.refresh(mPhoList);
 
-//        ((SimpleItemAnimator) rvImage.getItemAnimator()).setSupportsChangeAnimations(false);
-//
+        ((SimpleItemAnimator) rvImage.getItemAnimator()).setSupportsChangeAnimations(false);
+
 //        mAdapter.setOnImageSelectListener(new ImageAdapter.OnImageSelectListener() {
 //            @Override
 //            public void OnImageSelect(Image image, boolean isSelect, int selectCount) {
 //                setSelectImageCount(selectCount);
 //            }
 //        });
-//        mAdapter.setOnItemClickListener(new ImageAdapter.OnItemClickListener() {
-//            @Override
-//            public void OnItemClick(Image image, int position) {
-//                toPreviewActivity(mAdapter.getData(), position);
-//            }
-//        });
+        mAdapter.setOnItemClickListener(new ImageAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(String image, int position) {
+                Intent t=new Intent(ModeDetailActivity.this,PreviewActivity.class);
+                t.putExtra("image",image);
+                startActivity(t);
+            }
+        });
     }
+
+//    private void toPreviewActivity(String images, int position) {
+//        if (images != null && !images.isEmpty()) {
+//            PreviewActivity.openActivity(this, images,
+//                    mAdapter.getSelectImages(), isSingle, mMaxCount, position);
+//        }
+//    }
 }
