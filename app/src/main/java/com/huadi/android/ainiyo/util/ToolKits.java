@@ -31,6 +31,33 @@ public class ToolKits {
 		editor.commit();
 	}
 
+	public static void AppendingModeData(Context context,ModeInfo modeInfo)
+	{
+		List<ModeInfo> modeInfoList = GettingModedata(context);
+		modeInfoList.add(modeInfo);
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		Gson gson = new Gson();
+		String json = gson.toJson(modeInfoList);
+		editor.remove("modeInfoLst");
+		editor.putString("modeInfoList", json);
+		editor.commit();
+	}
+
+	public static void DeletingModeData(Context context,int position)
+	{
+		List<ModeInfo> modeInfoList = GettingModedata(context);
+		modeInfoList.remove(position);
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		Gson gson = new Gson();
+		String json = gson.toJson(modeInfoList);
+		editor.remove("modeInfoLst");
+		editor.putString("modeInfoList", json);
+		editor.commit();
+	}
+
+
 	public static ArrayList<ModeInfo> GettingModedata(Context context)
 	{
 		ArrayList<ModeInfo> list= new ArrayList<ModeInfo>();
@@ -48,6 +75,17 @@ public class ToolKits {
 //            }
 		}
 		return list;
+	}
+
+	public static void putInt(Context context,String key,int value){
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putInt(key, value);
+		editor.commit();
+	}
+
+	public static int fetchInt(Context context,String key,int defaultValue){
+		return getSharedPreferences(context).getInt(key,defaultValue);
 	}
 	
 	public static void putBooble(Context context,String key,boolean value){

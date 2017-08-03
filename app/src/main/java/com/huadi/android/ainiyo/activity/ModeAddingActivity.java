@@ -72,6 +72,7 @@ public class ModeAddingActivity extends AppCompatActivity {
     {
         switch (v.getId()) {
             case R.id.mode_adding_back:
+                ToolKits.putInt(this,"fragment",2);
                 startActivity(new Intent(ModeAddingActivity.this,MainActivity.class));
                 break;
             case R.id.mode_add_pic:

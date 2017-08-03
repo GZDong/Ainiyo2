@@ -7,17 +7,24 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.view.View;
 
 import com.donkingliang.imageselector.entry.Image;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.adapter.ImageAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.util.ToolKits;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import java.util.ArrayList;
 
 public class ModeDetailActivity extends AppCompatActivity {
 
+    @ViewInject(R.id.rv_mode_image)
     private RecyclerView rvImage;
+
     private ImageAdapter mAdapter;
     private GridLayoutManager mLayoutManager;
 
@@ -26,8 +33,8 @@ public class ModeDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_detail);
 
-        rvImage = (RecyclerView) findViewById(R.id.rv_mode_image);
 
+        ViewUtils.inject(this);
 
         // 判断屏幕方向
         Configuration configuration = getResources().getConfiguration();
@@ -62,11 +69,17 @@ public class ModeDetailActivity extends AppCompatActivity {
             }
         });
     }
+    @OnClick({R.id.mode_detail_back})
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.mode_detail_back:
+                ToolKits.putInt(this,"fragment",2);
+                finish();
+                break;
+        }
+    }
 
-//    private void toPreviewActivity(String images, int position) {
-//        if (images != null && !images.isEmpty()) {
-//            PreviewActivity.openActivity(this, images,
-//                    mAdapter.getSelectImages(), isSingle, mMaxCount, position);
-//        }
-//    }
+
 }

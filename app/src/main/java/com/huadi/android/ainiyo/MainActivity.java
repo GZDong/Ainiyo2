@@ -24,6 +24,7 @@ import com.huadi.android.ainiyo.frag.FindingFragment;
 import com.huadi.android.ainiyo.frag.MeFragment;
 import com.huadi.android.ainiyo.frag.ModeFragment;
 import com.huadi.android.ainiyo.util.SignInUtil;
+import com.huadi.android.ainiyo.util.ToolKits;
 import com.hyphenate.chat.EMClient;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -92,7 +93,26 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onStart(){
         super.onStart();
-        bottom_bar.check(R.id.radio0);
+        int i= ToolKits.fetchInt(this,"fragment",0);
+        switch (i)
+        {
+            case 0:
+                bottom_bar.check(R.id.radio0);
+                break;
+            case 1:
+                bottom_bar.check(R.id.radio1);
+                break;
+            case 2:
+                bottom_bar.check(R.id.radio2);
+                break;
+            case 3:
+                bottom_bar.check(R.id.radio3);
+                break;
+            case 4:
+                bottom_bar.check(R.id.radio4);
+                break;
+        }
+        ToolKits.putInt(this,"fragment",0);
     }
 
     @OnCheckedChange({R.id.bottom_bar})
@@ -116,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
 
-
         }
         Fragment fragment = (Fragment) fragments.instantiateItem(layout_content, index);
         fragments.setPrimaryItem(layout_content, 0, fragment);
@@ -126,7 +145,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!isInit){
-            bottom_bar.check(R.id.radio0);
+            int i= ToolKits.fetchInt(this,"fragment",0);
+            switch (i)
+            {
+                case 0:
+                    bottom_bar.check(R.id.radio0);
+                    break;
+                case 1:
+                    bottom_bar.check(R.id.radio1);
+                    break;
+                case 2:
+                    bottom_bar.check(R.id.radio2);
+                    break;
+                case 3:
+                    bottom_bar.check(R.id.radio3);
+                    break;
+                case 4:
+                    bottom_bar.check(R.id.radio4);
+                    break;
+
+            }
+            //ToolKits.putInt(this,"fragment",0);
             isInit = true;
         }
 
