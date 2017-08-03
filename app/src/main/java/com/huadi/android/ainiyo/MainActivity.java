@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.huadi.android.ainiyo.frag.FindingFragment;
 import com.huadi.android.ainiyo.frag.MeFragment;
 import com.huadi.android.ainiyo.frag.ModeFragment;
 import com.huadi.android.ainiyo.util.SignInUtil;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         bottom_bar.check(R.id.radio0);
     }
 
+
     @OnCheckedChange({R.id.bottom_bar})
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         int index = 0;
@@ -129,12 +132,23 @@ public class MainActivity extends AppCompatActivity {
             bottom_bar.check(R.id.radio0);
             isInit = true;
         }
+        /*UserInfoLab userInfoLab = UserInfoLab.get(this);
+        UserInfo userInfo = userInfoLab.getUserInfo();
+        String name = userInfo.getUsername();
+        String pass = userInfo.getPassword();
 
+        SignInUtil.signIn(name,pass,this);*/
     }
 
     protected void onPause() {
         super.onPause();
-    };
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
 
     FragmentStatePagerAdapter fragments = new FragmentStatePagerAdapter(getSupportFragmentManager()) {
         @Override

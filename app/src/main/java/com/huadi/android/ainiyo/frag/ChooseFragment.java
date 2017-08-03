@@ -72,12 +72,24 @@ public class ChooseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        if (getActivity() instanceof MainActivity ) {
+            UserInfoLab userInfoLab = UserInfoLab.get(getActivity());
+            UserInfo userInfo = userInfoLab.getUserInfo();
+            String name = userInfo.getUsername();
+            String pass = userInfo.getPassword();
+            SignInUtil.signIn(name,pass,getActivity());
+
+            EMClient.getInstance().chatManager().addMessageListener(mEMMessageListener);
+
+        }
+
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
 
        /* if (getActivity() instanceof MainActivity){
             UserInfoLab userInfoLab = UserInfoLab.get(getActivity());
@@ -89,7 +101,7 @@ public class ChooseFragment extends Fragment {
             Log.e("_____________","onCreate() in ChooseFragment of Main");
         }*/
 
-       // EMClient.getInstance().chatManager().addMessageListener(this);
+     /*  EMClient.getInstance().chatManager().addMessageListener(this);*/
 
         frdList = new ArrayList<>();
         FriendsLab friendsLab = FriendsLab.get(getActivity());
@@ -146,18 +158,18 @@ public class ChooseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().unregisterReceiver(mBroadcastReceiver);
+     getActivity().unregisterReceiver(mBroadcastReceiver);
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        /*if (getActivity() instanceof MainActivity){
-            EMClient.getInstance().chatManager().removeMessageListener(this);
-            signOut();
+        if (getActivity() instanceof MainActivity){
+            EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
+            //SignInUtil.signOut();
             Log.e("_____________","onPause() in ChooseFragment of Main");
-        }*/
+        }
 
     }
 
@@ -321,33 +333,52 @@ public class ChooseFragment extends Fragment {
         frdList.add(friend2);
         frdList.add(friend3);
     }*/
-    private void signOut() {
-        // 调用sdk的退出登录方法，第一个参数表示是否解绑推送的token，没有使用推送或者被踢都要传false
-        EMClient.getInstance().logout(false, new EMCallBack() {
-            @Override
-            public void onSuccess() {
-                Log.i("lzan13", "logout success");
-                // 调用退出成功，结束app
-               getActivity().finish();
-            }
 
-            @Override
-            public void onError(int i, String s) {
-                Log.i("lzan13", "logout error " + i + " - " + s);
-            }
-
-            @Override
-            public void onProgress(int i, String s) {
-
-            }
-        });
-    }
     @Override
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
         if (this.getView() != null)
             this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
     }
+
+    EMMessageListener mEMMessageListener = new EMMessageListener() {
+        @Override
+        public void onMessageReceived(List<EMMessage> messages) {
+            for (EMMessage message : messages) {
+
+                EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.getFrom());
+                int unread = conversation.getUnreadMsgCount();
+                if (conversation != null && unread > 0 ){
+
+                    Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
+                    intent.putExtra("ID",message.getFrom());
+                    intent.putExtra("newM",unread);
+                    getActivity().sendBroadcast(intent);
+                }
+
+            }
+        }
+
+        @Override
+        public void onCmdMessageReceived(List<EMMessage> messages) {
+
+        }
+
+        @Override
+        public void onMessageRead(List<EMMessage> messages) {
+
+        }
+
+        @Override
+        public void onMessageDelivered(List<EMMessage> messages) {
+
+        }
+
+        @Override
+        public void onMessageChanged(EMMessage message, Object change) {
+
+        }
+    };
 
     /*@Override
     public void onMessageReceived(List<EMMessage> messages) {

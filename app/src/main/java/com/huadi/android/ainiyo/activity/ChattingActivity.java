@@ -8,11 +8,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.frag.ChattingFragment;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 /**
  * Created by zhidong on 2017/7/31.
@@ -59,4 +62,11 @@ public class ChattingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return true;
     }*/
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }
