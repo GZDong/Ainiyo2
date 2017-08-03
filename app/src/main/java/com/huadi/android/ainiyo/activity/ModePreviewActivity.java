@@ -14,9 +14,8 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 
 
 import java.io.File;
-import java.util.ArrayList;
 
-public class PreviewActivity extends AppCompatActivity {
+public class ModePreviewActivity extends AppCompatActivity {
 
 
     @ViewInject(R.id.iv_mode_show_pho)
@@ -25,7 +24,7 @@ public class PreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preview);
+        setContentView(R.layout.activity_mode_preview);
         ViewUtils.inject(this);
         final Intent intent=getIntent();
         String mPho=intent.getStringExtra("image");

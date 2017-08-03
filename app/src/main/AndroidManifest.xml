@@ -114,7 +114,7 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.ModeDetailActivity" />
-        <activity android:name=".activity.PreviewActivity" />
+        <activity android:name=".activity.ModePreviewActivity" />
 
         <!-- 设置环信应用的 appkey 换成自己的 -->
         <meta-data

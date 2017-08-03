@@ -79,6 +79,7 @@ public class ModeAddingActivity extends AppCompatActivity {
                 ImageSelectorUtils.openPhoto(ModeAddingActivity.this, REQUEST_CODE);
                 break;
             case R.id.tv_mode_add:
+                ToolKits.putInt(this,"fragment",2);
                 Intent t1=new Intent();
 //                t1.putStringArrayListExtra("images", images);
 //                t1.putExtra("text",et_mode_add_saying.getText().toString());

@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         ToolKits.putInt(this,"fragment",0);
+        //bottom_bar.check(R.id.radio0);
     }
 
     @OnCheckedChange({R.id.bottom_bar})
@@ -165,7 +166,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
             }
-            //ToolKits.putInt(this,"fragment",0);
+            //bottom_bar.check(R.id.radio0);
+
             isInit = true;
         }
 

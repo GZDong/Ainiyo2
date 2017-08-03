@@ -9,10 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
 
-import com.donkingliang.imageselector.entry.Image;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.adapter.ImageAdapter;
-import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -63,7 +61,7 @@ public class ModeDetailActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new ImageAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(String image, int position) {
-                Intent t=new Intent(ModeDetailActivity.this,PreviewActivity.class);
+                Intent t=new Intent(ModeDetailActivity.this,ModePreviewActivity.class);
                 t.putExtra("image",image);
                 startActivity(t);
             }
