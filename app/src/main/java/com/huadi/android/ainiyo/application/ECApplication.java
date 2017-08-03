@@ -123,7 +123,7 @@ public class ECApplication extends Application {
         // 设置是否需要发送回执，
         options.setRequireDeliveryAck(true);
         // 设置是否需要服务器收到消息确认
-       // options.setRequireServerAck(true);
+       options.setRequireAck(true);
         // 设置是否根据服务器时间排序，默认是true
         options.setSortMessageByServerTime(false);
         // 收到好友申请是否自动同意，如果是自动同意就不会收到好友请求的回调，因为sdk会自动处理，默认为true
