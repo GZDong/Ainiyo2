@@ -3,6 +3,7 @@ package com.huadi.android.ainiyo.entity;
 import android.content.Context;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.util.DateUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 
@@ -43,10 +44,10 @@ public class FriendsLab {
         }else{
             test = conversation.getUnreadMsgCount();
         }
-        friend1 = new Friends("shouji",R.drawable.examplepicture,test);
+        friend1 = new Friends("shouji",R.drawable.examplepicture,test, DateUtil.getNowDate());
 
-        Friends friend2 = new Friends("xiaoming", R.drawable.user2,3);
-        Friends friend3 = new Friends("long",R.drawable.right_image,7);
+        Friends friend2 = new Friends("xiaoming", R.drawable.user2,3,DateUtil.getNowDate());
+        Friends friend3 = new Friends("long",R.drawable.right_image,7,DateUtil.getNowDate());
         mFriendses.add(friend1);
         mFriendses.add(friend2);
         mFriendses.add(friend3);

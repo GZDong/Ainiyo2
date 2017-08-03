@@ -61,7 +61,8 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="12dp"
-                    android:text="2017/8/1"/>
+
+                    android:text="2017-8-1 15:32:11"/>
             </LinearLayout>
 
             <Button

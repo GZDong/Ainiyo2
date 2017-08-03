@@ -28,12 +28,15 @@ import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
+import com.huadi.android.ainiyo.util.DateUtil;
 import com.huadi.android.ainiyo.util.SignInUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,9 +117,11 @@ public class ChooseFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 int newMsg = intent.getIntExtra("newM",0);
                 String ID = intent.getStringExtra("ID");
+                String newTime = intent.getStringExtra("newT");
                 FriendsLab friendsLab = FriendsLab.get(getActivity());
                 Friends friends = friendsLab.getFriend(ID);
                 friends.setUnreadMeg(newMsg);
+                friends.setNewTime(newTime);
                 frdList = friendsLab.getFriendses();
                 mMyAdapter.notifyDataSetChanged();
             }
@@ -201,12 +206,14 @@ public class ChooseFragment extends Fragment {
         TextView textView;
         ImageView mImageView;
         Button UnreadBtn;
+        TextView timeText;
 
         public MyViewHolder(View v){
             super(v);
             textView = (TextView) v.findViewById(R.id.name_fri);
             mImageView = (ImageView) v.findViewById(R.id.img_friend);
             UnreadBtn= (Button) v.findViewById(R.id.unread_btn);
+            timeText = (TextView) v.findViewById(R.id.text_time);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -303,9 +310,11 @@ public class ChooseFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            String name_fri = mList.get(position).getName();
-            int unreadM = mList.get(position).getUnreadMeg();
-            int picture = mList.get(position).getPicture();
+            Friends friends = mList.get(position);
+            String name_fri = friends.getName();
+            int unreadM = friends.getUnreadMeg();
+            int picture = friends.getPicture();
+            String newTime = friends.getNewTime();
             holder.textView.setText(name_fri);
             holder.mImageView.setImageResource(picture);
 
@@ -315,6 +324,7 @@ public class ChooseFragment extends Fragment {
             }else{
                 holder.UnreadBtn.setVisibility(View.GONE);
             }
+            holder.timeText.setText(newTime);
 
         }
 
@@ -353,6 +363,10 @@ public class ChooseFragment extends Fragment {
                     Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
                     intent.putExtra("ID",message.getFrom());
                     intent.putExtra("newM",unread);
+
+                    String newTime = DateUtil.getNowDate();
+                    intent.putExtra("newT",newTime);
+
                     getActivity().sendBroadcast(intent);
                 }
 

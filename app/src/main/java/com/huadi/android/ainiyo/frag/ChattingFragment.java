@@ -35,7 +35,9 @@ import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
+import com.huadi.android.ainiyo.util.DateUtil;
 import com.huadi.android.ainiyo.util.SignInUtil;
+import com.huadi.android.ainiyo.util.ToolKits;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.EMMessageListener;
@@ -155,6 +157,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
                 return true;
             case android.R.id.home:
+                ToolKits.putInt(getActivity(),"fragment",1);
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
 
@@ -303,6 +306,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                     EMMessage message = (EMMessage) msg.obj;
                     message.setFrom(mChatId);
 
+
+
                     // 这里只是简单的demo，也只是测试文字消息的收发，所以直接将body转为EMTextMessageBody去获取内容
                     /*EMTextMessageBody body = (EMTextMessageBody) message.getBody();
                     // 将新的消息内容和时间加入到下边
@@ -315,6 +320,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                     mMessages.add(message);
                     MyAdapter.notifyItemInserted(mMessages.size() - 1);
                     msgRecyclerView.scrollToPosition(mMessages.size() - 1);
+
                     break;
             }
         }
@@ -362,8 +368,15 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         // 循环遍历当前收到的消息
 
         Log.d("test","yyyyyyyyyyyyyyyyyyyyyyyy");
+
+
         for (EMMessage message : list) {
+            String id;
+            int unread;
             if (message.getFrom().equals(mChatId)) {
+
+                id = mChatId;
+                unread = 0;
                 // 设置消息为已读
                 mConversation.markMessageAsRead(message.getMsgId());
 
@@ -375,12 +388,14 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             } else {
                 // 如果消息不是当前会话的消息发送通知栏通知
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.getFrom());
-                int unread = conversation.getUnreadMsgCount();
-                Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
-                intent.putExtra("ID",message.getFrom());
-                intent.putExtra("newM",unread);
-                getActivity().sendBroadcast(intent);
+                unread = conversation.getUnreadMsgCount();
+                id = message.getFrom();
             }
+            Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
+            intent.putExtra("ID",id);
+            intent.putExtra("newM",unread);
+            intent.putExtra("newT", DateUtil.getNowDate());
+            getActivity().sendBroadcast(intent);
         }
     }
 

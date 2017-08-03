@@ -12,11 +12,23 @@ public class Friends {
 
     private int unreadMeg = 0;
 
-    public Friends(String name, int picture,int unread){
+    private String newTime;
+
+    public Friends(String name, int picture,int unread,String time){
         this.name = name;
         this.picture = picture;
         this.unreadMeg = unread;
+        this.newTime = time;
     }
+
+    public void setNewTime(String newTime) {
+        this.newTime = newTime;
+    }
+
+    public String getNewTime() {
+        return newTime;
+    }
+
     public String getName() {
         return name;
     }
