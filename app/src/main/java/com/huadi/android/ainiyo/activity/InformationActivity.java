@@ -13,13 +13,31 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.huadi.android.ainiyo.R;
+import com.lidroid.xutils.view.annotation.ViewInject;
 
 /**
  * Created by rxvincent on 2017/7/31.
  */
 
 public class InformationActivity extends AppCompatActivity {
-    Button behavior = (Button)findViewById(R.id.behavior);
+    @ViewInject(R.id.behavior)
+    Button behavior;
+
+    @ViewInject(R.id.profile_image)
+    ImageView avatar;
+
+    @ViewInject(R.id.background)
+    ImageView background;
+
+    @ViewInject(R.id.nameField)
+    TextView name;
+
+    @ViewInject(R.id.signField)
+    TextView sign;
+
+    @ViewInject(R.id.list)
+    ListView listView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,23 +48,15 @@ public class InformationActivity extends AppCompatActivity {
 
 
     private void LoadResources(Bundle bundle){
-
-        ImageView avatar = (ImageView)findViewById(R.id.profile_image);
         avatar.setImageBitmap(BitmapFactory.decodeFile(bundle.getString("profile_image")));
-
-        ImageView background = (ImageView)findViewById(R.id.background);
         background.setImageBitmap(BitmapFactory.decodeFile(bundle.getString("background")));
-
-        TextView name = (TextView)findViewById(R.id.nameField);
         name.setText(bundle.getString("name"));
-
-        TextView sign = (TextView)findViewById(R.id.signField);
         sign.setText(bundle.getString("sign"));
 
 
         String[] data = bundle.getStringArray("information");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(InformationActivity.this,R.layout.support_simple_spinner_dropdown_item,data);
-        ListView listView = (ListView)findViewById(R.id.list);
+
         listView.setAdapter(arrayAdapter);
 
         behavior.setOnClickListener(new View.OnClickListener() {
