@@ -96,10 +96,7 @@ public class ModeMeAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View view) {
-//                if(mDeleteItemClickListener != null){
-//                    mDeleteItemClickListener.OnDeleteItemClick(position);
-//                }
-                //ToolKits.DeletingModeData(,"modeMeInfoList",i);
+
                 mDeleteItemClickListener.OnDeleteItemClick(position);
             }
         });

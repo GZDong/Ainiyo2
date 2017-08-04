@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -105,26 +106,18 @@ public class ModeMeActivity extends AppCompatActivity {
         if (count == page) {// 如果是最后一页的话则底部就不能再刷新了
             mode_me_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         }
+
+        //删除按钮监听
         mAdapter.setOnDeleteItemClickListener(new ModeMeAdapter.OnDeleteItemClickListener()
         {
             @Override
             public void OnDeleteItemClick(int position)
             {
                 ToolKits.DeletingModeData(ModeMeActivity.this,"modeMeInfoList",position);
-//                new Handler(new Handler.Callback() {
-//                    @Override
-//                    public boolean handleMessage(Message msg) {
-//                        mode_me_list_view.setRefreshing();
-//                        return true;
-//                    }
-//                }).sendEmptyMessageDelayed(0, 200);
-//                //防止刷新获取数据时候，时间太短,而出现的bug,最后为0.001秒
-//                mode_me_list_view.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mode_me_list_view.onRefreshComplete();
-//                    }
-//                },1);
+                //mList.remove(position);
+                mAdapter.notifyDataSetChanged();
+                Toast.makeText(ModeMeActivity.this,"删除成功,请下拉刷新",Toast.LENGTH_SHORT).show();
+
             }
         });
     }
