@@ -83,11 +83,17 @@
 
     </RadioGroup>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/layout_content"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@id/bottom_bar">
-    </FrameLayout>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_bar" />
 
 </RelativeLayout>
