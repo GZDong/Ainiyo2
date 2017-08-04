@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 bottom_bar.check(R.id.radio2);
                 button0.setTextSize(0);
                 button1.setTextSize(0);
+                button2.setTextSize(15);
                 button3.setTextSize(0);
                 button4.setTextSize(0);
                 break;
