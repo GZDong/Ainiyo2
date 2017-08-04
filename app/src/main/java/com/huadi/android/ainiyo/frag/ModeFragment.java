@@ -18,6 +18,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeAddingActivity;
 import com.huadi.android.ainiyo.activity.ModeDetailActivity;
+import com.huadi.android.ainiyo.activity.ModeMeActivity;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.util.ToolKits;
@@ -94,7 +95,7 @@ public class ModeFragment extends Fragment {
 //        mList.add(md2);
         if(direction)// 头部刷新
         {// 渲染内容到界面上
-            mList= ToolKits.GettingModedata(getActivity());
+            mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
             mAdapter=new ModeAdapter(mList);
             mode_list_view.setAdapter(mAdapter);
 
@@ -145,12 +146,14 @@ public class ModeFragment extends Fragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.btn_mode_add})
+    @OnClick({R.id.btn_mode_add,R.id.tv_mode_me})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btn_mode_add:
                 startActivityForResult(new Intent(getActivity(), ModeAddingActivity.class),REQUEST_CODE);
                 break;
+            case R.id.tv_mode_me:
+                startActivity(new Intent(getActivity(), ModeMeActivity.class));
         }
 
     }

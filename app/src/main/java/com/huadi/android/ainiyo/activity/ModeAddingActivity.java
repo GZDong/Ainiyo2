@@ -1,32 +1,25 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.huadi.android.ainiyo.MainActivity;
-import com.huadi.android.ainiyo.adapter.ImageAdapter;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
-
+import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.adapter.ImageAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class ModeAddingActivity extends AppCompatActivity {
@@ -85,14 +78,27 @@ public class ModeAddingActivity extends AppCompatActivity {
 //                t1.putExtra("text",et_mode_add_saying.getText().toString());
 //                setResult(2,t1);
                 ModeInfo mi=new ModeInfo(null,et_mode_add_saying.getText().toString(),null,images);
-                ArrayList<ModeInfo> list= ToolKits.GettingModedata(ModeAddingActivity.this);
-                list.add(mi);
-                ToolKits.SavingModeData(ModeAddingActivity.this,list);
+                ArrayList<ModeInfo> list1= ToolKits.GettingModedata(ModeAddingActivity.this,"modeMeInfoList");
+                list1.add(0,mi);
+                ToolKits.SavingModeData(ModeAddingActivity.this,"modeMeInfoList",list1);
+                ArrayList<ModeInfo> list2= ToolKits.GettingModedata(ModeAddingActivity.this,"modeInfoList");
+                list2.add(0,mi);
+                ToolKits.SavingModeData(ModeAddingActivity.this,"modeInfoList",list2);
                 finish();
                 break;
 
         }
     }
+
+
+    //按返回键时回到相应的fragment
+    @Override
+    public void onBackPressed()
+    {
+        ToolKits.putInt(this,"fragment",2);
+        super.onBackPressed();
+    }
+
 
 //    public void SavingModeData(ArrayList<ModeInfo> list)
 //    {

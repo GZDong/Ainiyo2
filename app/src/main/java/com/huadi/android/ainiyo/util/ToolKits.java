@@ -19,7 +19,7 @@ public class ToolKits {
 		return context.getSharedPreferences("modeInfoList", Context.MODE_PRIVATE);
 	}
 
-	public static void SavingModeData(Context context,ArrayList<ModeInfo> list)
+	public static void SavingModeData(Context context,String key,ArrayList<ModeInfo> list)
 	{
 		List<ModeInfo> modeInfoList = list;
 		SharedPreferences sharedPreferences = getSharedPreferences(context);
@@ -27,43 +27,43 @@ public class ToolKits {
 		Gson gson = new Gson();
 		String json = gson.toJson(modeInfoList);
 		Log.d("hello", "saved json is "+ json);
-		editor.putString("modeInfoList", json);
+		editor.putString(key, json);
 		editor.commit();
 	}
 
-	public static void AppendingModeData(Context context,ModeInfo modeInfo)
+	public static void AppendingModeData(Context context,String key,ModeInfo modeInfo)
 	{
-		List<ModeInfo> modeInfoList = GettingModedata(context);
+		List<ModeInfo> modeInfoList = GettingModedata(context,key);
 		modeInfoList.add(modeInfo);
 		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		Gson gson = new Gson();
 		String json = gson.toJson(modeInfoList);
 		editor.remove("modeInfoLst");
-		editor.putString("modeInfoList", json);
+		editor.putString(key, json);
 		editor.commit();
 	}
 
-	public static void DeletingModeData(Context context,int position)
+	public static void DeletingModeData(Context context,String key,int position)
 	{
-		List<ModeInfo> modeInfoList = GettingModedata(context);
+		List<ModeInfo> modeInfoList = GettingModedata(context,key);
 		modeInfoList.remove(position);
 		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		Gson gson = new Gson();
 		String json = gson.toJson(modeInfoList);
 		editor.remove("modeInfoLst");
-		editor.putString("modeInfoList", json);
+		editor.putString(key, json);
 		editor.commit();
 	}
 
 
-	public static ArrayList<ModeInfo> GettingModedata(Context context)
+	public static ArrayList<ModeInfo> GettingModedata(Context context,String key)
 	{
 		ArrayList<ModeInfo> list= new ArrayList<ModeInfo>();
 		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
-		String json = sharedPreferences.getString("modeInfoList", null);
+		String json = sharedPreferences.getString(key, null);
 		if (json != null)
 		{
 			Gson gson = new Gson();

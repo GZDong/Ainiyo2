@@ -79,5 +79,13 @@ public class ModeDetailActivity extends AppCompatActivity {
         }
     }
 
+    //按返回键时回到相应的fragment
+    @Override
+    public void onBackPressed()
+    {
+        ToolKits.putInt(this,"fragment",2);
+        super.onBackPressed();
+    }
+
 
 }

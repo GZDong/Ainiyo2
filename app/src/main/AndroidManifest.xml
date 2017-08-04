@@ -40,7 +40,7 @@
     <!-- 非必需权限 -->
     <!-- 开机自启动 -->
     <!-- <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/> -->
-    <!--     获取当前和最近执行的任务 -->
+    <!-- 获取当前和最近执行的任务 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <!-- 安装卸载文件系统 -->
     <!-- <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/> -->
@@ -138,6 +138,7 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".activity.ModeMeActivity"></activity>
     </application>
 
 </manifest>
