@@ -83,7 +83,7 @@
     <application
         android:name=".application.ECApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -110,11 +110,15 @@
             android:label="@string/app_name" />
         <activity
             android:name=".activity.ChattingActivity"
-            android:label="聊天"
+            android:label="@string/chatting"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.ModeDetailActivity" />
         <activity android:name=".activity.ModePreviewActivity" />
+        <activity android:name=".activity.FriendsListActivity"
+                  android:windowSoftInputMode="adjustPan"
+            />
+        <activity android:name=".activity.FriendsInfoActivity" />
 
         <!-- 设置环信应用的 appkey 换成自己的 -->
         <meta-data

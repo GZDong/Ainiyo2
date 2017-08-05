@@ -80,13 +80,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         ViewUtils.inject(this);
 
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar!= null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
-        }
-
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         bindViews();
 
