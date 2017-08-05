@@ -3,6 +3,15 @@
     android:layout_height="match_parent"
     tools:context="com.huadi.android.ainiyo.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/status_bar_main"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:background="@color/theme_red"
+        android:visibility="gone">
+    </LinearLayout>
+
 
     <RadioGroup
         android:id="@+id/bottom_bar"
@@ -95,6 +104,7 @@
         android:id="@+id/vpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_bar"/>
+        android:layout_above="@id/bottom_bar"
+        android:layout_below="@+id/status_bar_main"/>
 
 </RelativeLayout>
