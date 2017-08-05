@@ -1,6 +1,8 @@
 package com.huadi.android.ainiyo.frag;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,12 +25,21 @@ import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
 
 
 public class ModeFragment extends Fragment {
@@ -78,17 +89,17 @@ public class ModeFragment extends Fragment {
 
     private void loadDatas(final boolean direction,List<ModeInfo> mList)
     {
-//        new HttpUtils().send(HttpRequest.HttpMethod.POST, phourl, new RequestCallBack<byte[]>() {
-//
-//            @Override
-//            public void onSuccess(ResponseInfo<byte[]> responseInfo) {
-//                Bitmap bitmap = BitmapFactory.decodeByteArray(responseInfo.result);
-//            }
-//            @Override
-//            public void onFailure(HttpException error, String msg) {
-//
-//            }
-//        });
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, new RequestCallBack<byte[]>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<byte[]> responseInfo) {
+                
+            }
+            @Override
+            public void onFailure(HttpException error, String msg) {
+
+            }
+        });
 //        ModeInfo md1=new ModeInfo("fengsam","hello world",null,null);
 //        ModeInfo md2=new ModeInfo("geange","hello world too",null,null);
 //        mList.add(md1);
