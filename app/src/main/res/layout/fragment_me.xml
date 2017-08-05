@@ -4,6 +4,27 @@
     tools:context="com.huadi.android.ainiyo.frag.MeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="您还没有登录，请登陆！"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/Login1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="登陆" />
+    </LinearLayout>
+
     <TextView android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Me"
