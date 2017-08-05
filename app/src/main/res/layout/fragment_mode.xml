@@ -5,36 +5,59 @@
     android:orientation="vertical"
     tools:context="com.huadi.android.ainiyo.frag.ModeFragment">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/title_bar_mode"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:background="#1a1818"
-        >
+        android:layout_height="62dp"
+        android:background="@color/theme_red">
+
         <TextView
-            android:id="@+id/tv_mode_me"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:text="我的"
-            android:paddingLeft="10dp"
-            android:textSize="25sp"
-            android:textColor="@color/white"
+            android:id="@+id/txt_topbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            />
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/btn_mode_add"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:src="@drawable/ic_tab_mode_add" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white" />
 
-    </LinearLayout>
+    </RelativeLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:background="#1a1818"-->
+        <!--&gt;-->
+        <!--<View-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_weight="1" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/btn_mode_add"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@drawable/ic_tab_mode_add" />-->
+
+
+    <!--</LinearLayout>-->
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/mode_list_view"
