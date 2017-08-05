@@ -73,7 +73,7 @@
             android:gravity="center"
             android:text="活动圈"
             android:textColor="@drawable/ic_tab_text_color"
-            android:drawableTop="@drawable/ic_tab_activity"
+            android:drawableTop="@drawable/ic_tab_movement"
             />
 
         <RadioButton
