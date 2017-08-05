@@ -129,62 +129,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
         }
     }
-
-    protected void onStart(){
-        super.onStart();
-        int i= ToolKits.fetchInt(this,"fragment",0);
-
-        switch (i)
-        {
-            case PAGE_ONE:
-                bottom_bar.check(R.id.radio0);
-                button0.setTextSize(15);
-                button1.setTextSize(0);
-                button2.setTextSize(0);
-                button3.setTextSize(0);
-                button4.setTextSize(0);
-                break;
-            case PAGE_TWO:
-                vpager.setCurrentItem(PAGE_TWO);
-                bottom_bar.check(R.id.radio1);
-                button0.setTextSize(0);
-                button1.setTextSize(15);
-                button2.setTextSize(0);
-                button3.setTextSize(0);
-                button4.setTextSize(0);
-                break;
-            case PAGE_THREE:
-                vpager.setCurrentItem(PAGE_THREE);
-                bottom_bar.check(R.id.radio2);
-                button0.setTextSize(0);
-                button1.setTextSize(0);
-                button2.setTextSize(15);
-                button3.setTextSize(0);
-                button4.setTextSize(0);
-                break;
-            case PAGE_FOUR:
-                vpager.setCurrentItem(PAGE_FOUR);
-                bottom_bar.check(R.id.radio3);
-                button0.setTextSize(0);
-                button1.setTextSize(0);
-                button2.setTextSize(0);
-                button3.setTextSize(15);
-                button4.setTextSize(0);
-                break;
-            case PAGE_FIVE:
-                vpager.setCurrentItem(PAGE_FIVE);
-                bottom_bar.check(R.id.radio4);
-                button0.setTextSize(0);
-                button1.setTextSize(0);
-                button2.setTextSize(0);
-                button3.setTextSize(0);
-                button4.setTextSize(15);
-                break;
-        }
-        ToolKits.putInt(this,"fragment",0);
-        //bottom_bar.check(R.id.radio0);
-    }
-
+    
     @OnCheckedChange({R.id.bottom_bar})
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
@@ -246,28 +191,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onResume() {
         super.onResume();
         if(!isInit){
-            int i= ToolKits.fetchInt(this,"fragment",0);
-            switch (i)
-            {
-                case 0:
-                    bottom_bar.check(R.id.radio0);
-                    break;
-                case 1:
-                    bottom_bar.check(R.id.radio1);
-                    break;
-                case 2:
-                    bottom_bar.check(R.id.radio2);
-                    break;
-                case 3:
-                    bottom_bar.check(R.id.radio3);
-                    break;
-                case 4:
-                    bottom_bar.check(R.id.radio4);
-                    break;
-
-            }
-            //bottom_bar.check(R.id.radio0);
-
+            bottom_bar.check(R.id.radio0);
             isInit = true;
         }
 
