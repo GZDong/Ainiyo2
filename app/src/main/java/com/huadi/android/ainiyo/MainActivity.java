@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnCheckedChange;
 
 import com.huadi.android.ainiyo.adapter.MyFragmentPagerAdapter;
+
+import java.lang.reflect.Field;
 
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,
@@ -69,13 +72,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        if (Build.VERSION.SDK_INT >= 21) {
-//            View decorView = getWindow().getDecorView();
-//            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-//            decorView.setSystemUiVisibility(option);
-//            getWindow().setStatusBarColor(Color.TRANSPARENT);
-//        }
 
         if (ContextCompat.checkSelfPermission(MainActivity.this,"android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this,new String[] {"android.permission.WRITE_EXTERNAL_STORAGE"},1);
@@ -86,45 +82,18 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         ActionBar actionBar = getSupportActionBar();
 
-        /*try{
-            actionBar.setTitle(mChatId);
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }*/
-
         if (actionBar!= null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.mipmap.ic_menu);
         }
-        //  mMessageListener = this;
-        /*FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.layout_content);
-        if (fragment == null) {
-            // fragment = ChooseFragment.newInstance();
-            fragment = ChattingFragment.newInstance(mChatId,mImage);
-            fm.beginTransaction().add(R.id.layout_content,fragment).commit();
-        }*/
 
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         bindViews();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
+
 
     }
 
     private void bindViews() {
-//        txt_topbar = (TextView) findViewById(R.id.txt_topbar);
-//        rg_tab_bar = (RadioGroup) findViewById(R.id.rg_tab_bar);
-//        rb_channel = (RadioButton) findViewById(R.id.rb_channel);
-//        rb_message = (RadioButton) findViewById(R.id.rb_message);
-//        rb_better = (RadioButton) findViewById(R.id.rb_better);
-//        rb_setting = (RadioButton) findViewById(R.id.rb_setting);
-//        rg_tab_bar.setOnCheckedChangeListener(this);
-
         vpager = (ViewPager) findViewById(R.id.vpager);
         vpager.setAdapter(mAdapter);
         vpager.setCurrentItem(0);
@@ -134,6 +103,19 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         button2 = (RadioButton)findViewById(R.id.radio2);
         button3 = (RadioButton)findViewById(R.id.radio3);
         button4 = (RadioButton)findViewById(R.id.radio4);
+
+        //设置状态栏沉浸
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_main);
+            linear_bar.setVisibility(View.VISIBLE);
+            //获取到状态栏的高度
+            int statusHeight = getStatusBarHeight();
+            //动态的设置隐藏布局的高度
+            linear_bar.getLayoutParams().height = statusHeight;
+        }
     }
 
     @Override
@@ -151,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onStart(){
         super.onStart();
         int i= ToolKits.fetchInt(this,"fragment",0);
-
 
         switch (i)
         {
@@ -360,6 +341,24 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     break;
             }
         }
+    }
+
+
+    /**
+     * 通过反射的方式获取状态栏高度
+     * @return
+     */
+    private int getStatusBarHeight() {
+        try {
+            Class<?> c = Class.forName("com.android.internal.R$dimen");
+            Object obj = c.newInstance();
+            Field field = c.getField("status_bar_height");
+            int x = Integer.parseInt(field.get(obj).toString());
+            return getResources().getDimensionPixelSize(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 
