@@ -54,11 +54,10 @@ import java.util.List;
 public class ChooseFragment extends Fragment {
 
 
-    private List<Friends> frdList;
+    private List<Friends> frdList = new ArrayList<>();
 
 
     private int transImg;
-
 
     private RecyclerView mRecyclerView;
     private  MyAdapter mMyAdapter;
@@ -85,6 +84,7 @@ public class ChooseFragment extends Fragment {
         super.onStart();
         if (getActivity() instanceof MainActivity ) {
             UserInfoLab userInfoLab = UserInfoLab.get(getActivity());
+            //这里获得传递进来的账号密码信息，然后存进数据库
             UserInfo userInfo = userInfoLab.getUserInfo();
             String name = userInfo.getUsername();
             String pass = userInfo.getPassword();
@@ -92,24 +92,13 @@ public class ChooseFragment extends Fragment {
 
             EMClient.getInstance().chatManager().addMessageListener(mEMMessageListener);
 
-
-           /* frdList = new ArrayList<>();
-            FriendsLab friendsLab = FriendsLab.get(getActivity());
-            frdList = friendsLab.getFriendses();*/
-
-            /*Collections.sort(frdList, new Comparator<Friends>() {
-                @Override
-                public int compare(Friends friends, Friends t1) {
-                    if (friends.getNewTime().compareTo(t1.getNewTime())>0){
-                        return -1;
-                    }
-                    if (friends.getNewTime().compareTo(t1.getNewTime())==0){
-                        return 0;
-                    }
-                    return 1;
-                }
-            });*/
         }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
     }
 
@@ -131,8 +120,15 @@ public class ChooseFragment extends Fragment {
 
      /*  EMClient.getInstance().chatManager().addMessageListener(this);*/
 
-        frdList = new ArrayList<>();
+
         FriendsLab friendsLab = FriendsLab.get(getActivity());
+        UserInfoLab userInfoLab = UserInfoLab.get(getActivity());
+        UserInfo userInfo = userInfoLab.getUserInfo();
+        if (userInfo == null){
+            userInfoLab.initUser("xuniji","123",R.drawable.left_image);
+            userInfo = userInfoLab.getUserInfo();
+        }
+        friendsLab.initFriends(userInfo);
         frdList = friendsLab.getFriendses();
 
         IntentFilter intentFilter = new IntentFilter();
@@ -235,6 +231,7 @@ public class ChooseFragment extends Fragment {
             EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
             //SignInUtil.signOut();
             Log.e("_____________","onPause() in ChooseFragment of Main");
+
         }
 
     }

@@ -1,10 +1,12 @@
 package com.huadi.android.ainiyo.entity;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by zhidong on 2017/8/1.
  */
 
-public class UserInfo {
+public class UserInfo extends DataSupport{
 
     private String username;
     private String password;
