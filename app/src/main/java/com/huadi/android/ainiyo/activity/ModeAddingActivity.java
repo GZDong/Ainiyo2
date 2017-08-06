@@ -94,7 +94,7 @@ public class ModeAddingActivity extends AppCompatActivity {
 //                list2.add(0,mi);
 //                ToolKits.SavingModeData(ModeAddingActivity.this,"modeInfoList",list2);
                 RequestParams params = new RequestParams();
-                params.addBodyParameter("sessionid", "af50fb4d1c2576ecdedb6daf881081667f51156a");
+                params.addBodyParameter("sessionid", "b270846459ebee58a080203e2a5c8995e8476f7f");
                 params.addBodyParameter("content", et_mode_add_saying.getText().toString());
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.PUBLISH_MODE, params, new RequestCallBack<String>() {
 

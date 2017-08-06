@@ -1,14 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.huadi.android.ainiyo.frag.FindingFragment">
+
 
     <RelativeLayout
         android:id="@+id/title_bar_finding"
         android:layout_width="match_parent"
         android:layout_height="@dimen/titile_bar_height"
         android:background="@color/theme_red">
+
 
         <TextView
             android:id="@+id/txt_topbar_finding"
@@ -20,6 +23,14 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
+        <ImageView
+            android:id="@+id/btn_finding_go"
+            android:layout_width="@dimen/titile_bar_icon_size"
+            android:layout_height="@dimen/titile_bar_icon_size"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_tab_mode_add" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2px"
@@ -28,12 +39,13 @@
 
     </RelativeLayout>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Finding"
-        android:gravity="center"
-        android:textSize="24sp"
-        />
 
-</FrameLayout>
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/finding_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="#00000000"
+        android:dividerHeight="0dip"
+        android:background="#ebe3e3"
+        android:layout_weight="1"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+</LinearLayout>
