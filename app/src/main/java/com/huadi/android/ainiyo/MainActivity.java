@@ -346,6 +346,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     /**
      * 通过反射的方式获取状态栏高度
+     *
      * @return
      */
     private int getStatusBarHeight() {

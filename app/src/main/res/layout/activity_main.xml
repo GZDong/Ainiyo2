@@ -9,8 +9,7 @@
         android:layout_height="1dp"
         android:orientation="vertical"
         android:background="@color/theme_red"
-        android:visibility="gone">
-    </LinearLayout>
+        android:visibility="gone"></LinearLayout>
 
 
     <RadioGroup
@@ -73,7 +72,7 @@
             android:gravity="center"
             android:text="活动圈"
             android:textColor="@drawable/ic_tab_text_color"
-            android:drawableTop="@drawable/ic_tab_activity"
+            android:drawableTop="@drawable/ic_tab_movement"
             />
 
         <RadioButton
@@ -105,6 +104,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_bar"
-        android:layout_below="@+id/status_bar_main"/>
+        android:layout_below="@+id/status_bar_main" />
 
 </RelativeLayout>
