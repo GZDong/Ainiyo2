@@ -63,7 +63,7 @@
                 android:showDividers="beginning"
                 android:orientation="vertical">
                 <LinearLayout
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
@@ -74,16 +74,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginLeft="16dp"
+                        android:layout_marginRight="10dp"
                         android:maxLines="2"/>
 
                     <Button
                         android:id="@+id/ec_btn_send"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="60dp"
+                        android:layout_height="35dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="7dp"
+
+                        android:background="#66d97b"
                         android:text="@string/send"
-                        android:background="@drawable/send"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
                         android:textAllCaps="false"/>
                 </LinearLayout>
             </LinearLayout>

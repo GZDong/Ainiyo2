@@ -27,7 +27,9 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
 
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
                 android:cropToPadding="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/examplepicture"
@@ -37,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:orientation="vertical"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="12dp"
                 >
                 <TextView
@@ -51,7 +53,8 @@
                     android:layout_marginStart="12dp"
                     android:layout_toEndOf="@+id/img_friend"
                     android:layout_toRightOf="@+id/img_friend"
-                    android:text="test"/>
+                    android:text="test"
+                    android:textSize="18dp"/>
 
                 <TextView
                     android:id="@+id/text_time"
@@ -70,8 +73,8 @@
                 android:layout_width="30dp"
 
                 android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/send"
                 android:text="10"/>
 

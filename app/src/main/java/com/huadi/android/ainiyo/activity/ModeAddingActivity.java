@@ -8,14 +8,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.adapter.ImageAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.entity.ResponseObject;
+import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
@@ -74,16 +85,32 @@ public class ModeAddingActivity extends AppCompatActivity {
             case R.id.tv_mode_add:
                 ToolKits.putInt(this,"fragment",2);
                 Intent t1=new Intent();
-//                t1.putStringArrayListExtra("images", images);
-//                t1.putExtra("text",et_mode_add_saying.getText().toString());
-//                setResult(2,t1);
-                ModeInfo mi=new ModeInfo(null,et_mode_add_saying.getText().toString(),null,images);
-                ArrayList<ModeInfo> list1= ToolKits.GettingModedata(ModeAddingActivity.this,"modeMeInfoList");
-                list1.add(0,mi);
-                ToolKits.SavingModeData(ModeAddingActivity.this,"modeMeInfoList",list1);
-                ArrayList<ModeInfo> list2= ToolKits.GettingModedata(ModeAddingActivity.this,"modeInfoList");
-                list2.add(0,mi);
-                ToolKits.SavingModeData(ModeAddingActivity.this,"modeInfoList",list2);
+
+//                ModeInfo mi=new ModeInfo(null,et_mode_add_saying.getText().toString(),null,images);
+//                ArrayList<ModeInfo> list1= ToolKits.GettingModedata(ModeAddingActivity.this,"modeMeInfoList");
+//                list1.add(0,mi);
+//                ToolKits.SavingModeData(ModeAddingActivity.this,"modeMeInfoList",list1);
+//                ArrayList<ModeInfo> list2= ToolKits.GettingModedata(ModeAddingActivity.this,"modeInfoList");
+//                list2.add(0,mi);
+//                ToolKits.SavingModeData(ModeAddingActivity.this,"modeInfoList",list2);
+                RequestParams params = new RequestParams();
+                params.addBodyParameter("sessionid", "af50fb4d1c2576ecdedb6daf881081667f51156a");
+                params.addBodyParameter("content", et_mode_add_saying.getText().toString());
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.PUBLISH_MODE, params, new RequestCallBack<String>() {
+
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        ResponseObject<String> object = new GsonBuilder().create().
+                                fromJson(responseInfo.result, new TypeToken<ResponseObject<String>>() {
+                                }.getType());
+
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+                        Toast.makeText(ModeAddingActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 finish();
                 break;
 

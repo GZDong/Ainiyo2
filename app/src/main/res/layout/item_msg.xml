@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/ic_launcher"
+
             />
 
         <LinearLayout
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_launcher"
+
             />
 
     </LinearLayout>

@@ -1,12 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.huadi.android.ainiyo.frag.ChooseFragment">
 
+    <LinearLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@color/theme_red"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="聊天"
+            android:textColor="#fff"/>
+
+        <ImageButton
+            android:id="@+id/btn_friends"
+            android:layout_width="53dp"
+            android:layout_height="match_parent"
+            android:background="#f3485d"
+            android:src="@mipmap/ic_per"/>
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:id="@+id/fri_recycler_view"
+        android:background="#f2eeee"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
+
+<!--
 <android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="5dp"
-    android:id="@+id/fri_recycler_view"
-    android:background="#f2eeee"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_marginTop="5dp"
+android:id="@+id/fri_recycler_view"
+android:background="#f2eeee"
     >
 
-</android.support.v7.widget.RecyclerView>
+</android.support.v7.widget.RecyclerView>-->

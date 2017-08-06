@@ -12,5 +12,9 @@
     <string name="hint_name_fri">请输入对方ID</string>
     <string name="hint_reason_add">请输入标签</string>
     <string name="sure_add">确定</string>
-    <string name="sign_out">退出登陆</string>
+    <string name="chatting">聊天</string>
+    <string name="sure_reduce">删除好友</string>
+    <string name="contact_title">通讯录</string>
+    <string name="search_hint">请输入关键字</string>
+    <string name="send_chat_request">发起聊天</string>
 </resources>
