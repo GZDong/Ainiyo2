@@ -9,6 +9,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:background="@color/theme_red"
+            >
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/jiantou"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="个人中心"
+                android:layout_gravity="center"
+                android:layout_marginLeft="113dp"
+                android:textSize="24sp" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
