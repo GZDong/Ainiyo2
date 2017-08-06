@@ -1,5 +1,6 @@
 package com.huadi.android.ainiyo.frag;
 
+import android.accounts.AccountManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,13 +18,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ChattingActivity;
+import com.huadi.android.ainiyo.activity.FriendsListActivity;
 import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
@@ -39,6 +43,8 @@ import com.hyphenate.chat.EMMessage;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -55,9 +61,11 @@ public class ChooseFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
-    private MyAdapter mMyAdapter;
+    private  MyAdapter mMyAdapter;
 
     private BroadcastReceiver mBroadcastReceiver;
+
+    private ImageButton mPersons;
 
    // private TextView mTextView;
 
@@ -84,6 +92,23 @@ public class ChooseFragment extends Fragment {
 
             EMClient.getInstance().chatManager().addMessageListener(mEMMessageListener);
 
+
+           /* frdList = new ArrayList<>();
+            FriendsLab friendsLab = FriendsLab.get(getActivity());
+            frdList = friendsLab.getFriendses();*/
+
+            /*Collections.sort(frdList, new Comparator<Friends>() {
+                @Override
+                public int compare(Friends friends, Friends t1) {
+                    if (friends.getNewTime().compareTo(t1.getNewTime())>0){
+                        return -1;
+                    }
+                    if (friends.getNewTime().compareTo(t1.getNewTime())==0){
+                        return 0;
+                    }
+                    return 1;
+                }
+            });*/
         }
 
     }
@@ -122,7 +147,26 @@ public class ChooseFragment extends Fragment {
                 Friends friends = friendsLab.getFriend(ID);
                 friends.setUnreadMeg(newMsg);
                 friends.setNewTime(newTime);
-                frdList = friendsLab.getFriendses();
+                friendsLab.reSort();
+
+                for (Friends friends1 : frdList){
+                    if (friends1.getName().equals(ID)){
+                        friends1.setNewTime(DateUtil.getNowDate());
+                    }
+                }
+                Collections.sort(frdList, new Comparator<Friends>() {
+                    @Override
+                    public int compare(Friends friends, Friends t1) {
+                        if (friends.getNewTime().compareTo(t1.getNewTime())>0){
+                            return -1;
+                        }
+                        if (friends.getNewTime().compareTo(t1.getNewTime())==0){
+                            return 0;
+                        }
+                        return 1;
+                    }
+                });
+               // frdList = friendsLab.getFriendses();
                 mMyAdapter.notifyDataSetChanged();
             }
         };
@@ -149,6 +193,13 @@ public class ChooseFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_choose,container,false);
 
+        if (getActivity() instanceof ChattingActivity){
+            LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.bar);
+            linearLayout.setVisibility(View.GONE);
+        }
+
+        mPersons = (ImageButton) v.findViewById(R.id.btn_friends);
+
         mRecyclerView = (RecyclerView) v.findViewById(R.id.fri_recycler_view);
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(lm);
@@ -157,8 +208,18 @@ public class ChooseFragment extends Fragment {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.HORIZONTAL));
 
+        mPersons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), FriendsListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return v;
     }
+
+
 
     @Override
     public void onDestroy() {
@@ -363,10 +424,7 @@ public class ChooseFragment extends Fragment {
                     Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
                     intent.putExtra("ID",message.getFrom());
                     intent.putExtra("newM",unread);
-
-                    String newTime = DateUtil.getNowDate();
-                    intent.putExtra("newT",newTime);
-
+                    intent.putExtra("newT", DateUtil.getNowDate());
                     getActivity().sendBroadcast(intent);
                 }
 

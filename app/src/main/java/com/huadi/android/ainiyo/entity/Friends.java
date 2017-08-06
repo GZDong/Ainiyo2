@@ -14,11 +14,18 @@ public class Friends {
 
     private String newTime;
 
-    public Friends(String name, int picture,int unread,String time){
+    private String letters;
+
+    private boolean showInChooseFragment;
+
+
+
+    public Friends(String name, int picture,int unread,String time,boolean show){
         this.name = name;
         this.picture = picture;
         this.unreadMeg = unread;
         this.newTime = time;
+        this.showInChooseFragment = show;
     }
 
     public void setNewTime(String newTime) {
@@ -51,5 +58,17 @@ public class Friends {
 
     public void setUnreadMeg(int unreadMeg) {
         this.unreadMeg = unreadMeg;
+    }
+
+    public boolean isShowInChooseFragment() {
+        return showInChooseFragment;
+    }
+
+    public void setLetters(String letters) {
+        this.letters = letters;
+    }
+
+    public String getLetters() {
+        return letters;
     }
 }
