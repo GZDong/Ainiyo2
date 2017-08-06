@@ -1,5 +1,6 @@
 package com.huadi.android.ainiyo.activity;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
@@ -37,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText register_pwd2;
     @ViewInject(R.id.check_box)
     private CheckBox check_box;
+    @ViewInject(R.id.back)
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +52,12 @@ public class RegisterActivity extends AppCompatActivity {
         }
         ViewUtils.inject(this);
     }
-    @OnClick(R.id.register2)
+    @OnClick({R.id.register2,R.id.back})
     public void onClick (View v){
         switch (v.getId()){
+            case R.id.back:
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                break;
             case R.id.register2:
                 if(register_name.getText().toString().trim().length()<=0){
                     register_name.setError("用户名不能为空！");

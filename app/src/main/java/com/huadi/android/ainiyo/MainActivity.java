@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 }
         }
     }
-    
+
     @OnCheckedChange({R.id.bottom_bar})
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 

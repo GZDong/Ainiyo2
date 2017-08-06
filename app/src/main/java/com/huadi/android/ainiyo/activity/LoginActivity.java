@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -34,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText login_name;
     @ViewInject(R.id.login_pwd)
     private EditText login_pwd;
+    @ViewInject(R.id.back)
+    private ImageView back;
 
 
     @Override
@@ -48,11 +52,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-    @OnClick({R.id.register1,R.id.Login2})
+    @OnClick({R.id.register1,R.id.Login2,R.id.back})
     public void OnClick(View v){
         switch (v.getId()){
             case R.id.register1:
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
+                break;
+            case R.id.back:
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 break;
             case R.id.Login2:
                 if(login_name.getText().toString().trim().length()<=0){

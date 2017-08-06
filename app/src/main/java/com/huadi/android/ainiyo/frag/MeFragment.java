@@ -7,26 +7,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.LoginActivity;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
 public class MeFragment extends Fragment {
+    @ViewInject(R.id.Login1)
+    private Button Login1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_me,null);
         // Inflate the layout for this fragment
-        Button btn =view.findViewById(R.id.Login1);
-        btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                startActivity(new Intent(getActivity(),LoginActivity.class));
-            }
-        });
+        ViewUtils.inject(this,view);
         return view;
     }
+    @OnClick({R.id.Login1})
+    public void OnClick(View v){
+        switch (v.getId()){
+            case R.id.Login1:
+                startActivity(new Intent(getActivity(),LoginActivity.class));
+                break;
+        }
+    }
+
 
     @Override
     public void setMenuVisibility(boolean menuVisible) {
