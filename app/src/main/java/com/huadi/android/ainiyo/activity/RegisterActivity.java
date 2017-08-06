@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     try {
                                         JSONObject object1 = new JSONObject(info);
                                         String msg1 = object1.getString("Msg");
-                                        if (msg1.equals("success")) {
+                                        if (!msg1.equals("success")) {
                                             Toast.makeText(RegisterActivity.this,msg1, Toast.LENGTH_SHORT).show();
                                             return;
                                         }
