@@ -86,35 +86,63 @@ public class ModeAddingActivity extends AppCompatActivity {
                 ToolKits.putInt(this,"fragment",2);
                 Intent t1=new Intent();
 
-//                ModeInfo mi=new ModeInfo(null,et_mode_add_saying.getText().toString(),null,images);
-//                ArrayList<ModeInfo> list1= ToolKits.GettingModedata(ModeAddingActivity.this,"modeMeInfoList");
-//                list1.add(0,mi);
-//                ToolKits.SavingModeData(ModeAddingActivity.this,"modeMeInfoList",list1);
-//                ArrayList<ModeInfo> list2= ToolKits.GettingModedata(ModeAddingActivity.this,"modeInfoList");
-//                list2.add(0,mi);
-//                ToolKits.SavingModeData(ModeAddingActivity.this,"modeInfoList",list2);
-                RequestParams params = new RequestParams();
-                params.addBodyParameter("sessionid", "b270846459ebee58a080203e2a5c8995e8476f7f");
-                params.addBodyParameter("content", et_mode_add_saying.getText().toString());
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.PUBLISH_MODE, params, new RequestCallBack<String>() {
-
-                    @Override
-                    public void onSuccess(ResponseInfo<String> responseInfo) {
-                        ResponseObject<String> object = new GsonBuilder().create().
-                                fromJson(responseInfo.result, new TypeToken<ResponseObject<String>>() {
-                                }.getType());
-
-                    }
-
-                    @Override
-                    public void onFailure(HttpException error, String msg) {
-                        Toast.makeText(ModeAddingActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                ModeInfo mi = new ModeInfo(null, et_mode_add_saying.getText().toString(), null, images);
+                ArrayList<ModeInfo> list1 = ToolKits.GettingModedata(ModeAddingActivity.this, "modeMeInfoList");
+                list1.add(0, mi);
+                ToolKits.SavingModeData(ModeAddingActivity.this, "modeMeInfoList", list1);
+                ArrayList<ModeInfo> list2 = ToolKits.GettingModedata(ModeAddingActivity.this, "modeInfoList");
+                list2.add(0, mi);
+                ToolKits.SavingModeData(ModeAddingActivity.this, "modeInfoList", list2);
+                // upLoadPho();
+                //upLoadContent();
                 finish();
                 break;
 
         }
+    }
+
+    //上传照片
+    public void upLoadPho() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("sessionid", "b270846459ebee58a080203e2a5c8995e8476f7f");
+        params.addBodyParameter("content", et_mode_add_saying.getText().toString());
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.PUBLISH_MODE, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                ResponseObject<String> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<String>>() {
+                        }.getType());
+
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                Toast.makeText(ModeAddingActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    //上传心情信息
+    public void upLoadContent() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("sessionid", "b270846459ebee58a080203e2a5c8995e8476f7f");
+        params.addBodyParameter("content", et_mode_add_saying.getText().toString());
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.PUBLISH_MODE, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                ResponseObject<String> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<String>>() {
+                        }.getType());
+
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                Toast.makeText(ModeAddingActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

@@ -69,7 +69,7 @@ public class ModeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mode,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_mode, null);
         // Inflate the layout for this fragment2
 
         ViewUtils.inject(this, view);
@@ -84,6 +84,7 @@ public class ModeFragment extends Fragment {
                 loadDatas(refreshView.getScrollY() < 0);
             }
         });
+
         // 首次自动加载数据
         new Handler(new Handler.Callback() {
             @Override
@@ -92,8 +93,11 @@ public class ModeFragment extends Fragment {
                 return true;
             }
         }).sendEmptyMessageDelayed(0, 200);
+
         return view;
     }
+
+
 
     private void loadDatas(final boolean direction)
     {

@@ -115,9 +115,9 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.ModeDetailActivity" />
         <activity android:name=".activity.ModePreviewActivity" />
-        <activity android:name=".activity.FriendsListActivity"
-                  android:windowSoftInputMode="adjustPan"
-            />
+        <activity
+            android:name=".activity.FriendsListActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.FriendsInfoActivity" />
 
         <!-- 设置环信应用的 appkey 换成自己的 -->
@@ -145,7 +145,8 @@
         <activity android:name=".activity.ModeMeActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.FindingDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -12,15 +12,16 @@
         android:layout_height="@dimen/titile_bar_height"
         android:background="@color/theme_red">
 
-        <TextView
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+
             android:id="@+id/tv_mode_me"
-            android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="我的"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:layout_marginLeft="10dp" />
+            android:src="@drawable/left_image"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFF"
+            android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/txt_topbar_mode"
@@ -38,7 +39,7 @@
             android:layout_height="@dimen/titile_bar_icon_size"
             android:padding="10dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_tab_mode_add" />
+            android:src="@drawable/ic_tab_finding_search" />
 
         <View
             android:layout_width="match_parent"
@@ -58,4 +59,5 @@
         android:background="#ebe3e3"
         android:layout_weight="1">
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
+
 </LinearLayout>
