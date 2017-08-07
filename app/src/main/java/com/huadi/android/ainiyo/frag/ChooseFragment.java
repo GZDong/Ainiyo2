@@ -77,14 +77,14 @@ public class ChooseFragment extends Fragment {
     public void onStart() {
         super.onStart();
         //*****************根据单例里的用户信息来登陆***************
-        if (getActivity() instanceof MainActivity ) { //这里登陆只是为了监听器的注册
-            UserInfo userInfo = new UserInfo("xuniji","123",R.drawable.left_image);
+        if (getActivity() instanceof MainActivity) { //这里登陆只是为了监听器的注册
+            UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
             //这里获得传递进来的账号密码信息，然后存进数据库
-            mUserInfo = UserInfoLab.get(getActivity(),userInfo).getUserInfo();
+            mUserInfo = UserInfoLab.get(getActivity(), userInfo).getUserInfo();
             String name = mUserInfo.getUsername();
             String pass = mUserInfo.getPassword();
             SignInUtil.signIn(name,pass,getActivity());
-        //*******注册新消息监听器*********
+            //*******注册新消息监听器*********
             EMClient.getInstance().chatManager().addMessageListener(mEMMessageListener);
 
             //******************注册新信息的接受器***********************
@@ -93,18 +93,18 @@ public class ChooseFragment extends Fragment {
             mBroadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    int newMsg = intent.getIntExtra("newM",0);
+                    int newMsg = intent.getIntExtra("newM", 0);
                     String ID = intent.getStringExtra("ID");
                     String newTime = intent.getStringExtra("newT");
-                    Friends friends = FriendsLab.get(getActivity(),mUserInfo).getFriend(ID);
+                    Friends friends = FriendsLab.get(getActivity(), mUserInfo).getFriend(ID);
                     friends.setUnreadMeg(newMsg);
                     friends.setNewTime(newTime);
-                    FriendsLab.get(getActivity(),mUserInfo).reSort();
-                    frdList = FriendsLab.get(getActivity(),mUserInfo).getFriendses();
+                    FriendsLab.get(getActivity(), mUserInfo).reSort();
+                    frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
 
-                    for (Friends friends1 : frdList){
+                    for (Friends friends1 : frdList) {
 
-                        Log.e("eee","排序后："+friends1.getName() + "/n");
+                        Log.e("eee", "排序后：" + friends1.getName() + "/n");
 
                     }
                 /*for (Friends friends1 : frdList){
@@ -130,7 +130,7 @@ public class ChooseFragment extends Fragment {
                     mMyAdapter.notifyDataSetChanged();
                 }
             };
-            getActivity().registerReceiver(mBroadcastReceiver,intentFilter);
+            getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
             //************************************************
         }
 
@@ -142,13 +142,13 @@ public class ChooseFragment extends Fragment {
 
         //***************根据用户信息来刷新聊天列表**********
         if (getActivity() instanceof MainActivity) {
-            frdList = FriendsLab.get(getActivity(),mUserInfo).getFriendses();
+            frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
             MyAdapter myAdapter = new MyAdapter(frdList);
             mMyAdapter = myAdapter;
             mRecyclerView.setAdapter(mMyAdapter);
             mMyAdapter.notifyDataSetChanged();
         }
-        Log.e("ee","444444444444444444444444444444");
+        Log.e("ee", "444444444444444444444444444444");
 
     }
 
@@ -157,14 +157,14 @@ public class ChooseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        UserInfo userInfo = new UserInfo("xuniji","123",R.drawable.left_image);
+        UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
         //这里获得传递进来的账号密码信息，然后存进数据库
-        mUserInfo = UserInfoLab.get(getActivity(),userInfo).getUserInfo();
+        mUserInfo = UserInfoLab.get(getActivity(), userInfo).getUserInfo();
 
         frdList = new ArrayList<>();
-        frdList = FriendsLab.get(getActivity(),mUserInfo).getFriendses();
+        frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
 
-        Log.e("ee","333333333333333333333333333");
+        Log.e("ee", "333333333333333333333333333");
 
 
         if (getActivity() instanceof ChattingActivity) {
@@ -174,18 +174,18 @@ public class ChooseFragment extends Fragment {
             mBroadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    int newMsg = intent.getIntExtra("newM",0);
+                    int newMsg = intent.getIntExtra("newM", 0);
                     String ID = intent.getStringExtra("ID");
                     String newTime = intent.getStringExtra("newT");
-                    Friends friends = FriendsLab.get(getActivity(),mUserInfo).getFriend(ID);
+                    Friends friends = FriendsLab.get(getActivity(), mUserInfo).getFriend(ID);
                     friends.setUnreadMeg(newMsg);
                     friends.setNewTime(newTime);
-                    FriendsLab.get(getActivity(),mUserInfo).reSort();
-                    frdList = FriendsLab.get(getActivity(),mUserInfo).getFriendses();
+                    FriendsLab.get(getActivity(), mUserInfo).reSort();
+                    frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
 
-                    for (Friends friends1 : frdList){
+                    for (Friends friends1 : frdList) {
 
-                        Log.e("eee","排序后："+friends1.getName() + "/n");
+                        Log.e("eee", "排序后：" + friends1.getName() + "/n");
 
                     }
                     /*for (Friends friends1 : frdList){
@@ -212,7 +212,7 @@ public class ChooseFragment extends Fragment {
                     mMyAdapter.notifyDataSetChanged();
                 }
             };
-            getActivity().registerReceiver(mBroadcastReceiver,intentFilter);
+            getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
             //************************************************
         }
     }
@@ -221,16 +221,15 @@ public class ChooseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Log.e("ee","2222222222222222222222222");
+        Log.e("ee", "2222222222222222222222222");
         View v = inflater.inflate(R.layout.fragment_choose,container,false);
 
 
-       //***********如果在聊天里打开就不要标题栏******
+        //***********如果在聊天里打开就不要标题栏******
         if (getActivity() instanceof ChattingActivity){
             LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.bar);
             linearLayout.setVisibility(View.GONE);
         }
-
 
 
         mPersons = (ImageButton) v.findViewById(R.id.btn_friends);
@@ -245,7 +244,7 @@ public class ChooseFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), FriendsListActivity.class);
-                intent.putExtra("userInfo",mUserInfo);
+                intent.putExtra("userInfo", mUserInfo);
                 startActivity(intent);
             }
         });
@@ -271,13 +270,13 @@ public class ChooseFragment extends Fragment {
             EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
             getActivity().unregisterReceiver(mBroadcastReceiver);
 
-            Log.e("eee","onPause()");
+            Log.e("eee", "onPause()");
 
         }
 
     }
 
-   //*****************适配器********************
+    //*****************适配器********************
     private class MyViewHolder extends RecyclerView.ViewHolder{
         TextView textView;
         ImageView mImageView;
@@ -295,7 +294,7 @@ public class ChooseFragment extends Fragment {
                 public void onClick(View view) {
 
 
-                    Friends fri = FriendsLab.get(getActivity(),mUserInfo).getFriend(textView.getText().toString());
+                    Friends fri = FriendsLab.get(getActivity(), mUserInfo).getFriend(textView.getText().toString());
                     //****在本地置0*****
                     fri.setUnreadMeg(0);
                     //****在服务器端置0新信息****
@@ -303,7 +302,7 @@ public class ChooseFragment extends Fragment {
                     if (conversation != null){
                         conversation.markAllMessagesAsRead();
                     }
-                    frdList = FriendsLab.get(getActivity(),mUserInfo).getFriendses();
+                    frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
                     mMyAdapter.notifyDataSetChanged();
                     if (getActivity() instanceof MainActivity){
 
@@ -317,7 +316,7 @@ public class ChooseFragment extends Fragment {
 
                             }
                         }
-                        intent.putExtra("userInfo",mUserInfo);
+                        intent.putExtra("userInfo", mUserInfo);
                         intent.putExtra("img",transImg);
                         startActivity(intent);
                     } else if (getActivity() instanceof ChattingActivity){
@@ -341,7 +340,7 @@ public class ChooseFragment extends Fragment {
                         }
 
                         fm.beginTransaction().remove(chatFragment).commit();
-                        Fragment fragment = ChattingFragment.newInstance(textView.getText().toString(),transImg,mUserInfo);
+                        Fragment fragment = ChattingFragment.newInstance(textView.getText().toString(), transImg, mUserInfo);
                         fm.beginTransaction().add(R.id.fragment_container,fragment).commit();
                         //fm.beginTransaction().replace(R.id.fragment_container,fragment);
                     }
@@ -394,7 +393,7 @@ public class ChooseFragment extends Fragment {
     }
 
 
-   //******************监听接口的实现*******************
+    //******************监听接口的实现*******************
     //当有新消息时，发送广播给聊天列表
     EMMessageListener mEMMessageListener = new EMMessageListener() {
         @Override

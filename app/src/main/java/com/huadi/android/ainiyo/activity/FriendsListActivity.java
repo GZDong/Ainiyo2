@@ -68,7 +68,7 @@ public class FriendsListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fri_list);
 
-        Intent intent =  getIntent();
+        Intent intent = getIntent();
         mUserInfo = (UserInfo) intent.getSerializableExtra("userInfo");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -125,7 +125,7 @@ public class FriendsListActivity extends AppCompatActivity{
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
 
-        String[] names = FriendsLab.get(this,mUserInfo).getNames();
+        String[] names = FriendsLab.get(this, mUserInfo).getNames();
 
         SourceDateList = filledData(names);
 
@@ -135,7 +135,7 @@ public class FriendsListActivity extends AppCompatActivity{
         manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
-        adapter = new SortAdapter(this, SourceDateList,mUserInfo);
+        adapter = new SortAdapter(this, SourceDateList, mUserInfo);
         mRecyclerView.setAdapter(adapter);
         //item点击事件
         /*adapter.setOnItemClickListener(new SortAdapter.OnItemClickListener() {
@@ -202,7 +202,7 @@ public class FriendsListActivity extends AppCompatActivity{
         List<Friends> mSortList = new ArrayList<>();
 
         for (int i = 0; i < date.length; i++) {
-            Friends sortModel = FriendsLab.get(this,mUserInfo).getFriend(date[i]);
+            Friends sortModel = FriendsLab.get(this, mUserInfo).getFriend(date[i]);
             //汉字转换成拼音
             String pinyin = PinyinUtils.getPingYin(date[i]);
             String sortString = pinyin.substring(0, 1).toUpperCase();

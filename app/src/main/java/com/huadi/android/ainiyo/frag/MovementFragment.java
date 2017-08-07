@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 
 import com.huadi.android.ainiyo.R;
 
-public class AddressBookFragment extends Fragment {
+public class MovementFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_address_book,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_movement, null);
         // Inflate the layout for this fragment
         return view;
     }

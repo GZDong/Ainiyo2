@@ -9,15 +9,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.LoginActivity;
+import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 public class MeFragment extends Fragment {
-    @ViewInject(R.id.Login1)
-    private Button Login1;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,14 +30,7 @@ public class MeFragment extends Fragment {
         ViewUtils.inject(this,view);
         return view;
     }
-    @OnClick({R.id.Login1})
-    public void OnClick(View v){
-        switch (v.getId()){
-            case R.id.Login1:
-                startActivity(new Intent(getActivity(),LoginActivity.class));
-                break;
-        }
-    }
+
 
 
     @Override

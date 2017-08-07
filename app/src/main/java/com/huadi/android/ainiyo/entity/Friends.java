@@ -6,7 +6,7 @@ import org.litepal.crud.DataSupport;
  * Created by zhidong on 2017/7/27.
  */
 
-public class Friends extends DataSupport{
+public class Friends extends DataSupport {
 
     private String user;
 
@@ -22,12 +22,12 @@ public class Friends extends DataSupport{
 
     private boolean showInChooseFragment;  //是否出现在聊天列表
 
-    public Friends(){
+    public Friends() {
 
     }
 
     //创建一个该用户的好友
-    public Friends(String user,String name, int picture,int unread,String time,boolean show){
+    public Friends(String user, String name, int picture, int unread, String time, boolean show) {
         this.user = user;
         this.name = name;
         this.picture = picture;
@@ -72,7 +72,7 @@ public class Friends extends DataSupport{
         return showInChooseFragment;
     }
 
-    public void setShowInChooseFragment(boolean result){
+    public void setShowInChooseFragment(boolean result) {
         this.showInChooseFragment = result;
     }
 

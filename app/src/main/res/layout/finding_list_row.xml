@@ -5,8 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants"
-    >
+    android:descendantFocusability="blocksDescendants">
+
     <android.support.v7.widget.CardView
         tools:targetApi="lollipop"
         android:layout_width="match_parent"
@@ -19,55 +19,49 @@
         app:cardCornerRadius="0dp"
         app:cardUseCompatPadding="false"
         app:cardPreventCornerOverlap="false">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
 
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                >
+                android:layout_marginTop="10dp">
 
-
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/mode_me_pic_head"
+                <ImageView
+                    android:id="@+id/finding_pic_head"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:src="@drawable/left_image"
-                    app:civ_border_width="2dp"
-                    app:civ_border_color="#FFF"
-                    android:layout_gravity="center" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/default_head_pic" />
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <TextView
 
-                        android:id="@+id/mode_me_username"
+                        android:id="@+id/finding_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="David"
+                        android:text="name"
                         android:textColor="#4040f0"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="18sp" />
+
                     <TextView
-                        android:id="@+id/mode_me_content"
+                        android:id="@+id/finding_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
                         android:text="contents"
-                        android:textSize="20sp"
-                        />
+                        android:textSize="20sp" />
 
 
                 </LinearLayout>
@@ -77,31 +71,13 @@
 
 
             <ImageView
-                android:id="@+id/mode_me_pic_content"
+                android:id="@+id/finding_pic_content"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_content_pic" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:layout_weight="1" />
-            <TextView
-                android:id="@+id/mode_me_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="删除"
-                android:textSize="15dp"
-                android:textColor="@color/blue"
-                android:clickable="true"
-                />
-            </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

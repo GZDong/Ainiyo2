@@ -2,7 +2,6 @@ package com.huadi.android.ainiyo;
 
 
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,12 +21,11 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
-import com.huadi.android.ainiyo.frag.AddressBookFragment;
+import com.huadi.android.ainiyo.frag.MovementFragment;
 import com.huadi.android.ainiyo.frag.ChooseFragment;
 import com.huadi.android.ainiyo.frag.FindingFragment;
 import com.huadi.android.ainiyo.frag.MeFragment;
 import com.huadi.android.ainiyo.frag.ModeFragment;
-import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnCheckedChange;
@@ -218,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     fragment =new ModeFragment();
                     break;
                 case 3://我的
-                    fragment =new AddressBookFragment();
+                    fragment = new MovementFragment();
                     break;
                 case 4://我的
                     fragment =new MeFragment();
