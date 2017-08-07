@@ -25,34 +25,38 @@ public class FriendsLab {
 
     private Context mContext;
 
-    private static List<Friends> mFriendses;
+    private List<Friends> mFriendses;
 
-
-
-    public static FriendsLab get(Context context){
+    public static FriendsLab get(Context context,UserInfo userInfo){
         if (sFriendsLab == null){
-         sFriendsLab = new FriendsLab(context);
+         sFriendsLab = new FriendsLab(context,userInfo);
         }
         return sFriendsLab;
     }
 
-    private FriendsLab(Context context){
+    private FriendsLab(Context context,UserInfo userInfo){
         mContext = context.getApplicationContext();
-        //initFriends();
+        initFriends(userInfo);
     }
 
-    public void initFriends(UserInfo userInfo){
+    //根据用户来初始化好友列表
+    private void initFriends(UserInfo userInfo){
         mFriendses = new ArrayList<>();
-        UserInfo info = userInfo;
-        mFriendses = DataSupport.where("user = ?",info.getUsername()).find(Friends.class);
+
+        //从数据库中加载用户列的值为指定用户的好友名单
+        mFriendses = DataSupport.where("user = ?",userInfo.getUsername()).find(Friends.class);
+
+        //加载出来之后，如果名单多于一个，就根据最新消息时间排一下序号
         if (mFriendses.size() > 1){
             reSort();
         }
+        //如果数据库里没有好友，就到服务器请求好友列表
         if (mFriendses.size() == 0){
             //根据userInfo发起网络请求
             //获得数据
+            //模拟：假如mmFriendses就是返回的数据
             List<Friends> mmFriendses = new ArrayList<>();
-            //
+            //测试：
             EMConversation conversation = EMClient.getInstance().chatManager().getConversation("shouji");
             int unread;
             if (conversation == null){
@@ -62,7 +66,7 @@ public class FriendsLab {
             }
             //
             Friends friend1 = new Friends(userInfo.getUsername() ,"shouji",R.drawable.examplepicture,unread, DateUtil.getNowDate(),true);
-            Friends friend2 = new Friends(userInfo.getUsername() ,"xiaoming", R.drawable.user2,3, DateUtil.getNowDate(),true);
+            Friends friend2 = new Friends(userInfo.getUsername() ,"xiaoming",R.drawable.user2,3, DateUtil.getNowDate(),true);
             Friends friend3 = new Friends(userInfo.getUsername() ,"aong",R.drawable.right_image,7,"2017-08-03 16:40:59",true);
             Friends friend4 = new Friends(userInfo.getUsername() ,"bong",R.drawable.right_image,2,"2017-08-02 16:40:59",true);
             Friends friend5 = new Friends(userInfo.getUsername() ,"cong",R.drawable.right_image,1,"2017-08-03 16:41:59",false);
@@ -95,6 +99,8 @@ public class FriendsLab {
             mmFriendses.add(friend16);
             mmFriendses.add(friend1);
 
+            //获得数据后先获得每个好友的未读信息，后存入数据库
+            //这里记得初始化一些服务器上没有的数据
             /* for (Friends friends : mmFriendses){
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
                 int unread;
@@ -106,24 +112,20 @@ public class FriendsLab {
                 friends.setUnreadMeg(unread);
 
             }*/
-            for (Friends friends :mmFriendses){
-                friends.save();
+            if (mmFriendses.size()>0) {
+                for (Friends friends :mmFriendses){
+                    friends.save();
+                }
+                //如果来自网络的好友列表不为空，重新根据用户初始化聊天列表
+                initFriends(userInfo);
             }
-            mFriendses = mmFriendses;
-            reSort();
         }
-
-
-
-        //if showInChooseFragment == true 才添加
-
-
-        //到时候再这里修改成从服务器获取好友列表
     }
-
+    //这个方法是返回聊天列表的
     public List<Friends> getFriendses() {
-        reSort();
         List<Friends> reList = new ArrayList<>();
+
+        //在好友列表挑出需要显示在聊天列表的好友
         for (Friends friends : mFriendses){
             if (friends.isShowInChooseFragment() == true){
                 reList.add(friends);
@@ -133,10 +135,12 @@ public class FriendsLab {
 
     }
 
-    public List<Friends> getFriendsesAll(){
+    //这个方法返回所有好友列表
+    private List<Friends> getFriendsesAll(){
         return mFriendses;
     }
 
+    //根据好友的名称在好友列表里返回改好友的实例
     public Friends getFriend(String name){
         for (Friends friends : mFriendses){
             if (friends.getName().equals(name)){
@@ -146,14 +150,8 @@ public class FriendsLab {
         return null;
     }
 
-    public void getUnreadMsg(List<Friends> firList){
-        for (Friends friends : firList){
-            EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
-            friends.setUnreadMeg(conversation.getUnreadMsgCount());
-        }
-    }
-
-    public static void reSort(){
+    //这个排序是对单例里的好友列表数据排序
+    public void reSort(){
         Collections.sort(mFriendses, new Comparator<Friends>() {
             @Override
             public int compare(Friends friends, Friends t1) {
@@ -166,9 +164,9 @@ public class FriendsLab {
                 return 1;
             }
         });
-        System.out.println("排序后："+ mFriendses);
     }
 
+    //返回好友列表的姓名集
     public String[] getNames(){
         int count = mFriendses.size();
         String[] nameA = new String[count];
@@ -178,12 +176,11 @@ public class FriendsLab {
         return nameA;
     }
 
+
     public void addFriend(Friends friends){
-        UserInfoLab userInfoLab = UserInfoLab.get(mContext);
-        UserInfo userInfo = userInfoLab.getUserInfo();
-        List<Friends> friendses = DataSupport.where("user = ?",userInfo.getUsername()).find(Friends.class);
+
         int flag = 0;
-        for (Friends friends1 : friendses){
+        for (Friends friends1 : mFriendses){
             if (friends1.getName().equals(friends.getName())){
                 Toast.makeText(mContext,"已经是好友",Toast.LENGTH_LONG).show();
                 flag =1;

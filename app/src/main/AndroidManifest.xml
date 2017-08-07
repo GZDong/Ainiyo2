@@ -117,8 +117,10 @@
         <activity android:name=".activity.ModePreviewActivity" />
         <activity android:name=".activity.FriendsListActivity"
                   android:windowSoftInputMode="adjustPan"
+                  android:launchMode="singleTask"
             />
-        <activity android:name=".activity.FriendsInfoActivity" />
+        <activity android:name=".activity.FriendsInfoActivity"
+            android:parentActivityName=".activity.FriendsListActivity"/>
 
         <!-- 设置环信应用的 appkey 换成自己的 -->
         <meta-data

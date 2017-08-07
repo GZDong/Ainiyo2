@@ -54,32 +54,19 @@ import java.util.List;
 
 public class ChattingFragment extends Fragment implements EMMessageListener{
 
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_chatting,null);
-        // Inflate the layout for this fragment
-        return view;
-    }*/
+    private static String TAG = "ChattingFragment";
 
-    // 聊天信息输入框
     private EditText mInputEdit;
-    // 发送按钮
     private Button mSendBtn;
-
     public DrawerLayout mDrawerLayout;
-
-    // 显示内容的 TextView
-    //  private TextView mContentText;
 
     // 消息监听器
     private EMMessageListener mMessageListener;
-    // 当前聊天的 ID
-    private String mChatId;
-    // 当前会话对象
-    private int mImage;
 
+    private String mChatId;
+    private int mImage;
     private int userImage;
+
     private EMConversation mConversation;
 
     private RecyclerView msgRecyclerView;
@@ -87,17 +74,16 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
     private List<EMMessage> mMessages;
 
-    private List<Friends> mFriendses;
+    private View mView;   //?????
 
-    private View mView;
+    private UserInfo mUserInfo;
 
-
-
-    public static ChattingFragment newInstance(String arg,int img) {
+    public static ChattingFragment newInstance(String arg,int img,UserInfo userInfo) {
 
         Bundle args = new Bundle();
         args.putString("ec_chat_id",arg);
         args.putInt("ec_chat_img",img);
+        args.putSerializable("userInfo",userInfo);
         ChattingFragment fragment = new ChattingFragment();
         fragment.setArguments(args);
         return fragment;
@@ -109,44 +95,34 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         setHasOptionsMenu(true);
 
 
-
+        //获得指定的好友名称和头像
         mChatId = getArguments().getString("ec_chat_id");
         mImage = getArguments().getInt("ec_chat_img");
+        mUserInfo =(UserInfo) getArguments().getSerializable("userInfo");
 
-        UserInfoLab userInfoLab = UserInfoLab.get(getActivity());
-        UserInfo userInfo = userInfoLab.getUserInfo();
-        userImage = userInfo.getPicture();
+        //获得用户自己的头像
+
+        userImage = mUserInfo.getPicture();
 
         mMessageListener = this;
+
         mMessages = new ArrayList<>();
-
-        mFriendses = new ArrayList<>();
-
 
         //signIn();
 
-
-        String name = userInfo.getUsername();
-        String pass = userInfo.getPassword();
-
+        //*******在onCreate的方法里登陆********
+        String name = mUserInfo.getUsername();
+        String pass = mUserInfo.getPassword();
         SignInUtil.signIn(name,pass,getActivity());
 
     }
 
 
-
-    /*@Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.toolbar,menu);
-    }
-*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_conversation:
                 //删除会话
-
                 Snackbar.make(mView,"确定聊天记录删除吗？",Snackbar.LENGTH_LONG)
                         .setAction("确定", new View.OnClickListener() {
                             @Override
@@ -160,6 +136,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 return true;
             case android.R.id.home:
                 ToolKits.putInt(getActivity(),"fragment",1);
+                //**********开启singleTask的MainActivity**********
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
 
@@ -178,15 +155,11 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
         mView = v;
         mDrawerLayout = (DrawerLayout) v.findViewById(R.id.drawer_layout);
-
-
         mInputEdit = (EditText) v.findViewById(R.id.ec_edit_message_input);
         mSendBtn = (Button) v.findViewById(R.id.ec_btn_send);
-        //  mContentText = (TextView) v.findViewById(R.id.ec_text_content);
-        // 设置textview可滚动，需配合xml布局设置
-        //   mContentText.setMovementMethod(new ScrollingMovementMethod());
-
         msgRecyclerView = (RecyclerView) v.findViewById(R.id.msg_recycler_view);
+
+        //************加载聊天信息***********
         mConversation = EMClient.getInstance().chatManager().getConversation(mChatId, null, true);
         // 设置当前会话未读数为 0
         mConversation.markAllMessagesAsRead();
@@ -201,17 +174,15 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             mMessages = mConversation.getAllMessages();
         }
 
-        //MyAdapter.notifyItemInserted(mMessages.size() - 1);
-
+        //*********把加载到的聊天信息用来初始化适配器*********
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         msgRecyclerView.setLayoutManager(layoutManager);
         MyAdapter = new MsgAdapter(mMessages);
         msgRecyclerView.setAdapter(MyAdapter);
-
-
         msgRecyclerView.scrollToPosition(mMessages.size() - 1);
-        // 设置发送按钮的点击事件
 
+
+        // 设置发送按钮的点击事件
         mInputEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -228,6 +199,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
             }
         });
+
         mSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,18 +208,10 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                     mInputEdit.setText("");
                     // 创建一条新消息，第一个参数为消息内容，第二个为接受者username
                     EMMessage message = EMMessage.createTxtSendMessage(content, mChatId);
-
-                   /* if (message.getUserName() == mChatId){
-                        //放置到右边
-                    }else{
-                        //放置到左边
-                    }*/
-                    // message.setAttribute("from","left");
                     mMessages.add(message);
                     MyAdapter.notifyItemInserted(mMessages.size() - 1);
                     msgRecyclerView.scrollToPosition(mMessages.size() - 1);
-                    // 将新的消息内容和时间加入到下边
-                    //  mContentText.setText(mContentText.getText() + "\n发送：" + content + " - time: " + message.getMsgTime());
+
                     // 调用发送消息的方法
                     EMClient.getInstance().chatManager().sendMessage(message);
                     // 为消息设置回调
@@ -255,13 +219,13 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                         @Override
                         public void onSuccess() {
                             // 消息发送成功，打印下日志，正常操作应该去刷新ui
-                            Log.i("lzan13", "send message on success");
+                            Log.i(TAG, "send message on success");
                         }
 
                         @Override
                         public void onError(int i, String s) {
                             // 消息发送失败，打印下失败的信息，正常操作应该去刷新ui
-                            Log.i("lzan13", "send message on error " + i + " - " + s);
+                            Log.i(TAG, "send message on error " + i + " - " + s);
                         }
 
                         @Override
@@ -272,47 +236,9 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 }
             }
         });
-
-        // initConversation();
         return v;
     }
 
-    /**
-     * 初始化会话对象，并且根据需要加载更多消息
-     */
-    private void initConversation() {
-
-        /**
-         * 初始化会话对象，这里有三个参数么，
-         * 第一个表示会话的当前聊天的 useranme 或者 groupid
-         * 第二个是绘画类型可以为空
-         * 第三个表示如果会话不存在是否创建
-         */
-
-
-        // 打开聊天界面获取最后一条消息内容并显示
-        // String content = "";
-        if (mConversation.getAllMessages().size() > 0) {
-            List<EMMessage> messges = mConversation.getAllMessages();
-            for (EMMessage message : messges){
-
-//                EMTextMessageBody body = (EMTextMessageBody) messges.get(i).getBody();
-                //识别消息的来源
-               /* if (messges.get(i).getUserName() == mChatId){
-                    //放置到右边
-                }else{
-                    //放置到左边
-                }*/
-                mMessages.add(message);
-                MyAdapter.notifyItemInserted(mMessages.size() - 1);
-                msgRecyclerView.scrollToPosition(mMessages.size() - 1);
-                // content = content +"聊天记录：" + body.getMessage() + " - time: " + mConversation.getLastMessage().getMsgTime() + "\n";
-            }
-
-            // 将消息内容和时间显示出来
-            // mContentText.setText(content);
-        }
-    }
 
     /**
      * 自定义实现Handler，主要用于刷新UI操作
@@ -324,22 +250,9 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 case 0:
                     EMMessage message = (EMMessage) msg.obj;
                     message.setFrom(mChatId);
-
-
-
-                    // 这里只是简单的demo，也只是测试文字消息的收发，所以直接将body转为EMTextMessageBody去获取内容
-                    /*EMTextMessageBody body = (EMTextMessageBody) message.getBody();
-                    // 将新的消息内容和时间加入到下边
-                    if(message.getUserName() == mChatId){
-                        //放置到右边
-                    }else   {
-                        //放置到左边
-                    }
-                    mContentText.setText(mContentText.getText() + "\n接收：" + body.getMessage() + " - time: " + message.getMsgTime());*/
                     mMessages.add(message);
                     MyAdapter.notifyItemInserted(mMessages.size() - 1);
                     msgRecyclerView.scrollToPosition(mMessages.size() - 1);
-
                     break;
             }
         }
@@ -350,17 +263,12 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         super.onResume();
 
         if (!EMClient.getInstance().isLoggedInBefore()) {
-            /*Intent intent = new Intent(ECMainActivity.this, ECLoginActivity.class);
-            startActivity(intent);
-            finish();*/
 
-            UserInfoLab userInfoLab = UserInfoLab.get(getActivity());
-            UserInfo userInfo = userInfoLab.getUserInfo();
+            UserInfo userInfo = UserInfoLab.get(getActivity(),mUserInfo).getUserInfo();
             String name = userInfo.getUsername();
             String pass = userInfo.getPassword();
             userImage = userInfo.getPicture();
            SignInUtil.signIn(name,pass,getActivity());
-
         }
         // 添加消息监听
         EMClient.getInstance().chatManager().addMessageListener(mMessageListener);
@@ -385,13 +293,11 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
     @Override
     public void onMessageReceived(List<EMMessage> list) {
         // 循环遍历当前收到的消息
-
-        Log.d("test","yyyyyyyyyyyyyyyyyyyyyyyy");
-
-
+        Log.d(TAG,"在聊天碎片里接受到新消息");
         for (EMMessage message : list) {
             String id;
             int unread;
+            //如果是当前会话消息就更新时间
             if (message.getFrom().equals(mChatId)) {
 
                 id = mChatId;
@@ -405,7 +311,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 msg.obj = message;
                 mHandler.sendMessage(msg);
             } else {
-                // 如果消息不是当前会话的消息发送通知栏通知
+                // 如果消息不是当前会话的消息就发送广播，使聊天列表更新未读消息数，同时更新时间
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.getFrom());
                 unread = conversation.getUnreadMsgCount();
                 id = message.getFrom();
@@ -417,76 +323,34 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             getActivity().sendBroadcast(intent);
         }
     }
-
-    /**
-     * 收到新的 CMD 消息
-     *
-     * @param list
-     */
+    //*******其他的监听方法*********
     @Override
     public void onCmdMessageReceived(List<EMMessage> list) {
         for (int i = 0; i < list.size(); i++) {
             // 透传消息
             EMMessage cmdMessage = list.get(i);
             EMCmdMessageBody body = (EMCmdMessageBody) cmdMessage.getBody();
-            Log.i("lzan13", body.action());
         }
     }
-
-    /**
-     * 消息的状态改变
-     *
-     * @param message 发生改变的消息
-     * @param object  包含改变的消息
-     */
     @Override
     public void onMessageChanged(EMMessage message, Object object) {
     }
-    /**
-     * 收到新的发送回执
-     *
-     *
-     * 收到发送回执的消息集合
-     */
-
-    /**
-     * 收到新的已读回执
-     *
-     * 收到消息已读回执
-     */
-
-
-    /*@Override
-    public void onMessageDeliveryAckReceived(List<EMMessage> list) {
-
-    }
-
-
-    @Override
-    public void onMessageReadAckReceived(List<EMMessage> list) {
-
-    }*/
     @Override
     public void onMessageDelivered(List<EMMessage> messages) {
-
     }
-
     @Override
     public void onMessageRead(List<EMMessage> messages) {
-
     }
 
+    //**********适配器***********
     private class MyViewHodler extends RecyclerView.ViewHolder{
         LinearLayout leftLayout;
-
         LinearLayout rightLayout;
 
         TextView leftMsg;
-
         TextView rightMsg;
 
         ImageView leftImage;
-
         ImageView rightImage;
 
         public MyViewHodler(View view){
@@ -506,8 +370,6 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
     public class MsgAdapter extends RecyclerView.Adapter<MyViewHodler>{
 
         private List<EMMessage> mMsgList;
-
-
         public MsgAdapter(List<EMMessage> msgList){
             mMsgList = msgList;
         }
@@ -525,7 +387,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             EMMessage msg = mMsgList.get(position);
 
             if (msg.getFrom().equals(mChatId)) {   //mChatId是目标的id
-                Log.e("test","-----------------");
+
                 holder.leftLayout.setVisibility(View.GONE);
                 holder.rightLayout.setVisibility(View.VISIBLE);
 
@@ -535,10 +397,10 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 //  Glide.with(getActivity()).load(bm).fitCenter().into(holder.rightImage);
                 holder.rightImage.setImageBitmap(ScaleBitmap(bm));
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
-                holder.rightMsg.setText(body.getMessage() ); //+ " - time: " + msg.getMsgTime()
+                holder.rightMsg.setText(body.getMessage() );
 
             }else {
-                Log.e("test","+++++++++++++++++");
+
                 holder.rightLayout.setVisibility(View.GONE);
                 holder.leftLayout.setVisibility(View.VISIBLE);
 
@@ -548,17 +410,13 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 //Glide.with(getActivity()).load(bm).fitCenter().into(holder.leftImage);
 
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
-                holder.leftMsg.setText(body.getMessage() ); //+ " - time: " + msg.getMsgTime()
+                holder.leftMsg.setText(body.getMessage() );
             }
-
-
         }
 
         @Override
         public int getItemCount() {
-
             return mMsgList.size();
-
         }
 
         public Bitmap ScaleBitmap(Bitmap bm){
@@ -586,110 +444,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             return newBitmap;
         }
     }
-    /*private void signIn() {
-       *//* mDialog = new ProgressDialog(this);
-        mDialog.setMessage("正在登陆，请稍后...");
-        mDialog.show();*//*
-        *//*String username = mUsernameEdit.getText().toString().trim();
-        String password = mPasswordEdit.getText().toString().trim();*//*
 
-        String username = "xuniji";
-        String password = "123";
-        *//*if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-            Toast.makeText(ECLoginActivity.this, "用户名和密码不能为空", Toast.LENGTH_LONG).show();
-            return;
-        }*//*
-        EMClient.getInstance().login(username, password, new EMCallBack() {
-            *//**
-             * 登陆成功的回调
-             *//*
-            @Override
-            public void onSuccess() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        *//*mDialog.dismiss();*//*
-
-                        // 加载所有会话到内存
-                        EMClient.getInstance().chatManager().loadAllConversations();
-                        // 加载所有群组到内存，如果使用了群组的话
-                        // EMClient.getInstance().groupManager().loadAllGroups();
-
-                        // 登录成功跳转界面
-                       *//* Intent intent = new Intent(ECLoginActivity.this, ECMainActivity.class);
-                        startActivity(intent);
-                        finish();*//*
-                    }
-                });
-            }
-
-            *//**
-             * 登陆错误的回调
-             * @param i
-             * @param s
-             *//*
-            @Override
-            public void onError(final int i, final String s) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        *//*mDialog.dismiss();*//*
-                        Log.d("lzan13", "登录失败 Error code:" + i + ", message:" + s);
-                        *//**
-                         * 关于错误码可以参考官方api详细说明
-                         * http://www.easemob.com/apidoc/android/chat3.0/classcom_1_1hyphenate_1_1_e_m_error.html
-                         *//*
-                        switch (i) {
-                            // 网络异常 2
-                            case EMError.NETWORK_ERROR:
-                                Toast.makeText(getActivity(), "网络错误 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                            // 无效的用户名 101
-                            case EMError.INVALID_USER_NAME:
-                                Toast.makeText(getActivity(), "无效的用户名 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                            // 无效的密码 102
-                            case EMError.INVALID_PASSWORD:
-                                Toast.makeText(getActivity(), "无效的密码 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                            // 用户认证失败，用户名或密码错误 202
-                            case EMError.USER_AUTHENTICATION_FAILED:
-                                Toast.makeText(getActivity(), "用户认证失败，用户名或密码错误 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                            // 用户不存在 204
-                            case EMError.USER_NOT_FOUND:
-                                Toast.makeText(getActivity(), "用户不存在 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                            // 无法访问到服务器 300
-                            case EMError.SERVER_NOT_REACHABLE:
-                                Toast.makeText(getActivity(), "无法访问到服务器 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                            // 等待服务器响应超时 301
-                            case EMError.SERVER_TIMEOUT:
-                                Toast.makeText(getActivity(), "等待服务器响应超时 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                            // 服务器繁忙 302
-                            case EMError.SERVER_BUSY:
-                                Toast.makeText(getActivity(), "服务器繁忙 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                            // 未知 Server 异常 303 一般断网会出现这个错误
-                            case EMError.SERVER_UNKNOWN_ERROR:
-                                Toast.makeText(getActivity(), "未知的服务器异常 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                            default:
-                                Toast.makeText(getActivity(), "ml_sign_in_failed code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                break;
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onProgress(int i, String s) {
-
-            }
-        });
-    }*/
 
     @Override
     public void setMenuVisibility(boolean menuVisible) {

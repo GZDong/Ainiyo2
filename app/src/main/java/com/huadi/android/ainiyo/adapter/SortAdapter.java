@@ -14,6 +14,7 @@ import com.donkingliang.imageselector.entry.Image;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
 import com.huadi.android.ainiyo.entity.Friends;
+import com.huadi.android.ainiyo.entity.UserInfo;
 
 
 import java.util.List;
@@ -27,11 +28,12 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
     private LayoutInflater mInflater;
     private List<Friends> mData;
     private Context mContext;   //*************
-    private ImageView mImageView;
+    private UserInfo mUserInfo;
 
-    public SortAdapter(Context context, List<Friends> data) {
+    public SortAdapter(Context context, List<Friends> data,UserInfo userInfo) {
         mInflater = LayoutInflater.from(context);
         mData = data;
+        mUserInfo = new UserInfo(userInfo.getUsername(),userInfo.getPassword(),userInfo.getPicture());
         this.mContext = context;
     }
 
@@ -71,10 +73,11 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, mData.get(position).getName(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, mData.get(position).getName(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, FriendsInfoActivity.class);
                 intent.putExtra("name",mData.get(position).getName());
                 intent.putExtra("picture",mData.get(position).getPicture());
+                intent.putExtra("userInfo",mUserInfo);
                 mContext.startActivity(intent);
             }
         });

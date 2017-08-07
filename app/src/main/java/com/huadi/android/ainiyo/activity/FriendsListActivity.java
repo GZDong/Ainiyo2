@@ -30,6 +30,7 @@ import com.huadi.android.ainiyo.definedView.SideBar;
 import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 
+import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.util.PinyinComparator;
 import com.huadi.android.ainiyo.util.PinyinUtils;
 import com.huadi.android.ainiyo.util.ToolKits;
@@ -57,7 +58,7 @@ public class FriendsListActivity extends AppCompatActivity{
     private SortAdapter adapter;
     private ClearEditText mClearEditText;
 
-    private FriendsLab mFriendsLab;
+    private UserInfo mUserInfo;
 
     LinearLayoutManager manager;
 
@@ -66,6 +67,9 @@ public class FriendsListActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fri_list);
+
+        Intent intent =  getIntent();
+        mUserInfo = (UserInfo) intent.getSerializableExtra("userInfo");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -120,8 +124,8 @@ public class FriendsListActivity extends AppCompatActivity{
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        mFriendsLab = FriendsLab.get(this);
-        String[] names = mFriendsLab.getNames();
+
+        String[] names = FriendsLab.get(this,mUserInfo).getNames();
 
         SourceDateList = filledData(names);
 
@@ -131,7 +135,7 @@ public class FriendsListActivity extends AppCompatActivity{
         manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
-        adapter = new SortAdapter(this, SourceDateList);
+        adapter = new SortAdapter(this, SourceDateList,mUserInfo);
         mRecyclerView.setAdapter(adapter);
         //item点击事件
         /*adapter.setOnItemClickListener(new SortAdapter.OnItemClickListener() {
@@ -198,7 +202,7 @@ public class FriendsListActivity extends AppCompatActivity{
         List<Friends> mSortList = new ArrayList<>();
 
         for (int i = 0; i < date.length; i++) {
-            Friends sortModel = mFriendsLab.getFriend(date[i]);
+            Friends sortModel = FriendsLab.get(this,mUserInfo).getFriend(date[i]);
             //汉字转换成拼音
             String pinyin = PinyinUtils.getPingYin(date[i]);
             String sortString = pinyin.substring(0, 1).toUpperCase();

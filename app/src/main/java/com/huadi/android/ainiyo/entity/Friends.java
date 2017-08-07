@@ -14,16 +14,19 @@ public class Friends extends DataSupport{
 
     private int picture;
 
-    private int unreadMeg = 0;
+    private int unreadMeg = 0;  //该好友的未读信息数
 
-    private String newTime;
+    private String newTime;  //最新聊天时间
 
-    private String letters;
+    private String letters;  //首写字母
 
-    private boolean showInChooseFragment;
+    private boolean showInChooseFragment;  //是否出现在聊天列表
 
+    public Friends(){
 
+    }
 
+    //创建一个该用户的好友
     public Friends(String user,String name, int picture,int unread,String time,boolean show){
         this.user = user;
         this.name = name;
