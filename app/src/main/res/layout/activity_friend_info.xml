@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical" android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -10,8 +11,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/theme_red"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-    </android.support.v7.widget.Toolbar>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:orientation="vertical"
@@ -25,11 +25,9 @@
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:scaleType="centerCrop"
-            />
+            android:scaleType="centerCrop" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -37,8 +35,7 @@
             app:civ_border_width="2dp"
             app:civ_border_color="#FFF"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-70dp"
-            />
+            android:layout_marginTop="-70dp" />
 
     </LinearLayout>
 
@@ -75,7 +72,7 @@
             android:id="@+id/describe"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:padding="5dp"/>
+            android:padding="5dp" />
 
         <ListView
             android:layout_width="match_parent"
@@ -89,12 +86,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/send_msg"
-        android:background="#66d97b"
-        />
+        android:background="#66d97b" />
 
 
-</LinearLayout>
-<!--
+</LinearLayout><!--
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

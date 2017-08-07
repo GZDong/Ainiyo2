@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <litepal>
-    <dbname value="UserInfo" ></dbname>
+    <dbname value="UserInfo"></dbname>
     <version value="2"></version>
 
     <list>

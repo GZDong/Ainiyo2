@@ -8,15 +8,14 @@ import java.io.Serializable;
  * Created by zhidong on 2017/8/1.
  */
 
-public class UserInfo extends DataSupport implements Serializable{
+public class UserInfo extends DataSupport implements Serializable {
 
     private String username;
     private String password;
     private int picture;
 
 
-
-    public UserInfo(String username,String password,int picture){
+    public UserInfo(String username, String password, int picture) {
         this.username = username;
         this.password = password;
         this.picture = picture;

@@ -55,13 +55,13 @@ public class ChattingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
-        mUserInfo =(UserInfo) intent.getSerializableExtra("userInfo");
+        mUserInfo = (UserInfo) intent.getSerializableExtra("userInfo");
         actionBar.setTitle(name);
         int picture = intent.getIntExtra("img",0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
         if (fragment == null){
-            fragment = ChattingFragment.newInstance(name,picture,mUserInfo);
+            fragment = ChattingFragment.newInstance(name, picture, mUserInfo);
             fragmentManager.beginTransaction().add(R.id.fragment_container,fragment).commit();
         }
     }

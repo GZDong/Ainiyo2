@@ -32,10 +32,8 @@
             android:textColor="#fdd7d0d6"
             android:textSize="20sp"
             android:layout_marginLeft="140dp"
-            android:layout_below="@id/text"/>
+            android:layout_below="@id/text" />
     </RelativeLayout>
-
-
 
 
 </FrameLayout>
