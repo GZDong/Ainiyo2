@@ -39,7 +39,7 @@
             android:layout_height="@dimen/titile_bar_icon_size"
             android:padding="10dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_tab_finding_search" />
+            android:src="@drawable/ic_tab_mode_add" />
 
         <View
             android:layout_width="match_parent"
