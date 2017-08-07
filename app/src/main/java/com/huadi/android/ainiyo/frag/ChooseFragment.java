@@ -404,7 +404,6 @@ public class ChooseFragment extends Fragment {
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.getFrom());
                 int unread = conversation.getUnreadMsgCount();
                 if (conversation != null && unread > 0 ){
-
                     Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
                     intent.putExtra("ID",message.getFrom());
                     intent.putExtra("newM",unread);
