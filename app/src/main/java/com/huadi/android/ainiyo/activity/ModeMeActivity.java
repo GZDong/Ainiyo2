@@ -114,6 +114,7 @@ public class ModeMeActivity extends AppCompatActivity {
             public void OnDeleteItemClick(int position)
             {
                 ToolKits.DeletingModeData(ModeMeActivity.this,"modeMeInfoList",position);
+                ToolKits.DeletingModeData(ModeMeActivity.this, "modeInfoList", position);
                 //mList.remove(position);
                 mAdapter.notifyDataSetChanged();
                 Toast.makeText(ModeMeActivity.this,"删除成功,请下拉刷新",Toast.LENGTH_SHORT).show();

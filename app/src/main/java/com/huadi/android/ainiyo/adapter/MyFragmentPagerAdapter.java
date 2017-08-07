@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.huadi.android.ainiyo.MainActivity;
-import com.huadi.android.ainiyo.frag.AddressBookFragment;
+import com.huadi.android.ainiyo.frag.MovementFragment;
 import com.huadi.android.ainiyo.frag.ChooseFragment;
 import com.huadi.android.ainiyo.frag.FindingFragment;
 import com.huadi.android.ainiyo.frag.MeFragment;
@@ -30,7 +30,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter{
         myFragment1 = new FindingFragment();
         myFragment2 = new ChooseFragment();
         myFragment3 = new ModeFragment();
-        myFragment4 = new AddressBookFragment();
+        myFragment4 = new MovementFragment();
         myFragment5 = new MeFragment();
     }
 

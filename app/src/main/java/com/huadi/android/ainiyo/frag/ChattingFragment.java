@@ -78,12 +78,12 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
     private UserInfo mUserInfo;
 
-    public static ChattingFragment newInstance(String arg,int img,UserInfo userInfo) {
+    public static ChattingFragment newInstance(String arg, int img, UserInfo userInfo) {
 
         Bundle args = new Bundle();
         args.putString("ec_chat_id",arg);
         args.putInt("ec_chat_img",img);
-        args.putSerializable("userInfo",userInfo);
+        args.putSerializable("userInfo", userInfo);
         ChattingFragment fragment = new ChattingFragment();
         fragment.setArguments(args);
         return fragment;
@@ -98,7 +98,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         //获得指定的好友名称和头像
         mChatId = getArguments().getString("ec_chat_id");
         mImage = getArguments().getInt("ec_chat_img");
-        mUserInfo =(UserInfo) getArguments().getSerializable("userInfo");
+        mUserInfo = (UserInfo) getArguments().getSerializable("userInfo");
 
         //获得用户自己的头像
 
@@ -213,11 +213,11 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                     msgRecyclerView.scrollToPosition(mMessages.size() - 1);
 
                     //更新该好友的最新时间
-                    Friends friends = FriendsLab.get(getActivity(),mUserInfo).getFriend(mChatId);
+                    Friends friends = FriendsLab.get(getActivity(), mUserInfo).getFriend(mChatId);
 
                     Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
-                    intent.putExtra("ID",friends.getName());
-                    intent.putExtra("newM",friends.getUnreadMeg());
+                    intent.putExtra("ID", friends.getName());
+                    intent.putExtra("newM", friends.getUnreadMeg());
                     intent.putExtra("newT", DateUtil.getNowDate());
                     getActivity().sendBroadcast(intent);
 
@@ -274,7 +274,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
         if (!EMClient.getInstance().isLoggedInBefore()) {
 
-            UserInfo userInfo = UserInfoLab.get(getActivity(),mUserInfo).getUserInfo();
+            UserInfo userInfo = UserInfoLab.get(getActivity(), mUserInfo).getUserInfo();
             String name = userInfo.getUsername();
             String pass = userInfo.getPassword();
             userImage = userInfo.getPicture();
@@ -303,7 +303,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
     @Override
     public void onMessageReceived(List<EMMessage> list) {
         // 循环遍历当前收到的消息
-        Log.d(TAG,"在聊天碎片里接受到新消息");
+        Log.d(TAG, "在聊天碎片里接受到新消息");
         for (EMMessage message : list) {
             String id;
             int unread;
@@ -333,6 +333,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             getActivity().sendBroadcast(intent);
         }
     }
+
     //*******其他的监听方法*********
     @Override
     public void onCmdMessageReceived(List<EMMessage> list) {
@@ -407,7 +408,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 //  Glide.with(getActivity()).load(bm).fitCenter().into(holder.rightImage);
                 holder.rightImage.setImageBitmap(ScaleBitmap(bm));
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
-                holder.rightMsg.setText(body.getMessage() );
+                holder.rightMsg.setText(body.getMessage());
 
             }else {
 
@@ -420,7 +421,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 //Glide.with(getActivity()).load(bm).fitCenter().into(holder.leftImage);
 
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
-                holder.leftMsg.setText(body.getMessage() );
+                holder.leftMsg.setText(body.getMessage());
             }
         }
 
