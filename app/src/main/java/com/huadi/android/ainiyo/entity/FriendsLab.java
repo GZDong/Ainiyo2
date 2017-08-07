@@ -194,4 +194,14 @@ public class FriendsLab {
         }
     }
 
+    //设置是否在聊天列表出现
+    public void setShow(Friends friends){
+        if (friends.isShowInChooseFragment() == false){
+            for (Friends friends1 : mFriendses){
+                if (friends1.getName().equals(friends.getName())){
+                    friends1.setShowInChooseFragment(true);
+                }
+            }
+        }
+    }
 }

@@ -72,6 +72,10 @@ public class Friends extends DataSupport{
         return showInChooseFragment;
     }
 
+    public void setShowInChooseFragment(boolean result){
+        this.showInChooseFragment = result;
+    }
+
     public void setLetters(String letters) {
         this.letters = letters;
     }

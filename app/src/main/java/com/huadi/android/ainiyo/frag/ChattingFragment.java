@@ -212,8 +212,18 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                     MyAdapter.notifyItemInserted(mMessages.size() - 1);
                     msgRecyclerView.scrollToPosition(mMessages.size() - 1);
 
+                    //更新该好友的最新时间
+                    Friends friends = FriendsLab.get(getActivity(),mUserInfo).getFriend(mChatId);
+
+                    Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
+                    intent.putExtra("ID",friends.getName());
+                    intent.putExtra("newM",friends.getUnreadMeg());
+                    intent.putExtra("newT", DateUtil.getNowDate());
+                    getActivity().sendBroadcast(intent);
+
                     // 调用发送消息的方法
                     EMClient.getInstance().chatManager().sendMessage(message);
+
                     // 为消息设置回调
                     message.setMessageStatusCallback(new EMCallBack() {
                         @Override

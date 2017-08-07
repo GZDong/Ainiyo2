@@ -78,6 +78,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(FriendsInfoActivity.this,ChattingActivity.class);
                 intent.putExtra("name",name);
                 intent.putExtra("img",picture);
@@ -90,6 +91,9 @@ public class FriendsInfoActivity extends AppCompatActivity {
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(name);
                 if (conversation != null){
                     conversation.markAllMessagesAsRead();
+                }
+                if (fri.isShowInChooseFragment() == false){
+                    fri.setShowInChooseFragment(true);
                 }
                 startActivity(intent);
             }
