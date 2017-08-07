@@ -65,22 +65,29 @@ public class FriendsLab {
                 unread = conversation.getUnreadMsgCount();
             }
             //
-            Friends friend1 = new Friends(userInfo.getUsername() ,"shouji",R.drawable.examplepicture,unread, DateUtil.getNowDate(),true);
+            Friends friend1 = new Friends(userInfo.getUsername() ,"shouji",R.drawable.touxiang,unread, DateUtil.getNowDate(),true);
             Friends friend2 = new Friends(userInfo.getUsername() ,"xiaoming",R.drawable.user2,3, DateUtil.getNowDate(),true);
-            Friends friend3 = new Friends(userInfo.getUsername() ,"aong",R.drawable.right_image,7,"2017-08-03 16:40:59",true);
-            Friends friend4 = new Friends(userInfo.getUsername() ,"bong",R.drawable.right_image,2,"2017-08-02 16:40:59",true);
-            Friends friend5 = new Friends(userInfo.getUsername() ,"cong",R.drawable.right_image,1,"2017-08-03 16:41:59",false);
-            Friends friend6 = new Friends(userInfo.getUsername() ,"dong",R.drawable.right_image,3,"2017-08-03 16:40:59",true);
-            Friends friend7 = new Friends(userInfo.getUsername() ,"eong",R.drawable.right_image,0,"2017-08-03 16:43:59",false);
-            Friends friend8 = new Friends(userInfo.getUsername() ,"fong",R.drawable.right_image,0,"2017-08-03 16:40:59",false);
-            Friends friend9 = new Friends(userInfo.getUsername() ,"gong",R.drawable.right_image,0,"2017-08-03 16:45:59",false);
-            Friends friend10 = new Friends(userInfo.getUsername() ,"hong",R.drawable.right_image,0,"2017-08-03 16:40:59",false);
-            Friends friend11 = new Friends(userInfo.getUsername() ,"冯庆星",R.drawable.right_image,0,"2017-08-03 16:46:59",true);
-            Friends friend12 = new Friends(userInfo.getUsername() ,"陈华琳",R.drawable.right_image,0,"2017-08-03 16:40:48",true);
-            Friends friend13 = new Friends(userInfo.getUsername() ,"杨小兴",R.drawable.right_image,0,"2017-08-05 16:13:00",true);
-            Friends friend14 = new Friends(userInfo.getUsername() ,"黄嘉豪",R.drawable.right_image,0,"2017-08-03 16:40:59",false);
-            Friends friend15 = new Friends(userInfo.getUsername() ,"黄铭熙",R.drawable.right_image,0,"2017-08-03 16:40:59",false);
-            Friends friend16 = new Friends(userInfo.getUsername() ,"郑文辉",R.drawable.right_image,0,"2017-08-03 16:40:59",true);
+            Friends friend3 = new Friends(userInfo.getUsername() ,"新垣结衣",R.drawable.right_image,11,"2017-08-04 16:40:59",true);
+            Friends friend4 = new Friends(userInfo.getUsername() ,"Scarlett",R.drawable.sijiali,2,"2017-08-04 17:40:30",true);
+            Friends friend5 = new Friends(userInfo.getUsername() ,"LiChengming",R.drawable.examplepicture,1,"2017-08-03 16:41:59",true);
+            Friends friend6 = new Friends(userInfo.getUsername() ,"dong",R.drawable.example,3,"2017-08-03 16:40:59",false);
+            Friends friend7 = new Friends(userInfo.getUsername() ,"eong",R.drawable.example,0,"2017-08-03 16:43:59",false);
+            Friends friend8 = new Friends(userInfo.getUsername() ,"fong",R.drawable.example,0,"2017-08-03 16:40:59",false);
+            Friends friend9 = new Friends(userInfo.getUsername() ,"gong",R.drawable.example,0,"2017-08-03 16:45:59",false);
+            Friends friend10 = new Friends(userInfo.getUsername() ,"hong",R.drawable.example,0,"2017-08-03 16:40:59",false);
+            Friends friend11 = new Friends(userInfo.getUsername() ,"冯庆星",R.drawable.example,0,"2017-08-03 16:46:59",false);
+            Friends friend12 = new Friends(userInfo.getUsername() ,"陈华琳",R.drawable.example,0,"2017-08-03 16:40:48",false);
+            Friends friend13 = new Friends(userInfo.getUsername() ,"杨小兴",R.drawable.example,0,"2017-08-05 16:13:00",false);
+            Friends friend14 = new Friends(userInfo.getUsername() ,"黄嘉豪",R.drawable.example,0,"2017-08-03 16:40:59",false);
+            Friends friend15 = new Friends(userInfo.getUsername() ,"黄铭熙",R.drawable.example,0,"2017-08-03 16:40:59",false);
+            Friends friend16 = new Friends(userInfo.getUsername() ,"郑文辉",R.drawable.example,0,"2017-08-03 16:40:59",false);
+            Friends friend17 = new Friends(userInfo.getUsername() ,"范冰冰",R.drawable.bingbing,2,"2017-08-04 16:44:59",true);
+            Friends friend18 = new Friends(userInfo.getUsername() ,"高圆圆",R.drawable.gaoyuanyuan,3,"2017-08-04 22:40:59",true);
+            Friends friend19 = new Friends(userInfo.getUsername() ,"李冰冰",R.drawable.libingbing,1,"2017-08-02 16:40:59",true);
+            Friends friend20 = new Friends(userInfo.getUsername() ,"林青霞",R.drawable.lingqingxia,0,"2017-08-04 16:40:59",true);
+            Friends friend21 = new Friends(userInfo.getUsername() ,"林志玲",R.drawable.lingzhiling,0,"2017-08-03 19:26:15",true);
+            Friends friend22 = new Friends(userInfo.getUsername() ,"刘亦菲",R.drawable.liuyifei,4,"2017-08-04 16:40:59",true);
+            Friends friend23 = new Friends(userInfo.getUsername() ,"章子怡",R.drawable.zhangziyi,0,"2017-08-04 22:40:59",false);
 
             mmFriendses.add(friend3);
             mmFriendses.add(friend2);
@@ -98,6 +105,14 @@ public class FriendsLab {
             mmFriendses.add(friend15);
             mmFriendses.add(friend16);
             mmFriendses.add(friend1);
+            mmFriendses.add(friend17);
+            mmFriendses.add(friend18);
+            mmFriendses.add(friend19);
+            mmFriendses.add(friend20);
+            mmFriendses.add(friend21);
+            mmFriendses.add(friend22);
+            mmFriendses.add(friend23);
+
 
             //获得数据后先获得每个好友的未读信息，后存入数据库
             //这里记得初始化一些服务器上没有的数据

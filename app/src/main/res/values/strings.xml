@@ -18,4 +18,5 @@
     <string name="search_hint">请输入关键字</string>
     <string name="send_chat_request">发起聊天</string>
     <string name="fri_info">好友信息</string>
+    <string name="item_test">测试数据</string>
 </resources>

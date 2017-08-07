@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:buttonStyle">@style/OralButton</item>
+        <!--<item name="android:buttonStyle">@style/OralButton</item>-->
         <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
@@ -14,6 +14,9 @@
         <item name="colorControlActivated">@color/black</item>
     </style>
     <style name="OralButton" parent="android:style/Widget.Holo.Button">
-        <item name="android:background">@drawable/send</item>
+        <item name="android:background">@drawable/send2</item>
+    </style>
+    <style name="MsgButton" parent="android:style/Widget.Holo.Button">
+        <item name="android:background">@drawable/send2</item>
     </style>
 </resources>
