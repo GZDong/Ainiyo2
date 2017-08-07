@@ -35,6 +35,8 @@ import com.lidroid.xutils.view.annotation.event.OnCheckedChange;
 
 import com.huadi.android.ainiyo.adapter.MyFragmentPagerAdapter;
 
+import org.litepal.tablemanager.Connector;
+
 import java.lang.reflect.Field;
 
 
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Connector.getDatabase();
 
         if (ContextCompat.checkSelfPermission(MainActivity.this,"android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this,new String[] {"android.permission.WRITE_EXTERNAL_STORAGE"},1);

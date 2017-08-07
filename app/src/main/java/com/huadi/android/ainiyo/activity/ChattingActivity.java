@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.frag.ChattingFragment;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -27,6 +28,8 @@ import com.hyphenate.chat.EMClient;
  */
 
 public class ChattingActivity extends AppCompatActivity {
+
+    private UserInfo mUserInfo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,13 +55,13 @@ public class ChattingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
-
+        mUserInfo =(UserInfo) intent.getSerializableExtra("userInfo");
         actionBar.setTitle(name);
         int picture = intent.getIntExtra("img",0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
         if (fragment == null){
-            fragment = ChattingFragment.newInstance(name,picture);
+            fragment = ChattingFragment.newInstance(name,picture,mUserInfo);
             fragmentManager.beginTransaction().add(R.id.fragment_container,fragment).commit();
         }
     }

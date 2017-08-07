@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/bar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="49dp"
         android:gravity="center_vertical"
         android:background="@color/theme_red"
         >

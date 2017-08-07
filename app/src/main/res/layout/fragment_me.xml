@@ -5,54 +5,37 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:background="@color/theme_red"
-            >
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="20dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/jiantou"
-                android:layout_marginLeft="10dp"/>
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="个人中心"
-                android:layout_gravity="center"
-                android:layout_marginLeft="113dp"
-                android:textSize="24sp" />
-        </LinearLayout>
 
         <TextView
+            android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="您还没有登录，请登陆！"
-            android:textSize="18sp" />
+            android:text="您还没有登录哦！"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@id/top"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/Login1"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="登陆" />
-    </LinearLayout>
+            android:text="马上登陆"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button"
+            android:textColor="#fdd7d0d6"
+            android:textSize="20sp"
+            android:layout_marginLeft="140dp"
+            android:layout_below="@id/text"/>
+    </RelativeLayout>
 
-    <TextView android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Me"
-        android:gravity="center"
-        android:textSize="24sp"
-        />
+
 
 
 </FrameLayout>

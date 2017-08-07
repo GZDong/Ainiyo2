@@ -7,6 +7,8 @@ import android.content.Context;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 
+import org.litepal.LitePalApplication;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class ECApplication extends Application {
         super.onCreate();
         mContext = getApplicationContext();
 
-
+        LitePalApplication.initialize(mContext);
 
         // 初始化环信SDK
         initEasemob();
