@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -26,7 +28,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity  {
 
     @ViewInject(R.id.register1)
     private TextView register1;
@@ -36,8 +38,10 @@ public class LoginActivity extends AppCompatActivity {
     private EditText login_name;
     @ViewInject(R.id.login_pwd)
     private EditText login_pwd;
-    @ViewInject(R.id.back)
-    private ImageView back;
+    @ViewInject(R.id.l_name)
+    private TextView l_name;
+    @ViewInject(R.id.l_pwd)
+    private TextView l_pwd;
 
 
     @Override
@@ -52,16 +56,23 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-    @OnClick({R.id.register1,R.id.Login2,R.id.back})
+    @OnClick({R.id.register1,R.id.Login2,R.id.login_name,R.id.login_pwd})
     public void OnClick(View v){
         switch (v.getId()){
+            case R.id.login_pwd:
+                l_pwd.setVisibility(View.VISIBLE);
+                l_name.setVisibility(View.GONE);
+                break;
+            case R.id.login_name:
+                l_pwd.setVisibility(View.GONE);
+                l_name.setVisibility(View.VISIBLE);
+                break;
             case R.id.register1:
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
                 break;
-            case R.id.back:
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                break;
             case R.id.Login2:
+                l_pwd.setVisibility(View.GONE);
+                l_name.setVisibility(View.GONE);
                 if(login_name.getText().toString().trim().length()<=0){
                     login_name.setError("用户名不能为空！");
                     return;
@@ -82,8 +93,8 @@ public class LoginActivity extends AppCompatActivity {
                                     JSONObject object=new JSONObject(info);
                                     String msg=object.getString("Msg");
                                     if(msg.equals("success")){
-                                        Toast.makeText(LoginActivity.this,"登陆成功！",Toast.LENGTH_SHORT).show();
-                                        finish();
+                                        Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
                                     } Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
                                 }
                                 catch (JSONException e){

@@ -13,7 +13,7 @@
         >
 
         <ImageView
-            app:srcCompat="@drawable/placeholder360x160"
+            app:srcCompat="@drawable/backgroud"
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="160dp"
@@ -25,7 +25,7 @@
             android:id="@+id/profile_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/placeholder100x100"
+            android:src="@drawable/left_image"
             app:civ_border_width="2dp"
             app:civ_border_color="#FFF"
             android:layout_gravity="center_horizontal"
@@ -51,7 +51,7 @@
             android:textAlignment="center" />
 
         <TextView
-            android:text="sign"
+            android:text="吴彦祖"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/signField"
@@ -61,7 +61,7 @@
             android:textAlignment="center" />
 
         <TextView
-            android:text="GIRLS 25 USA"
+            android:text="四川-成都"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/describe"
@@ -77,9 +77,10 @@
     </LinearLayout>
 
     <Button
-        android:text="Button"
+        android:text="编辑个人信息"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20dp"
         android:id="@+id/behavior" />
 
 
