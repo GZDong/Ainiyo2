@@ -1,17 +1,20 @@
 package com.huadi.android.ainiyo.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.huadi.android.ainiyo.activity.LoadingDialog;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.UserInfo;
@@ -39,10 +42,8 @@ public class LoginActivity extends AppCompatActivity  {
     private EditText login_name;
     @ViewInject(R.id.login_pwd)
     private EditText login_pwd;
-    @ViewInject(R.id.l_name)
-    private TextView l_name;
-    @ViewInject(R.id.l_pwd)
-    private TextView l_pwd;
+    @ViewInject(R.id.check_box)
+    private CheckBox check_box;
 
 
     @Override
@@ -54,26 +55,27 @@ public class LoginActivity extends AppCompatActivity  {
             actionbar.hide();
         }
         ViewUtils.inject(this);
+            SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
+            String username=pref.getString("username","");
+            String password=pref.getString("password","");
+            Boolean isremember=pref.getBoolean("remember_pwd",false);
+        if(isremember){
+            login_name.setText(username);
+            login_pwd.setText(password);
+        check_box.setChecked(true);}
 
 
     }
-    @OnClick({R.id.register1,R.id.Login2,R.id.login_name,R.id.login_pwd})
+
+
+
+    @OnClick({R.id.register1,R.id.Login2})
     public void OnClick(View v){
         switch (v.getId()){
-            case R.id.login_pwd:
-                l_pwd.setVisibility(View.VISIBLE);
-                l_name.setVisibility(View.GONE);
-                break;
-            case R.id.login_name:
-                l_pwd.setVisibility(View.GONE);
-                l_name.setVisibility(View.VISIBLE);
-                break;
             case R.id.register1:
                 startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
                 break;
             case R.id.Login2:
-                l_pwd.setVisibility(View.GONE);
-                l_name.setVisibility(View.GONE);
                 if(login_name.getText().toString().trim().length()<=0){
                     login_name.setError("用户名不能为空！");
                     return;
@@ -94,9 +96,41 @@ public class LoginActivity extends AppCompatActivity  {
                                     JSONObject object=new JSONObject(info);
                                     String msg=object.getString("Msg");
                                     if(msg.equals("success")){
+                                        final LoadingDialog dia=new LoadingDialog(LoginActivity.this);
+                                        dia.setMessage("正在登陆中..").show();
+                                        if(check_box.isChecked()){
+                                            SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
+                                            editor.putString("username",login_name.getText().toString());
+                                            editor.putString("password",login_pwd.getText().toString());
+                                            editor.putBoolean("remember_pwd",true);
+                                            editor.apply();
+                                        }
+                                        if(!check_box.isChecked()){
+                                            SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
+                                            editor.remove("username");
+                                            editor.remove("password");
+                                            editor.putBoolean("remember_pwd",false);
+                                            editor.apply();
+                                        }
+                                     UserInfo userInfo=new UserInfo(login_name.getText().toString(),login_pwd.getText().toString(),0);
+                                        UserInfo lab=UserInfoLab.get(LoginActivity.this,userInfo).getUserInfo();
+                                        new Thread(new Runnable(){
+                                            @Override
+                                            public void run(){
+                                                try{
+                                                    Thread.sleep(2000);
+                                                    dia.dismiss();
+                                                }
+                                                catch (InterruptedException e){
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
+                                        }).start();
                                         Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                                    } Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
+                                    }
+                                    if(!msg.equals("success")){Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();}
                                 }
                                 catch (JSONException e){
                                     e.printStackTrace();

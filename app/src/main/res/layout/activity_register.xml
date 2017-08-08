@@ -26,6 +26,7 @@
         android:layout_marginRight="50sp"
         android:textColorHint="#585454"
         android:hint="手机号"
+        android:inputType="number"
         />
     <EditText
         android:id="@+id/register_pwd1"

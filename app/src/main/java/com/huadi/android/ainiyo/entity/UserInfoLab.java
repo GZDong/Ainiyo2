@@ -1,6 +1,8 @@
 package com.huadi.android.ainiyo.entity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.huadi.android.ainiyo.R;
 
@@ -8,6 +10,8 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 import java.util.UUID;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by zhidong on 2017/8/1.
