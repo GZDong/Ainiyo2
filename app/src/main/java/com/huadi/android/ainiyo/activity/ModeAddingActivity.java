@@ -2,15 +2,19 @@ package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.MainActivity;
@@ -30,7 +34,11 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 
 public class ModeAddingActivity extends AppCompatActivity {
@@ -42,8 +50,11 @@ public class ModeAddingActivity extends AppCompatActivity {
     private Button btn_limit;
     private int requestCode;
     private ArrayList<String> images;
+    private ArrayList<String> imagesUrl = new ArrayList<String>();
     @ViewInject(R.id.et_mode_add_saying)
     EditText et_mode_add_saying;
+    public static final int UPDATE_TEXT = 1;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +65,10 @@ public class ModeAddingActivity extends AppCompatActivity {
 
         rvImage = (RecyclerView) findViewById(R.id.rv_image);
         rvImage.setLayoutManager(new GridLayoutManager(this, 3));
+
         mAdapter = new ImageAdapter(this);
         rvImage.setAdapter(mAdapter);
+
 
     }
 
@@ -84,17 +97,21 @@ public class ModeAddingActivity extends AppCompatActivity {
                 break;
             case R.id.tv_mode_add:
                 ToolKits.putInt(this,"fragment",2);
-                Intent t1=new Intent();
+//                Intent t1=new Intent();
+//
+//                ModeInfo mi = new ModeInfo(null, et_mode_add_saying.getText().toString(), null, images);
+//                ArrayList<ModeInfo> list1 = ToolKits.GettingModedata(ModeAddingActivity.this, "modeMeInfoList");
+//                list1.add(0, mi);
+//                ToolKits.SavingModeData(ModeAddingActivity.this, "modeMeInfoList", list1);
+//                ArrayList<ModeInfo> list2 = ToolKits.GettingModedata(ModeAddingActivity.this, "modeInfoList");
+//                list2.add(0, mi);
+//                ToolKits.SavingModeData(ModeAddingActivity.this, "modeInfoList", list2);
 
-                ModeInfo mi = new ModeInfo(null, et_mode_add_saying.getText().toString(), null, images);
-                ArrayList<ModeInfo> list1 = ToolKits.GettingModedata(ModeAddingActivity.this, "modeMeInfoList");
-                list1.add(0, mi);
-                ToolKits.SavingModeData(ModeAddingActivity.this, "modeMeInfoList", list1);
-                ArrayList<ModeInfo> list2 = ToolKits.GettingModedata(ModeAddingActivity.this, "modeInfoList");
-                list2.add(0, mi);
-                ToolKits.SavingModeData(ModeAddingActivity.this, "modeInfoList", list2);
-                // upLoadPho();
-                //upLoadContent();
+                upLoadPho();
+                //Toast.makeText(ModeAddingActivity.this,String.valueOf(imagesUrl.size()),Toast.LENGTH_SHORT).show();
+
+
+
                 finish();
                 break;
 
@@ -103,31 +120,66 @@ public class ModeAddingActivity extends AppCompatActivity {
 
     //上传照片
     public void upLoadPho() {
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("sessionid", "b270846459ebee58a080203e2a5c8995e8476f7f");
-        params.addBodyParameter("content", et_mode_add_saying.getText().toString());
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.PUBLISH_MODE, params, new RequestCallBack<String>() {
+        int i;
+        for (i = 0; i < images.size(); i++) {
 
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                ResponseObject<String> object = new GsonBuilder().create().
-                        fromJson(responseInfo.result, new TypeToken<ResponseObject<String>>() {
-                        }.getType());
+            Luban.with(this).load(new File(images.get(i))).setCompressListener(new OnCompressListener() {
+                @Override
+                public void onStart() {
 
-            }
+                }
 
-            @Override
-            public void onFailure(HttpException error, String msg) {
-                Toast.makeText(ModeAddingActivity.this, msg, Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onSuccess(File file) {
+                    RequestParams params = new RequestParams();
+                    params.addBodyParameter("sessionid", CONST.SESSIONID);
+                    params.addBodyParameter("photo", file);
+                    new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.UPLOAD_PHOTO, params, new RequestCallBack<String>() {
+
+                        @Override
+                        public void onSuccess(ResponseInfo<String> responseInfo) {
+                            ResponseObject<String> object = new GsonBuilder().create().
+                                    fromJson(responseInfo.result, new TypeToken<ResponseObject<String>>() {
+                                    }.getType());
+                            String s = object.getResult();
+                            //Toast.makeText(ModeAddingActivity.this, "result:" + s + "Status:" + object.getStatus() + "Msg" + object.getMsg(), Toast.LENGTH_SHORT).show();
+                            imagesUrl.add(s);
+
+                            //Toast.makeText(ModeAddingActivity.this,String.valueOf(imagesUrl.size()),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ModeAddingActivity.this, "imagesUrl.size" + String.valueOf(imagesUrl.size()) + "   images.size()" + String.valueOf(images.size()), Toast.LENGTH_SHORT).show();
+                            if (imagesUrl.size() == images.size()) {
+                                upLoadContent(imagesUrl);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(HttpException error, String msg) {
+                            Toast.makeText(ModeAddingActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+            }).launch();
+
+
+        }
+        // Toast.makeText(ModeAddingActivity.this,String.valueOf(imagesUrl.size()),Toast.LENGTH_SHORT).show();
+
     }
 
     //上传心情信息
-    public void upLoadContent() {
+    public void upLoadContent(ArrayList<String> mList) {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("sessionid", "b270846459ebee58a080203e2a5c8995e8476f7f");
-        params.addBodyParameter("content", et_mode_add_saying.getText().toString());
+        params.addBodyParameter("sessionid", CONST.SESSIONID);
+        //Toast.makeText(ModeAddingActivity.this,String.valueOf(imagesUrl.size()),Toast.LENGTH_SHORT).show();
+        ModeInfo mi = new ModeInfo(null, et_mode_add_saying.getText().toString(), null, mList);
+        Gson gson = new Gson();
+        String json = gson.toJson(mi);
+        params.addBodyParameter("content", json);
         new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.PUBLISH_MODE, params, new RequestCallBack<String>() {
 
             @Override
@@ -135,7 +187,7 @@ public class ModeAddingActivity extends AppCompatActivity {
                 ResponseObject<String> object = new GsonBuilder().create().
                         fromJson(responseInfo.result, new TypeToken<ResponseObject<String>>() {
                         }.getType());
-
+                Toast.makeText(ModeAddingActivity.this, "success?" + object.getStatus(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

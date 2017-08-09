@@ -77,6 +77,29 @@ public class ToolKits {
 		return list;
 	}
 
+	public static void putInteger(Context context, String key, ArrayList<Integer> value) {
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		Gson gson = new Gson();
+		String json = gson.toJson(value);
+		editor.putString(key, json);
+		editor.commit();
+	}
+
+	public static ArrayList<Integer> fetchInteger(Context context, String key) {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		String json = sharedPreferences.getString(key, null);
+		if (json != null) {
+			Gson gson = new Gson();
+			Type type = new TypeToken<ArrayList<Integer>>() {
+			}.getType();
+			list = gson.fromJson(json, type);
+		}
+		return list;
+	}
+
 	public static void putInt(Context context,String key,int value){
 		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -35,7 +35,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final String image = mImages.get(position);
-        Glide.with(mContext).load(new File(image)).into(holder.ivImage);
+        Glide.with(mContext).load(image).into(holder.ivImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

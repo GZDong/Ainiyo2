@@ -84,7 +84,8 @@ public class ModeMeAdapter extends BaseAdapter {
         {
 //            if(modeInfo.getImgUrlforContent().size()==1) {
             final String image = modeInfo.getImgUrlforContent().get(0);
-            Glide.with(parent.getContext()).load(new File(image)).into(holder.pic_content);
+            Glide.with(parent.getContext()).load(image).into(holder.pic_content);
+            // Glide.with(parent.getContext()).load(new File(image)).into(holder.pic_content);
 
             // Glide.with(parent.getContext()).load("http://120.24.168.102:8080/getalumb?sessionid=5ca6b5f4b438030f123fb149ff19fd8769365789").skipMemoryCache(false).into(holder.pic_content);
 //            }else{

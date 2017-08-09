@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
@@ -29,6 +30,7 @@ import com.huadi.android.ainiyo.activity.ModeDetailActivity;
 import com.huadi.android.ainiyo.activity.ModeMeActivity;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.HttpUtils;
@@ -42,6 +44,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,93 +104,103 @@ public class ModeFragment extends Fragment {
 
     private void loadDatas(final boolean direction)
     {
-//        RequestParams params = new RequestParams();
-//        if (!direction) {// 如果是尾部刷新要重新计算分页数据
-//            page++;
-//        } else {
-//            page = 1;
-//        }
-//
-//        params.addBodyParameter("sessionid", "b270846459ebee58a080203e2a5c8995e8476f7f");
-//        params.addBodyParameter("page", "0");
-//        params.addBodyParameter("pagesize", "4");
-//        params.addBodyParameter("type", "1");
-//
-//        new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
-//
-//            @Override
-//            public void onSuccess(ResponseInfo<String> responseInfo) {
-//                mode_list_view.onRefreshComplete();
-//                ResponseObject<ModeResult> object = new GsonBuilder().create().
-//                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ModeResult>>() {
-//                        }.getType());
-//
-//
-//                if (direction)// 头部刷新
-//                {// 渲染内容到界面上
-//                    mwd = object.getResult().getData();
-//                    int sum = object.getResult().getSum();
-//                    ModeWebData mwd1 = new ModeWebData(0, 0, null, null);
-//                    for (int i = 0; i < sum; i++) {
-//                        mwd1 = mwd[i];
-//                    }
-//                    int userid = mwd1.getUserid();
-//                    String content = mwd1.getContent();
-//
-//
+        RequestParams params = new RequestParams();
+        if (!direction) {// 如果是尾部刷新要重新计算分页数据
+            page++;
+        } else {
+            page = 1;
+        }
+
+        params.addBodyParameter("sessionid", CONST.SESSIONID);
+        params.addBodyParameter("page", "0");
+        params.addBodyParameter("pagesize", "10");
+        params.addBodyParameter("type", "1");
+
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                mode_list_view.onRefreshComplete();
+                ResponseObject<ModeResult> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ModeResult>>() {
+                        }.getType());
+
+
+                if (direction)// 头部刷新
+                {// 渲染内容到界面上
+                    //清空原来的数据
+                    mList.clear();
+                    ArrayList<Integer> idorder = new ArrayList<Integer>();
+                    mwd = object.getResult().getData();
+                    int sum = object.getResult().getSum();
+                    ModeWebData mwd1;
+                    for (int i = sum - 1; i >= 0; i--) {
+                        mwd1 = mwd[i];
+
+                        idorder.add(mwd1.getId());
+                        ToolKits.putInteger(getActivity(), "Integer", idorder);
+
+                        int userid = mwd1.getUserid();
+                        String content = mwd1.getContent();
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<ModeInfo>() {
+                        }.getType();
+                        ModeInfo mi;
+                        mi = gson.fromJson(mwd1.getContent(), type);
+                        mList.add(mi);
+                    }
+
 //                    Toast.makeText(getActivity(),
 //                            "content=" + content + ",userid=" + String.valueOf(userid)
 //                                    + ",msg=" + object.getMsg() + ",Status=" + object.getStatus(),
 //                            Toast.LENGTH_SHORT).show();
-//
-//                    //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-//                    mAdapter = new ModeAdapter(mList);
-//                    mode_list_view.setAdapter(mAdapter);
-//
-//                    //防止刷新获取数据时候，时间太短,而出现的bug,最后为0.001秒
-//                    mode_list_view.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            mode_list_view.onRefreshComplete();
-//                        }
-//                    }, 1);
-//
-//                } else {// 尾部刷新
-//                    //mList.addAll(object.getDatas());
-//                    mAdapter.notifyDataSetChanged();
-//                }
-//                if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
-//                    mode_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-//                }
-//            }
-//            @Override
-//            public void onFailure(HttpException error, String msg) {
-//                mode_list_view.onRefreshComplete();
-//                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
-        if (direction)// 头部刷新
-        {// 渲染内容到界面上
-            mList = ToolKits.GettingModedata(getActivity(), "modeInfoList");
-            mAdapter = new ModeAdapter(mList);
-            mode_list_view.setAdapter(mAdapter);
+//                    Toast.makeText(getActivity(),
+//                            "imageUrL:  "+mi.getImgUrlforContent().size(),
+//                            Toast.LENGTH_SHORT).show();
 
-            //防止刷新获取数据时候，时间太短,而出现的bug,最后为0.001秒
-            mode_list_view.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mode_list_view.onRefreshComplete();
+                    //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
+                    mAdapter = new ModeAdapter(mList);
+                    mode_list_view.setAdapter(mAdapter);
+
+
+                } else {// 尾部刷新
+                    //mList.addAll(object.getDatas());
+                    mAdapter.notifyDataSetChanged();
                 }
-            }, 1);
+                if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
+                    mode_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                }
+            }
 
-        } else {// 尾部刷新
-            //mList.addAll(object.getDatas());
-            mAdapter.notifyDataSetChanged();
-        }
-        if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
-            mode_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-        }
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                mode_list_view.onRefreshComplete();
+                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//        if (direction)// 头部刷新
+//        {// 渲染内容到界面上
+//            mList = ToolKits.GettingModedata(getActivity(), "modeInfoList");
+//            mAdapter = new ModeAdapter(mList);
+//            mode_list_view.setAdapter(mAdapter);
+//
+//            //防止刷新获取数据时候，时间太短,而出现的bug,最后为0.001秒
+//            mode_list_view.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mode_list_view.onRefreshComplete();
+//                }
+//            }, 1);
+//
+//        } else {// 尾部刷新
+//            //mList.addAll(object.getDatas());
+//            mAdapter.notifyDataSetChanged();
+//        }
+//        if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
+//            mode_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+//        }
     }
 
 
