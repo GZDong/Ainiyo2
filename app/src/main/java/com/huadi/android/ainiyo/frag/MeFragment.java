@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.activity.EditInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.util.ToolKits;
@@ -20,6 +21,8 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 public class MeFragment extends Fragment {
+    @ViewInject(R.id.behavior)
+    private Button behavior;
 
 
     @Override
@@ -30,7 +33,14 @@ public class MeFragment extends Fragment {
         ViewUtils.inject(this,view);
         return view;
     }
-
+   @OnClick({R.id.behavior})
+   public void OnClick(View v){
+       switch (v.getId()){
+           case R.id.behavior:
+               startActivity(new Intent(getActivity(), EditInfoActivity.class));
+               break;
+       }
+   }
 
 
     @Override
