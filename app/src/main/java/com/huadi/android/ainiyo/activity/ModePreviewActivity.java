@@ -28,7 +28,7 @@ public class ModePreviewActivity extends AppCompatActivity {
         ViewUtils.inject(this);
         final Intent intent=getIntent();
         String mPho=intent.getStringExtra("image");
-        Glide.with(this).load(new File(mPho)).into(iv_mode_show_pho);
+        Glide.with(this).load(mPho).into(iv_mode_show_pho);
     }
 
     @OnClick({R.id.iv_mode_show_pho})
