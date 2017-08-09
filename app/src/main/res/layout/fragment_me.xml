@@ -5,35 +5,10 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <include layout="@layout/activity_information"
+        android:id="@+id/already"/>
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="您还没有登录哦！"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@id/top"
-            android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/Login1"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="马上登陆"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button"
-            android:textColor="#fdd7d0d6"
-            android:textSize="20sp"
-            android:layout_marginLeft="140dp"
-            android:layout_below="@id/text" />
-    </RelativeLayout>
 
 
 </FrameLayout>

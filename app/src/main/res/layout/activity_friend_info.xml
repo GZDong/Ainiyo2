@@ -1,95 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/theme_red"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
-
+    android:layout_height="match_parent"
+    >
     <LinearLayout
+
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
+        android:layout_height="match_parent"
         >
 
-        <ImageView
-            app:srcCompat="@drawable/placeholder360x160"
-            android:id="@+id/background"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:scaleType="centerCrop" />
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/placeholder100x100"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FFF"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-70dp" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/theme_red"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+            <ImageView
+                app:srcCompat="@drawable/placeholder360x160"
+                android:id="@+id/background"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/background2"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/placeholder100x100"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FFF"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-70dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="NAME"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/NameTextView"
+                android:textSize="30sp"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="运气绝不是守株待兔等来的！"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signField"
+                android:textColor="#696969"
+                android:textSize="20sp"
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="女 25 成都"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/describe"
+                android:textAlignment="center"
+                android:textSize="15sp"
+                android:padding="5dp"/>
+
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/list"
+                android:divider="?android:attr/dividerVertical"
+                android:showDividers="beginning"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:divider="?android:attr/dividerHorizontal"
+                android:showDividers="beginning">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/bb6"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/bb2"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/bb3"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/bb5"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:text="@string/send_chat_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/send_msg"
+            android:background="#FAFAD2"
+            />
+
 
     </LinearLayout>
+</ScrollView>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:text="NAME"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/NameTextView"
-            android:textSize="30sp"
-            android:layout_gravity="center_horizontal"
-            android:padding="5dp"
-            android:textAlignment="center" />
-
-        <TextView
-            android:text="sign"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/signField"
-            android:textColor="#696969"
-            android:textSize="20sp"
-            android:padding="5dp"
-            android:textAlignment="center" />
-
-        <TextView
-            android:text="GIRLS 25 USA"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/describe"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:padding="5dp" />
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/list" />
-
-    </LinearLayout>
-
-    <Button
-        android:text="@string/send_chat_request"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/send_msg"
-        android:background="#66d97b" />
-
-
-</LinearLayout><!--
+<!--
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

@@ -39,8 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText register_pwd2;
     @ViewInject(R.id.check_box)
     private CheckBox check_box;
-    @ViewInject(R.id.back)
-    private ImageView back;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,48 +51,23 @@ public class RegisterActivity extends AppCompatActivity {
         }
         ViewUtils.inject(this);
     }
-    @OnClick({R.id.register2,R.id.back})
+    @OnClick({R.id.register2,})
     public void onClick (View v){
         switch (v.getId()){
-            case R.id.back:
-                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
-                break;
             case R.id.register2:
                 if(register_name.getText().toString().trim().length()<=0){
                     register_name.setError("用户名不能为空！");
                     return;
-                }
-                if(register_name.getText().toString().trim().length()>0){
-                    RequestParams pa=new RequestParams();
-                    pa.addBodyParameter("name",register_name.getText().toString());
-                    HttpUtils http1=new HttpUtils();
-                    http1.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/checkName",pa,new RequestCallBack<String>() {
-                                @Override
-                                public void onSuccess(ResponseInfo<String> responseInFo) {
-                                    String info = responseInFo.result.toString();
-                                    try {
-                                        JSONObject object1 = new JSONObject(info);
-                                        String msg1 = object1.getString("Msg");
-                                        if (!msg1.equals("success")) {
-                                            Toast.makeText(RegisterActivity.this,msg1, Toast.LENGTH_SHORT).show();
-                                            return;
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                public void onFailure(HttpException error, String msg1) {
-
-                                }
-                            }
-                    );
-
                 }
 
 
 
                 if(register_phone.getText().toString().trim().length()<=0){
                     register_phone.setError("电话号码不能为空！");
+                    return;
+                }
+                if(register_phone.getText().toString().trim().length()!=11){
+                    register_phone.setError("错误的电话号码！");
                     return;
                 }
                 if(register_pwd1.getText().toString().trim().length()<=0){
@@ -121,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject object = new JSONObject(info);
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
-                                Toast.makeText(RegisterActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                             Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
