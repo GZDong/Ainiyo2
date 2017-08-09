@@ -18,6 +18,7 @@ public class WelcomActivity extends AppCompatActivity {
             @Override
             public boolean handleMessage(Message msg){
                 startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
+                finish();
                 return true;
             }
         }).sendEmptyMessageDelayed(0,3000);

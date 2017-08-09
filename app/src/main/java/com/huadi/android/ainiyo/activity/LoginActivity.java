@@ -127,10 +127,11 @@ public class LoginActivity extends AppCompatActivity  {
 
                                             }
                                         }).start();
-                                        Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                        finish();
                                     }
-                                    if(!msg.equals("success")){Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();}
+                                    Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
+
                                 }
                                 catch (JSONException e){
                                     e.printStackTrace();
@@ -148,12 +149,5 @@ public class LoginActivity extends AppCompatActivity  {
                         }
                 );
         }
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
-            //不写东西，按下返回键就没操作
-        }
-        return false;
     }
 }

@@ -280,11 +280,4 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
         return 0;
     }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
-            //不写东西，按下返回键就没操作
-        }
-        return false;
-    }
 }
