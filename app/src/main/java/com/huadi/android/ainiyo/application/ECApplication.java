@@ -24,7 +24,7 @@ public class ECApplication extends Application {
     // 记录是否已经初始化
     private boolean isInit = false;
 
-    //public static List<String> friList;
+    public static String sessionId;
 
 
 

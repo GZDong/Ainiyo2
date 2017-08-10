@@ -1,5 +1,7 @@
 package com.huadi.android.ainiyo.entity;
 
+import com.huadi.android.ainiyo.R;
+
 import org.litepal.crud.DataSupport;
 
 /**
@@ -22,9 +24,11 @@ public class Friends extends DataSupport {
 
     private boolean showInChooseFragment;  //是否出现在聊天列表
 
-    public Friends() {
-
-    }
+   /* public Friends(String user,String name) {
+          this.user = user;
+        this.name = name;
+        this.picture = R.drawable.
+    }*/
 
     //创建一个该用户的好友
     public Friends(String user, String name, int picture, int unread, String time, boolean show) {

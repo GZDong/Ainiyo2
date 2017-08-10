@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.util.SignInUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -96,6 +97,10 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject object = new JSONObject(info);
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
+
+                                //如果自己的服务器注册成功，就拿数据去环形服务器注册
+                                SignInUtil.signUp(RegisterActivity.this,register_name.getText().toString(),register_pwd1.getText().toString());
+
                                 Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
                                 finish();
                             }

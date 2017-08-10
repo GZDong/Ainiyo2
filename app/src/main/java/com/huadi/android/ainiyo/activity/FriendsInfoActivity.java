@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -42,6 +43,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ListView mListView;
     private List<String> mList;
+    private String from;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
         name = intent.getStringExtra("name");
         picture = intent.getIntExtra("picture",0);
         mUserInfo = (UserInfo) intent.getSerializableExtra("userInfo");
-
+        from = intent.getStringExtra("from");
         initView();
 
         setSupportActionBar(mToolbar);
@@ -78,6 +80,27 @@ public class FriendsInfoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar2, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()){
+
+           case android.R.id.home:
+               if (from.equals("ChattingFragment")){
+                   Intent intent = new Intent(FriendsInfoActivity.this,ChattingActivity.class);
+                   intent.putExtra("name",name);
+                   intent.putExtra("img",picture);
+                   intent.putExtra("userInfo",mUserInfo);
+                   startActivity(intent);
+               }else if(from.equals("FriendsListActivity")){
+                   Intent intent = new Intent(FriendsInfoActivity.this,FriendsListActivity.class);
+                   intent.putExtra("userInfo",mUserInfo);
+                   startActivity(intent);
+               }
+
+       }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initView(){
