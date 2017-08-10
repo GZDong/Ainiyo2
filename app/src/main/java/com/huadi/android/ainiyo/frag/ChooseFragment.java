@@ -33,6 +33,7 @@ import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.DateUtil;
+import com.huadi.android.ainiyo.util.ImgScaleUtil;
 import com.huadi.android.ainiyo.util.SignInUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
@@ -66,10 +67,9 @@ public class ChooseFragment extends Fragment {
 
     public static ChooseFragment newInstance() {
 
-        Bundle args = new Bundle();
-
+       // Bundle args = new Bundle();
         ChooseFragment fragment = new ChooseFragment();
-        fragment.setArguments(args);
+       // fragment.setArguments(args);
         return fragment;
     }
 
@@ -78,9 +78,10 @@ public class ChooseFragment extends Fragment {
         super.onStart();
         //*****************根据单例里的用户信息来登陆***************
         if (getActivity() instanceof MainActivity) { //这里登陆只是为了监听器的注册
-            UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
+          //  UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
+
             //这里获得传递进来的账号密码信息，然后存进数据库
-            mUserInfo = UserInfoLab.get(getActivity(), userInfo).getUserInfo();
+           mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
             String name = mUserInfo.getUsername();
             String pass = mUserInfo.getPassword();
             SignInUtil.signIn(name,pass,getActivity());
@@ -148,7 +149,7 @@ public class ChooseFragment extends Fragment {
             mRecyclerView.setAdapter(mMyAdapter);
             mMyAdapter.notifyDataSetChanged();
         }
-        Log.e("ee", "444444444444444444444444444444");
+        Log.e("ee", "onResume_ChooseFragment");
 
     }
 
@@ -157,14 +158,13 @@ public class ChooseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
+     //   UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
         //这里获得传递进来的账号密码信息，然后存进数据库
-        mUserInfo = UserInfoLab.get(getActivity(), userInfo).getUserInfo();
-
+        mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
         frdList = new ArrayList<>();
         frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
 
-        Log.e("ee", "333333333333333333333333333");
+        Log.e("ee", "onCreate_ChooseFragment");
 
 
         if (getActivity() instanceof ChattingActivity) {
@@ -221,7 +221,7 @@ public class ChooseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Log.e("ee", "2222222222222222222222222");
+        Log.e("ee", "onCreateView_ChooseFragment");
         View v = inflater.inflate(R.layout.fragment_choose,container,false);
 
 
@@ -259,6 +259,10 @@ public class ChooseFragment extends Fragment {
         super.onDestroy();
         if (getActivity() instanceof ChattingActivity) {
             getActivity().unregisterReceiver(mBroadcastReceiver);
+        }
+        if (getActivity()instanceof MainActivity){
+            Log.e("eee","onDestroy");
+            SignInUtil.signOut();
         }
 
     }
@@ -374,7 +378,8 @@ public class ChooseFragment extends Fragment {
             int picture = friends.getPicture();
             String newTime = friends.getNewTime();
             holder.textView.setText(name_fri);
-            holder.mImageView.setImageResource(picture);
+            //holder.mImageView.setImageResource(picture);
+           holder.mImageView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(),picture,50,50));
 
             if (unreadM != 0){
                 holder.UnreadBtn.setVisibility(View.VISIBLE);

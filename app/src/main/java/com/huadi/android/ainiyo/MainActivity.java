@@ -22,6 +22,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
+import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.frag.MovementFragment;
 import com.huadi.android.ainiyo.frag.ChooseFragment;
 import com.huadi.android.ainiyo.frag.FindingFragment;

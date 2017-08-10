@@ -121,7 +121,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.FriendsInfoActivity"
-            android:parentActivityName=".activity.FriendsListActivity" />
+             />
 
         <!-- 设置环信应用的 appkey 换成自己的 -->
         <meta-data
@@ -146,11 +146,13 @@
         </receiver>
 
         <activity android:name=".activity.ModeMeActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+                  android:launchMode="singleTask"/>
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.EditInfoActivity"></activity>
         <activity android:name=".activity.FindingDetailActivity"></activity>
+        <activity android:name=".activity.AddFriendActivity"/>
     </application>
 
 </manifest>

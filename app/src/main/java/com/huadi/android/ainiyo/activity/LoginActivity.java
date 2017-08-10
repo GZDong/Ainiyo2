@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.huadi.android.ainiyo.activity.LoadingDialog;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.HttpUtils;
@@ -45,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText login_pwd;
     @ViewInject(R.id.check_box)
     private CheckBox check_box;
+
+    private UserInfo mUserInfo;
 
 
     @Override
@@ -96,6 +99,11 @@ public class LoginActivity extends AppCompatActivity {
                                 try{
                                     JSONObject object=new JSONObject(info);
                                     String msg=object.getString("Msg");
+
+                                    //获得sessionId，保存在Application里作为全局变量
+                                    ECApplication application = (ECApplication) getApplication();
+                                    application.sessionId = object.getString("Sessionid");
+
                                     if(msg.equals("success")){
                                         final LoadingDialog dia = new LoadingDialog(LoginActivity.this);
                                         dia.setMessage("正在登陆中..").show();
@@ -113,8 +121,11 @@ public class LoginActivity extends AppCompatActivity {
                                             editor.putBoolean("remember_pwd", false);
                                             editor.apply();
                                         }
-                                        UserInfo userInfo = new UserInfo(login_name.getText().toString(), login_pwd.getText().toString(), 0);
-                                        UserInfo lab = UserInfoLab.get(LoginActivity.this, userInfo).getUserInfo();
+                                        mUserInfo= new UserInfo(login_name.getText().toString(), login_pwd.getText().toString(), R.drawable.left_image);
+                                        //初始化单例，如果数据库里没有过这个用户，就存进数据库，否则直接根据用户输入的
+                                        //账号密码来初始化单例
+                                        UserInfoLab.get(LoginActivity.this, mUserInfo);
+
                                         new Thread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -128,7 +139,8 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         }).start();
                                         Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
                                     }
                                     if (!msg.equals("success")) {
                                         Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();

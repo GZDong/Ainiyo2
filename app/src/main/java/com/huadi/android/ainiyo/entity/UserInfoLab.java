@@ -31,6 +31,11 @@ public class UserInfoLab {
         }
         return sUserInfoLab;
     }
+    public static UserInfoLab get(Context context){
+       sUserInfoLab.mContext = context.getApplicationContext();
+
+        return sUserInfoLab;
+    }
 
 
     private UserInfoLab(Context context, String name, String password, int picture) {
