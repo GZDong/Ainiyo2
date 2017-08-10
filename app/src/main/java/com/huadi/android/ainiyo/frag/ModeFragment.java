@@ -125,30 +125,32 @@ public class ModeFragment extends Fragment {
                         fromJson(responseInfo.result, new TypeToken<ResponseObject<ModeResult>>() {
                         }.getType());
 
+                if (object.getStatus() == 400) {
+                    if (direction)// 头部刷新
+                    {// 渲染内容到界面上
+                        //清空原来的数据
+                        mList.clear();
+                        ArrayList<Integer> idorder = new ArrayList<Integer>();
 
-                if (direction)// 头部刷新
-                {// 渲染内容到界面上
-                    //清空原来的数据
-                    mList.clear();
-                    ArrayList<Integer> idorder = new ArrayList<Integer>();
-                    mwd = object.getResult().getData();
-                    int sum = object.getResult().getSum();
-                    ModeWebData mwd1;
-                    for (int i = sum - 1; i >= 0; i--) {
-                        mwd1 = mwd[i];
 
-                        idorder.add(mwd1.getId());
-                        ToolKits.putInteger(getActivity(), "Integer", idorder);
+                        mwd = object.getResult().getData();
+                        int sum = object.getResult().getSum();
+                        ModeWebData mwd1;
+                        for (int i = sum - 1; i >= 0; i--) {
+                            mwd1 = mwd[i];
 
-                        int userid = mwd1.getUserid();
-                        String content = mwd1.getContent();
-                        Gson gson = new Gson();
-                        Type type = new TypeToken<ModeInfo>() {
-                        }.getType();
-                        ModeInfo mi;
-                        mi = gson.fromJson(mwd1.getContent(), type);
-                        mList.add(mi);
-                    }
+                            idorder.add(mwd1.getId());
+                            ToolKits.putInteger(getActivity(), "Integer", idorder);
+
+                            int userid = mwd1.getUserid();
+                            String content = mwd1.getContent();
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<ModeInfo>() {
+                            }.getType();
+                            ModeInfo mi;
+                            mi = gson.fromJson(mwd1.getContent(), type);
+                            mList.add(mi);
+                        }
 
 //                    Toast.makeText(getActivity(),
 //                            "content=" + content + ",userid=" + String.valueOf(userid)
@@ -159,17 +161,16 @@ public class ModeFragment extends Fragment {
 //                            "imageUrL:  "+mi.getImgUrlforContent().size(),
 //                            Toast.LENGTH_SHORT).show();
 
-                    //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                    mAdapter = new ModeAdapter(mList);
-                    mode_list_view.setAdapter(mAdapter);
-
-
-                } else {// 尾部刷新
-                    //mList.addAll(object.getDatas());
-                    mAdapter.notifyDataSetChanged();
-                }
-                if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
-                    mode_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                        //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
+                        mAdapter = new ModeAdapter(mList);
+                        mode_list_view.setAdapter(mAdapter);
+                    } else {// 尾部刷新
+                        //mList.addAll(object.getDatas());
+                        mAdapter.notifyDataSetChanged();
+                    }
+                    if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
+                        mode_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                    }
                 }
             }
 

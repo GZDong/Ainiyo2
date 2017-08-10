@@ -66,19 +66,19 @@ public class FindingAdapter extends BaseAdapter {
         }
 
         ModeInfo modeInfo = mList.get(position);
-        if (modeInfo.getName() != null) {
-            holder.mode_username.setText(modeInfo.getName());
-        }
-        if (modeInfo.getContent() != null) {
-            holder.mode_content.setText(modeInfo.getContent());
-        }
-        if (modeInfo.getImgUrlforHead() != null) {
-
-        }
+//        if (modeInfo.getName() != null) {
+//            holder.mode_username.setText(modeInfo.getName());
+//        }
+//        if (modeInfo.getContent() != null) {
+//            holder.mode_content.setText(modeInfo.getContent());
+//        }
+//        if (modeInfo.getImgUrlforHead() != null) {
+//
+//        }
         if (modeInfo.getImgUrlforContent() != null) {
 //            if(modeInfo.getImgUrlforContent().size()==1) {
             final String image = modeInfo.getImgUrlforContent().get(0);
-            Glide.with(parent.getContext()).load(new File(image)).into(holder.pic_content);
+            //    Glide.with(parent.getContext()).load(new File(image)).into(holder.pic_content);
 
             // Glide.with(parent.getContext()).load("http://120.24.168.102:8080/getalumb?sessionid=5ca6b5f4b438030f123fb149ff19fd8769365789").skipMemoryCache(false).into(holder.pic_content);
 //            }else{
@@ -92,11 +92,6 @@ public class FindingAdapter extends BaseAdapter {
 
         @ViewInject(R.id.finding_pic_head)
         ImageView pic_head;
-        @ViewInject(R.id.finding_pic_content)
-        ImageView pic_content;
-        @ViewInject(R.id.finding_username)
-        TextView mode_username;
-        @ViewInject(R.id.finding_content)
-        TextView mode_content;
+
     }
 }
