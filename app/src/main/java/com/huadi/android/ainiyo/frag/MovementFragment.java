@@ -21,6 +21,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeDetailActivity;
+import com.huadi.android.ainiyo.activity.MovementDetailActivity;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ModeResult;
@@ -191,8 +192,7 @@ public class MovementFragment extends Fragment {
 
     @OnItemClick({R.id.movement_list_view})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getActivity(), ModeDetailActivity.class);
-        intent.putExtra("item", mAdapter.getItem(position - 1).getImgUrlforContent());
+        Intent intent = new Intent(getActivity(), MovementDetailActivity.class);
         startActivity(intent);
     }
 
