@@ -5,8 +5,9 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <include layout="@layout/activity_information"
-        android:id="@+id/already"/>
+    <include
+        layout="@layout/activity_information"
+        android:id="@+id/already" />
 
 
 

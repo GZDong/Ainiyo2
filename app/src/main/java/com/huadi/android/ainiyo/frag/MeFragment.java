@@ -33,14 +33,15 @@ public class MeFragment extends Fragment {
         ViewUtils.inject(this,view);
         return view;
     }
-   @OnClick({R.id.behavior})
-   public void OnClick(View v){
-       switch (v.getId()){
-           case R.id.behavior:
-               startActivity(new Intent(getActivity(), EditInfoActivity.class));
-               break;
-       }
-   }
+
+    @OnClick({R.id.behavior})
+    public void OnClick(View v) {
+        switch (v.getId()) {
+            case R.id.behavior:
+                startActivity(new Intent(getActivity(), EditInfoActivity.class));
+                break;
+        }
+    }
 
 
     @Override

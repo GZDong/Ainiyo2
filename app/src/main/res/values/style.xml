@@ -8,6 +8,7 @@
         <!--<item name="android:buttonStyle">@style/OralButton</item>-->
         <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>
+
     <style name="MyEditText2" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/edit</item>
         <item name="colorControlActivated">@color/edit</item>
@@ -20,6 +21,7 @@
     <style name="OralButton" parent="android:style/Widget.Holo.Button">
         <item name="android:background">@drawable/send2</item>
     </style>
+
     <style name="MsgButton" parent="android:style/Widget.Holo.Button">
         <item name="android:background">@drawable/send2</item>
     </style>

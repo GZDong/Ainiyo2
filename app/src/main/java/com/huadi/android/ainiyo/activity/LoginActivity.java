@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.huadi.android.ainiyo.activity.LoadingDialog;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
@@ -32,7 +33,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity  {
+public class LoginActivity extends AppCompatActivity {
 
     @ViewInject(R.id.register1)
     private TextView register1;
@@ -55,21 +56,21 @@ public class LoginActivity extends AppCompatActivity  {
             actionbar.hide();
         }
         ViewUtils.inject(this);
-            SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-            String username=pref.getString("username","");
-            String password=pref.getString("password","");
-            Boolean isremember=pref.getBoolean("remember_pwd",false);
-        if(isremember){
+        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
+        String username = pref.getString("username", "");
+        String password = pref.getString("password", "");
+        Boolean isremember = pref.getBoolean("remember_pwd", false);
+        if (isremember) {
             login_name.setText(username);
             login_pwd.setText(password);
-        check_box.setChecked(true);}
+            check_box.setChecked(true);
+        }
 
 
     }
 
 
-
-    @OnClick({R.id.register1,R.id.Login2})
+    @OnClick({R.id.register1, R.id.Login2})
     public void OnClick(View v){
         switch (v.getId()){
             case R.id.register1:
@@ -96,41 +97,42 @@ public class LoginActivity extends AppCompatActivity  {
                                     JSONObject object=new JSONObject(info);
                                     String msg=object.getString("Msg");
                                     if(msg.equals("success")){
-                                        final LoadingDialog dia=new LoadingDialog(LoginActivity.this);
+                                        final LoadingDialog dia = new LoadingDialog(LoginActivity.this);
                                         dia.setMessage("正在登陆中..").show();
-                                        if(check_box.isChecked()){
-                                            SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
-                                            editor.putString("username",login_name.getText().toString());
-                                            editor.putString("password",login_pwd.getText().toString());
-                                            editor.putBoolean("remember_pwd",true);
+                                        if (check_box.isChecked()) {
+                                            SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
+                                            editor.putString("username", login_name.getText().toString());
+                                            editor.putString("password", login_pwd.getText().toString());
+                                            editor.putBoolean("remember_pwd", true);
                                             editor.apply();
                                         }
-                                        if(!check_box.isChecked()){
-                                            SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
+                                        if (!check_box.isChecked()) {
+                                            SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
                                             editor.remove("username");
                                             editor.remove("password");
-                                            editor.putBoolean("remember_pwd",false);
+                                            editor.putBoolean("remember_pwd", false);
                                             editor.apply();
                                         }
-                                     UserInfo userInfo=new UserInfo(login_name.getText().toString(),login_pwd.getText().toString(),0);
-                                        UserInfo lab=UserInfoLab.get(LoginActivity.this,userInfo).getUserInfo();
-                                        new Thread(new Runnable(){
+                                        UserInfo userInfo = new UserInfo(login_name.getText().toString(), login_pwd.getText().toString(), 0);
+                                        UserInfo lab = UserInfoLab.get(LoginActivity.this, userInfo).getUserInfo();
+                                        new Thread(new Runnable() {
                                             @Override
-                                            public void run(){
-                                                try{
+                                            public void run() {
+                                                try {
                                                     Thread.sleep(2000);
                                                     dia.dismiss();
-                                                }
-                                                catch (InterruptedException e){
+                                                } catch (InterruptedException e) {
                                                     e.printStackTrace();
                                                 }
 
                                             }
                                         }).start();
-                                        Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     }
-                                    if(!msg.equals("success")){Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();}
+                                    if (!msg.equals("success")) {
+                                        Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                                 catch (JSONException e){
                                     e.printStackTrace();
@@ -149,9 +151,10 @@ public class LoginActivity extends AppCompatActivity  {
                 );
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             //不写东西，按下返回键就没操作
         }
         return false;

@@ -14,12 +14,12 @@ public class WelcomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcom);
-        new Handler(new Handler.Callback(){
+        new Handler(new Handler.Callback() {
             @Override
-            public boolean handleMessage(Message msg){
+            public boolean handleMessage(Message msg) {
                 startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
                 return true;
             }
-        }).sendEmptyMessageDelayed(0,3000);
+        }).sendEmptyMessageDelayed(0, 3000);
     }
 }

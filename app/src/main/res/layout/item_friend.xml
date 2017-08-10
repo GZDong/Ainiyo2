@@ -79,7 +79,7 @@
                 style="@style/MsgButton"
                 android:text="10"
                 android:textSize="13dp"
-                android:textColor="#fff"/>
+                android:textColor="#fff" />
 
 
         </LinearLayout>

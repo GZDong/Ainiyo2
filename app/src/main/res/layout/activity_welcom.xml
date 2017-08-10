@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.huadi.android.ainiyo.WelcomActivity">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/start"
-        android:scaleType="fitXY"
-        />
+        android:scaleType="fitXY" />
 
 </android.support.constraint.ConstraintLayout>

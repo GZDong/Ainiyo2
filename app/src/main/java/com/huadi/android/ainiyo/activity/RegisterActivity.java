@@ -51,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         ViewUtils.inject(this);
     }
+
     @OnClick({R.id.register2,})
     public void onClick (View v){
         switch (v.getId()){
@@ -66,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                     register_phone.setError("电话号码不能为空！");
                     return;
                 }
-                if(register_phone.getText().toString().trim().length()!=11){
+                if (register_phone.getText().toString().trim().length() != 11) {
                     register_phone.setError("错误的电话号码！");
                     return;
                 }
