@@ -16,7 +16,7 @@ import com.huadi.android.ainiyo.R;
 
 public class AddFriendActivity extends AppCompatActivity {
 
-    Toolbar mToolbar ;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class AddFriendActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
 
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar !=null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
             actionBar.setTitle(R.string.add_friend);

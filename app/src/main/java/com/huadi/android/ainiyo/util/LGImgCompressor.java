@@ -52,6 +52,7 @@ public class LGImgCompressor {
 
     /**
      * 通过uri地址获取文件路径
+     *
      * @param uri
      * @return
      */
@@ -71,10 +72,11 @@ public class LGImgCompressor {
 
     /**
      * Can't compress a recycled bitmap
-     * @param srcImageUri     原始图片的uri路径
-     * @param outWidth        期望的输出图片的宽度
-     * @param outHeight       期望的输出图片的高度
-     * @param maxFileSize       期望的输出图片的最大占用的存储空间
+     *
+     * @param srcImageUri 原始图片的uri路径
+     * @param outWidth    期望的输出图片的宽度
+     * @param outHeight   期望的输出图片的高度
+     * @param maxFileSize 期望的输出图片的最大占用的存储空间
      * @return
      */
     public String compressImage(String srcImageUri, int outWidth, int outHeight, int maxFileSize) {
@@ -126,7 +128,7 @@ public class LGImgCompressor {
         }
         //生成最终输出的bitmap
         Bitmap actualOutBitmap = Bitmap.createScaledBitmap(scaledBitmap, (int) actualOutWidth, (int) actualOutHeight, true);
-        if(actualOutBitmap != scaledBitmap)
+        if (actualOutBitmap != scaledBitmap)
             scaledBitmap.recycle();
 
         //处理图片旋转问题
@@ -230,14 +232,14 @@ public class LGImgCompressor {
         new CompressTask().execute(srcImageUri, "" + DEFAULT_OUTWIDTH, "" + DEFAULT_OUTHEIGHT, "" + DEFAULT_MAXFILESIZE);
     }
 
-    public static class CompressResult implements Parcelable{
+    public static class CompressResult implements Parcelable {
         public static final int RESULT_OK = 0;
         public static final int RESULT_ERROR = 1;
         private int status = RESULT_OK;
         private String srcPath;
         private String outPath;
 
-        public CompressResult(){
+        public CompressResult() {
 
         }
 
@@ -295,6 +297,7 @@ public class LGImgCompressor {
             this.outPath = outPath;
         }
     }
+
     /**
      * 压缩结果回到监听类
      */
@@ -316,11 +319,11 @@ public class LGImgCompressor {
             String outPutPath = null;
             try {
                 outPutPath = compressImage(path, outWidth, outHeight, maxFileSize);
-            }catch (Exception e){
+            } catch (Exception e) {
             }
             compressResult.setSrcPath(path);
             compressResult.setOutPath(outPutPath);
-            if(outPutPath == null){
+            if (outPutPath == null) {
                 compressResult.setStatus(CompressResult.RESULT_ERROR);
             }
             return compressResult;

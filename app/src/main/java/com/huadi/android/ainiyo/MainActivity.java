@@ -87,13 +87,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             ActivityCompat.requestPermissions(MainActivity.this,new String[] {"android.permission.WRITE_EXTERNAL_STORAGE"},1);
         }
 
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        String username=pref.getString("name","");
-        String password=pref.getString("pwd","");
+        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
+        String username = pref.getString("name", "");
+        String password = pref.getString("pwd", "");
 
-        UserInfo userInfo = new UserInfo(username,password,R.drawable.right_image);
-        UserInfoLab.get(MainActivity.this,userInfo);
-        Log.e("test",userInfo.getUsername()+UserInfoLab.get(MainActivity.this).getUserInfo().getUsername());
+        UserInfo userInfo = new UserInfo(username, password, R.drawable.right_image);
+        UserInfoLab.get(MainActivity.this, userInfo);
+        Log.e("test", userInfo.getUsername() + UserInfoLab.get(MainActivity.this).getUserInfo().getUsername());
 
         ViewUtils.inject(this);
 

@@ -33,7 +33,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity  {
+public class LoginActivity extends AppCompatActivity {
 
     @ViewInject(R.id.register1)
     private TextView register1;
@@ -58,21 +58,21 @@ public class LoginActivity extends AppCompatActivity  {
             actionbar.hide();
         }
         ViewUtils.inject(this);
-            SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-            String username=pref.getString("username","");
-            String password=pref.getString("password","");
-            Boolean isremember=pref.getBoolean("remember_pwd",false);
-        if(isremember){
+        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
+        String username = pref.getString("username", "");
+        String password = pref.getString("password", "");
+        Boolean isremember = pref.getBoolean("remember_pwd", false);
+        if (isremember) {
             login_name.setText(username);
             login_pwd.setText(password);
-        check_box.setChecked(true);}
+            check_box.setChecked(true);
+        }
 
 
     }
 
 
-
-    @OnClick({R.id.register1,R.id.Login2})
+    @OnClick({R.id.register1, R.id.Login2})
     public void OnClick(View v){
         switch (v.getId()){
             case R.id.register1:
@@ -91,9 +91,9 @@ public class LoginActivity extends AppCompatActivity  {
                 params.addBodyParameter("name",login_name.getText().toString());
                 params.addBodyParameter("pwd",login_pwd.getText().toString());
 
-                UserInfo userInfo = new UserInfo(login_name.getText().toString(),login_pwd.getText().toString(),R.drawable.right_image);
-                UserInfoLab.get(LoginActivity.this,userInfo);
-                Log.e("test",userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
+                UserInfo userInfo = new UserInfo(login_name.getText().toString(), login_pwd.getText().toString(), R.drawable.right_image);
+                UserInfoLab.get(LoginActivity.this, userInfo);
+                Log.e("test", userInfo.getUsername() + UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
                 HttpUtils http=new HttpUtils();
                 http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login",params,new RequestCallBack<String>() {
                             @Override
@@ -108,46 +108,44 @@ public class LoginActivity extends AppCompatActivity  {
                                     application.sessionId = object.getString("Sessionid");
 
 
-
                                     if(msg.equals("success")){
-                                        final LoadingDialog dia=new LoadingDialog(LoginActivity.this);
-                                        dia.setMessage("正在登陆中..").show();
-                                        if(check_box.isChecked()){
-                                            SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
-                                            editor.putString("username",login_name.getText().toString());
-                                            editor.putString("password",login_pwd.getText().toString());
-                                            editor.putBoolean("remember_pwd",true);
+                                        //final LoadingDialog dia = new LoadingDialog(LoginActivity.this);
+                                        // dia.setMessage("正在登陆中..").show();
+                                        if (check_box.isChecked()) {
+                                            SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
+                                            editor.putString("username", login_name.getText().toString());
+                                            editor.putString("password", login_pwd.getText().toString());
+                                            editor.putBoolean("remember_pwd", true);
                                             editor.apply();
                                         }
-                                        if(!check_box.isChecked()){
-                                            SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
+                                        if (!check_box.isChecked()) {
+                                            SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
                                             editor.remove("username");
                                             editor.remove("password");
-                                            editor.putBoolean("remember_pwd",false);
+                                            editor.putBoolean("remember_pwd", false);
                                             editor.apply();
                                         }
-                                     SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
-                                        editor.putString("name",login_name.getText().toString());
-                                        editor.putString("pwd",login_pwd.getText().toString());
-                                        editor.putBoolean("islogin",true);
+                                        SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
+                                        editor.putString("name", login_name.getText().toString());
+                                        editor.putString("pwd", login_pwd.getText().toString());
+                                        editor.putBoolean("islogin", true);
                                         editor.apply();
-                                        new Thread(new Runnable(){
-                                            @Override
-                                            public void run(){
-                                                try{
-                                                    Thread.sleep(2000);
-                                                    dia.dismiss();
-                                                }
-                                                catch (InterruptedException e){
-                                                    e.printStackTrace();
-                                                }
-
-                                            }
-                                        }).start();
-                                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+//                                        new Thread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                try {
+//                                                    Thread.sleep(2000);
+//                                                    dia.dismiss();
+//                                                } catch (InterruptedException e) {
+//                                                    e.printStackTrace();
+//                                                }
+//
+//                                            }
+//                                        }).start();
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         finish();
                                     }
-                                    Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                                 }
                                 catch (JSONException e){

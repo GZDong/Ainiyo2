@@ -26,15 +26,17 @@ public class PhotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo);
         ViewUtils.inject(this);
     }
+
     @OnClick({R.id.image})
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.image:
-                ImageSelectorUtils.openPhoto(PhotoActivity.this,1,false,9);
+                ImageSelectorUtils.openPhoto(PhotoActivity.this, 1, false, 9);
         }
     }
+
     @Override
-    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data != null) {
             //获取选择器返回的数据
