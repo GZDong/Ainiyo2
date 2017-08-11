@@ -20,7 +20,7 @@ import com.hyphenate.exceptions.HyphenateException;
 
 public class SignInUtil {
 
-    public static void signIn(String username, String password,final Activity mContext) {
+    public static void signIn(final String username, final String password, final Activity mContext) {
        /* mDialog = new ProgressDialog(this);
         mDialog.setMessage("正在登陆，请稍后...");
         mDialog.show();*/
@@ -91,6 +91,8 @@ public class SignInUtil {
                             // 用户不存在 204
                             case EMError.USER_NOT_FOUND:
                                 Toast.makeText(mContext, "用户不存在 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
+                                /*signUp(mContext,username,password);
+                                signIn(username,password,mContext);*/
                                 break;
                             // 无法访问到服务器 300
                             case EMError.SERVER_NOT_REACHABLE:

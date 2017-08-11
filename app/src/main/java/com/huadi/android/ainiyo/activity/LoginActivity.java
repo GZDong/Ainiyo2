@@ -1,19 +1,25 @@
 package com.huadi.android.ainiyo.activity;
 
-
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.huadi.android.ainiyo.activity.LoadingDialog;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -39,6 +45,8 @@ public class LoginActivity extends AppCompatActivity  {
     private EditText login_pwd;
     @ViewInject(R.id.check_box)
     private CheckBox check_box;
+
+    private UserInfo mUserInfo;
 
 
     @Override
@@ -82,6 +90,10 @@ public class LoginActivity extends AppCompatActivity  {
                 RequestParams params=new RequestParams();
                 params.addBodyParameter("name",login_name.getText().toString());
                 params.addBodyParameter("pwd",login_pwd.getText().toString());
+
+                UserInfo userInfo = new UserInfo(login_name.getText().toString(),login_pwd.getText().toString(),R.drawable.right_image);
+                UserInfoLab.get(LoginActivity.this,userInfo);
+                Log.e("test",userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
                 HttpUtils http=new HttpUtils();
                 http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login",params,new RequestCallBack<String>() {
                             @Override
@@ -90,6 +102,13 @@ public class LoginActivity extends AppCompatActivity  {
                                 try{
                                     JSONObject object=new JSONObject(info);
                                     String msg=object.getString("Msg");
+
+                                    //获得sessionId，保存在Application里作为全局变量
+                                    ECApplication application = (ECApplication) getApplication();
+                                    application.sessionId = object.getString("Sessionid");
+
+
+
                                     if(msg.equals("success")){
                                         final LoadingDialog dia=new LoadingDialog(LoginActivity.this);
                                         dia.setMessage("正在登陆中..").show();
