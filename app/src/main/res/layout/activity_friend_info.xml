@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
     <LinearLayout
 
         android:orientation="vertical"
@@ -19,8 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/theme_red"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-        </android.support.v7.widget.Toolbar>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
 
         <LinearLayout
             android:orientation="vertical"
@@ -35,11 +32,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/background2"
-                />
+                android:src="@drawable/background2" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -47,8 +42,7 @@
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FFF"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="-70dp"
-                />
+                android:layout_marginTop="-70dp" />
 
         </LinearLayout>
 
@@ -86,7 +80,7 @@
                 android:id="@+id/describe"
                 android:textAlignment="center"
                 android:textSize="15sp"
-                android:padding="5dp"/>
+                android:padding="5dp" />
 
 
             <ListView
@@ -95,7 +89,7 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/list"
                 android:divider="?android:attr/dividerVertical"
-                android:showDividers="beginning"/>
+                android:showDividers="beginning" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -104,30 +98,34 @@
                 android:layout_marginLeft="5dp"
                 android:divider="?android:attr/dividerHorizontal"
                 android:showDividers="beginning">
+
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/bb6"/>
+                    android:src="@drawable/bb6" />
+
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/bb2"/>
+                    android:src="@drawable/bb2" />
+
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/bb3"/>
+                    android:src="@drawable/bb3" />
+
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/bb5"/>
+                    android:src="@drawable/bb5" />
             </LinearLayout>
 
         </LinearLayout>
@@ -137,43 +135,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/send_msg"
-            android:background="#FAFAD2"
-            />
+            android:background="#FAFAD2" />
 
 
     </LinearLayout>
 </ScrollView>
 
-<!--
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <!--
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="109dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/right_image"
-        android:id="@+id/imageView"/>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="109dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/right_image"
+            android:id="@+id/imageView"/>
 
-    <Button
-        android:id="@+id/send_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="114dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/send_chat_request"/>
+        <Button
+            android:id="@+id/send_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="114dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/send_chat_request"/>
 
-    <TextView
-        android:id="@+id/NameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:text="TextView"/>
+        <TextView
+            android:id="@+id/NameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="21dp"
+            android:text="TextView"/>
 
-</RelativeLayout>-->
+    </RelativeLayout>-->

@@ -26,15 +26,15 @@
             android:background="#ebe3e3">
             <ImageView
                 android:id="@+id/img_friend"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
 
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="7dp"
                 android:cropToPadding="true"
                 android:scaleType="centerInside"
-                android:src="@drawable/examplepicture"
+
                 />
             <LinearLayout
                 android:layout_width="0dp"
@@ -56,7 +56,9 @@
                     android:layout_toEndOf="@+id/img_friend"
                     android:layout_toRightOf="@+id/img_friend"
                     android:text="test"
-                    android:textSize="18dp"/>
+                    android:textSize="18dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
 
                 <TextView
                     android:id="@+id/text_time"
@@ -67,7 +69,9 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="12dp"
 
-                    android:text="2017-8-1 15:32:11"/>
+                    android:text="2017-8-1 15:32:11"
+                    android:maxLines="1"
+                    android:ellipsize="marquee"/>
             </LinearLayout>
 
             <Button
@@ -79,7 +83,7 @@
                 style="@style/MsgButton"
                 android:text="10"
                 android:textSize="13dp"
-                android:textColor="#fff"/>
+                android:textColor="#fff" />
 
 
         </LinearLayout>

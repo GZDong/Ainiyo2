@@ -1,6 +1,8 @@
 package com.huadi.android.ainiyo.util;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -10,6 +12,7 @@ import com.huadi.android.ainiyo.application.ECApplication;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 
 /**
  * Created by zhidong on 2017/8/1.
@@ -139,5 +142,63 @@ public class SignInUtil {
 
             }
         });
+    }
+
+    /**
+     * 注册方法
+     */
+    public static void signUp(final Context context, final String account, final String password) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    /*String username = mUsernameEdit.getText().toString().trim();
+                    String password = mPasswordEdit.getText().toString().trim();*/
+                    EMClient.getInstance().createAccount(account,password);
+
+                } catch (final HyphenateException e) {
+                    e.printStackTrace();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            /**
+                             * 关于错误码可以参考官方api详细说明
+                             * http://www.easemob.com/apidoc/android/chat3.0/classcom_1_1hyphenate_1_1_e_m_error.html
+                             */
+                            int errorCode = e.getErrorCode();
+                            String message = e.getMessage();
+                            Log.d("lzan13", String.format("sign up - errorCode:%d, errorMsg:%s", errorCode, e.getMessage()));
+                            switch (errorCode) {
+                                // 网络错误
+                                case EMError.NETWORK_ERROR:
+                                    Toast.makeText(context, "网络错误 code: " + errorCode + ", message:" + message, Toast.LENGTH_LONG).show();
+                                    break;
+                                // 用户已存在
+                                case EMError.USER_ALREADY_EXIST:
+                                    Toast.makeText(context, "用户已存在 code: " + errorCode + ", message:" + message, Toast.LENGTH_LONG).show();
+                                    break;
+                                // 参数不合法，一般情况是username 使用了uuid导致，不能使用uuid注册
+                                case EMError.USER_ILLEGAL_ARGUMENT:
+                                    Toast.makeText(context, "参数不合法，一般情况是username 使用了uuid导致，不能使用uuid注册 code: " + errorCode + ", message:" + message, Toast.LENGTH_LONG).show();
+                                    break;
+                                // 服务器未知错误
+                                case EMError.SERVER_UNKNOWN_ERROR:
+                                    Toast.makeText(context, "服务器未知错误 code: " + errorCode + ", message:" + message, Toast.LENGTH_LONG).show();
+                                    break;
+                                case EMError.USER_REG_FAILED:
+                                    Toast.makeText(context, "账户注册失败 code: " + errorCode + ", message:" + message, Toast.LENGTH_LONG).show();
+                                    break;
+                                default:
+                                    Toast.makeText(context, "ml_sign_up_failed code: " + errorCode + ", message:" + message, Toast.LENGTH_LONG).show();
+                                    break;
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

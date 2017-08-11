@@ -113,11 +113,12 @@ public class ModeMeActivity extends AppCompatActivity {
                         fromJson(responseInfo.result, new TypeToken<ResponseObject<ModeResult>>() {
                         }.getType());
 
-
+                if (object.getStatus() == 400) {
                 if (direction)// 头部刷新
                 {// 渲染内容到界面上
                     //清空原来的数据
                     mList.clear();
+
                     mwd = object.getResult().getData();
                     int sum = object.getResult().getSum();
                     ModeWebData mwd1;
@@ -161,17 +162,20 @@ public class ModeMeActivity extends AppCompatActivity {
                     //mList.addAll(object.getDatas());
                     mAdapter.notifyDataSetChanged();
                 }
-                if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
-                    mode_me_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                    if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
+                        mode_me_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                    }
                 }
             }
 
-            @Override
-            public void onFailure(HttpException error, String msg) {
-                mode_me_list_view.onRefreshComplete();
-                Toast.makeText(ModeMeActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+                        mode_me_list_view.onRefreshComplete();
+                        Toast.makeText(ModeMeActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+
             }
-        });
+        );
 
 //        if(direction)// 头部刷新
 //        {// 渲染内容到界面上

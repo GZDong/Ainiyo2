@@ -15,6 +15,7 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
 import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.util.ImgScaleUtil;
 
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
     private List<Friends> mData;
     private Context mContext;   //*************
     private UserInfo mUserInfo;
+    private static String TAG = "FriendsListActivity";
 
     public SortAdapter(Context context, List<Friends> data, UserInfo userInfo) {
         mInflater = LayoutInflater.from(context);
@@ -78,11 +80,12 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
                 intent.putExtra("name",mData.get(position).getName());
                 intent.putExtra("picture",mData.get(position).getPicture());
                 intent.putExtra("userInfo", mUserInfo);
+                intent.putExtra("from",TAG);
                 mContext.startActivity(intent);
             }
         });
 
-        holder.imgView.setImageResource(this.mData.get(position).getPicture());
+        holder.imgView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(mContext.getResources(),this.mData.get(position).getPicture(),50,50));
 
     }
 

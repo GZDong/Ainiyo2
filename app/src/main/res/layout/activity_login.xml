@@ -15,22 +15,22 @@
         android:textSize="18sp"
         android:maxLines="1"
         android:layout_centerInParent="true"
-        android:textColorHint="#585454"
-        />
-    <EditText
-    android:id="@+id/login_name"
-    android:layout_width="match_parent"
-    android:layout_height="50sp"
-    android:hint="  用户名/手机号码"
-    android:textSize="18sp"
-    android:maxLines="1"
-    android:layout_marginRight="30dp"
-    android:textColorHint="#585454"
-    android:layout_marginBottom="21dp"
+        android:textColorHint="#585454" />
 
-    android:layout_above="@+id/login_pwd"
-    android:layout_alignLeft="@+id/login_pwd"
-    android:layout_alignStart="@+id/login_pwd" />
+    <EditText
+        android:id="@+id/login_name"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:hint="  用户名/手机号码"
+        android:textSize="18sp"
+        android:maxLines="1"
+        android:layout_marginRight="30dp"
+        android:textColorHint="#585454"
+        android:layout_marginBottom="21dp"
+
+        android:layout_above="@+id/login_pwd"
+        android:layout_alignLeft="@+id/login_pwd"
+        android:layout_alignStart="@+id/login_pwd" />
 
 
     <CheckBox
@@ -40,8 +40,7 @@
         android:text="记住密码"
         android:layout_below="@id/login_pwd"
         android:checked="false"
-        android:layout_alignRight="@id/login_pwd"
-        />
+        android:layout_alignRight="@id/login_pwd" />
     <Button
         android:id="@+id/Login2"
         android:layout_width="match_parent"
@@ -54,6 +53,7 @@
         android:textColor="#e6e2e2"
         android:layout_below="@id/check_box"
         android:textSize="20sp" />
+
     <TextView
         android:id="@+id/register1"
         android:layout_width="match_parent"
@@ -63,7 +63,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:layout_below="@id/Login2"
-        android:textColorHint="#585454"/>
+        android:textColorHint="#585454" />
 
 
 </RelativeLayout>

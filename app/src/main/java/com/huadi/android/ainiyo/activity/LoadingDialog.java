@@ -1,4 +1,5 @@
 package com.huadi.android.ainiyo.activity;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;

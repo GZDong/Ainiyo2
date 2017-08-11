@@ -33,11 +33,13 @@ import android.widget.Toast;
 
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
 import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.DateUtil;
+import com.huadi.android.ainiyo.util.ImgScaleUtil;
 import com.huadi.android.ainiyo.util.SignInUtil;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.hyphenate.EMCallBack;
@@ -372,10 +374,29 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             rightMsg = (TextView) view.findViewById(R.id.right_msg);
             leftImage = (ImageView) view.findViewById(R.id.image_user_left);
             rightImage = (ImageView) view.findViewById(R.id.image_user_right);
+
+            initClick();
         }
+        private void initClick(){
+            leftImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                }
+            });
 
-
+            rightImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), FriendsInfoActivity.class);
+                    intent.putExtra("name",mChatId);
+                    intent.putExtra("picture",mImage);
+                    intent.putExtra("userInfo",mUserInfo);
+                    intent.putExtra("from",TAG);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     public class MsgAdapter extends RecyclerView.Adapter<MyViewHodler>{
@@ -406,7 +427,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
                 //加载图片
                 //  Glide.with(getActivity()).load(bm).fitCenter().into(holder.rightImage);
-                holder.rightImage.setImageBitmap(ScaleBitmap(bm));
+                holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm,100,100));
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
                 holder.rightMsg.setText(body.getMessage());
 
@@ -417,7 +438,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
                 Bitmap bm = BitmapFactory.decodeResource(getResources(),userImage);
                 //加载图片
-                holder.leftImage.setImageBitmap(ScaleBitmap(bm));
+                holder.leftImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm,100,100));
                 //Glide.with(getActivity()).load(bm).fitCenter().into(holder.leftImage);
 
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
@@ -428,31 +449,6 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         @Override
         public int getItemCount() {
             return mMsgList.size();
-        }
-
-        public Bitmap ScaleBitmap(Bitmap bm){
-            // 得到图片原始的高宽
-            int rawHeight = bm.getHeight();
-            int rawWidth = bm.getWidth();
-
-            // 设定图片新的高宽
-            int newHeight = 100;
-            int newWidth = 100;
-
-            // 计算缩放因子
-            float heightScale = ((float) newHeight) / rawHeight;
-            float widthScale = ((float) newWidth) / rawWidth;
-
-            // 新建立矩阵
-            Matrix matrix = new Matrix();
-            matrix.postScale(heightScale, widthScale);
-
-
-            //将图片大小压缩
-            //压缩后图片的宽和高以及kB大小均会变化
-            Bitmap newBitmap = Bitmap.createBitmap(bm, 0, 0, rawWidth,rawWidth, matrix, true);
-
-            return newBitmap;
         }
     }
 

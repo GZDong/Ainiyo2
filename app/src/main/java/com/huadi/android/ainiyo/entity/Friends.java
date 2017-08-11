@@ -1,5 +1,8 @@
 package com.huadi.android.ainiyo.entity;
 
+import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.util.DateUtil;
+
 import org.litepal.crud.DataSupport;
 
 /**
@@ -22,8 +25,13 @@ public class Friends extends DataSupport {
 
     private boolean showInChooseFragment;  //是否出现在聊天列表
 
-    public Friends() {
-
+    public Friends(String user,String name) {
+          this.user = user;
+        this.name = name;
+        this.picture = R.drawable.touxiang;
+        this.unreadMeg = 0;
+        this.newTime = DateUtil.getNowDate();
+        this.showInChooseFragment = true;
     }
 
     //创建一个该用户的好友

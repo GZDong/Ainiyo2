@@ -6,7 +6,7 @@
 
           app:showAsAction="never"
           android:title="@string/add_friend"/>
-    <item android:id="@+id/sign_out"
+    <item android:id="@+id/delete_friend"
 
           app:showAsAction="never"
           android:title="@string/sure_reduce"/>

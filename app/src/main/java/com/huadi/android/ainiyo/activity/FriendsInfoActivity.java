@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -42,6 +43,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ListView mListView;
     private List<String> mList;
+    private String from;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,13 +61,13 @@ public class FriendsInfoActivity extends AppCompatActivity {
         name = intent.getStringExtra("name");
         picture = intent.getIntExtra("picture",0);
         mUserInfo = (UserInfo) intent.getSerializableExtra("userInfo");
-
+        from = intent.getStringExtra("from");
         initView();
 
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
 
-        if (actionBar!= null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back);
             actionBar.setTitle(getResources().getString(R.string.fri_info));
@@ -73,10 +75,32 @@ public class FriendsInfoActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar2,menu);
+        getMenuInflater().inflate(R.menu.toolbar2, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()){
+
+           case android.R.id.home:
+               if (from.equals("ChattingFragment")){
+                   Intent intent = new Intent(FriendsInfoActivity.this,ChattingActivity.class);
+                   intent.putExtra("name",name);
+                   intent.putExtra("img",picture);
+                   intent.putExtra("userInfo",mUserInfo);
+                   startActivity(intent);
+               }else if(from.equals("FriendsListActivity")){
+                   Intent intent = new Intent(FriendsInfoActivity.this,FriendsListActivity.class);
+                   intent.putExtra("userInfo",mUserInfo);
+                   startActivity(intent);
+               }
+
+       }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initView(){
@@ -97,27 +121,27 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mTextView.setText(name);
         mImageView.setImageResource(picture);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FriendsInfoActivity.this,android.R.layout.simple_list_item_1,mList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FriendsInfoActivity.this, android.R.layout.simple_list_item_1, mList);
         mListView.setAdapter(adapter);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(FriendsInfoActivity.this,ChattingActivity.class);
-                intent.putExtra("name",name);
-                intent.putExtra("img",picture);
-                intent.putExtra("userInfo",mUserInfo);
+                Intent intent = new Intent(FriendsInfoActivity.this, ChattingActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("img", picture);
+                intent.putExtra("userInfo", mUserInfo);
 
-                Friends fri = FriendsLab.get(FriendsInfoActivity.this,mUserInfo).getFriend(name);
+                Friends fri = FriendsLab.get(FriendsInfoActivity.this, mUserInfo).getFriend(name);
                 //****在本地置0*****
                 fri.setUnreadMeg(0);
                 //****在服务器端置0新信息****
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(name);
-                if (conversation != null){
+                if (conversation != null) {
                     conversation.markAllMessagesAsRead();
                 }
-                if (fri.isShowInChooseFragment() == false){
+                if (fri.isShowInChooseFragment() == false) {
                     fri.setShowInChooseFragment(true);
                 }
                 startActivity(intent);
