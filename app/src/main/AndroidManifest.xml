@@ -23,6 +23,7 @@
     <!-- 唤醒锁屏 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 写入外部存储 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 访问精确定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -119,7 +120,9 @@
             android:name=".activity.FriendsListActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.FriendsInfoActivity" />
+        <activity
+            android:name=".activity.FriendsInfoActivity"
+            android:parentActivityName=".activity.FriendsListActivity" />
 
         <!-- 设置环信应用的 appkey 换成自己的 -->
         <meta-data
@@ -144,14 +147,14 @@
         </receiver>
 
         <activity android:name=".activity.ModeMeActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTask" />
+        <activity android:name=".MainActivity"
+                  android:launchMode="singleTask"/>
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.EditInfoActivity"></activity>
-        <activity android:name=".activity.FindingDetailActivity"></activity>
-        <activity android:name=".activity.AddFriendActivity" />
+        <activity android:name=".activity.EditInfoActivity"/>
+        <activity android:name=".activity.PhotoActivity"/>
+        <activity android:name=".activity.FindingDetailActivity"/>
+            <activity android:name=".activity.AddFriendActivity"/>
         <activity android:name=".activity.MovementDetailActivity" />
     </application>
 

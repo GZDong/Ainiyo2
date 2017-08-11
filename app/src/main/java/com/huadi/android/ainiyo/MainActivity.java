@@ -2,6 +2,7 @@ package com.huadi.android.ainiyo;
 
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,6 +28,8 @@ import android.widget.Toast;
 
 
 import com.huadi.android.ainiyo.activity.LoginActivity;
+import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.frag.MovementFragment;
 import com.huadi.android.ainiyo.frag.ChooseFragment;
 import com.huadi.android.ainiyo.frag.FindingFragment;
@@ -83,6 +87,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             ActivityCompat.requestPermissions(MainActivity.this,new String[] {"android.permission.WRITE_EXTERNAL_STORAGE"},1);
         }
 
+        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
+        String username=pref.getString("name","");
+        String password=pref.getString("pwd","");
+
+        UserInfo userInfo = new UserInfo(username,password,R.drawable.right_image);
+        UserInfoLab.get(MainActivity.this,userInfo);
+        Log.e("test",userInfo.getUsername()+UserInfoLab.get(MainActivity.this).getUserInfo().getUsername());
 
         ViewUtils.inject(this);
 

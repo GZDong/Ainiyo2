@@ -5,9 +5,19 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <include
-        layout="@layout/activity_information"
-        android:id="@+id/already" />
+    <include layout="@layout/activity_information"
+        android:id="@+id/already"/>
+    <Button
+        android:id="@+id/logoff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出登录"/>
+    <Button
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="相册"
+        android:layout_marginTop="50dp"/>
 
 
 

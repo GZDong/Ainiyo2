@@ -1,19 +1,32 @@
 package com.huadi.android.ainiyo.entity;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.Retrofit2.PostRequest_Interface;
+import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.gson.FriendGot;
+import com.huadi.android.ainiyo.gson.ResultForFriend;
 import com.huadi.android.ainiyo.util.DateUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 
+import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by zhidong on 2017/7/28.
@@ -55,8 +68,39 @@ public class FriendsLab {
             //根据userInfo发起网络请求
             //获得数据
             //模拟：假如mmFriendses就是返回的数据
-            List<Friends> mmFriendses = new ArrayList<>();
-            //测试：
+            final List<Friends> mmFriendses = new ArrayList<>();
+
+           // AppCompatActivity appCompatActivity =(AppCompatActivity) mContext.getApplicationContext();
+            ECApplication application =(ECApplication) mContext.getApplicationContext();
+            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl("http://120.24.168.102:8080/")
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+            PostRequest_Interface request = retrofit.create(PostRequest_Interface.class);
+            Call<FriendGot> call = request.getCall(application.sessionId);
+            Log.e("testRetrofit","beforeCall");
+            call.enqueue(new Callback<FriendGot>() {
+                @Override
+                public void onResponse(Call<FriendGot> call, Response<FriendGot> response) {
+                    if (response.body().Msg.equals("success")){
+                        Log.e("testRetrofit","request success");
+                        if (response.body().friendList != null){
+                            for (ResultForFriend resultForFriend : response.body().friendList){
+                                Friends friends = new Friends(resultForFriend.getUserid(),resultForFriend.getFriendid());
+                                mmFriendses.add(friends);
+                            }
+                        }else {
+                            Log.e("testRetrofit","no thing");
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<FriendGot> call, Throwable t) {
+                    Log.e("testRetrofit","request failure");
+                }
+            });
+            /*//测试：
             EMConversation conversation = EMClient.getInstance().chatManager().getConversation("shouji");
             int unread;
             if (conversation == null) {
@@ -111,28 +155,30 @@ public class FriendsLab {
             mmFriendses.add(friend20);
             mmFriendses.add(friend21);
             mmFriendses.add(friend22);
-            mmFriendses.add(friend23);
+            mmFriendses.add(friend23);*/
 
 
             //获得数据后先获得每个好友的未读信息，后存入数据库
             //这里记得初始化一些服务器上没有的数据
-            /* for (Friends friends : mmFriendses){
-                EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
-                int unread;
-                if (conversation == null){
-                    unread =0;
-                }else{
-                    unread = conversation.getUnreadMsgCount();
-                }
-                friends.setUnreadMeg(unread);
-
-            }*/
             if (mmFriendses.size() > 0) {
+                for (Friends friends : mmFriendses){
+                    EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
+                    int unread;
+                    if (conversation == null){
+                        unread =0;
+                    }else{
+                        unread = conversation.getUnreadMsgCount();
+                    }
+                    friends.setUnreadMeg(unread);
+
+                }
                 for (Friends friends : mmFriendses) {
                     friends.save();
                 }
                 //如果来自网络的好友列表不为空，重新根据用户初始化聊天列表
                 initFriends(userInfo);
+            }else if (mmFriendses.size() == 0){
+                //没有好友
             }
         }
     }
