@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -92,9 +93,11 @@ public class LoginActivity extends AppCompatActivity {
                 params.addBodyParameter("name",login_name.getText().toString());
                 params.addBodyParameter("pwd",login_pwd.getText().toString());
                 HttpUtils http=new HttpUtils();
+                Log.e("test","onSuccessLastStep");
                 http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login",params,new RequestCallBack<String>() {
                             @Override
                             public void onSuccess(ResponseInfo<String> responseInFo){
+                                Log.e("test","onSuccess");
                                 String info=responseInFo.result.toString();
                                 try{
                                     JSONObject object=new JSONObject(info);
