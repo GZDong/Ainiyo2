@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.content.SharedPreferences;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ChattingActivity;
@@ -47,6 +48,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by zhidong on 2017/7/26.
  */
@@ -60,7 +63,6 @@ public class ChooseFragment extends Fragment {
     private  MyAdapter mMyAdapter;
     private BroadcastReceiver mBroadcastReceiver;
     private ImageButton mPersons;
-
     private UserInfo mUserInfo;
 
 
@@ -78,7 +80,10 @@ public class ChooseFragment extends Fragment {
         super.onStart();
         //*****************根据单例里的用户信息来登陆***************
         if (getActivity() instanceof MainActivity) { //这里登陆只是为了监听器的注册
-            UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
+           SharedPreferences pref=getActivity().getSharedPreferences("data",MODE_PRIVATE);
+             String username=pref.getString("name","");
+            String pwd=pref.getString("pwd","");
+            UserInfo userInfo = new UserInfo(username, pwd, R.drawable.left_image);
             //这里获得传递进来的账号密码信息，然后存进数据库
             mUserInfo = UserInfoLab.get(getActivity(), userInfo).getUserInfo();
             String name = mUserInfo.getUsername();
@@ -156,8 +161,10 @@ public class ChooseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
+       SharedPreferences pref=getActivity().getSharedPreferences("data",MODE_PRIVATE);
+         String username=pref.getString("name","");
+         String pwd=pref.getString("pwd","");
+        UserInfo userInfo = new UserInfo(username, pwd, R.drawable.left_image);
         //这里获得传递进来的账号密码信息，然后存进数据库
         mUserInfo = UserInfoLab.get(getActivity(), userInfo).getUserInfo();
 
@@ -216,6 +223,7 @@ public class ChooseFragment extends Fragment {
             //************************************************
         }
     }
+
 
     @Nullable
     @Override

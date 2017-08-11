@@ -23,6 +23,7 @@
     <!-- 唤醒锁屏 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 写入外部存储 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 访问精确定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -149,7 +150,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.EditInfoActivity"></activity>
+        <activity android:name=".activity.EditInfoActivity" />
+        <activity android:name=".activity.PhotoActivity"></activity>
     </application>
 
 </manifest>

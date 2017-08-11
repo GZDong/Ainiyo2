@@ -1,24 +1,19 @@
 package com.huadi.android.ainiyo.activity;
 
-import android.app.ProgressDialog;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.huadi.android.ainiyo.activity.LoadingDialog;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.entity.UserInfo;
-import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -112,8 +107,11 @@ public class LoginActivity extends AppCompatActivity  {
                                             editor.putBoolean("remember_pwd",false);
                                             editor.apply();
                                         }
-                                     UserInfo userInfo=new UserInfo(login_name.getText().toString(),login_pwd.getText().toString(),0);
-                                        UserInfo lab=UserInfoLab.get(LoginActivity.this,userInfo).getUserInfo();
+                                     SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
+                                        editor.putString("name",login_name.getText().toString());
+                                        editor.putString("pwd",login_pwd.getText().toString());
+                                        editor.putBoolean("islogin",true);
+                                        editor.apply();
                                         new Thread(new Runnable(){
                                             @Override
                                             public void run(){
