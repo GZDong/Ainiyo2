@@ -80,12 +80,12 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
                 intent.putExtra("name",mData.get(position).getName());
                 intent.putExtra("picture",mData.get(position).getPicture());
                 intent.putExtra("userInfo", mUserInfo);
-                intent.putExtra("from",TAG);
+                intent.putExtra("from", TAG);
                 mContext.startActivity(intent);
             }
         });
 
-        holder.imgView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(mContext.getResources(),this.mData.get(position).getPicture(),50,50));
+        holder.imgView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(mContext.getResources(), this.mData.get(position).getPicture(), 50, 50));
 
     }
 

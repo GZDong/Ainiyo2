@@ -84,22 +84,22 @@ public class FriendsInfoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-       switch (item.getItemId()){
+        switch (item.getItemId()) {
 
-           case android.R.id.home:
-               if (from.equals("ChattingFragment")){
-                   Intent intent = new Intent(FriendsInfoActivity.this,ChattingActivity.class);
-                   intent.putExtra("name",name);
-                   intent.putExtra("img",picture);
-                   intent.putExtra("userInfo",mUserInfo);
-                   startActivity(intent);
-               }else if(from.equals("FriendsListActivity")){
-                   Intent intent = new Intent(FriendsInfoActivity.this,FriendsListActivity.class);
-                   intent.putExtra("userInfo",mUserInfo);
-                   startActivity(intent);
-               }
+            case android.R.id.home:
+                if (from.equals("ChattingFragment")) {
+                    Intent intent = new Intent(FriendsInfoActivity.this, ChattingActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("img", picture);
+                    intent.putExtra("userInfo", mUserInfo);
+                    startActivity(intent);
+                } else if (from.equals("FriendsListActivity")) {
+                    Intent intent = new Intent(FriendsInfoActivity.this, FriendsListActivity.class);
+                    intent.putExtra("userInfo", mUserInfo);
+                    startActivity(intent);
+                }
 
-       }
+        }
         return super.onOptionsItemSelected(item);
     }
 

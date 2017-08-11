@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                                             editor.putBoolean("remember_pwd", false);
                                             editor.apply();
                                         }
-                                        mUserInfo= new UserInfo(login_name.getText().toString(), login_pwd.getText().toString(), R.drawable.left_image);
+                                        mUserInfo = new UserInfo(login_name.getText().toString(), login_pwd.getText().toString(), R.drawable.left_image);
                                         //初始化单例，如果数据库里没有过这个用户，就存进数据库，否则直接根据用户输入的
                                         //账号密码来初始化单例
                                         UserInfoLab.get(LoginActivity.this, mUserInfo);

@@ -155,7 +155,7 @@ public class SignInUtil {
                 try {
                     /*String username = mUsernameEdit.getText().toString().trim();
                     String password = mPasswordEdit.getText().toString().trim();*/
-                    EMClient.getInstance().createAccount(account,password);
+                    EMClient.getInstance().createAccount(account, password);
 
                 } catch (final HyphenateException e) {
                     e.printStackTrace();

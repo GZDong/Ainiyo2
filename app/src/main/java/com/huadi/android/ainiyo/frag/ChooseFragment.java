@@ -67,9 +67,9 @@ public class ChooseFragment extends Fragment {
 
     public static ChooseFragment newInstance() {
 
-       // Bundle args = new Bundle();
+        // Bundle args = new Bundle();
         ChooseFragment fragment = new ChooseFragment();
-       // fragment.setArguments(args);
+        // fragment.setArguments(args);
         return fragment;
     }
 
@@ -78,10 +78,10 @@ public class ChooseFragment extends Fragment {
         super.onStart();
         //*****************根据单例里的用户信息来登陆***************
         if (getActivity() instanceof MainActivity) { //这里登陆只是为了监听器的注册
-          //  UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
+            //  UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
 
             //这里获得传递进来的账号密码信息，然后存进数据库
-           mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
+            mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
             String name = mUserInfo.getUsername();
             String pass = mUserInfo.getPassword();
             SignInUtil.signIn(name,pass,getActivity());
@@ -158,7 +158,7 @@ public class ChooseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-     //   UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
+        //   UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
         //这里获得传递进来的账号密码信息，然后存进数据库
         mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
         frdList = new ArrayList<>();
@@ -260,8 +260,8 @@ public class ChooseFragment extends Fragment {
         if (getActivity() instanceof ChattingActivity) {
             getActivity().unregisterReceiver(mBroadcastReceiver);
         }
-        if (getActivity()instanceof MainActivity){
-            Log.e("eee","onDestroy");
+        if (getActivity() instanceof MainActivity) {
+            Log.e("eee", "onDestroy");
             SignInUtil.signOut();
         }
 
@@ -379,7 +379,7 @@ public class ChooseFragment extends Fragment {
             String newTime = friends.getNewTime();
             holder.textView.setText(name_fri);
             //holder.mImageView.setImageResource(picture);
-           holder.mImageView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(),picture,50,50));
+            holder.mImageView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(), picture, 50, 50));
 
             if (unreadM != 0){
                 holder.UnreadBtn.setVisibility(View.VISIBLE);

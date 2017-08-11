@@ -377,7 +377,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
             initClick();
         }
-        private void initClick(){
+
+        private void initClick() {
             leftImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -389,10 +390,10 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), FriendsInfoActivity.class);
-                    intent.putExtra("name",mChatId);
-                    intent.putExtra("picture",mImage);
-                    intent.putExtra("userInfo",mUserInfo);
-                    intent.putExtra("from",TAG);
+                    intent.putExtra("name", mChatId);
+                    intent.putExtra("picture", mImage);
+                    intent.putExtra("userInfo", mUserInfo);
+                    intent.putExtra("from", TAG);
                     startActivity(intent);
                 }
             });
@@ -427,7 +428,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
                 //加载图片
                 //  Glide.with(getActivity()).load(bm).fitCenter().into(holder.rightImage);
-                holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm,100,100));
+                holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
                 holder.rightMsg.setText(body.getMessage());
 
@@ -438,7 +439,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
                 Bitmap bm = BitmapFactory.decodeResource(getResources(),userImage);
                 //加载图片
-                holder.leftImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm,100,100));
+                holder.leftImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
                 //Glide.with(getActivity()).load(bm).fitCenter().into(holder.leftImage);
 
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();

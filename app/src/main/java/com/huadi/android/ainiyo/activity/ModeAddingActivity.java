@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.adapter.ImageAdapter;
+import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ResponseObject;
 import com.huadi.android.ainiyo.util.CONST;
@@ -132,7 +133,8 @@ public class ModeAddingActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(File file) {
                     RequestParams params = new RequestParams();
-                    params.addBodyParameter("sessionid", CONST.SESSIONID);
+                    ECApplication application = (ECApplication) getApplication();
+                    params.addBodyParameter("sessionid", application.sessionId);
                     params.addBodyParameter("photo", file);
                     new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.UPLOAD_PHOTO, params, new RequestCallBack<String>() {
 
@@ -174,7 +176,8 @@ public class ModeAddingActivity extends AppCompatActivity {
     //上传心情信息
     public void upLoadContent(ArrayList<String> mList) {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("sessionid", CONST.SESSIONID);
+        ECApplication application = (ECApplication) getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
         //Toast.makeText(ModeAddingActivity.this,String.valueOf(imagesUrl.size()),Toast.LENGTH_SHORT).show();
         ModeInfo mi = new ModeInfo(null, et_mode_add_saying.getText().toString(), null, mList);
         Gson gson = new Gson();

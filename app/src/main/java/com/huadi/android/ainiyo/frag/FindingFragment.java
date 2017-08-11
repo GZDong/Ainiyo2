@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.activity.FindingDetailActivity;
 import com.huadi.android.ainiyo.adapter.FindingAdapter;
+import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
@@ -111,7 +112,8 @@ public class FindingFragment extends Fragment {
             page = 1;
         }
 
-        params.addBodyParameter("sessionid", CONST.SESSIONID);
+        ECApplication application = (ECApplication) getActivity().getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("page", "0");
         params.addBodyParameter("pagesize", "10");
         params.addBodyParameter("type", "1");

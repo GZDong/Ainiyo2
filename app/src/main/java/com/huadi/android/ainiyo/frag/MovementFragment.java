@@ -23,6 +23,7 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeDetailActivity;
 import com.huadi.android.ainiyo.activity.MovementDetailActivity;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
+import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
@@ -98,7 +99,8 @@ public class MovementFragment extends Fragment {
             page = 1;
         }
 
-        params.addBodyParameter("sessionid", CONST.SESSIONID);
+        ECApplication application = (ECApplication) getActivity().getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("page", "0");
         params.addBodyParameter("pagesize", "10");
         params.addBodyParameter("type", "1");

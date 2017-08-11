@@ -58,7 +58,7 @@
                     android:text="test"
                     android:textSize="18dp"
                     android:maxLines="1"
-                    android:ellipsize="end"/>
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/text_time"
@@ -71,7 +71,7 @@
 
                     android:text="2017-8-1 15:32:11"
                     android:maxLines="1"
-                    android:ellipsize="marquee"/>
+                    android:ellipsize="marquee" />
             </LinearLayout>
 
             <Button

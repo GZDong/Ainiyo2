@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                     .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            System.exit(0);
+                            finish();
                         }
                     })
                     .setNegativeButton("取消", null)

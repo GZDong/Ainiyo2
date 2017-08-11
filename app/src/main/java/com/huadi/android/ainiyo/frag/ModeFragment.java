@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
@@ -111,7 +112,9 @@ public class ModeFragment extends Fragment {
             page = 1;
         }
 
-        params.addBodyParameter("sessionid", CONST.SESSIONID);
+        //获得sessionId，保存在Application里作为全局变量
+        ECApplication application = (ECApplication) getActivity().getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("page", "0");
         params.addBodyParameter("pagesize", "10");
         params.addBodyParameter("type", "1");

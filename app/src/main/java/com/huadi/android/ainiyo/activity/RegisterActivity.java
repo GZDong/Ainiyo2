@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if (msg.equals("success")) {
 
                                 //如果自己的服务器注册成功，就拿数据去环形服务器注册
-                                SignInUtil.signUp(RegisterActivity.this,register_name.getText().toString(),register_pwd1.getText().toString());
+                                SignInUtil.signUp(RegisterActivity.this, register_name.getText().toString(), register_pwd1.getText().toString());
 
                                 Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
                                 finish();
