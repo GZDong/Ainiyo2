@@ -54,6 +54,7 @@ public class MeFragment extends Fragment{
                break;
            case R.id.image:
                startActivity(new Intent(getActivity(),PhotoActivity.class));
+               break;
            case R.id.logoff:
                AlertDialog.Builder dialog=new AlertDialog.Builder(getActivity());
                dialog.setTitle("提示");

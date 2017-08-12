@@ -122,8 +122,7 @@ public class LoginActivity extends AppCompatActivity  {
                                     Log.e("test",application.sessionId);
 
                                     if(msg.equals("success")){
-                                        final LoadingDialog dia=new LoadingDialog(LoginActivity.this);
-                                        dia.setMessage("正在登陆中..").show();
+
                                         if(check_box.isChecked()){
                                             SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
                                             editor.putString("username",login_name.getText().toString());
@@ -143,19 +142,7 @@ public class LoginActivity extends AppCompatActivity  {
                                         editor.putString("pwd",login_pwd.getText().toString());
                                         editor.putBoolean("islogin",true);
                                         editor.apply();
-                                        new Thread(new Runnable(){
-                                            @Override
-                                            public void run(){
-                                                try{
-                                                    Thread.sleep(2000);
-                                                    dia.dismiss();
-                                                }
-                                                catch (InterruptedException e){
-                                                    e.printStackTrace();
-                                                }
 
-                                            }
-                                        }).start();
                                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
                                         dia.dismiss();   //***BUG
                                         finish();
