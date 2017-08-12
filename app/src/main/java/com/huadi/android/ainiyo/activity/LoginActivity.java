@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity  {
                                         editor.apply();
 
                                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                                        dia.dismiss();   //***BUG
+                                        /*dia.dismiss();  */ //***BUG
                                         finish();
                                     }
                                     Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();
