@@ -3,11 +3,13 @@ package com.huadi.android.ainiyo.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -54,6 +56,14 @@ public class LoginActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ActionBar actionbar = getSupportActionBar();
+        //调整状态栏(工具栏上方本来是灰色的，现在统一）的颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            //设置状态栏的颜色
+            this.getWindow().setStatusBarColor(getResources().getColor(R.color.theme_statusBar_red));
+        }
+
         if (actionbar != null) {
             actionbar.hide();
         }
@@ -90,10 +100,12 @@ public class LoginActivity extends AppCompatActivity  {
                 RequestParams params=new RequestParams();
                 params.addBodyParameter("name",login_name.getText().toString());
                 params.addBodyParameter("pwd",login_pwd.getText().toString());
-
+                //初始化用户信息
                 UserInfo userInfo = new UserInfo(login_name.getText().toString(),login_pwd.getText().toString(),R.drawable.right_image);
                 UserInfoLab.get(LoginActivity.this,userInfo);
-                Log.e("test",userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
+                UserInfoLab.get(LoginActivity.this,userInfo).setUserInfo(userInfo);
+
+                Log.e("test","onLoginActivity "+userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
                 HttpUtils http=new HttpUtils();
                 http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login",params,new RequestCallBack<String>() {
                             @Override
@@ -107,7 +119,7 @@ public class LoginActivity extends AppCompatActivity  {
                                     ECApplication application = (ECApplication) getApplication();
                                     application.sessionId = object.getString("Sessionid");
 
-
+                                    Log.e("test",application.sessionId);
 
                                     if(msg.equals("success")){
                                         final LoadingDialog dia=new LoadingDialog(LoginActivity.this);
@@ -145,6 +157,7 @@ public class LoginActivity extends AppCompatActivity  {
                                             }
                                         }).start();
                                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                                        dia.dismiss();   //***BUG
                                         finish();
                                     }
                                     Toast.makeText(LoginActivity.this,msg,Toast.LENGTH_SHORT).show();

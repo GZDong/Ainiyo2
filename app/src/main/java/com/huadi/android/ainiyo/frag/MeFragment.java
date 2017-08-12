@@ -20,6 +20,7 @@ import com.huadi.android.ainiyo.activity.EditInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.PhotoActivity;
 import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.util.SignInUtil;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -64,8 +65,11 @@ public class MeFragment extends Fragment{
                        SharedPreferences.Editor editor=getActivity().getSharedPreferences("data",MODE_PRIVATE).edit();
                        editor.putBoolean("islogin",false);
                        editor.apply();
+                       SignInUtil.signOut();
                        startActivity(new Intent(getActivity(),LoginActivity.class));
                        Toast.makeText(getActivity(),"你已退出登录",Toast.LENGTH_LONG).show();
+                       //这里网络上没有退出！！
+
                        getActivity().finish();
                    }});
                dialog.setNegativeButton("取消",new DialogInterface.OnClickListener(){

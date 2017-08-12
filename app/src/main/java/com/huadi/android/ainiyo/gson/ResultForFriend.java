@@ -5,9 +5,9 @@ package com.huadi.android.ainiyo.gson;
  */
 
 public class ResultForFriend {
-    private String Id;
-    private String Userid;
-    private String Friendid;
+    public String Id;
+    public String Userid;
+    public String Friendid;
 
     public String getUserid() {
         return Userid;

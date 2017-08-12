@@ -1,20 +1,17 @@
 package com.huadi.android.ainiyo.entity;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.Retrofit2.PostRequest_Interface;
+import com.huadi.android.ainiyo.Retrofit2.GetRequest_friend_Interface;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.gson.FriendGot;
 import com.huadi.android.ainiyo.gson.ResultForFriend;
-import com.huadi.android.ainiyo.util.DateUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.exceptions.HyphenateException;
 
-import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
@@ -40,6 +37,11 @@ public class FriendsLab {
 
     private List<Friends> mFriendses;
 
+    private UserInfo mUserInfo;
+    private List<Friends> mmFriendses;
+
+    private List<String> usernames;
+
     public static FriendsLab get(Context context, UserInfo userInfo) {
         if (sFriendsLab == null){
             sFriendsLab = new FriendsLab(context, userInfo);
@@ -49,15 +51,19 @@ public class FriendsLab {
 
     private FriendsLab(Context context, UserInfo userInfo) {
         mContext = context.getApplicationContext();
-        initFriends(userInfo);
+        String name = userInfo.getUsername();
+        String passwd = userInfo.getPassword();
+        int picture = userInfo.getPicture();
+        mUserInfo = new UserInfo(name,passwd,picture);
+       // initFriends(userInfo);
     }
 
     //根据用户来初始化好友列表
-    private void initFriends(UserInfo userInfo) {
+    public void initFriends() {
         mFriendses = new ArrayList<>();
 
         //从数据库中加载用户列的值为指定用户的好友名单
-        mFriendses = DataSupport.where("user = ?", userInfo.getUsername()).find(Friends.class);
+        mFriendses = DataSupport.where("user = ?", mUserInfo.getUsername()).find(Friends.class);
 
         //加载出来之后，如果名单多于一个，就根据最新消息时间排一下序号
         if (mFriendses.size() > 1) {
@@ -68,30 +74,40 @@ public class FriendsLab {
             //根据userInfo发起网络请求
             //获得数据
             //模拟：假如mmFriendses就是返回的数据
-            final List<Friends> mmFriendses = new ArrayList<>();
+           mmFriendses = new ArrayList<>();
 
            // AppCompatActivity appCompatActivity =(AppCompatActivity) mContext.getApplicationContext();
-            ECApplication application =(ECApplication) mContext.getApplicationContext();
-            Retrofit retrofit = new Retrofit.Builder()
+           // ECApplication application =(ECApplication) mContext.getApplicationContext();
+            /*Retrofit retrofit = new Retrofit.Builder()
                                     .baseUrl("http://120.24.168.102:8080/")
                                     .addConverterFactory(GsonConverterFactory.create())
                                     .build();
-            PostRequest_Interface request = retrofit.create(PostRequest_Interface.class);
-            Call<FriendGot> call = request.getCall(application.sessionId);
-            Log.e("testRetrofit","beforeCall");
+            GetRequest_friend_Interface request = retrofit.create(GetRequest_friend_Interface.class);
+            Call<FriendGot> call = request.getCall(((ECApplication)mContext.getApplicationContext()).sessionId);
+            Log.e("test","uuu"+((ECApplication)mContext.getApplicationContext()).sessionId);
             call.enqueue(new Callback<FriendGot>() {
                 @Override
                 public void onResponse(Call<FriendGot> call, Response<FriendGot> response) {
-                    if (response.body().Msg.equals("success")){
-                        Log.e("testRetrofit","request success");
-                        if (response.body().friendList != null){
-                            for (ResultForFriend resultForFriend : response.body().friendList){
-                                Friends friends = new Friends(resultForFriend.getUserid(),resultForFriend.getFriendid());
-                                mmFriendses.add(friends);
+                    Log.e("testRetrofit","onResponseForRequestFriends");
+                    if (response.isSuccessful()) {
+                        Log.e("testRetrofit","onSuccessful");
+                        if (response.body().getStatus()==300 ){
+                            Log.e("testRetrofit","onStatus == 300");
+                            Toast.makeText(mContext,"请求好友列表成功",Toast.LENGTH_LONG).show();
+                            if (response.body().friendList.size() > 0){
+                                for (ResultForFriend resultForFriend : response.body().friendList){
+                                    Friends friends = new Friends(resultForFriend.getUserid(),resultForFriend.getFriendid());
+                                    mmFriendses.add(friends);
+                                }
+                            }else {
+                                Log.e("testRetrofit","no thing");
+                                Toast.makeText(mContext,"还没有好友",Toast.LENGTH_LONG).show();
                             }
                         }else {
-                            Log.e("testRetrofit","no thing");
+                            Log.e("testRetrofit","onStatus != 300");
                         }
+                    }else {
+                        Log.e("testRetrofit","onUnsuccessful");
                     }
                 }
 
@@ -99,7 +115,7 @@ public class FriendsLab {
                 public void onFailure(Call<FriendGot> call, Throwable t) {
                     Log.e("testRetrofit","request failure");
                 }
-            });
+            });  */
             /*//测试：
             EMConversation conversation = EMClient.getInstance().chatManager().getConversation("shouji");
             int unread;
@@ -156,8 +172,18 @@ public class FriendsLab {
             mmFriendses.add(friend21);
             mmFriendses.add(friend22);
             mmFriendses.add(friend23);*/
-
-
+            //第三方获取好友
+            try {
+                usernames = EMClient.getInstance().contactManager().getAllContactsFromServer();
+            } catch (HyphenateException e) {
+                e.printStackTrace();
+            }
+            if (usernames != null) {
+                for (String user : usernames){
+                    Friends friends = new Friends(mUserInfo.getUsername(),user);
+                    mmFriendses.add(friends);
+                }
+            }
             //获得数据后先获得每个好友的未读信息，后存入数据库
             //这里记得初始化一些服务器上没有的数据
             if (mmFriendses.size() > 0) {
@@ -176,9 +202,10 @@ public class FriendsLab {
                     friends.save();
                 }
                 //如果来自网络的好友列表不为空，重新根据用户初始化聊天列表
-                initFriends(userInfo);
+                initFriends();
             }else if (mmFriendses.size() == 0){
                 //没有好友
+                Toast.makeText(mContext,"没有好友",Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -239,20 +266,12 @@ public class FriendsLab {
 
 
     public void addFriend(Friends friends) {
-
-        int flag = 0;
-        for (Friends friends1 : mFriendses) {
-            if (friends1.getName().equals(friends.getName())) {
-                Toast.makeText(mContext, "已经是好友", Toast.LENGTH_LONG).show();
-                flag = 1;
-            }
-        }
-        if (flag == 0) {
-            //请求网路
-            //判断有没有这个用户，如果有就向服务器申请添加该好友
-            //有的话提示用户已经发送请求了
-            Toast.makeText(mContext, "好友请求已经发送", Toast.LENGTH_LONG).show();
-        }
+        //这里还需要向服务器添加
+        String user = friends.getUser();
+        String name = friends.getName();
+        Friends friends1 = new Friends(user,name);
+        friends1.save();
+        initFriends();
     }
 
     //设置是否在聊天列表出现

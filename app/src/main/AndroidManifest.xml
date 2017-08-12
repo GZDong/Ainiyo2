@@ -154,7 +154,8 @@
         <activity android:name=".activity.EditInfoActivity"/>
         <activity android:name=".activity.PhotoActivity"/>
         <activity android:name=".activity.FindingDetailActivity"/>
-            <activity android:name=".activity.AddFriendActivity"/>
+            <activity android:name=".activity.AddFriendActivity"
+                android:parentActivityName=".activity.FriendsListActivity"/>
     </application>
 
 </manifest>

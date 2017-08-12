@@ -76,6 +76,7 @@ public class ChooseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        Log.e("test","onStart_ChooseFragment");
         //*****************根据单例里的用户信息来登陆***************
         if (getActivity() instanceof MainActivity) { //这里登陆只是为了监听器的注册
           //  UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
@@ -141,8 +142,11 @@ public class ChooseFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+
+
         //***************根据用户信息来刷新聊天列表**********
         if (getActivity() instanceof MainActivity) {
+            FriendsLab.get(getActivity(), mUserInfo).initFriends();
             frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
             MyAdapter myAdapter = new MyAdapter(frdList);
             mMyAdapter = myAdapter;
@@ -154,6 +158,16 @@ public class ChooseFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        if (getActivity() instanceof MainActivity){
+            EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
+            getActivity().unregisterReceiver(mBroadcastReceiver);
+        }
+        Log.e("test","onStop_Fragment");
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -162,6 +176,7 @@ public class ChooseFragment extends Fragment {
         //这里获得传递进来的账号密码信息，然后存进数据库
         mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
         frdList = new ArrayList<>();
+        FriendsLab.get(getActivity(), mUserInfo).initFriends();
         frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
 
         Log.e("ee", "onCreate_ChooseFragment");
@@ -270,13 +285,7 @@ public class ChooseFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (getActivity() instanceof MainActivity){
-            EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
-            getActivity().unregisterReceiver(mBroadcastReceiver);
 
-            Log.e("eee", "onPause()");
-
-        }
 
     }
 

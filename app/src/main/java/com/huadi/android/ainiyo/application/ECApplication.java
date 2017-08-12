@@ -3,14 +3,27 @@ package com.huadi.android.ainiyo.application;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.huadi.android.ainiyo.Retrofit2.PostRequest_ReqFri_Interface;
+import com.huadi.android.ainiyo.gson.ResultForRequset;
+import com.hyphenate.EMContactListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
+import com.hyphenate.exceptions.HyphenateException;
 
 import org.litepal.LitePalApplication;
 
 import java.util.Iterator;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by lz on 2016/4/16.
@@ -26,8 +39,6 @@ public class ECApplication extends Application {
 
     public static String sessionId;
 
-
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -39,40 +50,52 @@ public class ECApplication extends Application {
         initEasemob();
         //监听好友管理
         /*EMClient.getInstance().contactManager().setContactListener(new EMContactListener() {
-
-            @Override
-            public void onContactAgreed(String username) {
-                *//*try{
-                    EMClient.getInstance().contactManager().acceptInvitation(username);
-                }catch (HyphenateException e){
-                    e.printStackTrace();
-                }*//*
-
-            }
-
-            @Override
-            public void onContactRefused(String username) {
-
-            }
-
+            //收到好友邀请
             @Override
             public void onContactInvited(String username, String reason) {
-                //收到好友邀请
+                //发送一条通知，附上对方姓名和添加理由，点击通知后跳转到新界面，在新界面决定是否同意添加
+                //EMClient.getInstance().contactManager().acceptInvitation(username);接收好友的方法
+                //EMClient.getInstance().contactManager().declineInvitation(username);拒绝好友的方法
+
+                //模拟接受了
+                try {
+                    EMClient.getInstance().contactManager().acceptInvitation(username);
+                    Toast.makeText(ECApplication.this,"收到好友请求 " + username +" "+ reason,Toast.LENGTH_LONG).show();
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+            }
+            //好友请求被同意
+            @Override
+            public void onFriendRequestAccepted(String username) {
+                //把该好友的username上传到自己的服务器，然后加入数据库
+                //调整自己服务器的接口，添加好友不需要附加信息
+                Toast.makeText(ECApplication.this,"对方同意接受你为好友",Toast.LENGTH_LONG).show();
             }
 
+            //被删除时回调此方法
             @Override
             public void onContactDeleted(String username) {
-                //被删除时回调此方法
+                //被删除时，从2个服务器删除好友关系
+                //第三方删除 EMClient.getInstance().contactManager().deleteContact(username);
+                //删除本地数据库内容
+                //告诉用户被删除好友了
             }
-
-
+            //增加了联系人时回调此方法
             @Override
             public void onContactAdded(String username) {
-                //增加了联系人时回调此方法
-                Log.d("eeee","添加好友成功");
+                //点击同意后，上传服务器，更新本地数据库和单例
+                //刷新好友列表
+                Toast.makeText(ECApplication.this,"对方同意接受你为好友",Toast.LENGTH_LONG).show();
+            }
+            //好友请求被拒绝
+            @Override
+            public void onFriendRequestDeclined(String username) {
+            //发送一条通知，告诉好友请求被拒绝了
             }
         });*/
     }
+
 
     public static Context getContext(){
         return mContext;
@@ -129,7 +152,7 @@ public class ECApplication extends Application {
         // 设置是否根据服务器时间排序，默认是true
         options.setSortMessageByServerTime(false);
         // 收到好友申请是否自动同意，如果是自动同意就不会收到好友请求的回调，因为sdk会自动处理，默认为true
-        options.setAcceptInvitationAlways(true);
+        options.setAcceptInvitationAlways(false);
         // 设置是否自动接收加群邀请，如果设置了当收到群邀请会自动同意加入
         options.setAutoAcceptGroupInvitation(false);
         // 设置（主动或被动）退出群组时，是否删除群聊聊天记录
