@@ -100,7 +100,7 @@ public class WelcomActivity extends AppCompatActivity {
                                         Log.e("test",application.sessionId);
 
                                         if(msg.equals("success")){
-                                            final LoadingDialog dia=new LoadingDialog(WelcomActivity.this);
+                                            /*final LoadingDialog dia=new LoadingDialog(WelcomActivity.this);
                                             dia.setMessage("正在登陆中..").show();
                                             new Thread(new Runnable(){
                                                 @Override
@@ -114,9 +114,8 @@ public class WelcomActivity extends AppCompatActivity {
                                                     }
 
                                                 }
-                                            }).start();
+                                            }).start();*/
                                             startActivity(new Intent(WelcomActivity.this,MainActivity.class));
-                                            dia.dismiss();   //***BUG
                                             finish();
                                         }
                                         Toast.makeText(WelcomActivity.this,msg,Toast.LENGTH_SHORT).show();

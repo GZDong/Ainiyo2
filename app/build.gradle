@@ -47,6 +47,8 @@ dependencies {
     // Okhttp库
     compile 'top.zibin:Luban:1.1.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'io.reactivex:rxjava:1.0.14'
+    compile 'io.reactivex:rxandroid:1.0.1'
 }
 //---------------------------------------------
 

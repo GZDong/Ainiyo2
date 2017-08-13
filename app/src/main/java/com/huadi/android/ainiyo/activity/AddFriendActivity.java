@@ -49,6 +49,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by zhidong on 2017/8/10.
@@ -251,8 +256,41 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                 }else {
                    attach = " ";
                 }
+                //RxJava实现异步：
+                Observable.create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        try {
+                            EMClient.getInstance().contactManager().addContact(mClearEditText.getText().toString(),attach);
+                            Log.e("test","OnSubscribe"+Thread.currentThread().getId());
+                        } catch (HyphenateException e) {
+                            e.printStackTrace();
+                        }
+                        subscriber.onNext("测试");
+                    }
+                }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<String>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.e("test","onCompleted\n");
+                        Log.e("test","执行一次Async完毕");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                       Log.e("test","onNext " + s + "\n");
+                        Log.e("test","OnNext"+Thread.currentThread().getId());
+                    }
+                });
+
                 //尝试异步添加
-                new AddFriendTask().execute(mClearEditText.getText().toString(),attach);
+               // new AddFriendTask().execute(mClearEditText.getText().toString(),attach);
                 //直接尝试添加
                 /*try {
                     //可以在这里检测好友id是否存在
