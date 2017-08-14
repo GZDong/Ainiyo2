@@ -24,13 +24,14 @@
         android:hint="@string/search_hint"
         android:maxLines="1"
         android:paddingLeft="8dp"
-        android:textSize="15dp"/>
+        android:textSize="15dp" />
+
     <Button
         android:id="@+id/search_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/search_fri"
-        />
+        android:text="@string/search_fri" />
+
     <EditText
         android:id="@+id/attach_text"
         android:layout_width="match_parent"
@@ -38,6 +39,5 @@
         android:padding="10dp"
         android:hint="@string/attach"
         android:gravity="top|left"
-        android:theme="@style/MyEditText"
-        />
+        android:theme="@style/MyEditText" />
 </LinearLayout>
