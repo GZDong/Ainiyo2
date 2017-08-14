@@ -10,13 +10,13 @@ public class ModeWebData {
     private int Id;
     private int Userid;
     private String Content;
-    private String Data;
+    private String Date;
 
-    public ModeWebData(int id, int userid, String content, String data) {
+    public ModeWebData(int id, int userid, String content, String date) {
         Id = id;
         Userid = userid;
         Content = content;
-        Data = data;
+        Date = date;
     }
 
     public int getId() {
@@ -43,11 +43,11 @@ public class ModeWebData {
         Content = content;
     }
 
-    public String getData() {
-        return Data;
+    public String getDate() {
+        return Date;
     }
 
-    public void setData(String data) {
-        Data = data;
+    public void setDate(String data) {
+        Date = data;
     }
 }

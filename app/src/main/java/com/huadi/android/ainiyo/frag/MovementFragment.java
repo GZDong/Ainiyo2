@@ -25,6 +25,7 @@ import com.huadi.android.ainiyo.activity.MovementDetailActivity;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
@@ -51,7 +52,7 @@ public class MovementFragment extends Fragment {
     @ViewInject(R.id.movement_list_view)
     private PullToRefreshListView movement_list_view;
 
-    private List<ModeInfo> mList = new ArrayList<>();
+    private List<ModeLocalData> mList = new ArrayList<>();
     private ModeResult modeResult;
     private ModeWebData[] mwd;
     private ModeAdapter mAdapter;
@@ -137,7 +138,9 @@ public class MovementFragment extends Fragment {
                             }.getType();
                             ModeInfo mi;
                             mi = gson.fromJson(mwd1.getContent(), type);
-                            mList.add(mi);
+
+                            ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
+                            mList.add(mld);
                         }
 
 //                    Toast.makeText(getActivity(),

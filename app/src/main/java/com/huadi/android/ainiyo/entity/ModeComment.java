@@ -1,43 +1,26 @@
-package elife.elife.cn.elifetest;
+package com.huadi.android.ainiyo.entity;
 
 /**
  * Created by wgyscsf on 2016/5/26.
  * 邮箱：wgyscsf@163.com
  * 博客：http://blog.csdn.net/wgyscsf
  */
-public class Comment {
+public class ModeComment {
     private String id;
-    private String nickName;
+    private String name;
     private String imgUrl;
-    private int sex;//1:男；2:女；0：未知
-    private String local;
     private String content;
     private String time;
-    private String  replyed;//回复了谁
+    private String replyed;//回复了谁
 
-    public int getSex() {
-        return sex;
-    }
-
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
-
-    public Comment() {
-    }
-
-    public Comment(String id, String nickName, String imgUrl, int sex, String local, String content, String time, String replyed) {
+    public ModeComment(String id, String name, String imgUrl, String content, String time, String replyed) {
         this.id = id;
-        this.nickName = nickName;
+        this.name = name;
         this.imgUrl = imgUrl;
-        this.sex = sex;
-        this.local = local;
         this.content = content;
         this.time = time;
         this.replyed = replyed;
     }
-
-
 
     public String getId() {
         return id;
@@ -47,12 +30,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getName() {
+        return name;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImgUrl() {
@@ -61,14 +44,6 @@ public class Comment {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
-    }
-
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
     }
 
     public String getContent() {
@@ -93,18 +68,5 @@ public class Comment {
 
     public void setReplyed(String replyed) {
         this.replyed = replyed;
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id='" + id + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", imgUrl='" + imgUrl + '\'' +
-                ", local='" + local + '\'' +
-                ", content='" + content + '\'' +
-                ", time='" + time + '\'' +
-                ", replyed='" + replyed + '\'' +
-                '}';
     }
 }

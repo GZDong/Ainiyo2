@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeAddingActivity;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -26,10 +27,12 @@ import java.util.List;
 
 public class ModeAdapter extends BaseAdapter {
 
-    private List<ModeInfo> mList;
+    private List<ModeLocalData> mList;
     private ImageAdapter mAdapter;
 
-    public ModeAdapter(List<ModeInfo> list){ mList = list; }
+    public ModeAdapter(List<ModeLocalData> list) {
+        mList = list;
+    }
 
     @Override
     public int getCount() {
@@ -37,12 +40,12 @@ public class ModeAdapter extends BaseAdapter {
     }
 
     @Override
-    public ModeInfo getItem(int position) {
+    public ModeLocalData getItem(int position) {
         return (mList == null || position>=mList.size())?null:mList.get(position);
     }
 
     public String getPhoItem(int position) {
-        return (mList == null || position>=mList.size())?null:mList.get(position).getImgUrlforContent().get(position);
+        return (mList == null || position >= mList.size()) ? null : mList.get(position).getMi().getImgUrlforContent().get(position);
     }
 
     @Override
@@ -63,7 +66,7 @@ public class ModeAdapter extends BaseAdapter {
             holder=(ViewHolder) convertView.getTag();
         }
 
-        ModeInfo modeInfo=mList.get(position);
+        ModeInfo modeInfo = mList.get(position).getMi();
         if(modeInfo.getName()!=null){
             holder.mode_username.setText(modeInfo.getName());
         }

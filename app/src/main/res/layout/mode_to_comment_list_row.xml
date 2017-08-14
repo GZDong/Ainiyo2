@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--昵称以及回复人昵称-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="2dp">
+        <!--昵称-->
+        <TextView
+            android:id="@+id/tv_mode_to_comment_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="1314****0201"
+            android:textColor="#000"
+            android:textSize="12dp" />
+        <!--回复两字-->
+        <TextView
+            android:id="@+id/tv_mode_to_comment_huifu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="回复"
+            android:textColor="#1448f1"
+            android:textSize="12dp" />
+        <!--回复了谁-->
+        <TextView
+            android:id="@+id/tv_mode_to_comment_replyed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text="张三"
+            android:textColor="#0b0b0b"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tv_mode_to_comment_maohao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="4dp"
+            android:text=":"
+            android:textColor="#1448f1"
+            android:textSize="12dp" />
+
+        <!--评论内容-->
+        <TextView
+            android:id="@+id/tv_mode_to_comment_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:maxLines="3"
+            android:minLines="1"
+            android:text="呀呀呀呀呀，真不错"
+            android:textColor="#000"
+            android:textSize="12dp" />
+    </LinearLayout>
+
 
 </LinearLayout>

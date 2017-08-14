@@ -206,7 +206,8 @@ public class ModeMeActivity extends AppCompatActivity {
 
     public void DeletingTheMode(int id) {
         RequestParams params = new RequestParams();
-        params.addBodyParameter("sessionid", SESSIONID);
+        ECApplication application = (ECApplication) getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("moodid", String.valueOf(id));
         new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.DELETE_MODE, params, new RequestCallBack<String>() {
 
@@ -217,9 +218,10 @@ public class ModeMeActivity extends AppCompatActivity {
                         }.getType());
 
                 if (object.getMsg().equals("success")) {
-                    Toast.makeText(ModeMeActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
                     loadDatas(true, mList);
 
+                } else {
+                    Toast.makeText(ModeMeActivity.this, "删除的status: " + object.getStatus(), Toast.LENGTH_SHORT).show();
                 }
             }
 

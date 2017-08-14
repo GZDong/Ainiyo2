@@ -15,20 +15,21 @@ public class WelcomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcom);
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        final Boolean islogin=pref.getBoolean("islogin",false);
-        new Handler(new Handler.Callback(){
+        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
+        final Boolean islogin = pref.getBoolean("islogin", false);
+        new Handler(new Handler.Callback() {
             @Override
-            public boolean handleMessage(Message msg){
-                if(!islogin){
+            public boolean handleMessage(Message msg) {
+                if (!islogin) {
                 startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
-                finish();}
-                if(islogin){
-                    startActivity(new Intent(WelcomActivity.this,MainActivity.class));
+                    finish();
+                }
+                if (islogin) {
+                    startActivity(new Intent(WelcomActivity.this, MainActivity.class));
                     finish();
                 }
                 return true;
             }
-        }).sendEmptyMessageDelayed(0,2500);
+        }).sendEmptyMessageDelayed(0, 2500);
     }
 }

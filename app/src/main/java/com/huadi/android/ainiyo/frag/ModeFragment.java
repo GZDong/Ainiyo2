@@ -17,7 +17,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.huadi.android.ainiyo.activity.ModeDetailNineGridActivity;
 import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
@@ -59,7 +61,7 @@ public class ModeFragment extends Fragment {
     @ViewInject(R.id.btn_mode_add)
     private ImageView btn_mode_add;
 
-    private List<ModeInfo> mList=new ArrayList<>();
+    private List<ModeLocalData> mList = new ArrayList<>();
     private ModeResult modeResult;
     private ModeWebData[] mwd;
     private ModeAdapter mAdapter;
@@ -128,6 +130,7 @@ public class ModeFragment extends Fragment {
                         fromJson(responseInfo.result, new TypeToken<ResponseObject<ModeResult>>() {
                         }.getType());
 
+
                 if (object.getStatus() == 400) {
                     if (direction)// 头部刷新
                     {// 渲染内容到界面上
@@ -152,7 +155,9 @@ public class ModeFragment extends Fragment {
                             }.getType();
                             ModeInfo mi;
                             mi = gson.fromJson(mwd1.getContent(), type);
-                            mList.add(mi);
+
+                            ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
+                            mList.add(mld);
                         }
 
 //                    Toast.makeText(getActivity(),
@@ -174,6 +179,8 @@ public class ModeFragment extends Fragment {
                     if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
                         mode_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                     }
+                } else {
+                    Toast.makeText(getActivity(), "status:  " + object.getStatus(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -208,18 +215,18 @@ public class ModeFragment extends Fragment {
     }
 
 
-    private void loadDatas2(Intent data)
-    {
-        ArrayList<String> images = data.getStringArrayListExtra("images");
-        String et_mode_add_saying=data.getStringExtra("text");
-
-        ModeInfo md1=new ModeInfo("fengsam1",et_mode_add_saying,null,images);
-        mList.add(md1);
-
-//            mAdapter=new ModeAdapter(mList);
-//            mode_list_view.setAdapter(mAdapter);
-
-    }
+//    private void loadDatas2(Intent data)
+//    {
+//        ArrayList<String> images = data.getStringArrayListExtra("images");
+//        String et_mode_add_saying=data.getStringExtra("text");
+//
+//        ModeInfo md1=new ModeInfo("fengsam1",et_mode_add_saying,null,images);
+//        mList.add(md1);
+//
+////            mAdapter=new ModeAdapter(mList);
+////            mode_list_view.setAdapter(mAdapter);
+//
+//    }
 
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -232,8 +239,10 @@ public class ModeFragment extends Fragment {
 
     @OnItemClick({R.id.mode_list_view})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getActivity(), ModeDetailActivity.class);
-        intent.putExtra("item", mAdapter.getItem(position-1).getImgUrlforContent());
+        Intent intent = new Intent(getActivity(), ModeDetailNineGridActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("item", mAdapter.getItem(position - 1));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 

@@ -73,7 +73,7 @@ public class PreviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preview);
+        setContentView(R.layout.activity_is_preview);
 
         setStatusBarVisible(true);
         mImages = tempImages;
