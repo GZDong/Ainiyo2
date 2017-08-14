@@ -27,8 +27,6 @@ dependencies {
     })
     compile project(':imageselector')
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
-    // Retrofit库
-    // Okhttp库
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
@@ -43,8 +41,13 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'org.litepal.android:core:1.5.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    // Retrofit库
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    // Okhttp库
     compile 'top.zibin:Luban:1.1.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'io.reactivex:rxjava:1.0.14'
+    compile 'io.reactivex:rxandroid:1.0.1'
     compile 'com.lzy.widget:ninegridview:+'
     compile 'com.lzy.widget:view-core:0.2.1'
     testCompile 'junit:junit:4.12'

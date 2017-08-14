@@ -63,6 +63,10 @@ public class UserInfoLab {
         }
     }
 
+    public void setUserInfo(UserInfo userInfo){
+        this.mUserInfo = userInfo;
+    }
+
     public UserInfo getUserInfo(){
         return mUserInfo;
     }

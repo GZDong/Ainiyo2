@@ -16,13 +16,28 @@
     </android.support.v7.widget.Toolbar>
 
     <com.huadi.android.ainiyo.definedView.ClearEditText
-        android:id="@+id/filter_edit"
+        android:id="@+id/search_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
         android:background="#f8f9f7"
         android:drawableLeft="@drawable/search_bar_icon_normal"
         android:hint="@string/search_hint"
         android:maxLines="1"
-        android:textSize="15dp" />
+        android:paddingLeft="8dp"
+        android:textSize="15dp"/>
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search_fri"
+        />
+    <EditText
+        android:id="@+id/attach_text"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:padding="10dp"
+        android:hint="@string/attach"
+        android:gravity="top|left"
+        android:theme="@style/MyEditText"
+        />
 </LinearLayout>

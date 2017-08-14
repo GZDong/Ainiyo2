@@ -18,4 +18,8 @@ public class FriendGot {
     public List<ResultForFriend> friendList;
 
     public String Sessionid;
+
+    public int getStatus() {
+        return Status;
+    }
 }
