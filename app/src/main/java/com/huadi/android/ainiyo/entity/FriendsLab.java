@@ -54,8 +54,8 @@ public class FriendsLab {
         String name = userInfo.getUsername();
         String passwd = userInfo.getPassword();
         int picture = userInfo.getPicture();
-        mUserInfo = new UserInfo(name,passwd,picture);
-       // initFriends(userInfo);
+        mUserInfo = new UserInfo(name, passwd, picture);
+        // initFriends(userInfo);
     }
 
     //根据用户来初始化好友列表
@@ -74,10 +74,10 @@ public class FriendsLab {
             //根据userInfo发起网络请求
             //获得数据
             //模拟：假如mmFriendses就是返回的数据
-           mmFriendses = new ArrayList<>();
+            mmFriendses = new ArrayList<>();
 
-           // AppCompatActivity appCompatActivity =(AppCompatActivity) mContext.getApplicationContext();
-           // ECApplication application =(ECApplication) mContext.getApplicationContext();
+            // AppCompatActivity appCompatActivity =(AppCompatActivity) mContext.getApplicationContext();
+            // ECApplication application =(ECApplication) mContext.getApplicationContext();
             /*Retrofit retrofit = new Retrofit.Builder()
                                     .baseUrl("http://120.24.168.102:8080/")
                                     .addConverterFactory(GsonConverterFactory.create())
@@ -179,20 +179,20 @@ public class FriendsLab {
                 e.printStackTrace();
             }
             if (usernames != null) {
-                for (String user : usernames){
-                    Friends friends = new Friends(mUserInfo.getUsername(),user);
+                for (String user : usernames) {
+                    Friends friends = new Friends(mUserInfo.getUsername(), user);
                     mmFriendses.add(friends);
                 }
             }
             //获得数据后先获得每个好友的未读信息，后存入数据库
             //这里记得初始化一些服务器上没有的数据
             if (mmFriendses.size() > 0) {
-                for (Friends friends : mmFriendses){
+                for (Friends friends : mmFriendses) {
                     EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
                     int unread;
-                    if (conversation == null){
-                        unread =0;
-                    }else{
+                    if (conversation == null) {
+                        unread = 0;
+                    } else {
                         unread = conversation.getUnreadMsgCount();
                     }
                     friends.setUnreadMeg(unread);
@@ -203,9 +203,9 @@ public class FriendsLab {
                 }
                 //如果来自网络的好友列表不为空，重新根据用户初始化聊天列表
                 initFriends();
-            }else if (mmFriendses.size() == 0){
+            } else if (mmFriendses.size() == 0) {
                 //没有好友
-                Toast.makeText(mContext,"没有好友",Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "没有好友", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -269,7 +269,7 @@ public class FriendsLab {
         //这里还需要向服务器添加
         String user = friends.getUser();
         String name = friends.getName();
-        Friends friends1 = new Friends(user,name);
+        Friends friends1 = new Friends(user, name);
         friends1.save();
         initFriends();
     }

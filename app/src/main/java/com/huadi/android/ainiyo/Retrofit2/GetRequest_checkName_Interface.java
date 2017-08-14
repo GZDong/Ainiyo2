@@ -12,5 +12,5 @@ import retrofit2.http.Query;
 
 public interface GetRequest_checkName_Interface {
     @GET("checkName")
-    Call<ResultForCheckName> getCall(@Query("sessionid") String sessionid,@Query("name") String name);
+    Call<ResultForCheckName> getCall(@Query("sessionid") String sessionid, @Query("name") String name);
 }

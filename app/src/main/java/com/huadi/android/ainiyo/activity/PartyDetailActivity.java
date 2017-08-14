@@ -25,12 +25,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class PartyDetailActivity extends AppCompatActivity {
-    @ViewInject(R.id.partyTitleView) TextView title;
-    @ViewInject(R.id.partyDateView)  TextView date;
-    @ViewInject(R.id.partyImage)     ImageView image;
-    @ViewInject(R.id.partyMainText)  TextView main;
+    @ViewInject(R.id.partyTitleView)
+    TextView title;
+    @ViewInject(R.id.partyDateView)
+    TextView date;
+    @ViewInject(R.id.partyImage)
+    ImageView image;
+    @ViewInject(R.id.partyMainText)
+    TextView main;
 
-    private class PartyInformation{
+    private class PartyInformation {
         String title;
         String date;
         String picture;
@@ -44,7 +48,7 @@ public class PartyDetailActivity extends AppCompatActivity {
         getIntent().getStringExtra("id");
     }
 
-    private void LoadAndShow(String id){
+    private void LoadAndShow(String id) {
         Retrofit caller = new Retrofit.Builder().baseUrl("")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -52,15 +56,14 @@ public class PartyDetailActivity extends AppCompatActivity {
         Call<ResponseBody> call = request.getPartyInformation(id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override//同步中，待修改为异步
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response){
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Gson gson = new Gson();
                     PartyInformation information = gson.fromJson(response.body().string(), PartyInformation.class);
                     title.setText(information.title);
                     date.setText(information.date);
                     main.setText(information.article);
-                }
-                catch (java.io.IOException e){
+                } catch (java.io.IOException e) {
                     e.printStackTrace();
                 }
             }

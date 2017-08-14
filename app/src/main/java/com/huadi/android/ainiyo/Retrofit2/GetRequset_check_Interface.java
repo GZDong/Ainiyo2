@@ -16,5 +16,5 @@ import retrofit2.http.Query;
 public interface GetRequset_check_Interface {
 
     @GET("checklogin")
-    Call<ResultForCheck> getCall(@Query("sessionid")String sessionid);
+    Call<ResultForCheck> getCall(@Query("sessionid") String sessionid);
 }

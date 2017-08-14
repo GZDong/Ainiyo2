@@ -169,12 +169,11 @@ public class ModeCommentAdapter extends BaseAdapter {
     private void updateComment(String inf) {
         ModeComment comment = null;
         ModeComment mc3 = new ModeComment("", "David", "", inf, "", "fengsam");
-        mcList.clear();
+        //mcList.clear();
         mcList.add(0, mc3);
 
-        this.notifyDataSetChanged();
         mToCommentAdapter.notifyDataSetChanged();
-        this.notifyDataSetChanged();
+        mToCommentAdapter.notifyDataSetInvalidated();
 
         Toast.makeText(mContext, mToCommentAdapter.getItem(0).getContent(), Toast.LENGTH_SHORT).show();
     }

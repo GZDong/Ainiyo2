@@ -76,7 +76,7 @@ public class ChooseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("test","onStart_ChooseFragment");
+        Log.e("test", "onStart_ChooseFragment");
         //*****************根据单例里的用户信息来登陆***************
         if (getActivity() instanceof MainActivity) { //这里登陆只是为了监听器的注册
             //  UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
@@ -143,7 +143,6 @@ public class ChooseFragment extends Fragment {
         super.onResume();
 
 
-
         //***************根据用户信息来刷新聊天列表**********
         if (getActivity() instanceof MainActivity) {
             FriendsLab.get(getActivity(), mUserInfo).initFriends();
@@ -160,11 +159,11 @@ public class ChooseFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        if (getActivity() instanceof MainActivity){
+        if (getActivity() instanceof MainActivity) {
             EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
             getActivity().unregisterReceiver(mBroadcastReceiver);
         }
-        Log.e("test","onStop_Fragment");
+        Log.e("test", "onStop_Fragment");
     }
 
     @Override

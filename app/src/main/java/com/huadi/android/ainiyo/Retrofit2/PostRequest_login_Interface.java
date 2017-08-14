@@ -15,5 +15,5 @@ public interface PostRequest_login_Interface {
 
     @FormUrlEncoded
     @POST("login")
-    Call<ResultForLogin> getCall(@Field("name") String name,@Field("pwd") String pwd);
+    Call<ResultForLogin> getCall(@Field("name") String name, @Field("pwd") String pwd);
 }

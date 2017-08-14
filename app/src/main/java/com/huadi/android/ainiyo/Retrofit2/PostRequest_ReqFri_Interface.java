@@ -15,5 +15,5 @@ public interface PostRequest_ReqFri_Interface {
 
     @POST("addfriend")
     @FormUrlEncoded
-    Call<ResultForRequset> getCall(@Field("sessionid") String sessionid,@Field("friendid") String friendid,@Field("attach") String attach);
+    Call<ResultForRequset> getCall(@Field("sessionid") String sessionid, @Field("friendid") String friendid, @Field("attach") String attach);
 }

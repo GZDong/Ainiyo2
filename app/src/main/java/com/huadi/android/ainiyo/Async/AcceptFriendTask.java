@@ -10,7 +10,7 @@ import com.hyphenate.exceptions.HyphenateException;
  * Created by zhidong on 2017/8/12.
  */
 
-public class AcceptFriendTask extends AsyncTask<String,Void,String> {
+public class AcceptFriendTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
@@ -23,11 +23,10 @@ public class AcceptFriendTask extends AsyncTask<String,Void,String> {
     }
 
 
-
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Log.e("test","onAsyncTask_onPostExecute\n");
-        Log.e("test","执行一次Async完毕在监听器处");
+        Log.e("test", "onAsyncTask_onPostExecute\n");
+        Log.e("test", "执行一次Async完毕在监听器处");
     }
 }
