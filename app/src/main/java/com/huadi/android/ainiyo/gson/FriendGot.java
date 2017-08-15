@@ -10,7 +10,7 @@ import java.util.List;
 
 public class FriendGot {
 
-    public int Status;
+    public String Status;
 
     public String Msg;
 
@@ -19,7 +19,11 @@ public class FriendGot {
 
     public String Sessionid;
 
-    public int getStatus() {
+    public String getStatus() {
         return Status;
+    }
+
+    public String getMsg() {
+        return Msg;
     }
 }

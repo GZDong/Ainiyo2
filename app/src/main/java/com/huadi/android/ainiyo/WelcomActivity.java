@@ -36,7 +36,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class WelcomActivity extends AppCompatActivity {
 
@@ -49,13 +54,14 @@ public class WelcomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcom);
 
         //改成在开始界面请求必要的权限
-        if (ContextCompat.checkSelfPermission(WelcomActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(WelcomActivity.this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 1);
+        if (ContextCompat.checkSelfPermission(WelcomActivity.this,"android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(WelcomActivity.this,new String[] {"android.permission.WRITE_EXTERNAL_STORAGE"},1);
         }
 
 
-        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
-        final Boolean islogin = pref.getBoolean("islogin", false);
+
+        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
+        final Boolean islogin=pref.getBoolean("islogin",false);
 
         //调整状态栏(工具栏上方本来是灰色的，现在统一）的颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -65,93 +71,69 @@ public class WelcomActivity extends AppCompatActivity {
             this.getWindow().setStatusBarColor(getResources().getColor(R.color.theme_statusBar_red));
         }
 
-        new Handler(new Handler.Callback() {
-            @Override
-            public boolean handleMessage(Message msg) {
-                if (!islogin) {
+                if(!islogin){
                 startActivity(new Intent(WelcomActivity.this, LoginActivity.class));
-                    finish();
-                }
-                if (islogin) {
-                    SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
-                    username = pref.getString("name", "");
-                    password = pref.getString("pwd", "");
-                    RequestParams params = new RequestParams();
-                    params.addBodyParameter("name", username);
-                    params.addBodyParameter("pwd", password);
+                finish();}
+                if(islogin){
+                    SharedPreferences pref2=getSharedPreferences("data",MODE_PRIVATE);
+                    username=pref2.getString("name","");
+                    password=pref2.getString("pwd","");
+                    /*RequestParams params=new RequestParams();
+                    params.addBodyParameter("name",username);
+                    params.addBodyParameter("pwd",password);*/
 
                     //初始化用户信息
-                    UserInfo userInfo = new UserInfo(username, password, R.drawable.right_image);
-                    UserInfoLab.get(WelcomActivity.this, userInfo);
+                    UserInfo userInfo = new UserInfo(username,password,R.drawable.right_image);
+                    UserInfoLab.get(WelcomActivity.this,userInfo);
 
-                    HttpUtils http = new HttpUtils();
-                    http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login", params, new RequestCallBack<String>() {
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://120.24.168.102:8080/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .build();
+                    PostRequest_login_Interface login_interface = retrofit.create(PostRequest_login_Interface.class);
+
+                    Observable<ResultForLogin> observable = login_interface.getCall(username,password);
+                    observable.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<ResultForLogin>() {
                                 @Override
-                                public void onSuccess(ResponseInfo<String> responseInFo) {
-                                    String info = responseInFo.result.toString();
-                                    try {
-                                        JSONObject object = new JSONObject(info);
-                                        String msg = object.getString("Msg");
+                                public void onCompleted() {
+                                    Log.e("test","onCompleted 完成自动登陆");
+                                }
 
+                                @Override
+                                public void onError(Throwable e) {
+                                    Toast.makeText(WelcomActivity.this,"登陆异常",Toast.LENGTH_LONG).show();
+                                }
+
+                                @Override
+                                public void onNext(ResultForLogin resultForLogin) {
+                                    if (resultForLogin.getStatus().equals("100")){
                                         //获得sessionId，保存在Application里作为全局变量
                                         ECApplication application = (ECApplication) getApplication();
-                                        application.sessionId = object.getString("Sessionid");
+                                        application.sessionId = resultForLogin.getSessionid();
 
-                                        Log.e("test", application.sessionId);
-
-                                        if (msg.equals("success")) {
-                                            /*final LoadingDialog dia=new LoadingDialog(WelcomActivity.this);
-                                            dia.setMessage("正在登陆中..").show();
-                                            new Thread(new Runnable(){
-                                                @Override
-                                                public void run(){
-                                                    try{
-                                                        Thread.sleep(2000);
-                                                        dia.dismiss();
-                                                    }
-                                                    catch (InterruptedException e){
-                                                        e.printStackTrace();
-                                                    }
-
-                                                }
-                                            }).start();*/
-                                            startActivity(new Intent(WelcomActivity.this, MainActivity.class));
-                                            finish();
-                                        }
-                                        Toast.makeText(WelcomActivity.this, msg, Toast.LENGTH_SHORT).show();
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+                                        Log.e("test","自动重新登陆成功：" + application.sessionId);
+                                        Toast.makeText(WelcomActivity.this,"自动登陆成功",Toast.LENGTH_LONG).show();
+                                    }else {
+                                        Log.e("test",resultForLogin.getStatus().toString());
                                     }
-
-
                                 }
-
-                                @Override
-                                public void onFailure(HttpException error, String msg) {
-                                    Toast.makeText(WelcomActivity.this, "登陆失败，请重试！", Toast.LENGTH_SHORT).show();
-                                }
-
-
-                            }
-                    );
-
-                    startActivity(new Intent(WelcomActivity.this, MainActivity.class));
+                            });
+                    startActivity(new Intent(WelcomActivity.this,MainActivity.class));
                     finish();
                 }
-                return true;
-            }
-        }).sendEmptyMessageDelayed(0, 2500);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
+        switch (requestCode){
             case 1:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
 
-                } else {
-                    Toast.makeText(this, "你拒绝了程序正常运行需要的权限!", Toast.LENGTH_LONG);
+                }else{
+                    Toast.makeText(this,"你拒绝了程序正常运行需要的权限!",Toast.LENGTH_LONG);
                 }
         }
     }

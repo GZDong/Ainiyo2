@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.huadi.android.ainiyo.Async.AddFriendTask;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.Retrofit2.GetRequest_checkName_Interface;
@@ -48,6 +47,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Observer;
@@ -114,6 +114,7 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 mSearchBtn.setVisibility(View.VISIBLE);
+                mEditText.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -248,86 +249,79 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                 ECApplication ecApplication =(ECApplication) getApplication();
                 Retrofit retrofit = new Retrofit.Builder().baseUrl("http://120.24.168.102:8080/")
                                                           .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                                                           .build();
                 GetRequest_checkName_Interface checkNameInterface = retrofit.create(GetRequest_checkName_Interface.class);
-                Call<ResultForCheckName> call = null;
-                if (!TextUtils.isEmpty(mEditText.getText().toString())){
-                    attach = mEditText.getText().toString();
-                }else {
-                   attach = " ";
-                }
-                //RxJava实现异步：
-                Observable.create(new Observable.OnSubscribe<String>() {
-                    @Override
-                    public void call(Subscriber<? super String> subscriber) {
-                        try {
-                            EMClient.getInstance().contactManager().addContact(mClearEditText.getText().toString(),attach);
-                            Log.e("test","OnSubscribe"+Thread.currentThread().getId());
-                        } catch (HyphenateException e) {
-                            e.printStackTrace();
-                        }
-                        subscriber.onNext("测试");
-                    }
-                }).subscribeOn(Schedulers.io())
+                Observable<ResultForCheckName> call = checkNameInterface.getCall(ecApplication.sessionId,mClearEditText.getText().toString());
+                call.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<String>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.e("test","onCompleted\n");
-                        Log.e("test","执行一次Async完毕");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                       Log.e("test","onNext " + s + "\n");
-                        Log.e("test","OnNext"+Thread.currentThread().getId());
-                    }
-                });
-
-                //尝试异步添加
-               // new AddFriendTask().execute(mClearEditText.getText().toString(),attach);
-                //直接尝试添加
-                /*try {
-                    //可以在这里检测好友id是否存在
-                  // Toast.makeText(AddFriendActivity.this, EMClient.getInstance().getCurrentUser(),Toast.LENGTH_LONG).show();
-                    Toast.makeText(AddFriendActivity.this,mClearEditText.getText().toString() + attach,Toast.LENGTH_SHORT).show();
-                    EMClient.getInstance().contactManager().addContact(mClearEditText.getText().toString(),attach);
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
-                    Log.e("tip","添加好友失败了");
-                }*/
-                /*call = checkNameInterface.getCall(ecApplication.sessionId,attach);
-                call.enqueue(new Callback<ResultForCheckName>() {
-                    @Override
-                    public void onResponse(Call<ResultForCheckName> call, Response<ResultForCheckName> response) {
-                        if (response.isSuccessful()){
-                            if (response.body().getStatus() == 120){
-                                Toast.makeText(AddFriendActivity.this,"该用户存在",Toast.LENGTH_LONG).show();
-                                try {
-                                    //可以在这里检测好友id是否存在
-                                    EMClient.getInstance().contactManager().addContact(mClearEditText.getText().toString(),attach);
-                                } catch (HyphenateException e) {
-                                    e.printStackTrace();
-                                    Log.e("tip","添加好友失败了");
-                                }
-                            }else if (response.body().getStatus() == 121){
-                                Toast.makeText(AddFriendActivity.this,"该用户不存在",Toast.LENGTH_LONG).show();
+                        .subscribe(new Subscriber<ResultForCheckName>() {
+                            @Override
+                            public void onCompleted() {
+                                Log.e("test","onCompleted,检测用户是否存在结束");
                             }
-                        }else{
-                            Toast.makeText(AddFriendActivity.this,"请求失败",Toast.LENGTH_LONG).show();
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResultForCheckName> call, Throwable t) {
+                            @Override
+                            public void onError(Throwable e) {
 
-                    }
-                });*/
+                            }
+
+                            @Override
+                            public void onNext(ResultForCheckName resultForCheckName) {
+                                if (resultForCheckName.getStatus().equals("120")){
+                                    Log.e("test","onNext" + resultForCheckName.getMsg());
+                                    Toast.makeText(AddFriendActivity.this,"用户不存在",Toast.LENGTH_LONG).show();
+                                }else if (resultForCheckName.getStatus().equals("123")){
+                                    //在这里缺少向服务器发送添加该好友的信息的代码
+                                    Log.e("test","onNext" + resultForCheckName.getMsg());
+
+                                    if (!TextUtils.isEmpty(mEditText.getText().toString())){
+                                        attach = mEditText.getText().toString();
+                                    }else {
+                                        attach = " ";
+                                    }
+                                    //RxJava实现异步：
+                                    Observable.create(new Observable.OnSubscribe<String>() {
+                                        @Override
+                                        public void call(Subscriber<? super String> subscriber) {
+                                            try {
+                                                EMClient.getInstance().contactManager().addContact(mClearEditText.getText().toString(),attach);
+                                                Log.e("test","OnSubscribe"+Thread.currentThread().getId());
+                                            } catch (HyphenateException e) {
+                                                e.printStackTrace();
+                                            }
+                                            subscriber.onNext("完成");
+                                        }
+                                    }).subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(new Observer<String>() {
+                                                @Override
+                                                public void onCompleted() {
+                                                    Log.e("test","onCompleted\n");
+                                                    Log.e("test","执行一次Async完毕");
+                                                }
+
+                                                @Override
+                                                public void onError(Throwable e) {
+
+                                                }
+
+                                                @Override
+                                                public void onNext(String s) {
+                                                    Log.e("test","onNext " + s + "\n");
+                                                    Log.e("test","onNext"+Thread.currentThread().getId());
+                                                }
+                                            });
+                                    Toast.makeText(AddFriendActivity.this,resultForCheckName.getMsg()+"\n"+"添加好友的信息已经发送第三方服务器，不需要发送给自己这边的服务器",Toast.LENGTH_LONG).show();
+                                    finish();
+                                }else {
+                                    Log.e("test","第三种状态码");
+                                }
+                            }
+                        });
+
+                //异步添加
+               // new ().execute(mClearEditText.getText().toString(),attach);
             }
 
         }

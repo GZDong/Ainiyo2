@@ -99,10 +99,13 @@ public class ChooseFragment extends Fragment {
                     String ID = intent.getStringExtra("ID");
                     String newTime = intent.getStringExtra("newT");
                     Friends friends = FriendsLab.get(getActivity(), mUserInfo).getFriend(ID);
-                    friends.setUnreadMeg(newMsg);
-                    friends.setNewTime(newTime);
-                    FriendsLab.get(getActivity(), mUserInfo).reSort();
-                    frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
+                    if (friends!=null){
+                        friends.setUnreadMeg(newMsg);
+                        friends.setNewTime(newTime);
+                        FriendsLab.get(getActivity(), mUserInfo).reSort();
+                        frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
+                    }
+
 
                     for (Friends friends1 : frdList) {
 

@@ -5,12 +5,12 @@ package com.huadi.android.ainiyo.gson;
  */
 
 public class ResultForLogin {
-    public int Status;
+    public String Status;
     public String Msg;
     public String Result;
     public String Sessionid;
 
-    public int getStatus() {
+    public String getStatus() {
         return Status;
     }
 
