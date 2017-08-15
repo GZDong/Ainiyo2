@@ -107,6 +107,7 @@ public class LoginActivity extends AppCompatActivity  {
                 UserInfoLab.get(LoginActivity.this,userInfo);
                 UserInfoLab.get(LoginActivity.this,userInfo).setUserInfo(userInfo);
                 FriendsLab.get(LoginActivity.this,userInfo).setFriListNull();
+                FriendsLab.get(LoginActivity.this,userInfo).initFriends();
 
                 Log.e("test","onLoginActivity "+userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
                 HttpUtils http=new HttpUtils();

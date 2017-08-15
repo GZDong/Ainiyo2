@@ -1,5 +1,6 @@
 package com.huadi.android.ainiyo.entity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -88,7 +89,7 @@ public class FriendsLab {
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
             GetRequest_friend_Interface request = retrofit.create(GetRequest_friend_Interface.class);
-            Log.e("test","uuu"+((ECApplication)mContext.getApplicationContext()).sessionId);
+            Log.e("test","在请求好友列表时的sessionid: "+((ECApplication)mContext.getApplicationContext()).sessionId);
             Observable<FriendGot> call = request.getCall(((ECApplication)mContext.getApplicationContext()).sessionId);
             call.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -121,113 +122,10 @@ public class FriendsLab {
                         }
 
                     });
-           // AppCompatActivity appCompatActivity =(AppCompatActivity) mContext.getApplicationContext();
-           // ECApplication application =(ECApplication) mContext.getApplicationContext();
-           /* Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl("http://120.24.168.102:8080/")
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-            GetRequest_friend_Interface request = retrofit.create(GetRequest_friend_Interface.class);
-            Call<FriendGot> call = request.getCall(((ECApplication)mContext.getApplicationContext()).sessionId);
-            Log.e("test","uuu"+((ECApplication)mContext.getApplicationContext()).sessionId);
-            call.enqueue(new Callback<FriendGot>() {
-                @Override
-                public void onResponse(Call<FriendGot> call, Response<FriendGot> response) {
-                    Log.e("testRetrofit","走在onResponse里");
-                    if (response.isSuccessful()) {
-                        Log.e("testRetrofit","onSuccessful");
-                        if (response.body().getStatus().equals("300")){
-                            Log.e("testRetrofit","onStatus == 300");
-                            Toast.makeText(mContext,"请求好友列表成功",Toast.LENGTH_LONG).show();
-                            if (response.body().friendList!=null &&response.body().friendList.size() > 0){
-                                for (ResultForFriend resultForFriend : response.body().friendList){
-                                    Friends friends = new Friends(resultForFriend.getUserid(),resultForFriend.getFriendid());
-                                    mmFriendses.add(friends);
-                                }
-                            }else {
-                                Log.e("testRetrofit","又friendList，但是里面是空的");
-                            }
-                        }else {
-                            Log.e("testRetrofit","返回的Status不是300");
-                        }
-                    }else {
-                        Log.e("testRetrofit","response的success不成功");
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<FriendGot> call, Throwable t) {
-                    Log.e("testRetrofit","请求好友失败，没有走response");
-                }
-            });*/
-            /*//测试：
-            EMConversation conversation = EMClient.getInstance().chatManager().getConversation("shouji");
-            int unread;
-            if (conversation == null) {
-                unread = 0;
-            } else {
-                unread = conversation.getUnreadMsgCount();
-            }
-            //
-            Friends friend1 = new Friends("xuniji", "shouji", R.drawable.touxiang, unread, DateUtil.getNowDate(), true);
-            Friends friend2 = new Friends("shouji", "xiaoming", R.drawable.user2, 3, DateUtil.getNowDate(), true);
-            Friends friend3 = new Friends("xuniji", "新垣结衣", R.drawable.right_image, 11, "2017-08-04 16:40:59", true);
-            Friends friend4 = new Friends("shouji", "Scarlett", R.drawable.sijiali, 2, "2017-08-04 17:40:30", true);
-            Friends friend5 = new Friends("xuniji", "LiChengming", R.drawable.examplepicture, 1, "2017-08-03 16:41:59", true);
-            Friends friend6 = new Friends("shouji", "dong", R.drawable.example, 3, "2017-08-03 16:40:59", false);
-            Friends friend7 = new Friends("xuniji", "eong", R.drawable.example, 0, "2017-08-03 16:43:59", false);
-            Friends friend8 = new Friends("shouji", "fong", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend9 = new Friends("xuniji", "gong", R.drawable.example, 0, "2017-08-03 16:45:59", false);
-            Friends friend10 = new Friends("shouji", "hong", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend11 = new Friends("xuniji", "冯庆星", R.drawable.example, 0, "2017-08-03 16:46:59", false);
-            Friends friend12 = new Friends("shouji", "陈华琳", R.drawable.example, 0, "2017-08-03 16:40:48", false);
-            Friends friend13 = new Friends("xuniji", "杨小兴", R.drawable.example, 0, "2017-08-05 16:13:00", false);
-            Friends friend14 = new Friends("shouji", "黄嘉豪", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend15 = new Friends("xuniji", "黄铭熙", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend16 = new Friends("xuniji", "郑文辉", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend17 = new Friends("shouji", "范冰冰", R.drawable.bingbing, 2, "2017-08-04 16:44:59", true);
-            Friends friend18 = new Friends("gaozhidong", "高圆圆", R.drawable.gaoyuanyuan, 3, "2017-08-04 22:40:59", true);
-            Friends friend19 = new Friends("shouji", "李冰冰", R.drawable.libingbing, 1, "2017-08-02 16:40:59", true);
-            Friends friend20 = new Friends("xuniji", "林青霞", R.drawable.lingqingxia, 0, "2017-08-04 16:40:59", true);
-            Friends friend21 = new Friends("shouji", "林志玲", R.drawable.lingzhiling, 0, "2017-08-03 19:26:15", true);
-            Friends friend22 = new Friends("xuniji", "刘亦菲", R.drawable.liuyifei, 4, "2017-08-04 16:40:59", true);
-            Friends friend23 = new Friends("shouji", "章子怡", R.drawable.zhangziyi, 0, "2017-08-04 22:40:59", false);
 
-            mmFriendses.add(friend3);
-            mmFriendses.add(friend2);
-            mmFriendses.add(friend4);
-            mmFriendses.add(friend5);
-            mmFriendses.add(friend6);
-            mmFriendses.add(friend7);
-            mmFriendses.add(friend8);
-            mmFriendses.add(friend9);
-            mmFriendses.add(friend10);
-            mmFriendses.add(friend11);
-            mmFriendses.add(friend12);
-            mmFriendses.add(friend13);
-            mmFriendses.add(friend14);
-            mmFriendses.add(friend15);
-            mmFriendses.add(friend16);
-            mmFriendses.add(friend1);
-            mmFriendses.add(friend17);
-            mmFriendses.add(friend18);
-            mmFriendses.add(friend19);
-            mmFriendses.add(friend20);
-            mmFriendses.add(friend21);
-            mmFriendses.add(friend22);
-            mmFriendses.add(friend23);*/
-            //第三方获取好友
-            /*try {
-                usernames = EMClient.getInstance().contactManager().getAllContactsFromServer();
-            } catch (HyphenateException e) {
-                e.printStackTrace();
-            }
-            if (usernames != null) {
-                for (String user : usernames){
-                    Friends friends = new Friends(mUserInfo.getUsername(),user);
-                    mmFriendses.add(friends);
-                }
-            }*/
+
+
             //获得数据后先获得每个好友的未读信息，后存入数据库
             //这里记得初始化一些服务器上没有的数据
             if (mmFriendses.size() > 0) {
@@ -258,9 +156,11 @@ public class FriendsLab {
         List<Friends> reList = new ArrayList<>();
 
         //在好友列表挑出需要显示在聊天列表的好友
-        for (Friends friends : mFriendses){
-            if (friends.isShowInChooseFragment() == true){
-                reList.add(friends);
+        if (mFriendses!=null) {
+            for ( Friends friends : mFriendses){
+                if (friends.isShowInChooseFragment() == true){
+                    reList.add(friends);
+                }
             }
         }
         return reList;
@@ -298,6 +198,11 @@ public class FriendsLab {
                 return 1;
             }
         });
+        for (Friends friends1 : mFriendses) {
+            if (friends1 != null) {
+                Log.e("test", "mFriendses 排序后：" + friends1.getName() + "/n");
+            }
+        }
     }
 
     //返回好友列表的姓名集
@@ -340,5 +245,25 @@ public class FriendsLab {
         mmFriendses = null;
         mUserInfo = null;
         mContext = null;
+    }
+
+    //更新最新显示消息和未读数
+    public void updateTimeAndUnread(String ID,String newTime,int unRead){
+       for (Friends friends: mFriendses){
+           if (friends != null && friends.getName().equals(ID)){
+               friends.setNewTime(newTime);
+               friends.setUnreadMeg(unRead);
+               friends.save();
+           }
+       }
+    }
+    //用于点击后消除未读数
+    public void clearUnread(String ID){
+        for (Friends friends : mFriendses){
+            if (friends != null && friends.getName().equals(ID)){
+                friends.setUnreadMeg(0);
+                friends.save();
+            }
+        }
     }
 }
