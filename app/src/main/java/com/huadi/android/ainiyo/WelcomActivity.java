@@ -19,6 +19,7 @@ import com.huadi.android.ainiyo.Retrofit2.PostRequest_login_Interface;
 import com.huadi.android.ainiyo.activity.LoadingDialog;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.gson.ResultForLogin;
@@ -85,6 +86,8 @@ public class WelcomActivity extends AppCompatActivity {
                     //初始化用户信息
                     UserInfo userInfo = new UserInfo(username,password,R.drawable.right_image);
                     UserInfoLab.get(WelcomActivity.this,userInfo);
+                    FriendsLab.get(WelcomActivity.this,userInfo).setFriListNull();
+                    FriendsLab.get(WelcomActivity.this,userInfo).initFriends();
 
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl("http://120.24.168.102:8080/")

@@ -16,6 +16,7 @@ public class Friends extends DataSupport {
     private String name;
 
     private int picture;
+    //private String picUrl;
 
     private int unreadMeg = 0;  //该好友的未读信息数
 
@@ -63,7 +64,6 @@ public class Friends extends DataSupport {
     public int getPicture() {
         return picture;
     }
-
     public void setPicture(int picture) {
         this.picture = picture;
     }

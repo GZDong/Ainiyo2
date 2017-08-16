@@ -13,6 +13,7 @@ public class UserInfo extends DataSupport implements Serializable {
     private String username;
     private String password;
     private int picture;
+    //private String picUrl;
 
 
     public UserInfo(String username, String password, int picture) {
