@@ -157,6 +157,8 @@
             <activity android:name=".activity.AddFriendActivity"
                 android:parentActivityName=".activity.FriendsListActivity"/>
         <activity android:name=".activity.ChooseYoNActivity"/>
+        <activity android:name=".activity.ModeDetailNineGridActivity" />
+        <activity android:name=".activity.MovementDetailActivity" />
     </application>
 
 </manifest>

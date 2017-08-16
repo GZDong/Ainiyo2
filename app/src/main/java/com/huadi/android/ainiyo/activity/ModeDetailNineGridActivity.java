@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -33,6 +35,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.adapter.ModeCommentAdapter;
+import com.huadi.android.ainiyo.adapter.ModeToCommentAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeComment;
 import com.huadi.android.ainiyo.entity.ModeCommentData;
@@ -78,17 +81,25 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
     EditText mAmEtMsg;
     @ViewInject(R.id.sv_comment)
     ScrollView sv_comment;
+    @ViewInject(R.id.lv_to_comments)
+    ListView tocomments;
 
     private PopupWindow editWindow;
     private View rootView;
     private NineGridViewClickAdapter mGridAdapter;
     private ModeCommentAdapter mCommentAdapter;
+    private ModeToCommentAdapter mToCommentAdapter;
+
     private ModeLocalData mld;
 
     private ModeCommentData[] mcd;
 
+    private Handler Myhandle;
+    private Message msg;
+
     //列表数据
     ArrayList<ModeComment> mCommentList;
+    ArrayList<ModeComment> mToCommentList = new ArrayList<ModeComment>();
     //回复的内容
     String info = "";
     //标记位，是评论还是回复。默true认评论
@@ -137,6 +148,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 //        mCommentList.add(mc);
 //        mCommentList.add(mc);
 
+
         RequestParams params = new RequestParams();
         ECApplication application = (ECApplication) getApplication();
         params.addBodyParameter("sessionid", application.sessionId);
@@ -163,8 +175,18 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                         ModeComment mc = null;
                         mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), "");
                         mCommentList.add(mc);
-                        //initToCommentData(mcd[i].getId());
+                        initToCommentData(mcd[i].getId(), i);
+//                        Myhandle=new Handler(){
+//                            public void handleMessage(Message msg)
+//                            {
+//                                ArrayList<ModeComment> mCommentList1=(ArrayList<ModeComment>)msg.getData().getSerializable("tocomment");
+//                                mCommentList.addAll(mCommentList1);
+//                                //initCommentAdapter();
+//                                //Log.i("test Comment",msg.getData().getString("hi"));
+//                            }
+//                        };
                     }
+
                     initCommentAdapter();
 
                 } else {
@@ -180,7 +202,10 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
     }
 
-    private void initToCommentData(int id) {
+    private void initToCommentData(int id, int i) {
+        if (i == 0) {
+            mToCommentList.clear();
+        }
         RequestParams params = new RequestParams();
         ECApplication application = (ECApplication) getApplication();
         params.addBodyParameter("sessionid", application.sessionId);
@@ -200,15 +225,21 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                 if (object.getStatus() == 400) {
                     mcd = object.getResult().getData();
                     int sum = object.getResult().getSum();
-                    //Toast.makeText(ModeDetailNineGridActivity.this, "sum:  "+String.valueOf(sum), Toast.LENGTH_SHORT).show();
-                    mCommentList = new ArrayList<>();
+                    //Toast.makeText(ModeDetailNineGridActivity.this, "ToCommentsum:  "+String.valueOf(sum), Toast.LENGTH_SHORT).show();
 
                     for (int i = 0; i < sum; i++) {
                         ModeComment mc = null;
-                        mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), "");
-                        mCommentList.add(mc);
+                        mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), String.valueOf(mcd[i].getUserid()));
+                        mToCommentList.add(mc);
                     }
 
+//                    Bundle bundle =new Bundle();
+//                    bundle.putSerializable("tocomment",mCommentList);
+//                   // bundle.putString("hi","hiComment");
+//                    msg=Myhandle.obtainMessage();//每发送一次都要重新获取
+//                    msg.setData(bundle);
+//                    Myhandle.sendMessage(msg);
+                    initToCommentAdapter();
                 } else {
                     Toast.makeText(ModeDetailNineGridActivity.this, "getCommentstatus:  " + object.getStatus(), Toast.LENGTH_SHORT).show();
                 }
@@ -225,6 +256,11 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
     private void initCommentAdapter() {
         mCommentAdapter = new ModeCommentAdapter(this, mCommentList);
         comments.setAdapter(mCommentAdapter);
+    }
+
+    private void initToCommentAdapter() {
+        mToCommentAdapter = new ModeToCommentAdapter(this, mToCommentList);
+        tocomments.setAdapter(mToCommentAdapter);
     }
 
     /**
@@ -293,7 +329,9 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                     if (object.getStatus() == 410) {
                         Toast.makeText(ModeDetailNineGridActivity.this, "comment commit success", Toast.LENGTH_SHORT).show();
                         initCommentData(mld.getId());
+                        comments.setVisibility(View.GONE);
                         mCommentAdapter.notifyDataSetChanged();
+                        comments.setVisibility(View.VISIBLE);
                     } else {
                         Toast.makeText(ModeDetailNineGridActivity.this, "status:  " + object.getStatus(), Toast.LENGTH_SHORT).show();
                     }
@@ -322,7 +360,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                             fromJson(responseInfo.result, new TypeToken<ResponseObject<String>>() {
                             }.getType());
                     if (object.getStatus() == 410) {
-                        Toast.makeText(ModeDetailNineGridActivity.this, "ToCommentStatus...: " + object.getStatus(), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(ModeDetailNineGridActivity.this, "ToCommentStatus...: " + object.getStatus(), Toast.LENGTH_SHORT).show();
                         initCommentData(mld.getId());
                         mCommentAdapter.notifyDataSetChanged();
                     } else {
@@ -342,7 +380,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
     private void comment(final int i, final int position) {
 
         if (i == 2)
-            Toast.makeText(ModeDetailNineGridActivity.this, "id:  " + mCommentList.get(position).getContent(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ModeDetailNineGridActivity.this, "size:  " + mCommentList.size(), Toast.LENGTH_SHORT).show();
 
         View editView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.mode_comment_reply_input, null);
         rootView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.activity_mode_detail_nine_grid, null);
@@ -376,10 +414,14 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(replyEdit.getText())) {
                     info = replyEdit.getText().toString();
-                    if (i == 2)
+                    if (i == 2) {
                         //Toast.makeText(ModeDetailNineGridActivity.this,"id:  "+mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
                         updateComment(info, i, mCommentList.get(position).getId());
-                    else updateComment(info, i, "");
+                        imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
+                    } else {
+                        updateComment(info, i, "");
+                        imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
+                    }
                 } else {
                     Toast.makeText(ModeDetailNineGridActivity.this, "请输入内容后在留言", Toast.LENGTH_SHORT).show();
                 }
