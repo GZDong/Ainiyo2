@@ -30,14 +30,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context mContext;
     private List<String> mList;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-      ImageView mImageView;
+        ImageView mImageView;
         View img;
+
         public ViewHolder(View itemView) {
             super(itemView);
-            img=itemView;
-            mImageView= (ImageView) itemView.findViewById(R.id.im_photo);
+            img = itemView;
+            mImageView = (ImageView) itemView.findViewById(R.id.im_photo);
         }
     }
 
@@ -57,13 +58,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
         Glide.with(mContext).load(mList.get(position)).into(holder.mImageView);
-        holder.img.setOnClickListener(new View.OnClickListener(){
+        holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                int position=holder.getAdapterPosition();
-                String url=mList.get(position);
-                Intent intent=new Intent(mContext,BigImage.class);
-                intent.putExtra("URL",url);
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                String url = mList.get(position);
+                Intent intent = new Intent(mContext, BigImage.class);
+                intent.putExtra("URL", url);
                 mContext.startActivity(intent);
             }
         });

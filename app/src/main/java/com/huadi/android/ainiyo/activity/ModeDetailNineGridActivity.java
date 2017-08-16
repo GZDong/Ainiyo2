@@ -121,7 +121,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         tv_content.setText(mld.getMi().getContent());
         tv_createTime.setText(mld.getDate());
 
-        initCommentData(mld.getId());
+        initCommentData(mld.getId(), true);
 
     }
 
@@ -141,7 +141,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         nineGridView.setAdapter(mGridAdapter);
     }
 
-    private void initCommentData(int modeid) {
+    private void initCommentData(int modeid, final boolean flag) {
 //        mCommentList = new ArrayList<>();
 //        ModeComment mc = null;
 //        mc = new ModeComment("1", "David", "", "hihi", "8-13", "");
@@ -175,7 +175,9 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                         ModeComment mc = null;
                         mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), "");
                         mCommentList.add(mc);
-                        initToCommentData(mcd[i].getId(), i);
+                        if (flag) {
+                            initToCommentData(mcd[i].getId(), i);
+                        }
 //                        Myhandle=new Handler(){
 //                            public void handleMessage(Message msg)
 //                            {
@@ -328,7 +330,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                             }.getType());
                     if (object.getStatus() == 410) {
                         Toast.makeText(ModeDetailNineGridActivity.this, "comment commit success", Toast.LENGTH_SHORT).show();
-                        initCommentData(mld.getId());
+                        initCommentData(mld.getId(), false);
                         comments.setVisibility(View.GONE);
                         mCommentAdapter.notifyDataSetChanged();
                         comments.setVisibility(View.VISIBLE);
@@ -361,7 +363,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                             }.getType());
                     if (object.getStatus() == 410) {
                         // Toast.makeText(ModeDetailNineGridActivity.this, "ToCommentStatus...: " + object.getStatus(), Toast.LENGTH_SHORT).show();
-                        initCommentData(mld.getId());
+                        initCommentData(mld.getId(), true);
                         mCommentAdapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(ModeDetailNineGridActivity.this, "ToCommentstatus:  " + object.getStatus(), Toast.LENGTH_SHORT).show();

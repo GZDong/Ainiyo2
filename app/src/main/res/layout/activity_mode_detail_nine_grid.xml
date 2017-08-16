@@ -40,13 +40,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="9.5dp"
-                android:paddingLeft="12.5dp"
+                android:paddingLeft="10.5dp"
                 android:paddingRight="18.5dp"
                 android:paddingTop="12.5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/mode_pic_head"
-                    android:layout_marginLeft="10dp"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:src="@drawable/left_image"
