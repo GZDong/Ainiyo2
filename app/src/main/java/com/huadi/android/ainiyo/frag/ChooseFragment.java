@@ -54,7 +54,6 @@ import java.util.List;
 
 public class ChooseFragment extends Fragment {
 
-
     private List<Friends> frdList;
     private int transImg;
     private RecyclerView mRecyclerView;
@@ -64,24 +63,98 @@ public class ChooseFragment extends Fragment {
 
     private UserInfo mUserInfo;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        if (getActivity() instanceof MainActivity){
+            Log.e("ee", "onCreate____MainActivity");
+        }else {
+            Log.e("ee", "onCreate____ChattingActivity");
+        }
 
-    public static ChooseFragment newInstance() {
+        //获取当前用户实例
+        mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
+        //frdList = new ArrayList<>();这里不应该给frdList创建实例，它应该是一个指引而已
 
-        // Bundle args = new Bundle();
-        ChooseFragment fragment = new ChooseFragment();
-        // fragment.setArguments(args);
-        return fragment;
+        frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_choose,container,false);
+
+        mPersons = (ImageButton) v.findViewById(R.id.btn_friends);
+
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.fri_recycler_view);
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(lm);
+        mMyAdapter = new MyAdapter(frdList);
+        mRecyclerView.setAdapter(mMyAdapter);
+
+        //如果是聊天活动的碎片，则在这里注册广播接收器
+        if (getActivity() instanceof ChattingActivity) {
+            Log.e("ee", "onCreateView___ChattingActivity");
+            //***********如果在聊天里打开就不要标题栏******
+            LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.bar);
+            linearLayout.setVisibility(View.GONE);
+
+            //******************注册新信息的接受器***********************
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction("com.huadi.android.ainiyo.newMessage");
+            mBroadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    int newMsg = intent.getIntExtra("newM", 0);
+                    String ID = intent.getStringExtra("ID");
+                    String newTime = intent.getStringExtra("newT");
+                    //更新数据库和单例
+                    FriendsLab.get(getActivity(), mUserInfo).updateTimeAndUnread(ID,newTime,newMsg);
+                    //重新排序一下单例数据
+                    FriendsLab.get(getActivity(), mUserInfo).reSort();
+                    // frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses(); //其实这句是多余的
+                    frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
+                    for (Friends friends1 : frdList) {
+                        if (friends1 != null) {
+                            Log.e("test", "frdList  排序后：" + friends1.getName() + "/n");
+                        }
+                    }
+                    mMyAdapter.mList = frdList;
+                    mMyAdapter.notifyDataSetChanged();  //这里已经意味着必须要在适配器被创建过之后注册
+                }
+            };
+            getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
+            //************************************************
+        }else {
+            Log.e("ee", "onCreateView___MainActivity");
+        }
+
+        mPersons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), FriendsListActivity.class);
+                intent.putExtra("userInfo", mUserInfo);
+                startActivity(intent);
+            }
+        });
+
+        return v;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.e("test", "onStart_ChooseFragment");
+
+        //如果数据有变,那frdList也有变
+        frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
+        mMyAdapter.mList = frdList;
+        mMyAdapter.notifyDataSetChanged();
         //*****************根据单例里的用户信息来登陆***************
         if (getActivity() instanceof MainActivity) { //这里登陆只是为了监听器的注册
-            //  UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
+            Log.e("test", "onStart___MainActivity");
 
-            //这里获得传递进来的账号密码信息，然后存进数据库
             mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
             String name = mUserInfo.getUsername();
             String pass = mUserInfo.getPassword();
@@ -98,62 +171,35 @@ public class ChooseFragment extends Fragment {
                     int newMsg = intent.getIntExtra("newM", 0);
                     String ID = intent.getStringExtra("ID");
                     String newTime = intent.getStringExtra("newT");
-                    Friends friends = FriendsLab.get(getActivity(), mUserInfo).getFriend(ID);
-                    friends.setUnreadMeg(newMsg);
-                    friends.setNewTime(newTime);
+                    //更新数据库和单例
+                    FriendsLab.get(getActivity(), mUserInfo).updateTimeAndUnread(ID,newTime,newMsg);
+                    //重新排序一下单例数据
                     FriendsLab.get(getActivity(), mUserInfo).reSort();
                     frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
 
                     for (Friends friends1 : frdList) {
-
                         Log.e("eee", "排序后：" + friends1.getName() + "/n");
-
                     }
-                /*for (Friends friends1 : frdList){
-                    if (friends1.getName().equals(ID)){
-                        friends1.setNewTime(DateUtil.getNowDate());
-                    }
-                }
-                Collections.sort(frdList, new Comparator<Friends>() {
-                    @Override
-                    public int compare(Friends friends, Friends t1) {
-                        if (friends.getNewTime().compareTo(t1.getNewTime())>0){
-                            return -1;
-                        }
-                        if (friends.getNewTime().compareTo(t1.getNewTime())==0){
-                            return 0;
-                        }
-                        return 1;
-                    }
-                });*/
-                    MyAdapter myAdapter = new MyAdapter(frdList);
-                    mMyAdapter = myAdapter;
-                    mRecyclerView.setAdapter(mMyAdapter);
+                    mMyAdapter.mList = frdList;
                     mMyAdapter.notifyDataSetChanged();
+
                 }
             };
             getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
             //************************************************
+        }else {
+            Log.e("test", "onStart_ChattingFragment");
         }
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-
-        //***************根据用户信息来刷新聊天列表**********
-        if (getActivity() instanceof MainActivity) {
-            FriendsLab.get(getActivity(), mUserInfo).initFriends();
-            frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
-            MyAdapter myAdapter = new MyAdapter(frdList);
-            mMyAdapter = myAdapter;
-            mRecyclerView.setAdapter(mMyAdapter);
-            mMyAdapter.notifyDataSetChanged();
+        if (getActivity() instanceof MainActivity){
+            Log.e("test", "onResume_MainActivity");
+        }else {
+            Log.e("test", "onResume_ChattingActivity");
         }
-        Log.e("ee", "onResume_ChooseFragment");
-
     }
 
     @Override
@@ -162,133 +208,29 @@ public class ChooseFragment extends Fragment {
         if (getActivity() instanceof MainActivity) {
             EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
             getActivity().unregisterReceiver(mBroadcastReceiver);
-        }
-        Log.e("test", "onStop_Fragment");
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
-        //   UserInfo userInfo = new UserInfo("xuniji", "123", R.drawable.left_image);
-        //这里获得传递进来的账号密码信息，然后存进数据库
-        mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
-        frdList = new ArrayList<>();
-        FriendsLab.get(getActivity(), mUserInfo).initFriends();
-        frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
-
-        Log.e("ee", "onCreate_ChooseFragment");
-
-
-        if (getActivity() instanceof ChattingActivity) {
-            //******************注册新信息的接受器***********************
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction("com.huadi.android.ainiyo.newMessage");
-            mBroadcastReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    int newMsg = intent.getIntExtra("newM", 0);
-                    String ID = intent.getStringExtra("ID");
-                    String newTime = intent.getStringExtra("newT");
-                    Friends friends = FriendsLab.get(getActivity(), mUserInfo).getFriend(ID);
-                    friends.setUnreadMeg(newMsg);
-                    friends.setNewTime(newTime);
-                    FriendsLab.get(getActivity(), mUserInfo).reSort();
-                    frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
-
-                    for (Friends friends1 : frdList) {
-
-                        Log.e("eee", "排序后：" + friends1.getName() + "/n");
-
-                    }
-                    /*for (Friends friends1 : frdList){
-                        if (friends1.getName().equals(ID)){
-                            friends1.setNewTime(DateUtil.getNowDate());
-                        }
-                    }
-                    Collections.sort(frdList, new Comparator<Friends>() {
-                        @Override
-                        public int compare(Friends friends, Friends t1) {
-                            if (friends.getNewTime().compareTo(t1.getNewTime())>0){
-                                return -1;
-                            }
-                            if (friends.getNewTime().compareTo(t1.getNewTime())==0){
-                                return 0;
-                            }
-                            return 1;
-                        }
-                    });*/
-
-                    MyAdapter myAdapter = new MyAdapter(frdList);
-                    mMyAdapter = myAdapter;
-                    mRecyclerView.setAdapter(mMyAdapter);
-                    mMyAdapter.notifyDataSetChanged();
-                }
-            };
-            getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
-            //************************************************
+            Log.e("test", "onStop___MainActivity");
+        }else{
+            Log.e("test", "onStop___ChattingActivity");
         }
     }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        Log.e("ee", "onCreateView_ChooseFragment");
-        View v = inflater.inflate(R.layout.fragment_choose,container,false);
-
-
-        //***********如果在聊天里打开就不要标题栏******
-        if (getActivity() instanceof ChattingActivity){
-            LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.bar);
-            linearLayout.setVisibility(View.GONE);
-        }
-
-
-        mPersons = (ImageButton) v.findViewById(R.id.btn_friends);
-
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.fri_recycler_view);
-        LinearLayoutManager lm = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(lm);
-        mMyAdapter = new MyAdapter(frdList);
-        mRecyclerView.setAdapter(mMyAdapter);
-
-        mPersons.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), FriendsListActivity.class);
-                intent.putExtra("userInfo", mUserInfo);
-                startActivity(intent);
-            }
-        });
-
-        return v;
-    }
-
-
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (getActivity() instanceof ChattingActivity) {
+            Log.e("eee", "onDestroy___ChattingActivity");
             getActivity().unregisterReceiver(mBroadcastReceiver);
+            EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
         }
         if (getActivity() instanceof MainActivity) {
-            Log.e("eee", "onDestroy");
+            Log.e("eee", "onDestroy___MainActivity");
             SignInUtil.signOut();
         }
-
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
 
 
-    }
-
-    //*****************适配器********************
+    //********ViewHolder********
     private class MyViewHolder extends RecyclerView.ViewHolder{
         TextView textView;
         ImageView mImageView;
@@ -306,9 +248,8 @@ public class ChooseFragment extends Fragment {
                 public void onClick(View view) {
 
 
-                    Friends fri = FriendsLab.get(getActivity(), mUserInfo).getFriend(textView.getText().toString());
-                    //****在本地置0*****
-                    fri.setUnreadMeg(0);
+                    FriendsLab.get(getActivity(), mUserInfo).clearUnread(textView.getText().toString());
+
                     //****在服务器端置0新信息****
                     EMConversation conversation = EMClient.getInstance().chatManager().getConversation(textView.getText().toString());
                     if (conversation != null){
@@ -368,7 +309,7 @@ public class ChooseFragment extends Fragment {
         private List<Friends> mList;
         public MyAdapter(List<Friends> friList) {
 
-            mList = friList;
+            mList = friList;   //^^^^^^^^这里跨方法了，所以强引用没有生效！！
         }
 
         @Override

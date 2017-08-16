@@ -147,19 +147,16 @@
         </receiver>
 
         <activity android:name=".activity.ModeMeActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTask" />
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.EditInfoActivity" />
-        <activity android:name=".activity.PhotoActivity" />
-        <activity android:name=".activity.FindingDetailActivity" />
-        <activity
-            android:name=".activity.AddFriendActivity"
-            android:parentActivityName=".activity.FriendsListActivity" />
-        <activity android:name=".activity.MovementDetailActivity" />
-        <activity android:name=".activity.ModeDetailNineGridActivity" />
+        <activity android:name=".activity.EditInfoActivity"/>
+        <activity android:name=".activity.PhotoActivity"/>
+        <activity android:name=".activity.FindingDetailActivity"/>
+            <activity android:name=".activity.AddFriendActivity"
+                android:parentActivityName=".activity.FriendsListActivity"/>
+        <activity android:name=".activity.ChooseYoNActivity"/>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by zhidong on 2017/8/10.
@@ -15,6 +16,7 @@ import retrofit2.http.Query;
 
 public interface GetRequest_friend_Interface {
 
-    @GET("getfriends")
-    Call<FriendGot> getCall(@Query("sessionid") String sessionid);
+    @POST("getfriends")
+    @FormUrlEncoded
+    Observable<FriendGot> getCall(@Field("sessionid") String sessionid);
 }

@@ -1,4 +1,4 @@
-package gui.com.lgimagecompressor;
+package com.huadi.android.ainiyo.util;
 
 import android.content.Context;
 import android.database.Cursor;

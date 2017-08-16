@@ -1,5 +1,6 @@
 package com.huadi.android.ainiyo.entity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -23,7 +24,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by zhidong on 2017/7/28.
@@ -54,8 +60,8 @@ public class FriendsLab {
         String name = userInfo.getUsername();
         String passwd = userInfo.getPassword();
         int picture = userInfo.getPicture();
-        mUserInfo = new UserInfo(name, passwd, picture);
-        // initFriends(userInfo);
+        mUserInfo = new UserInfo(name,passwd,picture);
+       // initFriends(userInfo);
     }
 
     //根据用户来初始化好友列表
@@ -74,125 +80,61 @@ public class FriendsLab {
             //根据userInfo发起网络请求
             //获得数据
             //模拟：假如mmFriendses就是返回的数据
-            mmFriendses = new ArrayList<>();
+           mmFriendses = new ArrayList<>();
 
-            // AppCompatActivity appCompatActivity =(AppCompatActivity) mContext.getApplicationContext();
-            // ECApplication application =(ECApplication) mContext.getApplicationContext();
-            /*Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl("http://120.24.168.102:8080/")
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
+            //**********RxJava + Retrofit*******
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://120.24.168.102:8080/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build();
             GetRequest_friend_Interface request = retrofit.create(GetRequest_friend_Interface.class);
-            Call<FriendGot> call = request.getCall(((ECApplication)mContext.getApplicationContext()).sessionId);
-            Log.e("test","uuu"+((ECApplication)mContext.getApplicationContext()).sessionId);
-            call.enqueue(new Callback<FriendGot>() {
-                @Override
-                public void onResponse(Call<FriendGot> call, Response<FriendGot> response) {
-                    Log.e("testRetrofit","onResponseForRequestFriends");
-                    if (response.isSuccessful()) {
-                        Log.e("testRetrofit","onSuccessful");
-                        if (response.body().getStatus()==300 ){
-                            Log.e("testRetrofit","onStatus == 300");
-                            Toast.makeText(mContext,"请求好友列表成功",Toast.LENGTH_LONG).show();
-                            if (response.body().friendList.size() > 0){
-                                for (ResultForFriend resultForFriend : response.body().friendList){
-                                    Friends friends = new Friends(resultForFriend.getUserid(),resultForFriend.getFriendid());
-                                    mmFriendses.add(friends);
-                                }
-                            }else {
-                                Log.e("testRetrofit","no thing");
-                                Toast.makeText(mContext,"还没有好友",Toast.LENGTH_LONG).show();
-                            }
-                        }else {
-                            Log.e("testRetrofit","onStatus != 300");
+            Log.e("test","在请求好友列表时的sessionid: "+((ECApplication)mContext.getApplicationContext()).sessionId);
+            Observable<FriendGot> call = request.getCall(((ECApplication)mContext.getApplicationContext()).sessionId);
+            call.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<FriendGot>() {
+                        @Override
+                        public void onCompleted() {
+                            Log.e("testRetrofit","onCompleted");
                         }
-                    }else {
-                        Log.e("testRetrofit","onUnsuccessful");
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<FriendGot> call, Throwable t) {
-                    Log.e("testRetrofit","request failure");
-                }
-            });  */
-            /*//测试：
-            EMConversation conversation = EMClient.getInstance().chatManager().getConversation("shouji");
-            int unread;
-            if (conversation == null) {
-                unread = 0;
-            } else {
-                unread = conversation.getUnreadMsgCount();
-            }
-            //
-            Friends friend1 = new Friends("xuniji", "shouji", R.drawable.touxiang, unread, DateUtil.getNowDate(), true);
-            Friends friend2 = new Friends("shouji", "xiaoming", R.drawable.user2, 3, DateUtil.getNowDate(), true);
-            Friends friend3 = new Friends("xuniji", "新垣结衣", R.drawable.right_image, 11, "2017-08-04 16:40:59", true);
-            Friends friend4 = new Friends("shouji", "Scarlett", R.drawable.sijiali, 2, "2017-08-04 17:40:30", true);
-            Friends friend5 = new Friends("xuniji", "LiChengming", R.drawable.examplepicture, 1, "2017-08-03 16:41:59", true);
-            Friends friend6 = new Friends("shouji", "dong", R.drawable.example, 3, "2017-08-03 16:40:59", false);
-            Friends friend7 = new Friends("xuniji", "eong", R.drawable.example, 0, "2017-08-03 16:43:59", false);
-            Friends friend8 = new Friends("shouji", "fong", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend9 = new Friends("xuniji", "gong", R.drawable.example, 0, "2017-08-03 16:45:59", false);
-            Friends friend10 = new Friends("shouji", "hong", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend11 = new Friends("xuniji", "冯庆星", R.drawable.example, 0, "2017-08-03 16:46:59", false);
-            Friends friend12 = new Friends("shouji", "陈华琳", R.drawable.example, 0, "2017-08-03 16:40:48", false);
-            Friends friend13 = new Friends("xuniji", "杨小兴", R.drawable.example, 0, "2017-08-05 16:13:00", false);
-            Friends friend14 = new Friends("shouji", "黄嘉豪", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend15 = new Friends("xuniji", "黄铭熙", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend16 = new Friends("xuniji", "郑文辉", R.drawable.example, 0, "2017-08-03 16:40:59", false);
-            Friends friend17 = new Friends("shouji", "范冰冰", R.drawable.bingbing, 2, "2017-08-04 16:44:59", true);
-            Friends friend18 = new Friends("gaozhidong", "高圆圆", R.drawable.gaoyuanyuan, 3, "2017-08-04 22:40:59", true);
-            Friends friend19 = new Friends("shouji", "李冰冰", R.drawable.libingbing, 1, "2017-08-02 16:40:59", true);
-            Friends friend20 = new Friends("xuniji", "林青霞", R.drawable.lingqingxia, 0, "2017-08-04 16:40:59", true);
-            Friends friend21 = new Friends("shouji", "林志玲", R.drawable.lingzhiling, 0, "2017-08-03 19:26:15", true);
-            Friends friend22 = new Friends("xuniji", "刘亦菲", R.drawable.liuyifei, 4, "2017-08-04 16:40:59", true);
-            Friends friend23 = new Friends("shouji", "章子怡", R.drawable.zhangziyi, 0, "2017-08-04 22:40:59", false);
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.e("testRetrofit","onError");
+                        }
 
-            mmFriendses.add(friend3);
-            mmFriendses.add(friend2);
-            mmFriendses.add(friend4);
-            mmFriendses.add(friend5);
-            mmFriendses.add(friend6);
-            mmFriendses.add(friend7);
-            mmFriendses.add(friend8);
-            mmFriendses.add(friend9);
-            mmFriendses.add(friend10);
-            mmFriendses.add(friend11);
-            mmFriendses.add(friend12);
-            mmFriendses.add(friend13);
-            mmFriendses.add(friend14);
-            mmFriendses.add(friend15);
-            mmFriendses.add(friend16);
-            mmFriendses.add(friend1);
-            mmFriendses.add(friend17);
-            mmFriendses.add(friend18);
-            mmFriendses.add(friend19);
-            mmFriendses.add(friend20);
-            mmFriendses.add(friend21);
-            mmFriendses.add(friend22);
-            mmFriendses.add(friend23);*/
-            //第三方获取好友
-            try {
-                usernames = EMClient.getInstance().contactManager().getAllContactsFromServer();
-            } catch (HyphenateException e) {
-                e.printStackTrace();
-            }
-            if (usernames != null) {
-                for (String user : usernames) {
-                    Friends friends = new Friends(mUserInfo.getUsername(), user);
-                    mmFriendses.add(friends);
-                }
-            }
+                        @Override
+                        public void onNext(FriendGot friendGot) {
+                            if (friendGot.getStatus().equals("300") ){
+                                    Log.e("testRetrofit",friendGot.getMsg());
+                                    Toast.makeText(mContext,"请求好友列表成功",Toast.LENGTH_LONG).show();
+                                    if (friendGot.friendList != null && friendGot.friendList.size() > 0){
+                                        for (ResultForFriend resultForFriend : friendGot.friendList){
+                                            Friends friends = new Friends(resultForFriend.getUserid(),resultForFriend.getFriendid());
+                                            mmFriendses.add(friends);
+                                        }
+                                    }
+                            }else {
+                                Log.e("testRetrofit","not 300");
+                                    Log.e("testRetrofit",friendGot.getMsg());
+                            }
+                        }
+
+                    });
+
+
+
+
             //获得数据后先获得每个好友的未读信息，后存入数据库
             //这里记得初始化一些服务器上没有的数据
             if (mmFriendses.size() > 0) {
-                for (Friends friends : mmFriendses) {
+                for (Friends friends : mmFriendses){
                     EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
                     int unread;
-                    if (conversation == null) {
-                        unread = 0;
-                    } else {
+                    if (conversation == null){
+                        unread =0;
+                    }else{
                         unread = conversation.getUnreadMsgCount();
                     }
                     friends.setUnreadMeg(unread);
@@ -203,9 +145,9 @@ public class FriendsLab {
                 }
                 //如果来自网络的好友列表不为空，重新根据用户初始化聊天列表
                 initFriends();
-            } else if (mmFriendses.size() == 0) {
+            }else if (mmFriendses.size() == 0){
                 //没有好友
-                Toast.makeText(mContext, "没有好友", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext,"没有好友",Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -214,9 +156,11 @@ public class FriendsLab {
         List<Friends> reList = new ArrayList<>();
 
         //在好友列表挑出需要显示在聊天列表的好友
-        for (Friends friends : mFriendses){
-            if (friends.isShowInChooseFragment() == true){
-                reList.add(friends);
+        if (mFriendses!=null) {
+            for ( Friends friends : mFriendses){
+                if (friends.isShowInChooseFragment() == true){
+                    reList.add(friends);
+                }
             }
         }
         return reList;
@@ -224,15 +168,17 @@ public class FriendsLab {
     }
 
     //这个方法返回所有好友列表
-    private List<Friends> getFriendsesAll() {
+    public List<Friends> getFriendsesAll() {
         return mFriendses;
     }
 
     //根据好友的名称在好友列表里返回改好友的实例
     public Friends getFriend(String name){
-        for (Friends friends : mFriendses){
-            if (friends.getName().equals(name)){
-                return friends;
+        if (mFriendses.size()>0) {
+            for (Friends friends : mFriendses){
+                if (friends.getName().equals(name)){
+                    return friends;
+                }
             }
         }
         return null;
@@ -252,6 +198,11 @@ public class FriendsLab {
                 return 1;
             }
         });
+        for (Friends friends1 : mFriendses) {
+            if (friends1 != null) {
+                Log.e("test", "mFriendses 排序后：" + friends1.getName() + "/n");
+            }
+        }
     }
 
     //返回好友列表的姓名集
@@ -267,9 +218,11 @@ public class FriendsLab {
 
     public void addFriend(Friends friends) {
         //这里还需要向服务器添加
+
+
         String user = friends.getUser();
         String name = friends.getName();
-        Friends friends1 = new Friends(user, name);
+        Friends friends1 = new Friends(user,name);
         friends1.save();
         initFriends();
     }
@@ -281,6 +234,35 @@ public class FriendsLab {
                 if (friends1.getName().equals(friends.getName())) {
                     friends1.setShowInChooseFragment(true);
                 }
+            }
+        }
+    }
+
+    public void setFriListNull(){
+        sFriendsLab = null;
+        mFriendses = null;
+        usernames = null;
+        mmFriendses = null;
+        mUserInfo = null;
+        mContext = null;
+    }
+
+    //更新最新显示消息和未读数
+    public void updateTimeAndUnread(String ID,String newTime,int unRead){
+       for (Friends friends: mFriendses){
+           if (friends != null && friends.getName().equals(ID)){
+               friends.setNewTime(newTime);
+               friends.setUnreadMeg(unRead);
+               friends.save();
+           }
+       }
+    }
+    //用于点击后消除未读数
+    public void clearUnread(String ID){
+        for (Friends friends : mFriendses){
+            if (friends != null && friends.getName().equals(ID)){
+                friends.setUnreadMeg(0);
+                friends.save();
             }
         }
     }
