@@ -41,6 +41,25 @@
                     android:text="张三"
                     android:textColor="#0b0b0b"
                     android:textSize="14dp" />
+
+                <!--回复两字-->
+                <TextView
+                    android:id="@+id/tv_mode_comment_huifu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text=""
+                    android:textColor="#1448f1"
+                    android:textSize="12dp" />
+                <!--回复了谁-->
+                <TextView
+                    android:id="@+id/tv_mode_comment_replyed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text=""
+                    android:textColor="#0b0b0b"
+                    android:textSize="12dp" />
             </LinearLayout>
 
 
@@ -68,17 +87,17 @@
                 android:textColor="@color/gray"
                 android:textSize="10dp" />
 
-            <com.lzy.widget.ExpandListView
-                android:id="@+id/lv_to_comments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/event_di"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:orientation="vertical"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp" />
+            <!--<com.lzy.widget.ExpandListView-->
+            <!--android:id="@+id/lv_to_comments"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:background="@drawable/event_di"-->
+            <!--android:divider="@null"-->
+            <!--android:dividerHeight="0dp"-->
+            <!--android:orientation="vertical"-->
+            <!--android:paddingLeft="8dp"-->
+            <!--android:paddingRight="8dp" />-->
         </LinearLayout>
 
     </LinearLayout>
