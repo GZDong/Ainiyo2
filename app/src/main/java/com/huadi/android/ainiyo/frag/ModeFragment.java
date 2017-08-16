@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
+import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.ModeDetailNineGridActivity;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
@@ -170,8 +173,16 @@ public class ModeFragment extends Fragment {
 //                            Toast.LENGTH_SHORT).show();
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new ModeAdapter(mList);
+                        mAdapter = new ModeAdapter(getActivity(), mList);
                         mode_list_view.setAdapter(mAdapter);
+
+                        mAdapter.setmPicHeadItemClickListener(new ModeAdapter.OnPicHeadItemClickListener() {
+                            @Override
+                            public void OnPicHeadItemClick(int positon) {
+                                startActivity(new Intent(getActivity(), FriendsInfoActivity.class));
+                                //Log.i("testpichead",String.valueOf(positon));
+                            }
+                        });
                     } else {// 尾部刷新
                         //mList.addAll(object.getDatas());
                         mAdapter.notifyDataSetChanged();

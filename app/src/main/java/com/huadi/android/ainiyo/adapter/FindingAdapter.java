@@ -92,6 +92,12 @@ public class FindingAdapter extends BaseAdapter {
 
         @ViewInject(R.id.finding_pic_head)
         ImageView pic_head;
+        @ViewInject(R.id.iv_finding_name)
+        TextView iv_finding_name;
+        @ViewInject(R.id.iv_finding_age)
+        TextView iv_finding_age;
+        @ViewInject(R.id.iv_finding_pic)
+        ImageView iv_finding_pic;
 
     }
 }

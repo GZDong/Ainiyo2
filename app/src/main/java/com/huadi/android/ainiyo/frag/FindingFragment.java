@@ -168,7 +168,7 @@ public class FindingFragment extends Fragment {
 //                            Toast.LENGTH_SHORT).show();
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new ModeAdapter(mList);
+                        mAdapter = new ModeAdapter(getActivity(), mList);
                         finding_list_view.setAdapter(mAdapter);
 
                     } else {// 尾部刷新

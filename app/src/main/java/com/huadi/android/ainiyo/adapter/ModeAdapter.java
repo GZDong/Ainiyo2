@@ -1,13 +1,16 @@
 package com.huadi.android.ainiyo.adapter;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
@@ -16,6 +19,7 @@ import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,8 +33,11 @@ public class ModeAdapter extends BaseAdapter {
 
     private List<ModeLocalData> mList;
     private ImageAdapter mAdapter;
+    private Context mContext;
+    private OnPicHeadItemClickListener mPicHeadItemClickListener;
 
-    public ModeAdapter(List<ModeLocalData> list) {
+    public ModeAdapter(Context mContext, List<ModeLocalData> list) {
+        this.mContext = mContext;
         mList = list;
     }
 
@@ -54,7 +61,7 @@ public class ModeAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if(convertView==null){
             convertView= LayoutInflater.from(parent.getContext()).inflate(R.layout.mode_list_row, null);
@@ -88,7 +95,18 @@ public class ModeAdapter extends BaseAdapter {
 //                mAdapter.refresh(modeInfo.getImgUrlforContent());
 //            }
         }
+        holder.pic_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPicHeadItemClickListener.OnPicHeadItemClick(position);
+            }
+        });
+
         return convertView;
+    }
+
+    public void setmPicHeadItemClickListener(OnPicHeadItemClickListener listener) {
+        mPicHeadItemClickListener = listener;
     }
 
     class ViewHolder{
@@ -101,5 +119,10 @@ public class ModeAdapter extends BaseAdapter {
         TextView mode_username;
         @ViewInject(R.id.mode_content)
         TextView mode_content;
+
+    }
+
+    public interface OnPicHeadItemClickListener {
+        void OnPicHeadItemClick(int positon);
     }
 }

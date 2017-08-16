@@ -153,7 +153,7 @@ public class MovementFragment extends Fragment {
 //                            Toast.LENGTH_SHORT).show();
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new ModeAdapter(mList);
+                        mAdapter = new ModeAdapter(getActivity(), mList);
                         movement_list_view.setAdapter(mAdapter);
                     } else {// 尾部刷新
                         //mList.addAll(object.getDatas());
