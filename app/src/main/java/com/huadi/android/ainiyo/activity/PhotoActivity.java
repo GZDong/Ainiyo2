@@ -190,7 +190,8 @@ public class PhotoActivity extends AppCompatActivity implements LGImgCompressor.
                             if(show.size()==picName.size()) {
                                 RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recy_img);
                                 MyAdapter adapter = new MyAdapter(PhotoActivity.this, show);
-                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                                GridLayoutManager layoutManager=new GridLayoutManager(PhotoActivity.this,3);
+                                mRecyclerView.setLayoutManager(layoutManager);
                                 mRecyclerView.setAdapter(adapter);
                             }
 
