@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.entity.Photo;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.google.gson.Gson;
@@ -40,6 +42,8 @@ public class PhotoActivity extends AppCompatActivity implements LGImgCompressor.
     private ImageView add_pic;
     @ViewInject(R.id.recy_img)
     private RecyclerView recy_img;
+    @ViewInject(R.id.back)
+    private ImageView back;
     @ViewInject(R.id.progress)
     private ProgressBar progress;
     private List<String> images=new ArrayList<>();
@@ -60,12 +64,14 @@ public class PhotoActivity extends AppCompatActivity implements LGImgCompressor.
 
 
     }
-    @OnClick({R.id.add_pic})
+    @OnClick({R.id.add_pic,R.id.back})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.add_pic:
                 ImageSelectorUtils.openPhoto(PhotoActivity.this,1,false,9);
                 break;
+            case R.id.back:
+                startActivity(new Intent(PhotoActivity.this, MainActivity.class));
         }
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
