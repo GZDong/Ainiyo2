@@ -199,7 +199,7 @@ public class MovementFragment extends Fragment {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), MovementDetailActivity.class);
 
-        intent.putExtra("id",position);
+        intent.putExtra("id", position);
         startActivity(intent);
     }
 

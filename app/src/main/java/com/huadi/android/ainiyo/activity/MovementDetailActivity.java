@@ -140,11 +140,11 @@ public class MovementDetailActivity extends AppCompatActivity {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
 
-        ECApplication ecApplication =(ECApplication) getApplication();
+        ECApplication ecApplication = (ECApplication) getApplication();
 
         GetRequest_party request = caller.create(GetRequest_party.class);
 
-        request.getPartyInformation(ecApplication.sessionId,id)
+        request.getPartyInformation(ecApplication.sessionId, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<PartyInformation>() {
@@ -167,9 +167,9 @@ public class MovementDetailActivity extends AppCompatActivity {
                         URL url = null;
                         Bitmap bitmap = null;
 
-                        try{
+                        try {
                             url = new URL(partyInformation.picture);
-                            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                             connection.setConnectTimeout(6000);
                             connection.setDoInput(true);
                             InputStream is = connection.getInputStream();
@@ -178,27 +178,19 @@ public class MovementDetailActivity extends AppCompatActivity {
                             image.setImageBitmap(bitmap);
 
                             is.close();
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-
 
 
                     }
                 });
 
 
-
-
     }
 
 
-
-
-
-
-    @OnClick({R.id.movement_detail_back,R.id.btn_join_now})
+    @OnClick({R.id.movement_detail_back, R.id.btn_join_now})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.movement_detail_back:
@@ -210,7 +202,6 @@ public class MovementDetailActivity extends AppCompatActivity {
                 break;
         }
     }
-
 
 
     @Override

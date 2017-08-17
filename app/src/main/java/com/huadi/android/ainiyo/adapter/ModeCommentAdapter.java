@@ -43,6 +43,7 @@ public class ModeCommentAdapter extends BaseAdapter {
     private View rootView;
     private ModeToCommentAdapter mToCommentAdapter;
     private ArrayList<ModeComment> mcList;
+    private int position;
 
     public ModeCommentAdapter(Context context, List<ModeComment> mCommentList) {
         this.mContext = context;
@@ -68,6 +69,7 @@ public class ModeCommentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View converView, ViewGroup parent) {
+        this.position = position;
         if (converView == null) {
             converView = mLayoutInflater.from(parent.getContext()).inflate(R.layout.mode_comment_list_row, null);
             holder = new ViewHolder();
@@ -88,20 +90,20 @@ public class ModeCommentAdapter extends BaseAdapter {
             holder.tv_mode_comment_time.setText(mc.getTime());
         }
 
-        LoadToCommentData();
+        // LoadToCommentData(position);
 
         return converView;
     }
 
-    public void LoadToCommentData() {
-        ModeComment mc1 = new ModeComment("", "fengsam", "", "hihi", "", "David");
-        ModeComment mc2 = new ModeComment("", "David", "", ".....", "", "fengsam");
-        mcList = new ArrayList<ModeComment>();
-        mcList.add(mc1);
-        mcList.add(mc2);
-        mToCommentAdapter = new ModeToCommentAdapter(mContext, mcList);
-        holder.lv_to_comments.setAdapter(mToCommentAdapter);
-    }
+//    public void LoadToCommentData(int position) {
+//        ModeComment mc1 = new ModeComment("", "fengsam", "", "hihi", "", "David");
+//        ModeComment mc2 = new ModeComment("", "David", "", ".....", "", "fengsam");
+//        mcList = new ArrayList<ModeComment>();
+//        mcList.add(mc1);
+//        mcList.add(mc2);
+//        mToCommentAdapter = new ModeToCommentAdapter(mContext, mcList);
+//        holder.lv_to_comments.setAdapter(mToCommentAdapter);
+//    }
 
     class ViewHolder {
         @ViewInject(R.id.mode_comment_pic_head)
@@ -112,15 +114,15 @@ public class ModeCommentAdapter extends BaseAdapter {
         TextView tv_mode_comment_content;
         @ViewInject(R.id.tv_mode_comment_time)
         TextView tv_mode_comment_time;
-        @ViewInject(R.id.lv_to_comments)
-        ListView lv_to_comments;
+//        @ViewInject(R.id.lv_to_comments)
+//        ListView lv_to_comments;
 
 
-        @OnItemClick({R.id.lv_to_comments})
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            comment();
-            Toast.makeText(mContext, "To" + String.valueOf(position), Toast.LENGTH_SHORT).show();
-        }
+//        @OnItemClick({R.id.lv_to_comments})
+//        public void onItemClick(AdapterView<?> parent, View view, int tocposition, long id) {
+//            comment();
+//            Toast.makeText(mContext, String.valueOf(position)+"To" + String.valueOf(tocposition), Toast.LENGTH_SHORT).show();
+//        }
     }
 
 
@@ -169,11 +171,13 @@ public class ModeCommentAdapter extends BaseAdapter {
     private void updateComment(String inf) {
         ModeComment comment = null;
         ModeComment mc3 = new ModeComment("", "David", "", inf, "", "fengsam");
-        //mcList.clear();
+
         mcList.add(0, mc3);
+
 
         mToCommentAdapter.notifyDataSetChanged();
         mToCommentAdapter.notifyDataSetInvalidated();
+        //ModeCommentAdapter.this.notifyDataSetChanged();
 
         Toast.makeText(mContext, mToCommentAdapter.getItem(0).getContent(), Toast.LENGTH_SHORT).show();
     }

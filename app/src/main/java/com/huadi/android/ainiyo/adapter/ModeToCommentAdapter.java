@@ -67,8 +67,11 @@ public class ModeToCommentAdapter extends BaseAdapter {
         if (mc.getContent() != null) {
             holder.tv_mode_to_comment_content.setText(mc.getContent());
         }
-        if (mc.getTime() != null) {
+        if (mc.getReplyed() != null) {
             holder.tv_mode_to_comment_replyed.setText(mc.getReplyed());
+        }
+        if (mc.getTime() != null) {
+            holder.tv_mode_to_comment_time.setText(mc.getTime());
         }
 
 
@@ -82,5 +85,7 @@ public class ModeToCommentAdapter extends BaseAdapter {
         TextView tv_mode_to_comment_replyed;
         @ViewInject(R.id.tv_mode_to_comment_content)
         TextView tv_mode_to_comment_content;
+        @ViewInject(R.id.tv_mode_to_comment_time)
+        TextView tv_mode_to_comment_time;
     }
 }
