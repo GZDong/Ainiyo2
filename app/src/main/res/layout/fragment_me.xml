@@ -1,28 +1,200 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.huadi.android.ainiyo.frag.MeFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <include
-        layout="@layout/activity_information"
-        android:id="@+id/already" />
-
-    <Button
-        android:id="@+id/logoff"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="退出登录" />
 
-    <Button
-        android:id="@+id/image"
+        >
+
+        <ImageView
+            app:srcCompat="@drawable/backgroud"
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/left_image"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFF"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-70dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:text="吴彦祖"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameField"
+            android:textSize="30sp"
+            android:layout_gravity="center_horizontal"
+            android:padding="5dp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:text="四川-成都"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/describe"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:padding="5dp"/>
+
+        <TextView
+            android:text="________________________________________________________________________"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="#c1baba" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:id="@+id/xiangce">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/xiangce"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:text="我的相册"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/youjiantou"
+                android:layout_marginRight="10dp"
+                />
+        </LinearLayout>
+        <TextView
+        android:text="______________________________________________________________"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="相册"
-        android:layout_marginTop="50dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-5dp"
+            android:textColor="#c1baba"
+        android:maxLines="1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:id="@+id/info">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/info"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:text="个人信息"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/youjiantou"
+                android:layout_marginRight="10dp"
+                />
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-5dp"
+            android:textColor="#c1baba"
+            android:maxLines="1"
+            android:text="_________________________________________________________________________________" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:id="@+id/logoff">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/tuichu"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:text="退出登录"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/youjiantou"
+                android:layout_marginRight="10dp"
+                />
 
 
 
 
-</FrameLayout>
+        </LinearLayout>
+        <TextView
+            android:text="____________________________________________________________________________"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#c1baba"
+            android:layout_marginTop="-5dp"
+            android:maxLines="1"/>
+
+</LinearLayout>
+
+
+
+</LinearLayout>
