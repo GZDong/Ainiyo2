@@ -49,6 +49,7 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
+import com.lidroid.xutils.view.annotation.event.OnLongClick;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

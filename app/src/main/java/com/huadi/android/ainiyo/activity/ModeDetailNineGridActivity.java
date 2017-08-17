@@ -56,6 +56,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
+import com.lidroid.xutils.view.annotation.event.OnItemLongClick;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
@@ -96,6 +97,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
     private Handler Myhandle;
     private Message msg;
+    private PopupWindow mPopWindow;
 
     //列表数据
     ArrayList<ModeComment> mCommentList;
@@ -123,6 +125,8 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
         initCommentData(mld.getId(), true);
 
+
+        initToCommentItemDelete();
     }
 
     //加载九宫格图片
@@ -288,6 +292,113 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         comment(2, position);
     }
 
+    @OnItemLongClick({R.id.lv_comments})
+    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+        // Toast.makeText(ModeDetailNineGridActivity.this,"Long:  "+String.valueOf(position),Toast.LENGTH_SHORT).show();
+        //设置contentView
+        View contentView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.mode_comment_delete_pop_window, null);
+        mPopWindow = new PopupWindow(contentView,
+                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+        mPopWindow.setContentView(contentView);
+        //设置各个控件的点击响应
+        TextView tv1 = (TextView) contentView.findViewById(R.id.pop_computer);
+        TextView tv2 = (TextView) contentView.findViewById(R.id.pop_financial);
+        tv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(ModeDetailNineGridActivity.this,"clicked Delete",Toast.LENGTH_SHORT).show();
+                DeleteComment(mCommentList.get(position).getId(), position, true);
+                mPopWindow.dismiss();
+                //Toast.makeText(ModeDetailNineGridActivity.this,mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        tv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(ModeDetailNineGridActivity.this,"clicked cancel",Toast.LENGTH_SHORT).show();
+                mPopWindow.dismiss();
+            }
+        });
+        //显示PopupWindow
+        View rootview = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.activity_mode_detail_nine_grid, null);
+        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+
+        return true;
+    }
+
+    public void initToCommentItemDelete() {
+        tocomments.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
+                View contentView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.mode_comment_delete_pop_window, null);
+                mPopWindow = new PopupWindow(contentView,
+                        WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+                mPopWindow.setContentView(contentView);
+                //设置各个控件的点击响应
+                TextView tv1 = (TextView) contentView.findViewById(R.id.pop_computer);
+                TextView tv2 = (TextView) contentView.findViewById(R.id.pop_financial);
+                tv1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Toast.makeText(ModeDetailNineGridActivity.this,"clicked Delete",Toast.LENGTH_SHORT).show();
+                        DeleteComment(mToCommentList.get(position).getId(), position, false);
+                        mPopWindow.dismiss();
+                        //Toast.makeText(ModeDetailNineGridActivity.this,mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                tv2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Toast.makeText(ModeDetailNineGridActivity.this,"clicked cancel",Toast.LENGTH_SHORT).show();
+                        mPopWindow.dismiss();
+                    }
+                });
+                //显示PopupWindow
+                View rootview = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.activity_mode_detail_nine_grid, null);
+                mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+
+                return true;
+            }
+        });
+    }
+
+
+    public void DeleteComment(String id, final int position, final boolean flag) {
+        RequestParams params = new RequestParams();
+        ECApplication application = (ECApplication) getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
+        params.addBodyParameter("commentid", id);
+
+
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, CONST.DELETE_COMMENT, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                ResponseObject<String> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<String>>() {
+                        }.getType());
+                if (object.getStatus() == 420) {
+                    Toast.makeText(ModeDetailNineGridActivity.this, "comment delete success", Toast.LENGTH_SHORT).show();
+                    if (flag) {
+                        mCommentList.remove(position);
+                        mCommentAdapter.notifyDataSetChanged();
+                    } else {
+                        mToCommentList.remove(position);
+                        mToCommentAdapter.notifyDataSetChanged();
+                    }
+                } else {
+                    Toast.makeText(ModeDetailNineGridActivity.this, "status:  " + object.getStatus(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                Toast.makeText(ModeDetailNineGridActivity.this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     @OnClick({R.id.btn_mode_nine_grid_comment, R.id.mode_b_save, R.id.mode_detail_nine_grid_back})
     public void onClick(View v) {
