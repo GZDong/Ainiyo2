@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -29,12 +31,12 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import static android.content.Context.MODE_PRIVATE;
 
 public class MeFragment extends Fragment{
-    @ViewInject(R.id.behavior)
-    private Button behavior;
+    @ViewInject(R.id.info)
+    private Button infor;
     @ViewInject(R.id.logoff)
     private Button logoff;
-    @ViewInject(R.id.image)
-    private Button image;
+    @ViewInject(R.id.xiangce)
+    private LinearLayout xiangce;
 
 
 
@@ -46,13 +48,13 @@ public class MeFragment extends Fragment{
         ViewUtils.inject(this,view);
         return view;
     }
-   @OnClick({R.id.behavior,R.id.logoff,R.id.image})
+   @OnClick({R.id.info,R.id.logoff,R.id.xiangce})
    public void OnClick(View v){
        switch (v.getId()){
-           case R.id.behavior:
+           case R.id.info:
                startActivityForResult(new Intent(getActivity(), EditInfoActivity.class),1);
                break;
-           case R.id.image:
+           case R.id.xiangce:
                startActivity(new Intent(getActivity(),PhotoActivity.class));
                break;
            case R.id.logoff:

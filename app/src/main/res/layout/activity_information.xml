@@ -41,22 +41,12 @@
         android:layout_weight="1">
 
         <TextView
-            android:text="NAME"
+            android:text="吴彦祖"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/nameField"
             android:textSize="30sp"
             android:layout_gravity="center_horizontal"
-            android:padding="5dp"
-            android:textAlignment="center" />
-
-        <TextView
-            android:text="吴彦祖"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/signField"
-            android:textColor="#696969"
-            android:textSize="20sp"
             android:padding="5dp"
             android:textAlignment="center" />
 
@@ -68,11 +58,12 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:padding="5dp"/>
-
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/list" />
+            android:layout_height="match_parent">
+
+        </ListView>
+
 
     </LinearLayout>
 
