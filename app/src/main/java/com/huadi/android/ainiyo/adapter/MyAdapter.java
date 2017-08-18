@@ -5,18 +5,14 @@ import android.widget.ImageView;
 
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.activity.BigImage;
-import com.huadi.android.ainiyo.activity.PhotoActivity;
+import com.huadi.android.ainiyo.activity.BigImageActivity;
 
 
 import java.util.List;
@@ -63,7 +59,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 String url = mList.get(position);
-                Intent intent = new Intent(mContext, BigImage.class);
+                Intent intent = new Intent(mContext, BigImageActivity.class);
                 intent.putExtra("URL", url);
                 mContext.startActivity(intent);
             }

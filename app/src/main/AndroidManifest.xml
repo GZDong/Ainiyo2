@@ -159,10 +159,13 @@
             android:name=".activity.AddFriendActivity"
             android:parentActivityName=".activity.FriendsListActivity" />
         <activity android:name=".activity.ChooseYoNActivity" />
-        <activity android:name=".activity.BigImage" />
+        <activity android:name=".activity.BigImageActivity" />
         <activity android:name=".activity.ModeDetailNineGridActivity" />
         <activity android:name=".activity.MovementDetailActivity" />
-        <activity android:name=".activity.VipApply"></activity>
+        <activity android:name=".activity.VipApply" />
+        <activity android:name=".activity.VipHint" />
+        <activity android:name=".activity.VipRespon" />
+        <activity android:name=".activity.VipLeverActivity"></activity>
     </application>
 
 </manifest>

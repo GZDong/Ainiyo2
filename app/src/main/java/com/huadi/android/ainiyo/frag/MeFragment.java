@@ -26,6 +26,9 @@ import com.huadi.android.ainiyo.activity.EditInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.PhotoActivity;
 import com.huadi.android.ainiyo.activity.VipApply;
+import com.huadi.android.ainiyo.activity.VipHint;
+import com.huadi.android.ainiyo.activity.VipLeverActivity;
+import com.huadi.android.ainiyo.activity.VipRespon;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.UserData;
 import com.huadi.android.ainiyo.entity.UserInfo;
@@ -44,7 +47,10 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+
 import static android.content.Context.MODE_PRIVATE;
+import static com.huadi.android.ainiyo.R.id.job;
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
 public class MeFragment extends Fragment{
@@ -56,6 +62,8 @@ public class MeFragment extends Fragment{
     private LinearLayout xiangce;
     @ViewInject(R.id.vipapply)
     private LinearLayout vipapply;
+    @ViewInject(R.id.vip_lever)
+    private LinearLayout vip_lever;
     private TextView te;
     private TextView job_text;
     private TextView vip_text;
@@ -88,26 +96,26 @@ public class MeFragment extends Fragment{
                             Gson gson=new Gson();
                             UserData userData=gson.fromJson(object.getJSONObject("Result").toString(),UserData.class);
 
-                            String job=userData.getJob();
-                            Boolean vip=userData.isVip();
-                            String image=userData.getAvatar();
                             //如果获取数据成功，则把数据加载到各项
-                            if(msg.equals("success"))
-                            job_text=(TextView)getActivity().findViewById(R.id.job_text);
-                            job_text.setText(job);
-                            avatar_imag=(ImageView)getActivity().findViewById(R.id.avatar_imag);
-                            Glide.with(getActivity()).load(image).into(avatar_imag);
-                            if(vip){
-                                vip_text=(TextView)getActivity().findViewById(R.id.vip_text);
-                                vip_text.setText("VIP用户");
+                            if(msg.equals("success")) {
+                                String job = userData.getJob();
+                                Boolean vip = userData.isVip();
+                                String image = userData.getAvatar();
+                                job_text = (TextView) getActivity().findViewById(R.id.job_text);
+                                job_text.setText(job);
+                                avatar_imag = (ImageView) getActivity().findViewById(R.id.avatar_imag);
+                                Glide.with(getActivity()).load(image).into(avatar_imag);
+                                if (vip) {
+                                    vip_text = (TextView) getActivity().findViewById(R.id.vip_text);
+                                    vip_text.setText("VIP用户");
+                                }
+                                if (!vip) {
+                                    vip_text = (TextView) getActivity().findViewById(R.id.vip_text);
+                                    vip_text.setText("普通用户");
+                                }
+
+
                             }
-                            else {
-                                vip_text=(TextView)getActivity().findViewById(R.id.vip_text);
-                                vip_text.setText("普通用户");
-                            }
-
-
-
 
                         }
                         catch (JSONException e){
@@ -127,17 +135,49 @@ public class MeFragment extends Fragment{
         );
         return view;
     }
-   @OnClick({R.id.info,R.id.logoff,R.id.xiangce,R.id.vipapply})
+   @OnClick({R.id.info,R.id.logoff,R.id.xiangce,R.id.vipapply,R.id.vip_lever})
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
                startActivityForResult(new Intent(getActivity(), EditInfoActivity.class),1);
                break;
+           case R.id.vip_lever:
+               startActivity(new Intent(getActivity(),VipLeverActivity.class));
+               break;
            case R.id.xiangce:
                startActivity(new Intent(getActivity(),PhotoActivity.class));
                break;
            case R.id.vipapply:
-               startActivity(new Intent(getActivity(),VipApply.class));
+               RequestParams params = new RequestParams();
+               params.addBodyParameter("sessionid", sessionId);
+               new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/vipcheck",params, new RequestCallBack<String>() {
+                   @Override
+                   public void onSuccess(ResponseInfo<String> responseInfo) {
+                       try {
+                           JSONObject object = new JSONObject(responseInfo.result.toString());
+                           int status = object.getInt("Status");
+                           String result=object.getString("Result");
+                           String msg=object.getString("Msg");
+                           if (status==0) {
+                               startActivity(new Intent(getActivity(),VipHint.class));
+                           }
+                           if(status==99||status==20001||status==20002||status==20003){
+                               Intent intent=new Intent(getActivity(),VipRespon.class);
+                               intent.putExtra("text",msg);
+                               startActivity(intent);
+
+                           }
+
+                       } catch (JSONException e) {
+                           e.printStackTrace();
+                       }
+                   }
+
+                   @Override
+                   public void onFailure(HttpException error, String msg) {
+                       Toast.makeText(getActivity(), "连接错误", Toast.LENGTH_SHORT).show();
+                   }
+               });
                break;
            case R.id.logoff:
                AlertDialog.Builder dialog=new AlertDialog.Builder(getActivity());
