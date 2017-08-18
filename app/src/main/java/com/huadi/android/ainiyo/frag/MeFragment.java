@@ -24,6 +24,7 @@ import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.EditInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
+import com.huadi.android.ainiyo.activity.MovementJoinedActivity;
 import com.huadi.android.ainiyo.activity.PhotoActivity;
 import com.huadi.android.ainiyo.activity.VipApply;
 import com.huadi.android.ainiyo.application.ECApplication;
@@ -56,6 +57,8 @@ public class MeFragment extends Fragment{
     private LinearLayout xiangce;
     @ViewInject(R.id.vipapply)
     private LinearLayout vipapply;
+    @ViewInject(R.id.joined_activity)
+    private LinearLayout joined_btn;
     private TextView te;
     private TextView job_text;
     private TextView vip_text;
@@ -127,7 +130,7 @@ public class MeFragment extends Fragment{
         );
         return view;
     }
-   @OnClick({R.id.info,R.id.logoff,R.id.xiangce,R.id.vipapply})
+   @OnClick({R.id.info,R.id.logoff,R.id.xiangce,R.id.vipapply,R.id.joined_activity})
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
@@ -138,6 +141,9 @@ public class MeFragment extends Fragment{
                break;
            case R.id.vipapply:
                startActivity(new Intent(getActivity(),VipApply.class));
+               break;
+           case R.id.joined_activity:
+               startActivity(new Intent(getActivity(), MovementJoinedActivity.class));
                break;
            case R.id.logoff:
                AlertDialog.Builder dialog=new AlertDialog.Builder(getActivity());
