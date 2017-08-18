@@ -15,28 +15,25 @@
 
     <Button
         android:id="@+id/accept_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:text="@string/accept"
+        android:background="@color/soothing_blue"
+        android:layout_above="@+id/refuse_btn"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="139dp"
-        android:layout_marginLeft="51dp"
-        android:layout_marginStart="51dp"
-        android:text="@string/accept"
-        android:background="@color/soothing_blue"/>
+        android:layout_marginBottom="31dp"/>
 
     <Button
         android:id="@+id/refuse_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/accept_btn"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="51dp"
-        android:layout_marginRight="51dp"
         android:text="@string/refuse"
-        android:background="@color/theme_red"/>
+        android:background="@color/theme_red"
+        android:layout_marginBottom="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:id="@+id/text"
@@ -47,7 +44,7 @@
         android:layout_marginTop="41dp"
         android:layout_below="@+id/toolbar_choose"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"/>
+        android:textStyle="normal"/>
 
     <TextView
         android:id="@+id/name"
@@ -78,13 +75,13 @@
         android:id="@+id/person_id_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/name"
-        android:layout_toEndOf="@+id/accept_btn"
-        android:layout_toRightOf="@+id/accept_btn"
-        android:text="TextView"
+        android:text="shouji"
         android:textSize="20sp"
         android:maxLines="1"
-        android:ellipsize="marquee"/>
+        android:ellipsize="marquee"
+        android:layout_above="@+id/textView2"
+        android:layout_alignLeft="@+id/reason"
+        android:layout_alignStart="@+id/reason"/>
 
     <TextView
         android:id="@+id/reason"

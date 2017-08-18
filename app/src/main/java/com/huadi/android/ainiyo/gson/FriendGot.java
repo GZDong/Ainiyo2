@@ -26,4 +26,8 @@ public class FriendGot {
     public String getMsg() {
         return Msg;
     }
+
+    public List<ResultForFriend> getFriendList() {
+        return friendList;
+    }
 }

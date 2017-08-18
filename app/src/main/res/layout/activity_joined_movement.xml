@@ -14,17 +14,6 @@
         android:background="@color/theme_red">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-
-            android:id="@+id/tv_movement_me"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/left_image"
-            app:civ_border_color="#FFF"
-            app:civ_border_width="2dp" />
-
         <TextView
             android:id="@+id/txt_topbar_movement"
             android:layout_width="match_parent"

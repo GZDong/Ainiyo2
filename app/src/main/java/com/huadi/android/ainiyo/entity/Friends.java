@@ -16,7 +16,8 @@ public class Friends extends DataSupport {
     private String name;
 
     private int picture;
-    //private String picUrl;
+
+    private String picUrl;
 
     private int unreadMeg = 0;  //该好友的未读信息数
 
@@ -26,13 +27,24 @@ public class Friends extends DataSupport {
 
     private boolean showInChooseFragment;  //是否出现在聊天列表
 
-    public Friends(String user, String name) {
+    public Friends(String user,String name){
+        this.user = user;
+        this.name = name;
+        this.picture = R.drawable.touxiang;
+        this.unreadMeg = 0;
+        this.newTime = DateUtil.getNowDate();
+        this.showInChooseFragment = true;
+        this.picUrl = null;
+    }
+
+    public Friends(String user, String name,String picUrl) {
           this.user = user;
         this.name = name;
         this.picture = R.drawable.touxiang;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
         this.showInChooseFragment = true;
+        this.picUrl = picUrl;
     }
 
     //创建一个该用户的好友
@@ -98,5 +110,13 @@ public class Friends extends DataSupport {
 
     public String getUser() {
         return user;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
     }
 }
