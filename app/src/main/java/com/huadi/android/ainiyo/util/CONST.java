@@ -13,6 +13,7 @@ public class CONST {
     public static final String COMMIT_COMMENT = HOST + "/publishmood/comment";
     public static final String FETCH_COMMENT = HOST + "/moodlist/comment";
     public static final String DELETE_COMMENT = HOST + "/deletemood/comment";
+    public static final String FINDING_USER_DESTINY = HOST + "/search/user/destiny";
     public static final String SESSIONID = "";
 
 }

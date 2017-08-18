@@ -8,7 +8,6 @@
     android:descendantFocusability="blocksDescendants">
 
     <android.support.v7.widget.CardView
-        tools:targetApi="lollipop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -17,8 +16,9 @@
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="0dp"
+        app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="false"
-        app:cardPreventCornerOverlap="false">
+        tools:targetApi="lollipop">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,22 +27,21 @@
 
             >
 
+            <ImageView
+                android:id="@+id/iv_finding_pic"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/girl4" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/finding_pic_head"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:src="@drawable/examplepicture"
-                    app:civ_border_width="2dp"
-                    app:civ_border_color="#FFF"
-                    android:layout_gravity="center" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -52,19 +51,58 @@
 
                     <TextView
 
-                        android:id="@+id/iv_finding_name"
+                        android:id="@+id/tv_finding_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="刘亦菲"
-                        android:textColor="#4040f0"
-                        android:textSize="18sp" />
+                        android:layout_marginBottom="2dp"
+                        android:text="刘奕宁"
+                        android:textColor="#333030"
+                        android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/iv_finding_age"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20岁"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#e84b4b"
+                            android:orientation="horizontal"
+                            android:paddingBottom="3dp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:paddingTop="3dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="7dp"
+                                android:src="@mipmap/ic_finding_female" />
+
+                            <TextView
+                                android:id="@+id/tv_finding_age"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="20"
+                                android:textColor="@color/white"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_finding_job"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:background="@color/theme_red"
+                            android:paddingBottom="3dp"
+                            android:paddingLeft="7dp"
+                            android:paddingRight="7dp"
+                            android:paddingTop="3dp"
+                            android:text="学生"
+                            android:textColor="@color/white"
+                            android:textSize="15dp" />
+                    </LinearLayout>
 
 
                 </LinearLayout>
@@ -74,27 +112,38 @@
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:id="@+id/btn_finding_add_friend"
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#90909090" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@mipmap/finding_adding_friend"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="加好友"
-                    android:textColor="#d81e06" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_finding_match_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:text="96%"
+                        android:textColor="#333030"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="匹配度"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
-
-            <ImageView
-                android:id="@+id/iv_finding_pic"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="20dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/content_image1" />
-
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

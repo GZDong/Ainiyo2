@@ -17,9 +17,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.huadi.android.ainiyo.activity.FindingDataAnlaysisActivity;
 import com.huadi.android.ainiyo.activity.FindingDetailActivity;
 import com.huadi.android.ainiyo.adapter.FindingAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FindingInfo;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
@@ -52,6 +54,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.huadi.android.ainiyo.util.CONST.FINDING_USER_DESTINY;
 import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
 
 
@@ -59,14 +62,9 @@ public class FindingFragment extends Fragment {
 
     @ViewInject(R.id.finding_list_view)
     private PullToRefreshListView finding_list_view;
+    private FindingAdapter findingAdapter;
+    private ArrayList<FindingInfo> mList;
 
-    private List<ModeLocalData> mList = new ArrayList<>();
-    private ModeResult modeResult;
-    private ModeWebData[] mwd;
-    private ModeAdapter mAdapter;
-    private int page = 1;
-    private int pagesize = 20;
-    private int pagecount = 1;
     private static final int REQUEST_CODE = 0x00000012;
 
 
@@ -107,76 +105,29 @@ public class FindingFragment extends Fragment {
     private void loadDatas(final boolean direction) {
 
         RequestParams params = new RequestParams();
-        if (!direction) {// 如果是尾部刷新要重新计算分页数据
-            page++;
-        } else {
-            page = 1;
-        }
 
         ECApplication application = (ECApplication) getActivity().getApplication();
         params.addBodyParameter("sessionid", application.sessionId);
-        params.addBodyParameter("page", "0");
-        params.addBodyParameter("pagesize", "10");
-        params.addBodyParameter("type", "1");
 
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, FINDING_USER_DESTINY, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
                 finding_list_view.onRefreshComplete();
-                ResponseObject<ModeResult> object = new GsonBuilder().create().
-                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ModeResult>>() {
+                ResponseObject<ArrayList<FindingInfo>> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ArrayList<FindingInfo>>>() {
                         }.getType());
 
-                if (object.getStatus() == 400) {
+                if (object.getStatus() == 0) {
                     if (direction)// 头部刷新
                     {// 渲染内容到界面上
                         //清空原来的数据
-                        mList.clear();
-                        ArrayList<Integer> idorder = new ArrayList<Integer>();
+                        mList = object.getResult();
 
+                        findingAdapter = new FindingAdapter(getActivity(), mList);
+                        finding_list_view.setAdapter(findingAdapter);
 
-                        mwd = object.getResult().getData();
-                        int sum = object.getResult().getSum();
-                        ModeWebData mwd1;
-                        for (int i = sum - 1; i >= 0; i--) {
-                            mwd1 = mwd[i];
-
-                            idorder.add(mwd1.getId());
-                            ToolKits.putInteger(getActivity(), "Integer", idorder);
-
-                            int userid = mwd1.getUserid();
-                            String content = mwd1.getContent();
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<ModeInfo>() {
-                            }.getType();
-                            ModeInfo mi;
-                            mi = gson.fromJson(mwd1.getContent(), type);
-
-                            ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
-                            mList.add(mld);
-                        }
-
-//                    Toast.makeText(getActivity(),
-//                            "content=" + content + ",userid=" + String.valueOf(userid)
-//                                    + ",msg=" + object.getMsg() + ",Status=" + object.getStatus(),
-//                            Toast.LENGTH_SHORT).show();
-
-//                    Toast.makeText(getActivity(),
-//                            "imageUrL:  "+mi.getImgUrlforContent().size(),
-//                            Toast.LENGTH_SHORT).show();
-
-                        //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new ModeAdapter(getActivity(), mList);
-                        finding_list_view.setAdapter(mAdapter);
-
-                    } else {// 尾部刷新
-                        //mList.addAll(object.getDatas());
-                        mAdapter.notifyDataSetChanged();
-                    }
-                    if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
-                        finding_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                     }
                 }
             }
@@ -187,28 +138,6 @@ public class FindingFragment extends Fragment {
                 Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
             }
         });
-
-//        if (direction)// 头部刷新
-//        {// 渲染内容到界面上
-//            mList = ToolKits.GettingModedata(getActivity(), "modeInfoList");
-//            mAdapter = new ModeAdapter(mList);
-//            mode_list_view.setAdapter(mAdapter);
-//
-//            //防止刷新获取数据时候，时间太短,而出现的bug,最后为0.001秒
-//            mode_list_view.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mode_list_view.onRefreshComplete();
-//                }
-//            }, 1);
-//
-//        } else {// 尾部刷新
-//            //mList.addAll(object.getDatas());
-//            mAdapter.notifyDataSetChanged();
-//        }
-//        if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
-//            mode_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-//        }
     }
 
     @OnClick({R.id.btn_finding_go})
@@ -216,7 +145,7 @@ public class FindingFragment extends Fragment {
         switch (v.getId()) {
 
             case R.id.btn_finding_go:
-                startActivity(new Intent(getActivity(), FindingDetailActivity.class));
+                startActivity(new Intent(getActivity(), FindingDataAnlaysisActivity.class));
         }
 
     }

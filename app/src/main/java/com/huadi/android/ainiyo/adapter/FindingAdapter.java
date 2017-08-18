@@ -1,7 +1,6 @@
 package com.huadi.android.ainiyo.adapter;
 
-import android.graphics.Paint;
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.activity.ModeAddingActivity;
-import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.entity.FindingInfo;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,10 +22,12 @@ import java.util.List;
 
 public class FindingAdapter extends BaseAdapter {
 
-    private List<ModeInfo> mList;
+    private List<FindingInfo> mList;
     private ImageAdapter mAdapter;
+    private Context mContext;
 
-    public FindingAdapter(List<ModeInfo> list) {
+    public FindingAdapter(Context mContext, List<FindingInfo> list) {
+        this.mContext = mContext;
         mList = list;
     }
 
@@ -39,13 +37,10 @@ public class FindingAdapter extends BaseAdapter {
     }
 
     @Override
-    public ModeInfo getItem(int position) {
+    public FindingInfo getItem(int position) {
         return (mList == null || position >= mList.size()) ? null : mList.get(position);
     }
 
-    public String getPhoItem(int position) {
-        return (mList == null || position >= mList.size()) ? null : mList.get(position).getImgUrlforContent().get(position);
-    }
 
     @Override
     public long getItemId(int position) {
@@ -65,39 +60,42 @@ public class FindingAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ModeInfo modeInfo = mList.get(position);
-//        if (modeInfo.getName() != null) {
-//            holder.mode_username.setText(modeInfo.getName());
-//        }
-//        if (modeInfo.getContent() != null) {
-//            holder.mode_content.setText(modeInfo.getContent());
-//        }
-//        if (modeInfo.getImgUrlforHead() != null) {
-//
-//        }
-        if (modeInfo.getImgUrlforContent() != null) {
-//            if(modeInfo.getImgUrlforContent().size()==1) {
-            final String image = modeInfo.getImgUrlforContent().get(0);
-            //    Glide.with(parent.getContext()).load(new File(image)).into(holder.pic_content);
-
-            // Glide.with(parent.getContext()).load("http://120.24.168.102:8080/getalumb?sessionid=5ca6b5f4b438030f123fb149ff19fd8769365789").skipMemoryCache(false).into(holder.pic_content);
-//            }else{
-//                mAdapter.refresh(modeInfo.getImgUrlforContent());
-//            }
+        FindingInfo findingInfo = mList.get(position);
+        if (findingInfo.getAge() != 0) {
+            holder.iv_finding_age.setText(findingInfo.getAge());
         }
+//        if (findingInfo.getMatchpercent()!=null)
+//        {
+//            holder.tv_finding_match_percent.setText(findingInfo.getMatchpercent());
+//        }
+        if (findingInfo.getId() != null) {
+            holder.iv_finding_name.setText(findingInfo.getId());
+        }
+        if (findingInfo.getJob() != null) {
+            holder.tv_finding_job.setText(findingInfo.getJob());
+        }
+//        if(findingInfo.getAvatar()!=null)
+//        {
+//            Glide.with(parent.getContext()).load(findingInfo.getAvatar()).into(holder.iv_finding_pic);
+//        }
+
         return convertView;
     }
 
     class ViewHolder {
 
-        @ViewInject(R.id.finding_pic_head)
+        @ViewInject(R.id.iv_finding_pic)
         ImageView pic_head;
-        @ViewInject(R.id.iv_finding_name)
+        @ViewInject(R.id.tv_finding_name)
         TextView iv_finding_name;
-        @ViewInject(R.id.iv_finding_age)
+        @ViewInject(R.id.tv_finding_age)
         TextView iv_finding_age;
         @ViewInject(R.id.iv_finding_pic)
         ImageView iv_finding_pic;
+        @ViewInject(R.id.tv_finding_match_percent)
+        TextView tv_finding_match_percent;
+        @ViewInject(R.id.tv_finding_job)
+        TextView tv_finding_job;
 
     }
 }
