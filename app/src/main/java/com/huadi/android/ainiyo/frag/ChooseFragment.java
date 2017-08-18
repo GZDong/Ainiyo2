@@ -1,6 +1,5 @@
 package com.huadi.android.ainiyo.frag;
 
-import android.accounts.AccountManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +21,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ChattingActivity;
@@ -35,17 +34,11 @@ import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.DateUtil;
 import com.huadi.android.ainiyo.util.ImgScaleUtil;
 import com.huadi.android.ainiyo.util.SignInUtil;
-import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -58,7 +51,8 @@ public class ChooseFragment extends Fragment {
     private int transImg;
     private RecyclerView mRecyclerView;
     private  MyAdapter mMyAdapter;
-    private BroadcastReceiver mBroadcastReceiver;
+    private BroadcastReceiver mReceiverForNewMsg;
+    private BroadcastReceiver mReceiverForRefresh;
     private ImageButton mPersons;
 
     private UserInfo mUserInfo;
@@ -68,9 +62,9 @@ public class ChooseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         if (getActivity() instanceof MainActivity){
-            Log.e("ee", "onCreate____MainActivity");
+            Log.e("test", "onCreate____MainActivity");
         }else {
-            Log.e("ee", "onCreate____ChattingActivity");
+            Log.e("test", "onCreate____ChattingActivity");
         }
 
         //获取当前用户实例
@@ -96,7 +90,7 @@ public class ChooseFragment extends Fragment {
 
         //如果是聊天活动的碎片，则在这里注册广播接收器
         if (getActivity() instanceof ChattingActivity) {
-            Log.e("ee", "onCreateView___ChattingActivity");
+            Log.e("test", "onCreateView___ChattingActivity");
             //***********如果在聊天里打开就不要标题栏******
             LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.bar);
             linearLayout.setVisibility(View.GONE);
@@ -104,7 +98,7 @@ public class ChooseFragment extends Fragment {
             //******************注册新信息的接受器***********************
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction("com.huadi.android.ainiyo.newMessage");
-            mBroadcastReceiver = new BroadcastReceiver() {
+            mReceiverForNewMsg = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     int newMsg = intent.getIntExtra("newM", 0);
@@ -125,10 +119,10 @@ public class ChooseFragment extends Fragment {
                     mMyAdapter.notifyDataSetChanged();  //这里已经意味着必须要在适配器被创建过之后注册
                 }
             };
-            getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
+            getActivity().registerReceiver(mReceiverForNewMsg, intentFilter);
             //************************************************
         }else {
-            Log.e("ee", "onCreateView___MainActivity");
+            Log.e("test", "onCreateView___MainActivity");
         }
 
         mPersons.setOnClickListener(new View.OnClickListener() {
@@ -165,7 +159,7 @@ public class ChooseFragment extends Fragment {
             //******************注册新信息的接受器***********************
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction("com.huadi.android.ainiyo.newMessage");
-            mBroadcastReceiver = new BroadcastReceiver() {
+            mReceiverForNewMsg = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     int newMsg = intent.getIntExtra("newM", 0);
@@ -178,14 +172,29 @@ public class ChooseFragment extends Fragment {
                     frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
 
                     for (Friends friends1 : frdList) {
-                        Log.e("eee", "排序后：" + friends1.getName() + "/n");
+                        Log.e("test", "排序后：" + friends1.getName() + "/n");
                     }
                     mMyAdapter.mList = frdList;
                     mMyAdapter.notifyDataSetChanged();
 
                 }
             };
-            getActivity().registerReceiver(mBroadcastReceiver, intentFilter);
+            getActivity().registerReceiver(mReceiverForNewMsg, intentFilter);
+
+            IntentFilter intentFilter2 = new IntentFilter();
+            intentFilter2.addAction("com.huadi.android.ainiyo.refresh");
+            mReceiverForRefresh = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
+                    mMyAdapter.mList = frdList;
+                    mMyAdapter.notifyDataSetChanged();
+                }
+            };
+
+            getActivity().registerReceiver(mReceiverForRefresh,intentFilter2);
+
+
             //************************************************
         }else {
             Log.e("test", "onStart_ChattingFragment");
@@ -207,7 +216,8 @@ public class ChooseFragment extends Fragment {
         super.onStop();
         if (getActivity() instanceof MainActivity) {
             EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
-            getActivity().unregisterReceiver(mBroadcastReceiver);
+            getActivity().unregisterReceiver(mReceiverForNewMsg);
+            getActivity().unregisterReceiver(mReceiverForRefresh);
             Log.e("test", "onStop___MainActivity");
         }else{
             Log.e("test", "onStop___ChattingActivity");
@@ -218,12 +228,12 @@ public class ChooseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (getActivity() instanceof ChattingActivity) {
-            Log.e("eee", "onDestroy___ChattingActivity");
-            getActivity().unregisterReceiver(mBroadcastReceiver);
+            Log.e("test", "onDestroy___ChattingActivity");
+            getActivity().unregisterReceiver(mReceiverForNewMsg);
             EMClient.getInstance().chatManager().removeMessageListener(mEMMessageListener);
         }
         if (getActivity() instanceof MainActivity) {
-            Log.e("eee", "onDestroy___MainActivity");
+            Log.e("test", "onDestroy___MainActivity");
             SignInUtil.signOut();
         }
     }
@@ -309,7 +319,7 @@ public class ChooseFragment extends Fragment {
         private List<Friends> mList;
         public MyAdapter(List<Friends> friList) {
 
-            mList = friList;   //^^^^^^^^这里跨方法了，所以强引用没有生效！！
+            mList = friList;
         }
 
         @Override
@@ -328,7 +338,11 @@ public class ChooseFragment extends Fragment {
             String newTime = friends.getNewTime();
             holder.textView.setText(name_fri);
             //holder.mImageView.setImageResource(picture);
-            holder.mImageView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(), picture, 50, 50));
+            if ( !TextUtils.isEmpty(friends.getPicUrl())){
+                Glide.with(ChooseFragment.this).load(friends.getPicUrl()).into(holder.mImageView);
+            }else{
+                holder.mImageView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(), picture, 50, 50));
+            }
 
             if (unreadM != 0){
                 holder.UnreadBtn.setVisibility(View.VISIBLE);

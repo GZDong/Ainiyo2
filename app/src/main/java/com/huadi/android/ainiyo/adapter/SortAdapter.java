@@ -3,6 +3,7 @@ package com.huadi.android.ainiyo.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.entry.Image;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
@@ -84,8 +86,11 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
                 mContext.startActivity(intent);
             }
         });
-
-        holder.imgView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(mContext.getResources(), this.mData.get(position).getPicture(), 50, 50));
+        if (!TextUtils.isEmpty(mData.get(position).getPicUrl())){
+            Glide.with(mContext).load(mData.get(position).getPicUrl()).into(holder.imgView);
+        }else {
+            holder.imgView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(mContext.getResources(), this.mData.get(position).getPicture(), 50, 50));
+        }
 
     }
 

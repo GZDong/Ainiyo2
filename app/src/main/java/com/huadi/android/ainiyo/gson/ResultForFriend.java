@@ -6,14 +6,14 @@ package com.huadi.android.ainiyo.gson;
 
 public class ResultForFriend {
     public String Id;
-    public String Userid;
-    public String Friendid;
+    public String Name;
+    public String Avatar;
 
-    public String getUserid() {
-        return Userid;
+    public String getName() {
+        return Name;
     }
 
-    public String getFriendid() {
-        return Friendid;
+    public String getAvatar() {
+        return Avatar;
     }
 }

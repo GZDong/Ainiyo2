@@ -57,13 +57,22 @@ public class LoginActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ViewUtils.inject(this);
         ActionBar actionbar = getSupportActionBar();
+
+        Login2.getBackground().setAlpha(200);
+
         //调整状态栏(工具栏上方本来是灰色的，现在统一）的颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             //设置状态栏的颜色
             this.getWindow().setStatusBarColor(getResources().getColor(R.color.theme_statusBar_red));
+        }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+                    localLayoutParams.flags);
         }
 
         if (actionbar != null) {
@@ -103,11 +112,11 @@ public class LoginActivity extends AppCompatActivity  {
                 params.addBodyParameter("name",login_name.getText().toString());
                 params.addBodyParameter("pwd",login_pwd.getText().toString());
                 //初始化用户信息
-                UserInfo userInfo = new UserInfo(login_name.getText().toString(),login_pwd.getText().toString(),R.drawable.right_image);
+                final UserInfo userInfo = new UserInfo(login_name.getText().toString(),login_pwd.getText().toString(),R.drawable.right_image);
                 UserInfoLab.get(LoginActivity.this,userInfo);
                 UserInfoLab.get(LoginActivity.this,userInfo).setUserInfo(userInfo);
-                FriendsLab.get(LoginActivity.this,userInfo).setFriListNull();
-                FriendsLab.get(LoginActivity.this,userInfo).initFriends();
+                /*FriendsLab.get(LoginActivity.this,userInfo).setFriListNull();
+                FriendsLab.get(LoginActivity.this,userInfo).initFriends();*/
 
                 Log.e("test","onLoginActivity "+userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
                 HttpUtils http=new HttpUtils();
@@ -121,7 +130,10 @@ public class LoginActivity extends AppCompatActivity  {
 
                                     //获得sessionId，保存在Application里作为全局变量
                                     ECApplication application = (ECApplication) getApplication();
+                                    application.sessionId = null;
                                     application.sessionId = object.getString("Sessionid");
+                                    FriendsLab.get(LoginActivity.this,userInfo).setFriListNull();
+                                    FriendsLab.get(LoginActivity.this,userInfo).initFriends();
 
                                     Log.e("test",application.sessionId);
 
