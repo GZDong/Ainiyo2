@@ -1,24 +1,17 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.Retrofit2.GetRequest_party;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
@@ -31,26 +24,8 @@ import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Observer;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import static com.huadi.android.ainiyo.util.CONST.ATTEND_ACTIVITY;
-import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
 
 public class MovementDetailActivity extends AppCompatActivity {
 
