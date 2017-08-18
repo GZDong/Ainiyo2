@@ -91,8 +91,8 @@ public class SignInUtil {
                             // 用户不存在 204
                             case EMError.USER_NOT_FOUND:
                                 Toast.makeText(mContext, "用户不存在 code: " + i + ", message:" + s, Toast.LENGTH_LONG).show();
-                                /*signUp(mContext,username,password);
-                                signIn(username,password,mContext);*/
+                                signUp(mContext,username,password);
+                                signIn(username,password,mContext);
                                 break;
                             // 无法访问到服务器 300
                             case EMError.SERVER_NOT_REACHABLE:

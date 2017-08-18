@@ -135,7 +135,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/send_msg"
-            android:background="#FAFAD2" />
+            android:background="#d26165"
+            android:textColor="#FFF"/>
 
 
     </LinearLayout>

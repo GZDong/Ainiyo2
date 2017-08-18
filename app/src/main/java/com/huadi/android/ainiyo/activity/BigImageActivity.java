@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 
-public class BigImage extends AppCompatActivity {
+public class BigImageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class BigImage extends AppCompatActivity {
         Intent intent = getIntent();
         String url = intent.getStringExtra("URL");
         ImageView imageView = (ImageView) findViewById(R.id.big);
-        Glide.with(BigImage.this).load(url).placeholder(R.drawable.on).error(R.drawable.fail).into(imageView);
+        Glide.with(BigImageActivity.this).load(url).placeholder(R.drawable.on).error(R.drawable.fail).into(imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

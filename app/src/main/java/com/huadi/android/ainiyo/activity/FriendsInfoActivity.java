@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.FriendsLab;
@@ -119,7 +121,11 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mList.add(tag3);
 
         mTextView.setText(name);
-        mImageView.setImageResource(picture);
+        if (!TextUtils.isEmpty(FriendsLab.get(this,mUserInfo).getFriend(name).getPicUrl())){
+            Glide.with(this).load(FriendsLab.get(this,mUserInfo).getFriend(name).getPicUrl()).into(mImageView);
+        }else {
+            mImageView.setImageResource(picture);
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(FriendsInfoActivity.this, android.R.layout.simple_list_item_1, mList);
         mListView.setAdapter(adapter);
@@ -133,16 +139,15 @@ public class FriendsInfoActivity extends AppCompatActivity {
                 intent.putExtra("img", picture);
                 intent.putExtra("userInfo", mUserInfo);
 
-                Friends fri = FriendsLab.get(FriendsInfoActivity.this, mUserInfo).getFriend(name);
-                //****在本地置0*****
-                fri.setUnreadMeg(0);
+                FriendsLab.get(FriendsInfoActivity.this, mUserInfo).clearUnread(name);
+
                 //****在服务器端置0新信息****
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(name);
                 if (conversation != null) {
                     conversation.markAllMessagesAsRead();
                 }
-                if (fri.isShowInChooseFragment() == false) {
-                    fri.setShowInChooseFragment(true);
+                if (FriendsLab.get(FriendsInfoActivity.this, mUserInfo).getFriend(name).isShowInChooseFragment() == false) {
+                    FriendsLab.get(FriendsInfoActivity.this, mUserInfo).addNewDialog(name);
                 }
                 startActivity(intent);
             }

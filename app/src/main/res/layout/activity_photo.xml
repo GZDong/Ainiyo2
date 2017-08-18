@@ -3,64 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/theme_red"
+        android:id="@+id/kk">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/zuojiantou"
+            android:padding="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/add_pic"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shangchuan"
+            android:padding="5dp"/>
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical">
-        <ImageView
-            app:srcCompat="@drawable/backgroud"
-            android:id="@+id/background"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:scaleType="centerCrop"
-            />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="-70dp"
-            android:src="@drawable/init"
-            app:civ_border_color="#FFF"
-            app:civ_border_width="2dp" />
-
-
+        android:layout_below="@+id/kk">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
-            >
-            <ImageView
-                android:id="@+id/add_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/upload"
-                android:layout_marginLeft="40dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="选择一张图片\n开始记录你的生活"
-                android:textSize="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
-
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recy_img"
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"/>
-    </LinearLayout>
-</ScrollView>
+            android:orientation="vertical"
+            >
+
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recy_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+    </ScrollView>
+
 
     <ProgressBar
         android:id="@+id/progress"
@@ -68,4 +57,5 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:layout_centerInParent="true" />
+
 </RelativeLayout>

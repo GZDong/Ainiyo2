@@ -105,16 +105,8 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         setContentView(R.layout.activity_main);
 
         Connector.getDatabase();
-       // CheckLogin();
 
         EMClient.getInstance().contactManager().setContactListener(this);
-
-
-
-        //Log.e("test", ((ECApplication) getApplication()).sessionId);
-        /*if (ContextCompat.checkSelfPermission(MainActivity.this,"android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,new String[] {"android.permission.WRITE_EXTERNAL_STORAGE"},1);
-        }*/
 
         SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
         username=pref.getString("name","");
@@ -128,8 +120,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         mAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         bindViews();
-
-
     }
 
     @Override
@@ -368,17 +358,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .build();
         manager.notify(1,notification);
-
-        //EMClient.getInstance().contactManager().acceptInvitation(username);接收好友的方法
-        //EMClient.getInstance().contactManager().declineInvitation(username);拒绝好友的方法
-
-        //模拟接受了
-
-           /* new ().execute(username);
-            Friends friends = new Friends(UserInfoLab.get(MainActivity.this).getUserInfo().getUsername(),username);
-            FriendsLab.get(MainActivity.this,UserInfoLab.get(MainActivity.this).getUserInfo()).addFriend(friends);
-            Toast.makeText(MainActivity.this,"收到好友请求 " + username +" "+ reason,Toast.LENGTH_LONG).show();*/
-
     }
     //好友请求被同意
     @Override
@@ -413,163 +392,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //发送一条通知，告诉好友请求被拒绝了
         Log.e("test","onFriendRequestDeclined______");
         Toast.makeText(getApplication(),"好友请求被拒绝了",Toast.LENGTH_LONG).show();
-    }
-
-    private void CheckLogin(){
-        /*
-
-                ECApplication ecApplication = (ECApplication) getApplication();
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://120.24.168.102:8080/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                GetRequset_check_Interface checkInterface = retrofit.create(GetRequset_check_Interface.class);
-                Call<ResultForCheck> call = checkInterface.getCall(ecApplication.sessionId);
-                //同步请求
-                Response<ResultForCheck> response = null;
-                try {
-                    response = call.execute();
-                    if (response.isSuccessful()) {
-                        if (response.body().getStatus() == 201){
-                            //重新登陆
-                            Toast.makeText(MainActivity.this,"请重新登陆",Toast.LENGTH_LONG).show();
-
-                            Retrofit retrofit1 = new Retrofit.Builder().baseUrl("http://120.24.168.102:8080/")
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-                            PostRequest_login_Interface login_interface = retrofit1.create(PostRequest_login_Interface.class);
-                            Call<ResultForLogin> call1 = login_interface.getCall(username,password);
-
-                            try {
-                                Response<ResultForLogin> response1 = call1.execute();
-                                if (response1.isSuccessful()) {
-                                    if (response1.body().getStatus() == 100)
-                                    {
-                                        Toast.makeText(MainActivity.this,"重新登陆成功",Toast.LENGTH_LONG).show();
-                                        Log.e("test","返回来的sid："+response1.body().getSessionid());
-                                        ((ECApplication) getApplication()).sessionId = response1.body().getSessionid();
-                                        Log.e("test","此时的sid：" + ((ECApplication) getApplication()).sessionId );
-                                    }
-                                }else {
-                                    Toast.makeText(MainActivity.this,"重新登陆失败",Toast.LENGTH_LONG).show();
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        if (response.body().getStatus() == 200){
-                            Toast.makeText(MainActivity.this,"已经登陆",Toast.LENGTH_LONG).show();
-                        }
-                    }else {
-                        Toast.makeText(MainActivity.this,"访问服务器失败",Toast.LENGTH_LONG).show();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this,"登陆超时",Toast.LENGTH_LONG).show();
-                }
-
-        */
-
-
-        //异步请求
-       /* ECApplication ecApplication = (ECApplication) getApplication();
-        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("http://120.24.168.102:8080/")
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-        GetRequset_check_Interface checkInterface = retrofit.create(GetRequset_check_Interface.class);
-        Call<ResultForCheck> call = checkInterface.getCall(ecApplication.sessionId);
-            call.enqueue(new Callback<ResultForCheck>() {
-            @Override
-            public void onResponse(Call<ResultForCheck> call, Response<ResultForCheck> response) {
-                if (response.isSuccessful()){
-                    Toast.makeText(MainActivity.this,"访onResponse",Toast.LENGTH_LONG).show();
-                    Log.e("test","访onResponseForCheck");
-                    if (response.body().getStatus().equals("200")){
-                        //重新登陆
-                        Toast.makeText(MainActivity.this,"请重新登陆",Toast.LENGTH_LONG).show();
-                        Log.e("test","请重新登陆");
-                        Retrofit retrofit1 = new Retrofit.Builder().baseUrl("http://120.24.168.102:8080/")
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        PostRequest_login_Interface login_interface = retrofit1.create(PostRequest_login_Interface.class);
-                        Call<ResultForLogin> call1 = login_interface.getCall(username,password);
-                        call1.enqueue(new Callback<ResultForLogin>() {
-                            @Override
-                            public void onResponse(Call<ResultForLogin> call, Response<ResultForLogin> response) {
-                                if (response.body().getStatus().equals("100"))
-                                {
-                                    Toast.makeText(MainActivity.this,"重新登陆成功",Toast.LENGTH_LONG).show();
-                                    Log.e("test","返回来的sid："+response.body().getSessionid());
-                                    ((ECApplication) getApplication()).sessionId = response.body().getSessionid();
-                                    Log.e("test","此时的sid：" + ((ECApplication) getApplication()).sessionId );
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResultForLogin> call, Throwable t) {
-
-                            }
-                        });
-                    }
-                    if (response.body().equals("200")){
-                        Toast.makeText(MainActivity.this,"已经登陆",Toast.LENGTH_LONG).show();
-                    }
-                }else {
-                   Toast.makeText(MainActivity.this,"访问服务器失败",Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResultForCheck> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"访onFailure",Toast.LENGTH_LONG).show();
-            }
-        });*/
-
-
-        /*Response<ResultForCheck> response = null;
-        try {
-            response = call.execute();
-            if (response.isSuccessful()) {
-                if (response.body().getStatus() == 201){
-                    //重新登陆
-                    Toast.makeText(MainActivity.this,"请重新登陆",Toast.LENGTH_LONG).show();
-
-                    Retrofit retrofit1 = new Retrofit.Builder().baseUrl("http://120.24.168.102:8080/")
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-                    PostRequest_login_Interface login_interface = retrofit1.create(PostRequest_login_Interface.class);
-                    Call<ResultForLogin> call1 = login_interface.getCall(username,password);
-
-                    try {
-                        Response<ResultForLogin> response1 = call1.execute();
-                        if (response1.isSuccessful()) {
-                            if (response1.body().getStatus() == 100)
-                            {
-                                Toast.makeText(MainActivity.this,"重新登陆成功",Toast.LENGTH_LONG).show();
-                                Log.e("test","返回来的sid："+response1.body().getSessionid());
-                                ((ECApplication) getApplication()).sessionId = response1.body().getSessionid();
-                                Log.e("test","此时的sid：" + ((ECApplication) getApplication()).sessionId );
-                            }
-                        }else {
-                            Toast.makeText(MainActivity.this,"重新登陆失败",Toast.LENGTH_LONG).show();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (response.body().getStatus() == 200){
-                    Toast.makeText(MainActivity.this,"已经登陆",Toast.LENGTH_LONG).show();
-                }
-            }else {
-                Toast.makeText(MainActivity.this,"访问服务器失败",Toast.LENGTH_LONG).show();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(MainActivity.this,"登陆超时",Toast.LENGTH_LONG).show();
-        }*/
-
-
     }
 }
 

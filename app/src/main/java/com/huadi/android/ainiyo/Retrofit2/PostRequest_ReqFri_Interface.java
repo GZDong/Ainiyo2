@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import rx.Observable;
 
 /**
  * Created by zhidong on 2017/8/11.
@@ -13,7 +14,7 @@ import retrofit2.http.POST;
 
 public interface PostRequest_ReqFri_Interface {
 
-    @POST("addfriend")
+    @POST("addfriendbyname")
     @FormUrlEncoded
-    Call<ResultForRequset> getCall(@Field("sessionid") String sessionid, @Field("friendid") String friendid, @Field("attach") String attach);
+    Observable<ResultForRequset> getCall(@Field("sessionid") String sessionid, @Field("name") String friendid, @Field("attach") String attach);
 }

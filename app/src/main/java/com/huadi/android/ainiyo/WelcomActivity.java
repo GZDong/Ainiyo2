@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,26 +14,13 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.Retrofit2.PostRequest_login_Interface;
-import com.huadi.android.ainiyo.activity.LoadingDialog;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.gson.ResultForLogin;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -49,10 +34,14 @@ public class WelcomActivity extends AppCompatActivity {
     private String username;
     private String password;
 
+    private static final int Turn = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcom);
+
+        Log.e("test","一闪而过的WelcomeActivity");
 
         //改成在开始界面请求必要的权限
         if (ContextCompat.checkSelfPermission(WelcomActivity.this,"android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED){
@@ -79,15 +68,12 @@ public class WelcomActivity extends AppCompatActivity {
                     SharedPreferences pref2=getSharedPreferences("data",MODE_PRIVATE);
                     username=pref2.getString("name","");
                     password=pref2.getString("pwd","");
-                    /*RequestParams params=new RequestParams();
-                    params.addBodyParameter("name",username);
-                    params.addBodyParameter("pwd",password);*/
 
                     //初始化用户信息
-                    UserInfo userInfo = new UserInfo(username,password,R.drawable.right_image);
+                   final UserInfo userInfo = new UserInfo(username,password,R.drawable.right_image);
                     UserInfoLab.get(WelcomActivity.this,userInfo);
-                    FriendsLab.get(WelcomActivity.this,userInfo).setFriListNull();
-                    FriendsLab.get(WelcomActivity.this,userInfo).initFriends();
+                    /*FriendsLab.get(WelcomActivity.this,userInfo).setFriListNull();
+                    FriendsLab.get(WelcomActivity.this,userInfo).initFriends();*/
 
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl("http://120.24.168.102:8080/")
@@ -119,15 +105,33 @@ public class WelcomActivity extends AppCompatActivity {
 
                                         Log.e("test","自动重新登陆成功：" + application.sessionId);
                                         Toast.makeText(WelcomActivity.this,"自动登陆成功",Toast.LENGTH_LONG).show();
+                                        FriendsLab.get(WelcomActivity.this,userInfo).setFriListNull();
+                                        FriendsLab.get(WelcomActivity.this,userInfo).initFriends();
+                                        Intent intent = new Intent("com.huadi.android.ainiyo.refresh");
+                                        sendBroadcast(intent);
+                                        mHandler.sendEmptyMessageDelayed(Turn,4000);
                                     }else {
                                         Log.e("test",resultForLogin.getStatus().toString());
                                     }
                                 }
                             });
-                    startActivity(new Intent(WelcomActivity.this,MainActivity.class));
-                    finish();
+
                 }
     }
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case Turn:
+                    startActivity(new Intent(WelcomActivity.this,MainActivity.class));
+                    finish();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
