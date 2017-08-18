@@ -23,11 +23,15 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeDetailActivity;
 import com.huadi.android.ainiyo.activity.MovementDetailActivity;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
+import com.huadi.android.ainiyo.adapter.MovementAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
+import com.huadi.android.ainiyo.entity.MovementContentData;
+import com.huadi.android.ainiyo.entity.MovementData;
+import com.huadi.android.ainiyo.entity.MovementResult;
 import com.huadi.android.ainiyo.entity.ResponseObject;
 import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
@@ -45,6 +49,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.huadi.android.ainiyo.util.CONST.FETCH_ACTIVITY;
 import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
 
 public class MovementFragment extends Fragment {
@@ -52,10 +57,10 @@ public class MovementFragment extends Fragment {
     @ViewInject(R.id.movement_list_view)
     private PullToRefreshListView movement_list_view;
 
-    private List<ModeLocalData> mList = new ArrayList<>();
+    private List<MovementContentData> mList = new ArrayList<>();
     private ModeResult modeResult;
-    private ModeWebData[] mwd;
-    private ModeAdapter mAdapter;
+    private MovementData[] mwd;
+    private MovementAdapter mAdapter;
     private int page = 1;
     private int pagesize = 20;
     private int pagecount = 1;
@@ -104,15 +109,15 @@ public class MovementFragment extends Fragment {
         params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("page", "0");
         params.addBodyParameter("pagesize", "10");
-        params.addBodyParameter("type", "1");
+        //params.addBodyParameter("type", "1");
 
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, FETCH_ACTIVITY, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 movement_list_view.onRefreshComplete();
-                ResponseObject<ModeResult> object = new GsonBuilder().create().
-                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ModeResult>>() {
+                ResponseObject<MovementResult> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<MovementResult>>() {
                         }.getType());
 
                 if (object.getStatus() == 400) {
@@ -124,23 +129,20 @@ public class MovementFragment extends Fragment {
 
                         mwd = object.getResult().getData();
                         int sum = object.getResult().getSum();
-                        ModeWebData mwd1;
+                        MovementData mwd1;
                         for (int i = sum - 1; i >= 0; i--) {
                             mwd1 = mwd[i];
-
+//what
                             idorder.add(mwd1.getId());
                             ToolKits.putInteger(getActivity(), "Integer", idorder);
 
-                            int userid = mwd1.getUserid();
+                            //int userid = mwd1.getUserid();
                             String content = mwd1.getContent();
                             Gson gson = new Gson();
-                            Type type = new TypeToken<ModeInfo>() {
-                            }.getType();
-                            ModeInfo mi;
-                            mi = gson.fromJson(mwd1.getContent(), type);
-
-                            ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
-                            mList.add(mld);
+                            Type type = new TypeToken<MovementContentData>() {}.getType();
+                            MovementContentData mcd = gson.fromJson(mwd1.getContent(), type);
+                            //ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
+                            mList.add(mcd);
                         }
 
 //                    Toast.makeText(getActivity(),
@@ -153,7 +155,8 @@ public class MovementFragment extends Fragment {
 //                            Toast.LENGTH_SHORT).show();
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new ModeAdapter(mList);
+                        mAdapter = new MovementAdapter(mList,((ECApplication) getActivity().getApplication()).sessionId);
+                        mAdapter.setFather(getParentFragment().getActivity());
                         movement_list_view.setAdapter(mAdapter);
                     } else {// 尾部刷新
                         //mList.addAll(object.getDatas());
@@ -199,7 +202,15 @@ public class MovementFragment extends Fragment {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), MovementDetailActivity.class);
 
-        intent.putExtra("id", position);
+
+        MovementContentData mcd = mList.get(position);
+        intent.putExtra("id",mcd.getId());
+        intent.putExtra("title",mcd.getTitle());
+        intent.putExtra("date",mcd.getDate());
+        intent.putExtra("imageUrl",mcd.getImageUrl());
+        intent.putExtra("article",mcd.getArticle());
+
+
         startActivity(intent);
     }
 

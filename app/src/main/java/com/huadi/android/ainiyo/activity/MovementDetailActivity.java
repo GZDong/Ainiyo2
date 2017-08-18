@@ -1,6 +1,7 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -12,13 +13,21 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.Retrofit2.GetRequest_party;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.util.ToolKits;
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
@@ -40,6 +49,9 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.huadi.android.ainiyo.util.CONST.ATTEND_ACTIVITY;
+import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
+
 public class MovementDetailActivity extends AppCompatActivity {
 
 
@@ -56,19 +68,14 @@ public class MovementDetailActivity extends AppCompatActivity {
     TextView article;
     private ProgressDialog dialog;
 
-    public class PartyInformation {
-        String title;
-        String date;
-        String picture;
-        String article;
-    }
-
+    private Bundle extras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movement_detail);
         ViewUtils.inject(this);
-        LoadAndShow(getIntent().getStringExtra("id"));
+        extras = getIntent().getExtras();
+        LoadAndShow(extras);
 
 //        WebSettings webSettings = wv_movement_details.getSettings();
 //        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -134,59 +141,63 @@ public class MovementDetailActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void LoadAndShow(final String id) {
-        Retrofit caller = new Retrofit.Builder().baseUrl("")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
+    private void LoadAndShow(final Bundle extras) {
+//        Retrofit caller = new Retrofit.Builder().baseUrl("")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .build();
+//
+//        ECApplication ecApplication = (ECApplication) getApplication();
+//
+//        GetRequest_party request = caller.create(GetRequest_party.class);
+//
+//        request.getPartyInformation(ecApplication.sessionId, id)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Subscriber<PartyInformation>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(PartyInformation partyInformation) {
+//                        title.setText(partyInformation.title);
+//                        date.setText(partyInformation.date);
+//                        article.setText(partyInformation.article);
+//
+//                        URL url = null;
+//                        Bitmap bitmap = null;
+//
+//                        try {
+//                            url = new URL(partyInformation.picture);
+//                            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//                            connection.setConnectTimeout(6000);
+//                            connection.setDoInput(true);
+//                            InputStream is = connection.getInputStream();
+//
+//                            bitmap = BitmapFactory.decodeStream(is);
+//                            image.setImageBitmap(bitmap);
+//
+//                            is.close();
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                    }
+//                });
 
-        ECApplication ecApplication = (ECApplication) getApplication();
+        Glide.with(this).load(extras.getString("imageUrl")).into(image);
 
-        GetRequest_party request = caller.create(GetRequest_party.class);
-
-        request.getPartyInformation(ecApplication.sessionId, id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PartyInformation>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(PartyInformation partyInformation) {
-                        title.setText(partyInformation.title);
-                        date.setText(partyInformation.date);
-                        article.setText(partyInformation.article);
-
-                        URL url = null;
-                        Bitmap bitmap = null;
-
-                        try {
-                            url = new URL(partyInformation.picture);
-                            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                            connection.setConnectTimeout(6000);
-                            connection.setDoInput(true);
-                            InputStream is = connection.getInputStream();
-
-                            bitmap = BitmapFactory.decodeStream(is);
-                            image.setImageBitmap(bitmap);
-
-                            is.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                });
-
-
+        title.setText(extras.getString("title"));
+        date.setText(extras.getString("date"));
+        article.setText(extras.getString("article"));
     }
 
 
@@ -198,7 +209,25 @@ public class MovementDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.btn_join_now:
-                //
+
+                RequestParams params = new RequestParams();
+                params.addBodyParameter("sessionid", ((ECApplication) getApplication()).sessionId);
+                params.addBodyParameter("aid",String.valueOf(extras.getInt("id")));
+                //params.addBodyParameter("type", "1");
+
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
+
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        Toast.makeText(MovementDetailActivity.this,"参加成功",Toast.LENGTH_SHORT).show();
+                    //?
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+
+                    }
+                });
                 break;
         }
     }
