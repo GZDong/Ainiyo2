@@ -1,16 +1,16 @@
-package com.huadi.android.ainiyo.frag;
+package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,21 +20,13 @@ import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.activity.ModeDetailActivity;
-import com.huadi.android.ainiyo.activity.MovementDetailActivity;
-import com.huadi.android.ainiyo.activity.MovementJoinedActivity;
-import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.adapter.MovementAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
-import com.huadi.android.ainiyo.entity.ModeInfo;
-import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
-import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.MovementContentData;
 import com.huadi.android.ainiyo.entity.MovementData;
 import com.huadi.android.ainiyo.entity.MovementResult;
 import com.huadi.android.ainiyo.entity.ResponseObject;
-import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -44,7 +36,6 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
 import java.lang.reflect.Type;
@@ -52,9 +43,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.huadi.android.ainiyo.util.CONST.FETCH_ACTIVITY;
-import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
+import static com.huadi.android.ainiyo.util.CONST.FETCH_JOINED_ACTIVITY;
 
-public class MovementFragment extends Fragment {
+public class MovementJoinedActivity extends AppCompatActivity {
 
     @ViewInject(R.id.movement_list_view)
     private PullToRefreshListView movement_list_view;
@@ -70,18 +61,17 @@ public class MovementFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_movement, null);
-        // Inflate the layout for this fragment
-        ViewUtils.inject(this, view);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_joined_movement);
+        ViewUtils.inject(this);
         // Set a listener to be invoked when the list should be refreshed.
         movement_list_view.setMode(PullToRefreshBase.Mode.BOTH);
         movement_list_view.setScrollingWhileRefreshingEnabled(true);
         movement_list_view.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                String label = DateUtils.formatDateTime(getActivity(), System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
+                String label = DateUtils.formatDateTime(MovementJoinedActivity.this, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
                 loadDatas(refreshView.getScrollY() < 0);
             }
@@ -95,8 +85,6 @@ public class MovementFragment extends Fragment {
                 return true;
             }
         }).sendEmptyMessageDelayed(0, 200);
-
-        return view;
     }
 
     private void loadDatas(final boolean direction) {
@@ -107,13 +95,13 @@ public class MovementFragment extends Fragment {
             page = 1;
         }
 
-        ECApplication application = (ECApplication) getActivity().getApplication();
+        ECApplication application = (ECApplication) getApplication();
         params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("page", "0");
         params.addBodyParameter("pagesize", "10");
         //params.addBodyParameter("type", "1");
 
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, FETCH_ACTIVITY, params, new RequestCallBack<String>() {
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, FETCH_JOINED_ACTIVITY, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -136,7 +124,7 @@ public class MovementFragment extends Fragment {
                             mwd1 = mwd[i];
 //what
                             idorder.add(mwd1.getId());
-                            ToolKits.putInteger(getActivity(), "Integer", idorder);
+                            ToolKits.putInteger(MovementJoinedActivity.this, "Integer", idorder);
 
                             //int userid = mwd1.getUserid();
                             String content = mwd1.getContent();
@@ -157,8 +145,8 @@ public class MovementFragment extends Fragment {
 //                            Toast.LENGTH_SHORT).show();
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new MovementAdapter(mList,((ECApplication) getActivity().getApplication()).sessionId);
-                        mAdapter.setFather(getParentFragment().getActivity());
+                        mAdapter = new MovementAdapter(mList,((ECApplication) getApplication()).sessionId);
+                        //mAdapter.setFather(getParentFragment().getActivity());
                         movement_list_view.setAdapter(mAdapter);
                     } else {// 尾部刷新
                         //mList.addAll(object.getDatas());
@@ -173,7 +161,7 @@ public class MovementFragment extends Fragment {
             @Override
             public void onFailure(HttpException error, String msg) {
                 movement_list_view.onRefreshComplete();
-                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MovementJoinedActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -202,7 +190,7 @@ public class MovementFragment extends Fragment {
 
     @OnItemClick({R.id.movement_list_view})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getActivity(), MovementDetailActivity.class);
+        Intent intent = new Intent(MovementJoinedActivity.this, MovementDetailActivity.class);
 
 
         MovementContentData mcd = mList.get(position);
@@ -216,19 +204,6 @@ public class MovementFragment extends Fragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.tv_movement_me})
-    public void onClick(View v){
-        switch (v.getId()){
-            case R.id.tv_movement_me:
-                startActivity(new Intent(getActivity(), MovementJoinedActivity.class));
-        }
-    }
 
-    @Override
-    public void setMenuVisibility(boolean menuVisible) {
-        super.setMenuVisibility(menuVisible);
-        if (this.getView() != null)
-            this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
-    }
 
 }
