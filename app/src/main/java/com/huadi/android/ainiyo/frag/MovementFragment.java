@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
+
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,21 +20,19 @@ import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.activity.ModeDetailActivity;
 import com.huadi.android.ainiyo.activity.MovementDetailActivity;
 import com.huadi.android.ainiyo.activity.MovementJoinedActivity;
-import com.huadi.android.ainiyo.adapter.ModeAdapter;
+
 import com.huadi.android.ainiyo.adapter.MovementAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
-import com.huadi.android.ainiyo.entity.ModeInfo;
-import com.huadi.android.ainiyo.entity.ModeLocalData;
+
 import com.huadi.android.ainiyo.entity.ModeResult;
-import com.huadi.android.ainiyo.entity.ModeWebData;
+
 import com.huadi.android.ainiyo.entity.MovementContentData;
 import com.huadi.android.ainiyo.entity.MovementData;
 import com.huadi.android.ainiyo.entity.MovementResult;
 import com.huadi.android.ainiyo.entity.ResponseObject;
-import com.huadi.android.ainiyo.util.CONST;
+
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -52,7 +50,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.huadi.android.ainiyo.util.CONST.FETCH_ACTIVITY;
-import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
+
 
 public class MovementFragment extends Fragment {
 
@@ -134,7 +132,7 @@ public class MovementFragment extends Fragment {
                         MovementData mwd1;
                         for (int i = sum - 1; i >= 0; i--) {
                             mwd1 = mwd[i];
-//what
+
                             idorder.add(mwd1.getId());
                             ToolKits.putInteger(getActivity(), "Integer", idorder);
 
@@ -147,14 +145,7 @@ public class MovementFragment extends Fragment {
                             mList.add(mcd);
                         }
 
-//                    Toast.makeText(getActivity(),
-//                            "content=" + content + ",userid=" + String.valueOf(userid)
-//                                    + ",msg=" + object.getMsg() + ",Status=" + object.getStatus(),
-//                            Toast.LENGTH_SHORT).show();
 
-//                    Toast.makeText(getActivity(),
-//                            "imageUrL:  "+mi.getImgUrlforContent().size(),
-//                            Toast.LENGTH_SHORT).show();
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
                         mAdapter = new MovementAdapter(mList,((ECApplication) getActivity().getApplication()).sessionId);
@@ -177,27 +168,7 @@ public class MovementFragment extends Fragment {
             }
         });
 
-//        if (direction)// 头部刷新
-//        {// 渲染内容到界面上
-//            mList = ToolKits.GettingModedata(getActivity(), "modeInfoList");
-//            mAdapter = new ModeAdapter(mList);
-//            mode_list_view.setAdapter(mAdapter);
-//
-//            //防止刷新获取数据时候，时间太短,而出现的bug,最后为0.001秒
-//            mode_list_view.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mode_list_view.onRefreshComplete();
-//                }
-//            }, 1);
-//
-//        } else {// 尾部刷新
-//            //mList.addAll(object.getDatas());
-//            mAdapter.notifyDataSetChanged();
-//        }
-//        if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
-//            mode_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
-//        }
+
     }
 
     @OnItemClick({R.id.movement_list_view})

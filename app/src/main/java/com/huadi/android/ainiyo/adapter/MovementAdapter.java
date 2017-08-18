@@ -109,25 +109,21 @@ public class MovementAdapter extends BaseAdapter {
         }
 
         if (mcd.getImageUrl() != null) {
-//            if(modeInfo.getImgUrlforContent().size()==1) {
+
             final String image = mcd.getImageUrl();
             Glide.with(parent.getContext()).load(image).into(holder.pic);
 
-            // Glide.with(parent.getContext()).load("http://120.24.168.102:8080/getalumb?sessionid=5ca6b5f4b438030f123fb149ff19fd8769365789").skipMemoryCache(false).into(holder.pic_content);
-//            }else{
-//                mAdapter.refresh(modeInfo.getImgUrlforContent());
-//            }
         }
 
 
         holder.join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ECApplication application = (ECApplication) getActivity().getApplication();
+
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
                 params.addBodyParameter("aid",String.valueOf(mcd.getId()));
-                //params.addBodyParameter("type", "1");
+
 
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
 
