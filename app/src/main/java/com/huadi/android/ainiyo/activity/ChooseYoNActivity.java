@@ -106,24 +106,24 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                         .subscribe(new Subscriber<ResultForRqstList>() {
                             @Override
                             public void onCompleted() {
-                                Log.e("test","onCompleted___请求申请表完成");
+                                Log.e("test", "onCompleted___请求申请表完成");
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.e("test","onError___请求申请表异常");
+                                Log.e("test", "onError___请求申请表异常");
                             }
 
                             @Override
                             public void onNext(ResultForRqstList resultForRqstList) {
-                                Log.e("test","onNext___请求申请表");
-                                if (resultForRqstList.getStatus().equals("0")){
-                                    Log.e("test","onNext___申请表返回成功");
-                                    if (resultForRqstList.getResult()!=null){
-                                        Log.e("test","申请表有值");
+                                Log.e("test", "onNext___请求申请表");
+                                if (resultForRqstList.getStatus().equals("0")) {
+                                    Log.e("test", "onNext___申请表返回成功");
+                                    if (resultForRqstList.getResult() != null) {
+                                        Log.e("test", "申请表有值");
                                         //这一步应该是必执行的
                                         rqstId = resultForRqstList.getResult().get(0).getUserid();
-                                        Log.e("test","申请者的id是："+rqstId);
+                                        Log.e("test", "申请者的id是：" + rqstId);
                                         //获得申请人ID后进行同意
                                         Retrofit ret = new Retrofit.Builder()
                                                 .baseUrl("http://120.24.168.102:8080/")
@@ -131,28 +131,28 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                                 .addConverterFactory(GsonConverterFactory.create())
                                                 .build();
                                         PostRequset_agreerequest_Interface agreerequestInterface = ret.create(PostRequset_agreerequest_Interface.class);
-                                        Log.e("test","在添加好友时，传递过去的参数："+ ecApplication.sessionId+" "+ rqstId+" ");
-                                        Observable<ResultForAgree> obser = agreerequestInterface.getObservable(ecApplication.sessionId,rqstId,"1");
+                                        Log.e("test", "在添加好友时，传递过去的参数：" + ecApplication.sessionId + " " + rqstId + " ");
+                                        Observable<ResultForAgree> obser = agreerequestInterface.getObservable(ecApplication.sessionId, rqstId, "1");
                                         obser.subscribeOn(Schedulers.io())
                                                 .observeOn(AndroidSchedulers.mainThread())
                                                 .subscribe(new Subscriber<ResultForAgree>() {
                                                     @Override
                                                     public void onCompleted() {
-                                                        Log.e("test","onCompleted___同意好友完成");
+                                                        Log.e("test", "onCompleted___同意好友完成");
                                                     }
 
                                                     @Override
                                                     public void onError(Throwable e) {
-                                                        Log.e("test","onError___同意好友异常");
+                                                        Log.e("test", "onError___同意好友异常");
                                                     }
 
                                                     @Override
                                                     public void onNext(ResultForAgree resultForAgree) {
-                                                        Log.e("test","onNext___同意好友");
-                                                        if (resultForAgree.getStatus().equals("330")){
-                                                            Log.e("test","onNext___好友同意成功了");
-                                                        }else {
-                                                            Log.e("test","onNext__返回的status值不对，是："+ resultForAgree.getStatus());
+                                                        Log.e("test", "onNext___同意好友");
+                                                        if (resultForAgree.getStatus().equals("330")) {
+                                                            Log.e("test", "onNext___好友同意成功了");
+                                                        } else {
+                                                            Log.e("test", "onNext__返回的status值不对，是：" + resultForAgree.getStatus());
                                                         }
                                                     }
                                                 });
@@ -165,8 +165,8 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                                 } catch (HyphenateException e) {
                                                     e.printStackTrace();
                                                 }
-                                                Friends friends = new Friends(UserInfoLab.get(ChooseYoNActivity.this).getUserInfo().getUsername(),name);
-                                                FriendsLab.get(ChooseYoNActivity.this,UserInfoLab.get(ChooseYoNActivity.this).getUserInfo()).addFriend(friends);
+                                                Friends friends = new Friends(UserInfoLab.get(ChooseYoNActivity.this).getUserInfo().getUsername(), name);
+                                                FriendsLab.get(ChooseYoNActivity.this, UserInfoLab.get(ChooseYoNActivity.this).getUserInfo()).addFriend(friends);
                                                 subscriber.onNext(name);
                                             }
                                         }).subscribeOn(Schedulers.io())
@@ -174,24 +174,24 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                                 .subscribe(new Subscriber<String>() {
                                                     @Override
                                                     public void onCompleted() {
-                                                        Log.e("test","onCompleted:");
+                                                        Log.e("test", "onCompleted:");
                                                         Log.e("test", "执行一次Async完毕在监听器处");
                                                     }
 
                                                     @Override
                                                     public void onError(Throwable e) {
-                                                        Log.e("test","执行异常");
+                                                        Log.e("test", "执行异常");
                                                     }
 
                                                     @Override
                                                     public void onNext(String s) {
-                                                        Log.e("test","接受好友 " +s);
-                                                        Toast.makeText(ChooseYoNActivity.this,"接受好友 " +s,Toast.LENGTH_LONG).show();
+                                                        Log.e("test", "接受好友 " + s);
+                                                        Toast.makeText(ChooseYoNActivity.this, "接受好友 " + s, Toast.LENGTH_LONG).show();
                                                         finish();
                                                     }
                                                 });
-                                    }else {
-                                        Log.e("test","申请表为空");
+                                    } else {
+                                        Log.e("test", "申请表为空");
                                         rqstId = null;
                                     }
                                 }
@@ -215,21 +215,21 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                         .subscribe(new Subscriber<ResultForRqstList>() {
                             @Override
                             public void onCompleted() {
-                                Log.e("test","onCompleted___请求申请表完成");
+                                Log.e("test", "onCompleted___请求申请表完成");
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.e("test","onError___请求申请表异常");
+                                Log.e("test", "onError___请求申请表异常");
                             }
 
                             @Override
                             public void onNext(ResultForRqstList resultForRqstList) {
-                                Log.e("test","onNext___请求申请表");
-                                if (resultForRqstList.getStatus().equals("0")){
-                                    Log.e("test","onNext___申请表返回成功");
-                                    if (resultForRqstList.getResult()!=null){
-                                        Log.e("test","申请表有值");
+                                Log.e("test", "onNext___请求申请表");
+                                if (resultForRqstList.getStatus().equals("0")) {
+                                    Log.e("test", "onNext___申请表返回成功");
+                                    if (resultForRqstList.getResult() != null) {
+                                        Log.e("test", "申请表有值");
                                         //这一步应该是必执行的
                                         rqstId = resultForRqstList.getResult().get(0).getUserid();
                                         //获得申请人ID后进行同意
@@ -240,27 +240,27 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                                 .build();
                                         PostRequset_agreerequest_Interface requestInterface = ret2.create(PostRequset_agreerequest_Interface.class);
 
-                                        Observable<ResultForAgree> obser3 = requestInterface.getObservable(application.sessionId,rqstId,"2");
+                                        Observable<ResultForAgree> obser3 = requestInterface.getObservable(application.sessionId, rqstId, "2");
                                         obser3.subscribeOn(Schedulers.io())
                                                 .observeOn(AndroidSchedulers.mainThread())
                                                 .subscribe(new Subscriber<ResultForAgree>() {
                                                     @Override
                                                     public void onCompleted() {
-                                                        Log.e("test","onCompleted___拒绝好友完成");
+                                                        Log.e("test", "onCompleted___拒绝好友完成");
                                                     }
 
                                                     @Override
                                                     public void onError(Throwable e) {
-                                                        Log.e("test","onError___拒绝好友异常");
+                                                        Log.e("test", "onError___拒绝好友异常");
                                                     }
 
                                                     @Override
                                                     public void onNext(ResultForAgree resultForAgree) {
-                                                        Log.e("test","onNext___拒绝好友");
-                                                        if (resultForAgree.getStatus().equals("332")){
-                                                            Log.e("test","onNext___好友拒绝成功了");
-                                                        }else {
-                                                            Log.e("test","onNext__返回的status值不对，是："+ resultForAgree.getStatus());
+                                                        Log.e("test", "onNext___拒绝好友");
+                                                        if (resultForAgree.getStatus().equals("332")) {
+                                                            Log.e("test", "onNext___好友拒绝成功了");
+                                                        } else {
+                                                            Log.e("test", "onNext__返回的status值不对，是：" + resultForAgree.getStatus());
                                                         }
                                                     }
                                                 });
@@ -280,25 +280,25 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                                 .subscribe(new Subscriber<String>() {
                                                     @Override
                                                     public void onCompleted() {
-                                                        Log.e("test","onCompleted:");
+                                                        Log.e("test", "onCompleted:");
                                                         Log.e("test", "执行一次Async完毕在监听器处");
                                                     }
 
                                                     @Override
                                                     public void onError(Throwable e) {
-                                                        Log.e("test","执行异常");
+                                                        Log.e("test", "执行异常");
                                                     }
 
                                                     @Override
                                                     public void onNext(String s) {
-                                                        Log.e("test","拒绝好友 " +s);
-                                                        Toast.makeText(ChooseYoNActivity.this,"拒绝好友 " +s,Toast.LENGTH_LONG).show();
+                                                        Log.e("test", "拒绝好友 " + s);
+                                                        Toast.makeText(ChooseYoNActivity.this, "拒绝好友 " + s, Toast.LENGTH_LONG).show();
                                                         finish();
                                                     }
                                                 });
-                                        Log.e("test","申请者的id是："+rqstId);
-                                    }else {
-                                        Log.e("test","申请表为空");
+                                        Log.e("test", "申请者的id是：" + rqstId);
+                                    } else {
+                                        Log.e("test", "申请表为空");
                                         rqstId = null;
                                     }
                                 }

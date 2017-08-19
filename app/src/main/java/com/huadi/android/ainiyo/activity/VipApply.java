@@ -37,7 +37,7 @@ import java.util.List;
 
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
-public class VipApply extends AppCompatActivity implements LGImgCompressor.CompressListener{
+public class VipApply extends AppCompatActivity implements LGImgCompressor.CompressListener {
     @ViewInject(R.id.first)
     private ImageView first;
     @ViewInject(R.id.second)
@@ -50,28 +50,27 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
     private ImageView back;
 
 
-
     @ViewInject(R.id.progress)
     private ProgressBar progress;
 
 
-    private List<String> fi=new ArrayList<>();//
-    private List<String> se=new ArrayList<>();//还未进行压缩的URL//
-    private List<String> th=new ArrayList<>();//
-    private List<String> compressImages=new ArrayList<>();
-    private List<String> ima=new ArrayList<>();
-    private List<String> done1=new ArrayList<>();//
-    private List<String> done2=new ArrayList<>();//压缩完成后的URL//
-    private List<String> done3=new ArrayList<>();//
+    private List<String> fi = new ArrayList<>();//
+    private List<String> se = new ArrayList<>();//还未进行压缩的URL//
+    private List<String> th = new ArrayList<>();//
+    private List<String> compressImages = new ArrayList<>();
+    private List<String> ima = new ArrayList<>();
+    private List<String> done1 = new ArrayList<>();//
+    private List<String> done2 = new ArrayList<>();//压缩完成后的URL//
+    private List<String> done3 = new ArrayList<>();//
 
     private String url1;//
     private String url2;//上传图片之后获得的URL
     private String url3;//
 
 
-    private Boolean change1=false;//
-    private Boolean change2=false;//判断图片是否改变
-    private Boolean change3=false;//
+    private Boolean change1 = false;//
+    private Boolean change2 = false;//判断图片是否改变
+    private Boolean change3 = false;//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +81,7 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
     }
 
 
-
-    @OnClick({R.id.first,R.id.second,R.id.third,R.id.finish,R.id.back})
+    @OnClick({R.id.first, R.id.second, R.id.third, R.id.finish, R.id.back})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.first:
@@ -100,41 +98,38 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
                 break;
             case R.id.finish:
                 progress.setVisibility(View.VISIBLE);
-               //如果已经选择三张图片，才可以提交，如果没有上传三张图片，提示错误//
+                //如果已经选择三张图片，才可以提交，如果没有上传三张图片，提示错误//
                 if (change1) {
 
-                    if(change2){
+                    if (change2) {
 
-                        if(change3){
+                        if (change3) {
                             sendImages(done1);
                             sendImages(done2);
                             sendImages(done3);
                             RequestParams params = new RequestParams();
                             params.addBodyParameter("sessionid", sessionId);
-                            params.addBodyParameter("url1",url1);
-                            params.addBodyParameter("url2",url2);
-                            params.addBodyParameter("url3",url3);
+                            params.addBodyParameter("url1", url1);
+                            params.addBodyParameter("url2", url2);
+                            params.addBodyParameter("url3", url3);
                             HttpUtils http = new HttpUtils();
-                            http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/viprequest",params,new RequestCallBack<String>() {
+                            http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/viprequest", params, new RequestCallBack<String>() {
                                 @Override
                                 public void onSuccess(ResponseInfo<String> responseInfo) {
                                     String info = responseInfo.result.toString();
                                     try {
                                         JSONObject object = new JSONObject(info);
-                                        String msg=object.getString("Msg");
-                                        Integer status= object.getInt("Status");
-                                        if(status==0) {
+                                        String msg = object.getString("Msg");
+                                        Integer status = object.getInt("Status");
+                                        if (status == 0) {
                                             progress.setVisibility(View.GONE);
-                                            Toast.makeText(VipApply.this,"提交成功，等待审核",Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(VipApply.this,MainActivity.class));
+                                            Toast.makeText(VipApply.this, "提交成功，等待审核", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(VipApply.this, MainActivity.class));
 
 
-
-
-                                        }
-                                        else {
+                                        } else {
                                             progress.setVisibility(View.GONE);
-                                            Toast.makeText(VipApply.this,msg,Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VipApply.this, msg, Toast.LENGTH_SHORT).show();
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -148,15 +143,20 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
                                 }
                             });
 
-                                }
+                        } else {
+                            progress.setVisibility(View.GONE);
+                            Toast.makeText(VipApply.this, "请上传三张图片", Toast.LENGTH_LONG).show();
+                        }
 
-                        else{ progress.setVisibility(View.GONE);Toast.makeText(VipApply.this, "请上传三张图片", Toast.LENGTH_LONG).show();}
-
+                    } else {
+                        progress.setVisibility(View.GONE);
+                        Toast.makeText(VipApply.this, "请上传三张图片", Toast.LENGTH_LONG).show();
                     }
-                    else{ progress.setVisibility(View.GONE);Toast.makeText(VipApply.this, "请上传三张图片", Toast.LENGTH_LONG).show();}
 
+                } else {
+                    progress.setVisibility(View.GONE);
+                    Toast.makeText(VipApply.this, "请上传三张图片", Toast.LENGTH_LONG).show();
                 }
-                else{ progress.setVisibility(View.GONE);Toast.makeText(VipApply.this, "请上传三张图片", Toast.LENGTH_LONG).show();}
         }
     }
 
@@ -178,9 +178,9 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
     }
 
     public void propressImg(List<String> images) {
-        ima=images;
+        ima = images;
         compressImages.clear();
-        for(String srcImgUrl:images){
+        for (String srcImgUrl : images) {
             LGImgCompressor.getInstance(VipApply.this).starCompressWithDefault(srcImgUrl);
         }
 
@@ -190,75 +190,74 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
     public void onCompressStart() {
     }
 
-   @Override
+    @Override
     public void onCompressEnd(LGImgCompressor.CompressResult imageOutPath) {
         compressImages.add(imageOutPath.getOutPath());
-       if(ima==fi){
-           Glide.with(VipApply.this).load(R.drawable.chenggong).into(first);
-           change1=true;
-           done1=compressImages;
+        if (ima == fi) {
+            Glide.with(VipApply.this).load(R.drawable.chenggong).into(first);
+            change1 = true;
+            done1 = compressImages;
 
-       }
-       if(ima==se){
-           Glide.with(VipApply.this).load(R.drawable.chenggong).into(second);
-           change2=true;
-           done2=compressImages;
+        }
+        if (ima == se) {
+            Glide.with(VipApply.this).load(R.drawable.chenggong).into(second);
+            change2 = true;
+            done2 = compressImages;
 
-       }
-       if(ima==th){
-           Glide.with(VipApply.this).load(R.drawable.chenggong).into(third);
-           change3=true;
-           done3=compressImages;
-       }
+        }
+        if (ima == th) {
+            Glide.with(VipApply.this).load(R.drawable.chenggong).into(third);
+            change3 = true;
+            done3 = compressImages;
+        }
 
 
     }
+
     public void sendImages(final List<String> images) {
 
-            RequestParams params = new RequestParams();
-            params.addBodyParameter("sessionid", sessionId);
-            File file = new File(images.get(0));
-            params.addBodyParameter("photo", file);
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("sessionid", sessionId);
+        File file = new File(images.get(0));
+        params.addBodyParameter("photo", file);
 
-            new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/uploadphoto",params, new RequestCallBack<String>() {
-                @Override
-                public void onSuccess(ResponseInfo<String> responseInfo) {
-                    try {
-                        JSONObject object = new JSONObject(responseInfo.result.toString());
-                        int status = object.getInt("Status");
-                        String result=object.getString("Result");
-                        String msg=object.getString("Msg");
-                        if(msg.equals("success")) {
-                            if (images == done1) {
-                                url1 = result;
-                            }
-                            if (images == done2){
-                                url2= result;
-                            }
-                            if(images == done3){
-                                url3=result;
-                            }
-
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/uploadphoto", params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                try {
+                    JSONObject object = new JSONObject(responseInfo.result.toString());
+                    int status = object.getInt("Status");
+                    String result = object.getString("Result");
+                    String msg = object.getString("Msg");
+                    if (msg.equals("success")) {
+                        if (images == done1) {
+                            url1 = result;
                         }
-                        else { Toast.makeText(VipApply.this,msg,Toast.LENGTH_SHORT).show();  }
+                        if (images == done2) {
+                            url2 = result;
+                        }
+                        if (images == done3) {
+                            url3 = result;
+                        }
 
-
-
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    } else {
+                        Toast.makeText(VipApply.this, msg, Toast.LENGTH_SHORT).show();
                     }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+            }
 
-                @Override
-                public void onFailure(HttpException error, String msg) {
-                    Toast.makeText(VipApply.this, "连接错误", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                Toast.makeText(VipApply.this, "连接错误", Toast.LENGTH_SHORT).show();
 
-            }  } );
+            }
+        });
 
 
-
-}
     }
+}
 

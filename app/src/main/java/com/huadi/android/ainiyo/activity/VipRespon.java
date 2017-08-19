@@ -15,14 +15,14 @@ public class VipRespon extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vip_respon);
-        Intent intent=getIntent();
-        String result=intent.getStringExtra("text");
-        TextView textview=(TextView)findViewById(R.id.result_text);
+        Intent intent = getIntent();
+        String result = intent.getStringExtra("text");
+        TextView textview = (TextView) findViewById(R.id.result_text);
         textview.setText(result);
-        Button ok=(Button)findViewById(R.id.OK);
-        ok.setOnClickListener(new View.OnClickListener(){
+        Button ok = (Button) findViewById(R.id.OK);
+        ok.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 finish();
             }
         });

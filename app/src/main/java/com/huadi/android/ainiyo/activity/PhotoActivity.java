@@ -64,7 +64,8 @@ public class PhotoActivity extends AppCompatActivity implements LGImgCompressor.
 
 
     }
-    @OnClick({R.id.add_pic,R.id.back})
+
+    @OnClick({R.id.add_pic, R.id.back})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.add_pic:

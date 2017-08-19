@@ -121,9 +121,9 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mList.add(tag3);
 
         mTextView.setText(name);
-        if (!TextUtils.isEmpty(FriendsLab.get(this,mUserInfo).getFriend(name).getPicUrl())){
-            Glide.with(this).load(FriendsLab.get(this,mUserInfo).getFriend(name).getPicUrl()).into(mImageView);
-        }else {
+        if (!TextUtils.isEmpty(FriendsLab.get(this, mUserInfo).getFriend(name).getPicUrl())) {
+            Glide.with(this).load(FriendsLab.get(this, mUserInfo).getFriend(name).getPicUrl()).into(mImageView);
+        } else {
             mImageView.setImageResource(picture);
         }
 

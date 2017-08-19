@@ -27,7 +27,7 @@ public class Friends extends DataSupport {
 
     private boolean showInChooseFragment;  //是否出现在聊天列表
 
-    public Friends(String user,String name){
+    public Friends(String user, String name) {
         this.user = user;
         this.name = name;
         this.picture = R.drawable.touxiang;
@@ -37,7 +37,7 @@ public class Friends extends DataSupport {
         this.picUrl = null;
     }
 
-    public Friends(String user, String name,String picUrl) {
+    public Friends(String user, String name, String picUrl) {
           this.user = user;
         this.name = name;
         this.picture = R.drawable.touxiang;

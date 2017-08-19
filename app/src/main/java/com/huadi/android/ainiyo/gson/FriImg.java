@@ -10,7 +10,7 @@ import java.util.List;
 public class FriImg {
     private String Status;
     private String Msg;
-    private HashMap<String,String> Result;
+    private HashMap<String, String> Result;
     private String Sessionid;
 
     public String getStatus() {

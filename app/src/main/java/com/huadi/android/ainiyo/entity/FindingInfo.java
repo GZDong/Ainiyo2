@@ -1,10 +1,12 @@
 package com.huadi.android.ainiyo.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by fengsam on 17-8-18.
  */
 
-public class FindingInfo {
+public class FindingInfo implements Serializable {
     private String Id;
     private float summary;
     private float beauty;
@@ -21,7 +23,7 @@ public class FindingInfo {
     private String job;
 
     public FindingInfo(String id, float summary, float beauty, float hobby, float jobscore, float residence, float agescore, float impression, float emotion, String name, boolean isVip, String avatar, int age, String job) {
-        Id = id;
+        this.Id = id;
         this.summary = summary;
         this.beauty = beauty;
         this.hobby = hobby;

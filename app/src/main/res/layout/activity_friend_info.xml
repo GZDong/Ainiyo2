@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/send_msg"
             android:background="#d26165"
-            android:textColor="#FFF"/>
+            android:textColor="#FFF" />
 
 
     </LinearLayout>

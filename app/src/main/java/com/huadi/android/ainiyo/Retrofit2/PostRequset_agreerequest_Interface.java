@@ -14,5 +14,5 @@ import rx.Observable;
 public interface PostRequset_agreerequest_Interface {
     @FormUrlEncoded
     @POST("agreerequest")
-    Observable<ResultForAgree> getObservable(@Field("sessionid")String sessionid,@Field("friendid") String friendid,@Field("agree")String agree);
+    Observable<ResultForAgree> getObservable(@Field("sessionid") String sessionid, @Field("friendid") String friendid, @Field("agree") String agree);
 }

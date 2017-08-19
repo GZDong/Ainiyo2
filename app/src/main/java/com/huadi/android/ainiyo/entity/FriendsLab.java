@@ -66,17 +66,17 @@ public class FriendsLab {
     //根据用户来初始化好友列表
     public void initFriends() {
         mFriendses = new ArrayList<>();
-        Log.e("test","第一次初始化的时候的sessionid: "+((ECApplication)mContext.getApplicationContext()).sessionId);
+        Log.e("test", "第一次初始化的时候的sessionid: " + ((ECApplication) mContext.getApplicationContext()).sessionId);
 
         //从数据库中加载用户列的值为指定用户的好友名单
-        Log.e("test","请求数据库时的用户id为："+mUserInfo.getUsername());
+        Log.e("test", "请求数据库时的用户id为：" + mUserInfo.getUsername());
         mFriendses = DataSupport.where("user = ?", mUserInfo.getUsername()).find(Friends.class);
 
         //加载出来之后，如果名单多于一个，就根据最新消息时间排一下序号
         if (mFriendses.size() > 1) {
             reSort();
         }
-        if (mFriendses.size()>0){
+        if (mFriendses.size() > 0) {
             Intent intent = new Intent("com.huadi.android.ainiyo.refresh");
             mContext.sendBroadcast(intent);
         }
@@ -101,59 +101,59 @@ public class FriendsLab {
                     .subscribe(new Observer<FriendGot>() {
                         @Override
                         public void onCompleted() {
-                            Log.e("test","onCompleted____请求好友列表完成");
+                            Log.e("test", "onCompleted____请求好友列表完成");
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.e("test","onError_____请求好友列表异常");
+                            Log.e("test", "onError_____请求好友列表异常");
                         }
 
                         @Override
                         public void onNext(FriendGot friendGot) {
-                            Log.e("test","onNext____请求好友列表");
+                            Log.e("test", "onNext____请求好友列表");
                             if (friendGot.getStatus().equals("300") ){
-                                    Log.e("test","状态码为300 " + friendGot.getMsg());
+                                Log.e("test", "状态码为300 " + friendGot.getMsg());
                                     Toast.makeText(mContext,"请求好友列表成功",Toast.LENGTH_LONG).show();
-                                Log.e("test","返回的Result ：" + friendGot.getFriendList().toString());
+                                Log.e("test", "返回的Result ：" + friendGot.getFriendList().toString());
                                     if (friendGot.friendList != null && friendGot.friendList.size() > 0){
                                         for (ResultForFriend resultForFriend : friendGot.friendList){
-                                            Log.e("test","好友的id："+resultForFriend.getName());
-                                            Log.e("test","好友的Url为："+ resultForFriend.getAvatar());
-                                            Log.e("test","此时的用户id为："+mUserInfo.getUsername());
-                                            Friends friends = new Friends(mUserInfo.getUsername(),resultForFriend.getName(),resultForFriend.getAvatar());
+                                            Log.e("test", "好友的id：" + resultForFriend.getName());
+                                            Log.e("test", "好友的Url为：" + resultForFriend.getAvatar());
+                                            Log.e("test", "此时的用户id为：" + mUserInfo.getUsername());
+                                            Friends friends = new Friends(mUserInfo.getUsername(), resultForFriend.getName(), resultForFriend.getAvatar());
                                             mmFriendses.add(friends);
                                         }
                                         //获得数据后先获得每个好友的未读信息，后存入数据库
                                         //这里记得初始化一些服务器上没有的数据
-                                        Log.e("test","执行未读数更新");
+                                        Log.e("test", "执行未读数更新");
                                         if (mmFriendses.size() > 0) {
-                                            for (Friends friends : mmFriendses){
+                                            for (Friends friends : mmFriendses) {
                                                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
                                                 int unread;
-                                                if (conversation == null){
-                                                    unread =0;
-                                                }else{
+                                                if (conversation == null) {
+                                                    unread = 0;
+                                                } else {
                                                     unread = conversation.getUnreadMsgCount();
                                                 }
                                                 friends.setUnreadMeg(unread);
 
                                             }
 
-                                            Log.e("test","执行把数据放进数据库里");
+                                            Log.e("test", "执行把数据放进数据库里");
                                             for (Friends friends : mmFriendses) {
                                                 friends.save();
                                             }
                                             //如果来自网络的好友列表不为空，重新根据用户初始化聊天列表
                                             initFriends();
-                                        }else if (mmFriendses.size() == 0){
+                                        } else if (mmFriendses.size() == 0) {
                                             //没有好友
-                                            Toast.makeText(mContext,"没有好友",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(mContext, "没有好友", Toast.LENGTH_LONG).show();
                                         }
                                     }
                             }else {
-                                Log.e("test","状态码显示失败，获取好友列表失败");
-                                    Log.e("test","Msg 是：" + friendGot.getMsg() + " "+ friendGot.getStatus());
+                                Log.e("test", "状态码显示失败，获取好友列表失败");
+                                Log.e("test", "Msg 是：" + friendGot.getMsg() + " " + friendGot.getStatus());
                             }
                         }
 
@@ -280,9 +280,9 @@ public class FriendsLab {
         }
     }
 
-    public void addNewDialog(String Id){
-        for (Friends friends : mFriendses){
-            if (friends != null && friends.getName().equals(Id)){
+    public void addNewDialog(String Id) {
+        for (Friends friends : mFriendses) {
+            if (friends != null && friends.getName().equals(Id)) {
                 friends.setShowInChooseFragment(true);
                 friends.save();
             }

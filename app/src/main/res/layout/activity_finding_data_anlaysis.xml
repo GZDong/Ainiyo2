@@ -6,13 +6,15 @@
     android:gravity="center"
     android:background="#1e252b"
     android:orientation="vertical"
-    android:id="@+id/finding_data_background">
+    android:id="@+id/finding_data_background"
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="0.08">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -45,6 +47,7 @@
                     android:textColor="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv_finding_data_hobby_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.95"
@@ -68,6 +71,7 @@
                     android:textColor="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv_finding_data_job_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
@@ -91,6 +95,7 @@
                     android:textColor="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv_finding_data_live_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
@@ -113,6 +118,7 @@
                     android:textColor="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv_finding_data_age_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
@@ -136,6 +142,7 @@
                     android:textColor="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv_finding_data_character_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
@@ -144,7 +151,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/finding_data_mood"
+                android:id="@+id/finding_data_emotion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/finding_data_character"
@@ -158,6 +165,31 @@
                     android:textColor="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv_finding_data_emotion_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.94"
+                    android:textSize="20dp"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/finding_data_beauty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/finding_data_emotion"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="颜值:"
+                    android:textSize="20dp"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_finding_data_beauty_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"

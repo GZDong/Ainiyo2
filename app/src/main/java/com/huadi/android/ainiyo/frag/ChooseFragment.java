@@ -192,7 +192,7 @@ public class ChooseFragment extends Fragment {
                 }
             };
 
-            getActivity().registerReceiver(mReceiverForRefresh,intentFilter2);
+            getActivity().registerReceiver(mReceiverForRefresh, intentFilter2);
 
 
             //************************************************
@@ -338,9 +338,9 @@ public class ChooseFragment extends Fragment {
             String newTime = friends.getNewTime();
             holder.textView.setText(name_fri);
             //holder.mImageView.setImageResource(picture);
-            if ( !TextUtils.isEmpty(friends.getPicUrl())){
+            if (!TextUtils.isEmpty(friends.getPicUrl())) {
                 Glide.with(ChooseFragment.this).load(friends.getPicUrl()).into(holder.mImageView);
-            }else{
+            } else {
                 holder.mImageView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(), picture, 50, 50));
             }
 

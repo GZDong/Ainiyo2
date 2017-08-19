@@ -77,27 +77,27 @@ public class MeFragment extends Fragment{
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_me,null);
         // Inflate the layout for this fragment
         ViewUtils.inject(this,view);
-        SharedPreferences pref=getActivity().getSharedPreferences("data",MODE_PRIVATE);
-        String username=pref.getString("username","");
-        te=(TextView)view.findViewById(R.id.name);
+        SharedPreferences pref = getActivity().getSharedPreferences("data", MODE_PRIVATE);
+        String username = pref.getString("username", "");
+        te = (TextView) view.findViewById(R.id.name);
         te.setText(username);//获取用户名//
 
 
-        RequestParams params=new RequestParams();
-        params.addBodyParameter("sessionid",sessionId);
-        HttpUtils http=new HttpUtils();
-        http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/getuserinfo",params,new RequestCallBack<String>() {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("sessionid", sessionId);
+        HttpUtils http = new HttpUtils();
+        http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/getuserinfo", params, new RequestCallBack<String>() {
                     @Override
-                    public void onSuccess(ResponseInfo<String> responseInFo){
-                        String info=responseInFo.result.toString();
-                        try{
-                            JSONObject object=new JSONObject(info);
-                            String msg=object.getString("Msg");
-                            Gson gson=new Gson();
-                            UserData userData=gson.fromJson(object.getJSONObject("Result").toString(),UserData.class);
+                    public void onSuccess(ResponseInfo<String> responseInFo) {
+                        String info = responseInFo.result.toString();
+                        try {
+                            JSONObject object = new JSONObject(info);
+                            String msg = object.getString("Msg");
+                            Gson gson = new Gson();
+                            UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
 
                             //如果获取数据成功，则把数据加载到各项
-                            if(msg.equals("success")) {
+                            if (msg.equals("success")) {
                                 String job = userData.getJob();
                                 Boolean vip = userData.isVip();
                                 String image = userData.getAvatar();
@@ -117,16 +117,15 @@ public class MeFragment extends Fragment{
 
                             }
 
-                        }
-                        catch (JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
 
-
                     }
+
                     @Override
-                    public void onFailure(HttpException error, String msg){
+                    public void onFailure(HttpException error, String msg) {
 
                     }
 
@@ -135,14 +134,15 @@ public class MeFragment extends Fragment{
         );
         return view;
     }
-   @OnClick({R.id.info,R.id.logoff,R.id.xiangce,R.id.vipapply,R.id.vip_lever})
+
+    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever})
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
                startActivityForResult(new Intent(getActivity(), EditInfoActivity.class),1);
                break;
            case R.id.vip_lever:
-               startActivity(new Intent(getActivity(),VipLeverActivity.class));
+               startActivity(new Intent(getActivity(), VipLeverActivity.class));
                break;
            case R.id.xiangce:
                startActivity(new Intent(getActivity(),PhotoActivity.class));
@@ -150,20 +150,20 @@ public class MeFragment extends Fragment{
            case R.id.vipapply:
                RequestParams params = new RequestParams();
                params.addBodyParameter("sessionid", sessionId);
-               new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/vipcheck",params, new RequestCallBack<String>() {
+               new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/vipcheck", params, new RequestCallBack<String>() {
                    @Override
                    public void onSuccess(ResponseInfo<String> responseInfo) {
                        try {
                            JSONObject object = new JSONObject(responseInfo.result.toString());
                            int status = object.getInt("Status");
-                           String result=object.getString("Result");
-                           String msg=object.getString("Msg");
-                           if (status==0) {
-                               startActivity(new Intent(getActivity(),VipHint.class));
+                           String result = object.getString("Result");
+                           String msg = object.getString("Msg");
+                           if (status == 0) {
+                               startActivity(new Intent(getActivity(), VipHint.class));
                            }
-                           if(status==99||status==20001||status==20002||status==20003){
-                               Intent intent=new Intent(getActivity(),VipRespon.class);
-                               intent.putExtra("text",msg);
+                           if (status == 99 || status == 20001 || status == 20002 || status == 20003) {
+                               Intent intent = new Intent(getActivity(), VipRespon.class);
+                               intent.putExtra("text", msg);
                                startActivity(intent);
 
                            }

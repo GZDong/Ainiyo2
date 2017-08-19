@@ -3,17 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/theme_red"
-        android:id="@+id/kk"
-        >
-    </LinearLayout>
-<View
-    android:layout_width="match_parent"
-    android:layout_height="20dp"
-    android:layout_marginTop="20dp"
-    android:background="#161515"/>
+        android:id="@+id/kk"></LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#161515" />
 </LinearLayout>

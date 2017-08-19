@@ -18,11 +18,13 @@
             android:layout_marginLeft="162dp"
             android:text="我的"
             android:textSize="24sp"
-            android:textColor="#f1ecec"/>
+            android:textColor="#f1ecec" />
     </LinearLayout>
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,18 +34,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:id="@+id/info">
+
                 <ImageView
                     android:id="@+id/avatar_imag"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:src="@drawable/init"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginLeft="15dp">
+
                     <TextView
                         android:id="@+id/name"
                         android:layout_width="wrap_content"
@@ -51,31 +56,35 @@
                         android:textSize="20sp"
                         android:text="用户名"
                         android:textColor="#121111"
-                        android:layout_marginTop="25dp"/>
+                        android:layout_marginTop="25dp" />
+
                     <TextView
                         android:id="@+id/job_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="职业"
                         android:layout_marginTop="5dp"
-                        android:textSize="15sp"/>
+                        android:textSize="15sp" />
 
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="资料"
                     android:layout_gravity="center_vertical"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp" />
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:src="@drawable/youjiantou"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -83,12 +92,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:background="#eae7e7"
-                android:layout_marginTop="-3dp"/>
+                android:layout_marginTop="-3dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/vip_lever">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,24 +106,26 @@
                     android:textSize="17sp"
                     android:layout_marginLeft="15dp"
                     android:textColor="#0b0b0b"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <TextView
                     android:id="@+id/vip_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="普通用户"
                     android:layout_gravity="center_vertical"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp" />
+
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:src="@drawable/youjiantou"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
             </LinearLayout>
             <TextView
@@ -123,11 +135,13 @@
                 android:maxLines="1"
                 android:textColor="#e2dede"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="-18dp"/>
+                android:layout_marginTop="-18dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/vipapply">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -135,29 +149,31 @@
                     android:textSize="17sp"
                     android:layout_marginLeft="15dp"
                     android:textColor="#0b0b0b"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:src="@drawable/youjiantou"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
                 android:background="#eae7e7"
-                android:layout_marginTop="-3dp"/>
+                android:layout_marginTop="-3dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/xiangce">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -165,18 +181,18 @@
                     android:textSize="17sp"
                     android:layout_marginLeft="15dp"
                     android:textColor="#0b0b0b"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:src="@drawable/youjiantou"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
             </LinearLayout>
             <TextView
@@ -186,10 +202,12 @@
                 android:maxLines="1"
                 android:layout_marginLeft="10dp"
                 android:textColor="#e2dede"
-                android:layout_marginTop="-18dp"/>
+                android:layout_marginTop="-18dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -197,18 +215,18 @@
                     android:textSize="17sp"
                     android:layout_marginLeft="15dp"
                     android:textColor="#0b0b0b"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:src="@drawable/youjiantou"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
             </LinearLayout>
 
@@ -226,10 +244,12 @@
                 android:maxLines="1"
                 android:layout_marginLeft="10dp"
                 android:textColor="#eae7e7"
-                android:layout_marginTop="-18dp"/>
+                android:layout_marginTop="-18dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -237,12 +257,12 @@
                     android:textSize="17sp"
                     android:layout_marginLeft="15dp"
                     android:textColor="#0b0b0b"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -259,11 +279,13 @@
                 android:maxLines="1"
                 android:layout_marginLeft="10dp"
                 android:textColor="#e2dede"
-                android:layout_marginTop="-18dp"/>
+                android:layout_marginTop="-18dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:id="@+id/logoff">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -271,25 +293,22 @@
                     android:textSize="17sp"
                     android:layout_marginLeft="15dp"
                     android:textColor="#0b0b0b"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:src="@drawable/youjiantou"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical" />
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
-
 
 
 </LinearLayout>

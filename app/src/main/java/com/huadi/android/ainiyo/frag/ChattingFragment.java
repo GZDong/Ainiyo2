@@ -420,7 +420,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
             EMMessage msg = mMsgList.get(position);
 
-            Friends friends = FriendsLab.get(getActivity(),mUserInfo).getFriend(mChatId);
+            Friends friends = FriendsLab.get(getActivity(), mUserInfo).getFriend(mChatId);
 
             if (msg.getFrom().equals(mChatId)) {   //mChatId是目标的id
 
@@ -429,10 +429,10 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
                 //加载图片
                 //  Glide.with(getActivity()).load(bm).fitCenter().into(holder.rightImage);
-                if (!TextUtils.isEmpty(friends.getPicUrl())){
+                if (!TextUtils.isEmpty(friends.getPicUrl())) {
                     Glide.with(ChattingFragment.this).load(friends.getPicUrl()).into(holder.rightImage);
-                }else {
-                    Bitmap bm = BitmapFactory.decodeResource(getResources(),mImage);
+                } else {
+                    Bitmap bm = BitmapFactory.decodeResource(getResources(), mImage);
                     holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
                 }
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();

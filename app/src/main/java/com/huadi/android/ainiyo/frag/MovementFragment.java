@@ -139,7 +139,8 @@ public class MovementFragment extends Fragment {
                             //int userid = mwd1.getUserid();
                             String content = mwd1.getContent();
                             Gson gson = new Gson();
-                            Type type = new TypeToken<MovementContentData>() {}.getType();
+                            Type type = new TypeToken<MovementContentData>() {
+                            }.getType();
                             MovementContentData mcd = gson.fromJson(mwd1.getContent(), type);
                             //ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
                             mList.add(mcd);
@@ -148,7 +149,7 @@ public class MovementFragment extends Fragment {
 
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new MovementAdapter(mList,((ECApplication) getActivity().getApplication()).sessionId);
+                        mAdapter = new MovementAdapter(mList, ((ECApplication) getActivity().getApplication()).sessionId);
                         mAdapter.setFather(getParentFragment().getActivity());
                         movement_list_view.setAdapter(mAdapter);
                     } else {// 尾部刷新
@@ -177,19 +178,19 @@ public class MovementFragment extends Fragment {
 
 
         MovementContentData mcd = mList.get(position);
-        intent.putExtra("id",mcd.getId());
-        intent.putExtra("title",mcd.getTitle());
-        intent.putExtra("date",mcd.getDate());
-        intent.putExtra("imageUrl",mcd.getImageUrl());
-        intent.putExtra("article",mcd.getArticle());
+        intent.putExtra("id", mcd.getId());
+        intent.putExtra("title", mcd.getTitle());
+        intent.putExtra("date", mcd.getDate());
+        intent.putExtra("imageUrl", mcd.getImageUrl());
+        intent.putExtra("article", mcd.getArticle());
 
 
         startActivity(intent);
     }
 
     @OnClick({R.id.tv_movement_me})
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.tv_movement_me:
                 startActivity(new Intent(getActivity(), MovementJoinedActivity.class));
         }

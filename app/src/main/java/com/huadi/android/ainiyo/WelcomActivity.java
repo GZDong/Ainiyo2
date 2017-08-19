@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -41,7 +43,7 @@ public class WelcomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcom);
 
-        Log.e("test","一闪而过的WelcomeActivity");
+        Log.e("test", "一闪而过的WelcomeActivity");
 
         //改成在开始界面请求必要的权限
         if (ContextCompat.checkSelfPermission(WelcomActivity.this,"android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED){
@@ -70,7 +72,7 @@ public class WelcomActivity extends AppCompatActivity {
                     password=pref2.getString("pwd","");
 
                     //初始化用户信息
-                   final UserInfo userInfo = new UserInfo(username,password,R.drawable.right_image);
+                    final UserInfo userInfo = new UserInfo(username, password, R.drawable.right_image);
                     UserInfoLab.get(WelcomActivity.this,userInfo);
                     /*FriendsLab.get(WelcomActivity.this,userInfo).setFriListNull();
                     FriendsLab.get(WelcomActivity.this,userInfo).initFriends();*/
@@ -105,11 +107,11 @@ public class WelcomActivity extends AppCompatActivity {
 
                                         Log.e("test","自动重新登陆成功：" + application.sessionId);
                                         Toast.makeText(WelcomActivity.this,"自动登陆成功",Toast.LENGTH_LONG).show();
-                                        FriendsLab.get(WelcomActivity.this,userInfo).setFriListNull();
-                                        FriendsLab.get(WelcomActivity.this,userInfo).initFriends();
+                                        FriendsLab.get(WelcomActivity.this, userInfo).setFriListNull();
+                                        FriendsLab.get(WelcomActivity.this, userInfo).initFriends();
                                         Intent intent = new Intent("com.huadi.android.ainiyo.refresh");
                                         sendBroadcast(intent);
-                                        mHandler.sendEmptyMessageDelayed(Turn,4000);
+                                        mHandler.sendEmptyMessageDelayed(Turn, 4000);
                                     }else {
                                         Log.e("test",resultForLogin.getStatus().toString());
                                     }
@@ -119,12 +121,12 @@ public class WelcomActivity extends AppCompatActivity {
                 }
     }
 
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case Turn:
-                    startActivity(new Intent(WelcomActivity.this,MainActivity.class));
+                    startActivity(new Intent(WelcomActivity.this, MainActivity.class));
                     finish();
                     break;
                 default:

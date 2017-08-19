@@ -77,15 +77,15 @@ public class MovementDetailActivity extends AppCompatActivity {
 
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", ((ECApplication) getApplication()).sessionId);
-                params.addBodyParameter("aid",String.valueOf(extras.getInt("id")));
+                params.addBodyParameter("aid", String.valueOf(extras.getInt("id")));
 
 
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
 
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
-                        Toast.makeText(MovementDetailActivity.this,"参加成功",Toast.LENGTH_SHORT).show();
-                    //?
+                        Toast.makeText(MovementDetailActivity.this, "参加成功", Toast.LENGTH_SHORT).show();
+                        //?
                     }
 
                     @Override
@@ -102,7 +102,7 @@ public class MovementDetailActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-                MovementDetailActivity.this.finish();
+            MovementDetailActivity.this.finish();
 
         }
 

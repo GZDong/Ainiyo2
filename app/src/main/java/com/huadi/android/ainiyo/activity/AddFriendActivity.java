@@ -216,109 +216,109 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                             @Override
                             public void onNext(ResultForCheckName resultForCheckName) {
                                 if (resultForCheckName.getStatus().equals("120")){
-                                    Log.e("test","onNext___验证是否存在" + resultForCheckName.getMsg());
+                                    Log.e("test", "onNext___验证是否存在" + resultForCheckName.getMsg());
                                     Toast.makeText(AddFriendActivity.this,"用户不存在",Toast.LENGTH_LONG).show();
                                 }else if (resultForCheckName.getStatus().equals("123")){
                                     //在这里缺少向服务器发送添加该好友的信息的代码
-                                    Log.e("test","onNext____验证是否存在" + resultForCheckName.getMsg());
+                                    Log.e("test", "onNext____验证是否存在" + resultForCheckName.getMsg());
 
                                     if (!TextUtils.isEmpty(mEditText.getText().toString())){
                                         attach = mEditText.getText().toString();
                                     }else {
                                         attach = " ";
                                     }
-                                    ECApplication ecApplication =(ECApplication) getApplication();
-                Retrofit retrofit = new  Retrofit.Builder()
-                                         .baseUrl("http://120.24.168.102:8080/")
-                                         .addConverterFactory(GsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                                         .build();
-                final PostRequest_ReqFri_Interface reqFriInterface = retrofit.create(PostRequest_ReqFri_Interface.class);
-                Observable<ResultForRequset> call;
-                if (!TextUtils.isEmpty(mEditText.getText())) {
-                    call = reqFriInterface.getCall(ecApplication.sessionId,mClearEditText.getText().toString(),mEditText.getText().toString());
-                }else{
-                    call = reqFriInterface.getCall(ecApplication.sessionId,mClearEditText.getText().toString()," ");
-                }
-                Log.e("testCanshu","请求好友输入的3个参数值："+ ecApplication.sessionId +mClearEditText.getText().toString() + mEditText.getText().toString());
-                call.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<ResultForRequset>() {
-                            @Override
-                            public void onCompleted() {
-                                Log.e("test","onCompleted____完成好友列表请求");
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.e("test","onError___请求好友列表异常");
-                            }
-
-                            @Override
-                            public void onNext(ResultForRequset resultForRequset) {
-                                Log.e("test","onNext___请求好友");
-                                switch (resultForRequset.getStatus()){
-                                    case "310":
-                                        Toast.makeText(AddFriendActivity.this,"添加成功!",Toast.LENGTH_LONG).show();
-                                        // FriendsLab.get(AddFriendActivity.this, UserInfoLab.get(AddFriendActivity.this).getUserInfo()).addFriend(response.body().);
-                                        break;
-                                    case "201":
-                                        Toast.makeText(AddFriendActivity.this,"请先登陆!",Toast.LENGTH_LONG).show();
-                                        break;
-                                    case "93":
-                                        Toast.makeText(AddFriendActivity.this,"服务器发生错误!",Toast.LENGTH_LONG).show();
-                                        break;
-                                    case "97":
-                                        Toast.makeText(AddFriendActivity.this,"输入了非法符号，请重新输入!",Toast.LENGTH_LONG).show();
-                                        break;
-                                    case "181":
-                                        Toast.makeText(AddFriendActivity.this,"该用户不存在，请确认!",Toast.LENGTH_LONG).show();
-                                        break;
-                                    case "312":
-                                        Toast.makeText(AddFriendActivity.this,"已经发送好友请求!",Toast.LENGTH_LONG).show();
-                                        //RxJava异步
-                                        Observable.create(new Observable.OnSubscribe<String>() {
-                                            @Override
-                                            public void call(Subscriber<? super String> subscriber) {
-                                                try {
-                                                    EMClient.getInstance().contactManager().addContact(mClearEditText.getText().toString(),attach);
-                                                    Log.e("test","异步处理第三方线程: "+Thread.currentThread().getId());
-                                                } catch (HyphenateException e) {
-                                                    e.printStackTrace();
+                                    ECApplication ecApplication = (ECApplication) getApplication();
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl("http://120.24.168.102:8080/")
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                                            .build();
+                                    final PostRequest_ReqFri_Interface reqFriInterface = retrofit.create(PostRequest_ReqFri_Interface.class);
+                                    Observable<ResultForRequset> call;
+                                    if (!TextUtils.isEmpty(mEditText.getText())) {
+                                        call = reqFriInterface.getCall(ecApplication.sessionId, mClearEditText.getText().toString(), mEditText.getText().toString());
+                                    } else {
+                                        call = reqFriInterface.getCall(ecApplication.sessionId, mClearEditText.getText().toString(), " ");
+                                    }
+                                    Log.e("testCanshu", "请求好友输入的3个参数值：" + ecApplication.sessionId + mClearEditText.getText().toString() + mEditText.getText().toString());
+                                    call.subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(new Subscriber<ResultForRequset>() {
+                                                @Override
+                                                public void onCompleted() {
+                                                    Log.e("test", "onCompleted____完成好友列表请求");
                                                 }
-                                                subscriber.onNext("完成");
-                                            }
-                                        }).subscribeOn(Schedulers.io())
-                                                .observeOn(AndroidSchedulers.mainThread())
-                                                .subscribe(new Observer<String>() {
-                                                    @Override
-                                                    public void onCompleted() {
-                                                        Log.e("test","onCompleted\n");
-                                                        Log.e("test","执行一次Async完毕");
-                                                    }
 
-                                                    @Override
-                                                    public void onError(Throwable e) {
+                                                @Override
+                                                public void onError(Throwable e) {
+                                                    Log.e("test", "onError___请求好友列表异常");
+                                                }
 
-                                                    }
+                                                @Override
+                                                public void onNext(ResultForRequset resultForRequset) {
+                                                    Log.e("test", "onNext___请求好友");
+                                                    switch (resultForRequset.getStatus()) {
+                                                        case "310":
+                                                            Toast.makeText(AddFriendActivity.this, "添加成功!", Toast.LENGTH_LONG).show();
+                                                            // FriendsLab.get(AddFriendActivity.this, UserInfoLab.get(AddFriendActivity.this).getUserInfo()).addFriend(response.body().);
+                                                            break;
+                                                        case "201":
+                                                            Toast.makeText(AddFriendActivity.this, "请先登陆!", Toast.LENGTH_LONG).show();
+                                                            break;
+                                                        case "93":
+                                                            Toast.makeText(AddFriendActivity.this, "服务器发生错误!", Toast.LENGTH_LONG).show();
+                                                            break;
+                                                        case "97":
+                                                            Toast.makeText(AddFriendActivity.this, "输入了非法符号，请重新输入!", Toast.LENGTH_LONG).show();
+                                                            break;
+                                                        case "181":
+                                                            Toast.makeText(AddFriendActivity.this, "该用户不存在，请确认!", Toast.LENGTH_LONG).show();
+                                                            break;
+                                                        case "312":
+                                                            Toast.makeText(AddFriendActivity.this, "已经发送好友请求!", Toast.LENGTH_LONG).show();
+                                                            //RxJava异步
+                                                            Observable.create(new Observable.OnSubscribe<String>() {
+                                                                @Override
+                                                                public void call(Subscriber<? super String> subscriber) {
+                                                                    try {
+                                                                        EMClient.getInstance().contactManager().addContact(mClearEditText.getText().toString(), attach);
+                                                                        Log.e("test", "异步处理第三方线程: " + Thread.currentThread().getId());
+                                                                    } catch (HyphenateException e) {
+                                                                        e.printStackTrace();
+                                                }
+                                                                    subscriber.onNext("完成");
+                                                                }
+                                                            }).subscribeOn(Schedulers.io())
+                                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                                    .subscribe(new Observer<String>() {
+                                                                        @Override
+                                                                        public void onCompleted() {
+                                                                            Log.e("test", "onCompleted\n");
+                                                                            Log.e("test", "执行一次Async完毕");
+                                                                        }
 
-                                                    @Override
-                                                    public void onNext(String s) {
-                                                        Log.e("test","onNext " + s + "\n");
-                                                        Log.e("test","异步处理第三方时的onNext线程："+Thread.currentThread().getId());
-                                                        finish();
+                                                                        @Override
+                                                                        public void onError(Throwable e) {
+
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onNext(String s) {
+                                                                            Log.e("test", "onNext " + s + "\n");
+                                                                            Log.e("test", "异步处理第三方时的onNext线程：" + Thread.currentThread().getId());
+                                                                            finish();
+                                                                        }
+                                                                    });
+                                                            break;
+                                                        case "380":
+                                                            Toast.makeText(AddFriendActivity.this, "你们已经是好友了!", Toast.LENGTH_LONG).show();
+                                                            break;
+                                                        case "99":
+                                                            Toast.makeText(AddFriendActivity.this, "发生未知错误!", Toast.LENGTH_LONG).show();
+                                                            break;
                                                     }
-                                                });
-                                        break;
-                                    case "380":
-                                        Toast.makeText(AddFriendActivity.this,"你们已经是好友了!",Toast.LENGTH_LONG).show();
-                                        break;
-                                    case "99":
-                                        Toast.makeText(AddFriendActivity.this,"发生未知错误!",Toast.LENGTH_LONG).show();
-                                        break;
-                                }
-                            }
-                        });
+                                                }
+                                            });
 
                                 }else {
                                     Log.e("test","第三种状态码");

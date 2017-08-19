@@ -165,7 +165,8 @@
         <activity android:name=".activity.VipApply" />
         <activity android:name=".activity.VipHint" />
         <activity android:name=".activity.VipRespon" />
-        <activity android:name=".activity.VipLeverActivity"></activity>
+        <activity android:name=".activity.VipLeverActivity" />
+        <activity android:name=".activity.FindingDataAnlaysisActivity" />
     </application>
 
 </manifest>

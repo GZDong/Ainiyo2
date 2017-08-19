@@ -25,14 +25,15 @@ public class VipHint extends AppCompatActivity {
         setContentView(R.layout.activity_vip_hint);
         ViewUtils.inject(this);
     }
-    @OnClick({R.id.back,R.id.next})
-    public void onClick(View v){
-        switch (v.getId()){
+
+    @OnClick({R.id.back, R.id.next})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
-                startActivity(new Intent(VipHint.this,MainActivity.class));
+                startActivity(new Intent(VipHint.this, MainActivity.class));
                 break;
             case R.id.next:
-                startActivity(new Intent(VipHint.this,VipApply.class));
+                startActivity(new Intent(VipHint.this, VipApply.class));
                 break;
         }
     }

@@ -53,7 +53,7 @@ public class MovementAdapter extends BaseAdapter {
     private Context father;
 
 
-    public MovementAdapter(List<MovementContentData> list,String session) {
+    public MovementAdapter(List<MovementContentData> list, String session) {
         mList = list;
         sessionId = session;
     }
@@ -96,15 +96,15 @@ public class MovementAdapter extends BaseAdapter {
 
         final MovementContentData mcd = mList.get(position);
 
-        if(mcd.getTitle() != null){
+        if (mcd.getTitle() != null) {
             holder.title.setText(mcd.getTitle());
         }
 
-        if(mcd.getDate() != null){
+        if (mcd.getDate() != null) {
             holder.date.setText(mcd.getDate());
         }
 
-        if(mcd.getArticle() != null){
+        if (mcd.getArticle() != null) {
             holder.article.setText(mcd.getArticle());
         }
 
@@ -122,14 +122,14 @@ public class MovementAdapter extends BaseAdapter {
 
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("aid",String.valueOf(mcd.getId()));
+                params.addBodyParameter("aid", String.valueOf(mcd.getId()));
 
 
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
 
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
-                        Toast.makeText(father,"参加成功",Toast.LENGTH_LONG).show();
+                        Toast.makeText(father, "参加成功", Toast.LENGTH_LONG).show();
                     }
 
                     @Override

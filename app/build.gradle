@@ -53,6 +53,7 @@ dependencies {
     compile 'com.lzy.widget:ninegridview:+'
     compile 'com.lzy.widget:view-core:0.2.1'
     compile 'com.timqi.windrosediagram:library:1.0.5'
+    compile 'me.yuqirong:cardswipelayout:1.0.0'
     testCompile 'junit:junit:4.12'
 }
 //---------------------------------------------

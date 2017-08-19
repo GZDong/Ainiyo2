@@ -129,7 +129,8 @@ public class MovementJoinedActivity extends AppCompatActivity {
                             //int userid = mwd1.getUserid();
                             String content = mwd1.getContent();
                             Gson gson = new Gson();
-                            Type type = new TypeToken<MovementContentData>() {}.getType();
+                            Type type = new TypeToken<MovementContentData>() {
+                            }.getType();
                             MovementContentData mcd = gson.fromJson(mwd1.getContent(), type);
                             //ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
                             mList.add(mcd);
@@ -145,7 +146,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
 //                            Toast.LENGTH_SHORT).show();
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new MovementAdapter(mList,((ECApplication) getApplication()).sessionId);
+                        mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId);
                         //mAdapter.setFather(getParentFragment().getActivity());
                         movement_list_view.setAdapter(mAdapter);
                     } else {// 尾部刷新
@@ -194,16 +195,15 @@ public class MovementJoinedActivity extends AppCompatActivity {
 
 
         MovementContentData mcd = mList.get(position);
-        intent.putExtra("id",mcd.getId());
-        intent.putExtra("title",mcd.getTitle());
-        intent.putExtra("date",mcd.getDate());
-        intent.putExtra("imageUrl",mcd.getImageUrl());
-        intent.putExtra("article",mcd.getArticle());
+        intent.putExtra("id", mcd.getId());
+        intent.putExtra("title", mcd.getTitle());
+        intent.putExtra("date", mcd.getDate());
+        intent.putExtra("imageUrl", mcd.getImageUrl());
+        intent.putExtra("article", mcd.getArticle());
 
 
         startActivity(intent);
     }
-
 
 
 }

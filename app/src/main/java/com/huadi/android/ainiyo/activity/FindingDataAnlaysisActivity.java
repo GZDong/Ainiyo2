@@ -1,8 +1,10 @@
 package com.huadi.android.ainiyo.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
@@ -19,15 +21,36 @@ public class FindingDataAnlaysisActivity extends AppCompatActivity {
 
     @ViewInject(R.id.windRoseDiagramView)
     WindRoseDiagramView windRoseDiagramView;
-    FindingInfo fi = new FindingInfo("", 0.60f, 0.94f, 0.90f, 0.80f, 0.70f, 0.30f, 0.33f, 0.94f, "", true, "", 1, "");
-    WRDAdapter adapter = new WRDAdapter(fi);
+    @ViewInject(R.id.tv_finding_data_job_score)
+    TextView tv_finding_job_score;
+    @ViewInject(R.id.tv_finding_data_age_score)
+    TextView tv_finding_data_age_score;
+    @ViewInject(R.id.tv_finding_data_character_score)
+    TextView tv_finding_data_character_score;
+    @ViewInject(R.id.tv_finding_data_emotion_score)
+    TextView tv_finding_data_emotion_score;
+    @ViewInject(R.id.tv_finding_data_hobby_score)
+    TextView tv_finding_data_hobby_score;
+    @ViewInject(R.id.tv_finding_data_live_score)
+    TextView tv_finding_data_live_score;
+    @ViewInject(R.id.tv_finding_data_beauty_score)
+    TextView tv_finding_data_beauty_score;
 
+
+    //FindingInfo fi = new FindingInfo("", 0.60f, 0.94f, 0.90f, 0.80f, 0.70f, 0.30f, 0.33f, 0.94f, "", true, "", 1, "");
+    FindingInfo fi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finding_data_anlaysis);
         ViewUtils.inject(this);
 
+        final Intent intent = getIntent();
+        fi = (FindingInfo) intent.getSerializableExtra("findingdataitem");
+
+        //Toast.makeText(FindingDataAnlaysisActivity.this,fi.getName(),Toast.LENGTH_SHORT).show();
+
+        WRDAdapter adapter = new WRDAdapter(fi);
         windRoseDiagramView.setAdapter(adapter);
         windRoseDiagramView.setOutlineWidth(3);
         windRoseDiagramView.setAnchorWidth(5);
@@ -36,6 +59,14 @@ public class FindingDataAnlaysisActivity extends AppCompatActivity {
         windRoseDiagramView.setWindRoseClickListener(windRoseClickListener);
         windRoseDiagramView.setOnClickListener(normalClickListener);
 
+
+        tv_finding_data_age_score.setText(String.valueOf(fi.getAgescore()));
+        tv_finding_data_character_score.setText(String.valueOf(fi.getImpression()));
+        tv_finding_data_emotion_score.setText(String.valueOf(fi.getEmotion()));
+        tv_finding_data_hobby_score.setText(String.valueOf(fi.getHobby()));
+        tv_finding_data_live_score.setText(String.valueOf(fi.getResidence()));
+        tv_finding_job_score.setText(String.valueOf(fi.getJobscore()));
+        tv_finding_data_beauty_score.setText(String.valueOf(fi.getBeauty()));
     }
 
     private WindRoseClickListener windRoseClickListener

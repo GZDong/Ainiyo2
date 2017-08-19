@@ -7,7 +7,6 @@ package com.huadi.android.ainiyo.entity;
 public class UserData {
 
 
-
     private int Id;
     private boolean Vip;
     private String birthday;
@@ -24,8 +23,7 @@ public class UserData {
     private int Userid;
 
 
-
-    public UserData(  int Id, boolean Vip, String birthday,int Area,String Job,double Salary,Boolean HaveKids,Boolean parentsalive,String maritallstatus,String Emotion,String Hobby,String Requir,String avatar,int Userid) {
+    public UserData(int Id, boolean Vip, String birthday, int Area, String Job, double Salary, Boolean HaveKids, Boolean parentsalive, String maritallstatus, String Emotion, String Hobby, String Requir, String avatar, int Userid) {
         this.Id = Id;
         this.Vip = Vip;
         this.birthday = birthday;
@@ -34,13 +32,14 @@ public class UserData {
         this.Salary = Salary;
         this.HaveKids = HaveKids;
         this.parentsalive = parentsalive;
-        this. maritallstatus =  maritallstatus;
+        this.maritallstatus = maritallstatus;
         this.Emotion = Emotion;
         this.Hobby = Hobby;
-        this. Requir =  Requir;
+        this.Requir = Requir;
         this.avatar = avatar;
         this.Userid = Userid;
     }
+
     public int getId() {
         return Id;
     }
@@ -153,7 +152,6 @@ public class UserData {
     public void setUserid(int userid) {
         Userid = userid;
     }
-
 
 
 }

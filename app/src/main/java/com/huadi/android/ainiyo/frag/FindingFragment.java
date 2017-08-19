@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import com.google.gson.Gson;
 import com.huadi.android.ainiyo.activity.FindingDataAnlaysisActivity;
 import com.huadi.android.ainiyo.activity.FindingDetailActivity;
 import com.huadi.android.ainiyo.adapter.FindingAdapter;
+import com.huadi.android.ainiyo.adapter.FindingCardSwlpeAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.FindingInfo;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
@@ -54,19 +58,28 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.yuqirong.cardswipelayout.CardConfig;
+import me.yuqirong.cardswipelayout.CardItemTouchHelperCallback;
+import me.yuqirong.cardswipelayout.CardLayoutManager;
+import me.yuqirong.cardswipelayout.OnSwipeListener;
+
 import static com.huadi.android.ainiyo.util.CONST.FINDING_USER_DESTINY;
 import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
 
 
 public class FindingFragment extends Fragment {
 
-    @ViewInject(R.id.finding_list_view)
-    private PullToRefreshListView finding_list_view;
-    private FindingAdapter findingAdapter;
-    private ArrayList<FindingInfo> mList;
+//    @ViewInject(R.id.finding_list_view)
+//    private PullToRefreshListView finding_list_view;
+//    private FindingAdapter findingAdapter;
+//    private ArrayList<FindingInfo> mList=new ArrayList<FindingInfo>();
+//
+//    private static final int REQUEST_CODE = 0x00000012;
 
-    private static final int REQUEST_CODE = 0x00000012;
+    @ViewInject(R.id.finding_recyclerView)
+    private RecyclerView recyclerView;
 
+    private List<Integer> mList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +88,7 @@ public class FindingFragment extends Fragment {
 
         // Inflate the layout for this fragment
         ViewUtils.inject(this, view);
+        /*
         // Set a listener to be invoked when the list should be refreshed.
         finding_list_view.setMode(PullToRefreshBase.Mode.BOTH);
         finding_list_view.setScrollingWhileRefreshingEnabled(true);
@@ -99,46 +113,135 @@ public class FindingFragment extends Fragment {
 //            }
 //        }).sendEmptyMessageDelayed(0, 200);
 
+*/
+        initView();
+        initData();
         return view;
     }
 
-    private void loadDatas(final boolean direction) {
-
-        RequestParams params = new RequestParams();
-
-        ECApplication application = (ECApplication) getActivity().getApplication();
-        params.addBodyParameter("sessionid", application.sessionId);
-
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, FINDING_USER_DESTINY, params, new RequestCallBack<String>() {
+    private void initView() {
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(new FindingCardSwlpeAdapter(getActivity(), mList));
+        CardItemTouchHelperCallback cardCallback = new CardItemTouchHelperCallback(recyclerView.getAdapter(), mList);
+        cardCallback.setOnSwipedListener(new OnSwipeListener<Integer>() {
 
             @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
+            public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
+                FindingCardSwlpeAdapter.MyViewHolder myHolder = (FindingCardSwlpeAdapter.MyViewHolder) viewHolder;
+                viewHolder.itemView.setAlpha(1 - Math.abs(ratio) * 0.2f);
+//                if (direction == CardConfig.SWIPING_LEFT) {
+//                    myHolder.dislikeImageView.setAlpha(Math.abs(ratio));
+//                } else if (direction == CardConfig.SWIPING_RIGHT) {
+//                    myHolder.likeImageView.setAlpha(Math.abs(ratio));
+//                } else {
+//                    myHolder.dislikeImageView.setAlpha(0f);
+//                    myHolder.likeImageView.setAlpha(0f);
+//                }
+            }
 
-                finding_list_view.onRefreshComplete();
-                ResponseObject<ArrayList<FindingInfo>> object = new GsonBuilder().create().
-                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ArrayList<FindingInfo>>>() {
-                        }.getType());
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, Integer o, int direction) {
+                FindingCardSwlpeAdapter.MyViewHolder myHolder = (FindingCardSwlpeAdapter.MyViewHolder) viewHolder;
+                viewHolder.itemView.setAlpha(1f);
+//                myHolder.dislikeImageView.setAlpha(0f);
+//                myHolder.likeImageView.setAlpha(0f);
+                Toast.makeText(getActivity(), direction == CardConfig.SWIPED_LEFT ? "swiped left" : "swiped right", Toast.LENGTH_SHORT).show();
+            }
 
-                if (object.getStatus() == 0) {
-                    if (direction)// 头部刷新
-                    {// 渲染内容到界面上
-                        //清空原来的数据
-                        mList = object.getResult();
-
-                        findingAdapter = new FindingAdapter(getActivity(), mList);
-                        finding_list_view.setAdapter(findingAdapter);
-
+            @Override
+            public void onSwipedClear() {
+                Toast.makeText(getActivity(), "data clear", Toast.LENGTH_SHORT).show();
+                recyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initData();
+                        recyclerView.getAdapter().notifyDataSetChanged();
                     }
-                }
+                }, 3000L);
             }
 
-            @Override
-            public void onFailure(HttpException error, String msg) {
-                finding_list_view.onRefreshComplete();
-                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-            }
         });
+        final ItemTouchHelper touchHelper = new ItemTouchHelper(cardCallback);
+        final CardLayoutManager cardLayoutManager = new CardLayoutManager(recyclerView, touchHelper);
+        recyclerView.setLayoutManager(cardLayoutManager);
+        touchHelper.attachToRecyclerView(recyclerView);
     }
+
+    private void initData() {
+        mList.add(R.mipmap.gril1);
+        mList.add(R.mipmap.gril2);
+        mList.add(R.mipmap.girl3);
+        mList.add(R.mipmap.girl4);
+
+    }
+
+//    private void loadDatas(final boolean direction) {
+//
+////        RequestParams params = new RequestParams();
+////
+////        ECApplication application = (ECApplication) getActivity().getApplication();
+////        params.addBodyParameter("sessionid", application.sessionId);
+////
+////        new HttpUtils().send(HttpRequest.HttpMethod.POST, FINDING_USER_DESTINY, params, new RequestCallBack<String>() {
+////
+////            @Override
+////            public void onSuccess(ResponseInfo<String> responseInfo) {
+////
+////                finding_list_view.onRefreshComplete();
+////                ResponseObject<ArrayList<FindingInfo>> object = new GsonBuilder().create().
+////                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ArrayList<FindingInfo>>>() {
+////                        }.getType());
+////
+////                if (object.getStatus() == 0) {
+////                    if (direction)// 头部刷新
+////                    {// 渲染内容到界面上
+////                        //清空原来的数据
+////                        mList = object.getResult();
+////
+////                        findingAdapter = new FindingAdapter(getActivity(), mList);
+////                        finding_list_view.setAdapter(findingAdapter);
+////
+////                    }
+////                }
+////            }
+////
+////            @Override
+////            public void onFailure(HttpException error, String msg) {
+////                finding_list_view.onRefreshComplete();
+////                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+////            }
+////        });
+//
+//        FindingInfo fi1 = new FindingInfo("1", 0.60f, 0.94f, 0.90f, 0.80f, 0.70f, 0.30f, 0.33f, 0.94f, "刘奕宁1", true, "123", 20, "学生");
+//        FindingInfo fi2 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁2", true, "123", 20, "教师");
+//
+//        mList.add(fi1);
+//        mList.add(fi2);
+//        findingAdapter = new FindingAdapter(getActivity(), mList);
+//                        finding_list_view.setAdapter(findingAdapter);
+//
+//        findingAdapter.setOnPipeiItemClickListener(new FindingAdapter.OnPiPeiItemClickListener() {
+//            @Override
+//            public void OnPiPeiItemClick(int position) {
+//                Intent intent = new Intent(getActivity(),FindingDataAnlaysisActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("findingdataitem", findingAdapter.getItem(position));
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//
+////                FindingInfo fi=mList.get(position);
+////
+////                startActivity(intent);
+//            }
+//        });
+//        //防止刷新获取数据时候，时间太短,而出现的bug,最后为0.001秒
+//            finding_list_view.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    finding_list_view.onRefreshComplete();
+//                }
+//            }, 1);
+//    }
 
     @OnClick({R.id.btn_finding_go})
     public void onClick(View v) {

@@ -12,7 +12,7 @@ public class ResultForRqstList {
     private List<Resultitem> Result;
     private String Sessionid;
 
-    public class Resultitem{
+    public class Resultitem {
         public String Id;
         public String Userid;
         public String Requestedid;

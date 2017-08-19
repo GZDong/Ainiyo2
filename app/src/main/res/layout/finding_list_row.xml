@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="120dp"
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="0dp"
@@ -38,8 +38,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
 
@@ -121,6 +121,7 @@
                     android:background="#90909090" />
 
                 <LinearLayout
+                    android:id="@+id/ll_finding_pipei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
