@@ -168,10 +168,10 @@ public class FindingFragment extends Fragment {
     }
 
     private void initData() {
-        mList.add(R.mipmap.gril1);
-        mList.add(R.mipmap.gril2);
-        mList.add(R.mipmap.girl3);
         mList.add(R.mipmap.girl4);
+        mList.add(R.mipmap.girl3);
+        mList.add(R.mipmap.gril2);
+        mList.add(R.mipmap.gril1);
 
     }
 
