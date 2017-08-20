@@ -50,7 +50,6 @@ import org.json.JSONObject;
 import java.io.File;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.huadi.android.ainiyo.R.id.job;
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
 public class MeFragment extends Fragment{

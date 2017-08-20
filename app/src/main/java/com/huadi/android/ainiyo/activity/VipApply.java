@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -53,6 +56,9 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
     @ViewInject(R.id.progress)
     private ProgressBar progress;
 
+    private ImageView image1_progress=(ImageView)findViewById(R.id.image1_progress);//
+    private ImageView image2_progress=(ImageView)findViewById(R.id.image2_progress);//旋转的进度圈
+    private ImageView image3_progress=(ImageView)findViewById(R.id.image3_progress);//
 
     private List<String> fi = new ArrayList<>();//
     private List<String> se = new ArrayList<>();//还未进行压缩的URL//
@@ -104,9 +110,6 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
                     if (change2) {
 
                         if (change3) {
-                            sendImages(done1);
-                            sendImages(done2);
-                            sendImages(done3);
                             RequestParams params = new RequestParams();
                             params.addBodyParameter("sessionid", sessionId);
                             params.addBodyParameter("url1", url1);
@@ -194,21 +197,45 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
     public void onCompressEnd(LGImgCompressor.CompressResult imageOutPath) {
         compressImages.add(imageOutPath.getOutPath());
         if (ima == fi) {
-            Glide.with(VipApply.this).load(R.drawable.chenggong).into(first);
             change1 = true;
             done1 = compressImages;
+            image1_progress.setVisibility(View.VISIBLE);
+            first.setVisibility(View.GONE);
+            ImageView imageView = (ImageView) findViewById(R.id.image1_progress);
+            //动画
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.img_animation);
+            LinearInterpolator lin = new LinearInterpolator();//设置动画匀速运动
+            animation.setInterpolator(lin);
+            imageView.startAnimation(animation);
+            sendImages(done1);
 
         }
         if (ima == se) {
-            Glide.with(VipApply.this).load(R.drawable.chenggong).into(second);
             change2 = true;
             done2 = compressImages;
+            image2_progress.setVisibility(View.VISIBLE);
+            second.setVisibility(View.GONE);
+            ImageView imageView = (ImageView) findViewById(R.id.image2_progress);
+            //动画
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.img_animation);
+            LinearInterpolator lin = new LinearInterpolator();//设置动画匀速运动
+            animation.setInterpolator(lin);
+            imageView.startAnimation(animation);
+            sendImages(done2);
 
         }
         if (ima == th) {
-            Glide.with(VipApply.this).load(R.drawable.chenggong).into(third);
             change3 = true;
             done3 = compressImages;
+            image3_progress.setVisibility(View.VISIBLE);
+            third.setVisibility(View.GONE);
+            ImageView imageView = (ImageView) findViewById(R.id.image3_progress);
+            //动画
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.img_animation);
+            LinearInterpolator lin = new LinearInterpolator();//设置动画匀速运动
+            animation.setInterpolator(lin);
+            imageView.startAnimation(animation);
+            sendImages(done3);
         }
 
 
@@ -231,17 +258,41 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
                     String msg = object.getString("Msg");
                     if (msg.equals("success")) {
                         if (images == done1) {
+                            image1_progress.setVisibility(View.GONE);
+                            first.setVisibility(View.VISIBLE);
+                            Glide.with(VipApply.this).load(R.drawable.chenggong).into(first);
                             url1 = result;
                         }
                         if (images == done2) {
+                            image2_progress.setVisibility(View.GONE);
+                            second.setVisibility(View.VISIBLE);
+                            Glide.with(VipApply.this).load(R.drawable.chenggong).into(second);
                             url2 = result;
                         }
                         if (images == done3) {
+                            image3_progress.setVisibility(View.GONE);
+                            third.setVisibility(View.VISIBLE);
+                            Glide.with(VipApply.this).load(R.drawable.chenggong).into(third);
                             url3 = result;
                         }
 
                     } else {
-                        Toast.makeText(VipApply.this, msg, Toast.LENGTH_SHORT).show();
+                        if (images == done1) {
+                            image1_progress.setVisibility(View.GONE);
+                            first.setVisibility(View.VISIBLE);
+                            Glide.with(VipApply.this).load(R.drawable.cuowu).into(first);
+                        }
+                        if (images == done2) {
+                            image2_progress.setVisibility(View.GONE);
+                            second.setVisibility(View.VISIBLE);
+                            Glide.with(VipApply.this).load(R.drawable.cuowu).into(second);
+                        }
+                        if (images == done3) {
+                            image3_progress.setVisibility(View.GONE);
+                            third.setVisibility(View.VISIBLE);
+                            Glide.with(VipApply.this).load(R.drawable.cuowu).into(third);
+                        }
+
                     }
 
 
