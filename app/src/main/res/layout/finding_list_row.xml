@@ -82,7 +82,7 @@
                         android:id="@+id/tv_finding_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="10dp"
                         android:text="刘奕宁"
                         android:textColor="#333030"
                         android:textSize="20sp" />
@@ -159,10 +159,10 @@
                         android:id="@+id/tv_finding_match_percent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="4dp"
                         android:text="96%"
                         android:textColor="#333030"
-                        android:textSize="25dp" />
+                        android:textSize="27dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
