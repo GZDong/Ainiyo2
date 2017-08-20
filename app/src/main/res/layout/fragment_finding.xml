@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.huadi.android.ainiyo.frag.FindingFragment">
+    tools:context="com.huadi.android.ainiyo.frag.FindingFragment"
+    android:weightSum="1"
+    android:background="@color/theme_red">
 
 
     <RelativeLayout
@@ -50,6 +52,9 @@
         android:background="@color/theme_red"
         android:id="@+id/finding_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="405dp"
+        android:layout_weight="2.13" />
 
+    <!--<include layout="@layout/finding_loul_buttons" />-->
+    <include layout="@layout/finding_wisdom" />
 </LinearLayout>

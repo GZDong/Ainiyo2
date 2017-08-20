@@ -1,13 +1,17 @@
 package com.huadi.android.ainiyo.adapter;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
@@ -27,6 +31,7 @@ public class FindingAdapter extends BaseAdapter {
     private ImageAdapter mAdapter;
     private Context mContext;
     private OnPiPeiItemClickListener mPiPeiItemClickListener;
+    private PopupWindow mPopWindow;
 
     public FindingAdapter(Context mContext, List<FindingInfo> list) {
         this.mContext = mContext;
@@ -87,8 +92,47 @@ public class FindingAdapter extends BaseAdapter {
                 mPiPeiItemClickListener.OnPiPeiItemClick(position);
             }
         });
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //设置contentView
+                View contentView = LayoutInflater.from(mContext).inflate(R.layout.mode_comment_delete_pop_window, null);
+                mPopWindow = new PopupWindow(contentView,
+                        WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+                mPopWindow.setContentView(contentView);
+                //设置各个控件的点击响应
+                TextView tv1 = (TextView) contentView.findViewById(R.id.pop_computer);
+                TextView tv2 = (TextView) contentView.findViewById(R.id.pop_financial);
+                tv1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Toast.makeText(ModeDetailNineGridActivity.this,"clicked Delete",Toast.LENGTH_SHORT).show();
+                        DeleteComment(position);
+                        mPopWindow.dismiss();
+                        //Toast.makeText(ModeDetailNineGridActivity.this,mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                tv2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Toast.makeText(ModeDetailNineGridActivity.this,"clicked cancel",Toast.LENGTH_SHORT).show();
+                        mPopWindow.dismiss();
+                    }
+                });
+                //显示PopupWindow
+                View rootview = LayoutInflater.from(mContext).inflate(R.layout.activity_finding_detail, null);
+                mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+                return false;
+            }
+        });
 
         return convertView;
+    }
+
+    private void DeleteComment(int position) {
+        mList.remove(position);
+        this.notifyDataSetChanged();
     }
 
     public void setOnPipeiItemClickListener(OnPiPeiItemClickListener listener) {

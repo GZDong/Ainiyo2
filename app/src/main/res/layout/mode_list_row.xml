@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     >
+
     <android.support.v7.widget.CardView
-        tools:targetApi="lollipop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -17,8 +17,10 @@
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="0dp"
+        app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="false"
-        app:cardPreventCornerOverlap="false">
+        tools:targetApi="lollipop">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,78 +28,76 @@
 
 
             >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/mode_pic_head"
-            android:layout_marginLeft="10dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/left_image"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FFF" />
+                <ImageView
+                    android:id="@+id/mode_pic_head"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="3dp"
+                    android:src="@drawable/left_image" />
 
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="7dp"
-    android:orientation="vertical"
-    >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:orientation="vertical">
 
-    <TextView
+                    <TextView
 
-        android:id="@+id/mode_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="David"
-        android:textColor="@color/blue"
-        android:textSize="18sp"
-        />
-    <TextView
-        android:id="@+id/mode_date"
-        android:paddingTop="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:text="一天前"
-        android:textSize="15sp"
-        />
+                        android:id="@+id/mode_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="David Joanthen"
+                        android:textColor="@color/blue"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/mode_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:paddingTop="1dp"
+                        android:text="June 1,2017"
+                        android:textSize="15sp" />
 
 
-</LinearLayout>
+                </LinearLayout>
 
 
-    </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/mode_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="12dp"
-                android:paddingRight="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="18dp"
                 android:layout_marginRight="20dp"
-                android:text="content"
+                android:layout_marginTop="10dp"
+                android:paddingRight="10dp"
+                android:text="contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
                 android:textColor="#322f2f"
                 android:textSize="17sp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/mode_pic_content"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="20dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_content_pic" />
+
+                <ImageView
+                    android:id="@+id/mode_pic_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_content_pic" />
                 <!--<TextView-->
                 <!--android:paddingLeft="15dp"-->
                 <!--android:paddingTop="3dp"-->
@@ -112,6 +112,44 @@
                 <!--android:background="@mipmap/gaosi"-->
                 <!--/>-->
             </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@mipmap/ic_mode_zan" />-->
+
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@mipmap/ic_mode_comment" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="7dp"
+                    android:text="10"
+                    android:textColor="#515151"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

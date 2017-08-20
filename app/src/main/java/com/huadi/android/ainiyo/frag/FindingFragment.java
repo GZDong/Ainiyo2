@@ -26,6 +26,7 @@ import com.huadi.android.ainiyo.adapter.FindingAdapter;
 import com.huadi.android.ainiyo.adapter.FindingCardSwlpeAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.FindingInfo;
+import com.huadi.android.ainiyo.entity.FindingLikeList;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
@@ -78,9 +79,14 @@ public class FindingFragment extends Fragment {
 
     @ViewInject(R.id.finding_recyclerView)
     private RecyclerView recyclerView;
+    private FindingCardSwlpeAdapter findingCardSwlpeAdapter;
+    //private FindingCardSwlpeAdapter.MyViewHolder myHolder1;
 
-    private List<Integer> mList = new ArrayList<>();
+    CardItemTouchHelperCallback cardCallback;
 
+    //private List<Integer> mList = new ArrayList<>();
+    private List<FindingInfo> mList = new ArrayList<>();
+    private FindingLikeList fll = new FindingLikeList();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -120,32 +126,36 @@ public class FindingFragment extends Fragment {
     }
 
     private void initView() {
+        findingCardSwlpeAdapter = new FindingCardSwlpeAdapter(getActivity(), mList);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(new FindingCardSwlpeAdapter(getActivity(), mList));
-        CardItemTouchHelperCallback cardCallback = new CardItemTouchHelperCallback(recyclerView.getAdapter(), mList);
-        cardCallback.setOnSwipedListener(new OnSwipeListener<Integer>() {
+        recyclerView.setAdapter(findingCardSwlpeAdapter);
+        cardCallback = new CardItemTouchHelperCallback(recyclerView.getAdapter(), mList);
+        cardCallback.setOnSwipedListener(new OnSwipeListener<FindingInfo>() {
 
             @Override
             public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
                 FindingCardSwlpeAdapter.MyViewHolder myHolder = (FindingCardSwlpeAdapter.MyViewHolder) viewHolder;
                 viewHolder.itemView.setAlpha(1 - Math.abs(ratio) * 0.2f);
-//                if (direction == CardConfig.SWIPING_LEFT) {
-//                    myHolder.dislikeImageView.setAlpha(Math.abs(ratio));
-//                } else if (direction == CardConfig.SWIPING_RIGHT) {
-//                    myHolder.likeImageView.setAlpha(Math.abs(ratio));
-//                } else {
-//                    myHolder.dislikeImageView.setAlpha(0f);
-//                    myHolder.likeImageView.setAlpha(0f);
-//                }
+                if (direction == CardConfig.SWIPING_LEFT) {
+                    myHolder.dislikeImageView.setAlpha(Math.abs(ratio));
+                } else if (direction == CardConfig.SWIPING_RIGHT) {
+                    myHolder.likeImageView.setAlpha(Math.abs(ratio));
+                } else {
+                    myHolder.dislikeImageView.setAlpha(0f);
+                    myHolder.likeImageView.setAlpha(0f);
+                }
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, Integer o, int direction) {
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, FindingInfo o, int direction) {
                 FindingCardSwlpeAdapter.MyViewHolder myHolder = (FindingCardSwlpeAdapter.MyViewHolder) viewHolder;
                 viewHolder.itemView.setAlpha(1f);
-//                myHolder.dislikeImageView.setAlpha(0f);
-//                myHolder.likeImageView.setAlpha(0f);
-                Toast.makeText(getActivity(), direction == CardConfig.SWIPED_LEFT ? "swiped left" : "swiped right", Toast.LENGTH_SHORT).show();
+                myHolder.dislikeImageView.setAlpha(0f);
+                myHolder.likeImageView.setAlpha(0f);
+                if (direction == CardConfig.SWIPED_RIGHT) {
+                    fll.mList.add(o);
+                }
+                Toast.makeText(getActivity(), direction == CardConfig.SWIPED_LEFT ? "不喜欢" : "喜欢", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -168,10 +178,20 @@ public class FindingFragment extends Fragment {
     }
 
     private void initData() {
-        mList.add(R.mipmap.girl4);
-        mList.add(R.mipmap.girl3);
-        mList.add(R.mipmap.gril2);
-        mList.add(R.mipmap.gril1);
+//        mList.add(R.mipmap.girl4);
+//        mList.add(R.mipmap.girl3);
+//        mList.add(R.mipmap.gril2);
+//        mList.add(R.mipmap.gril1);
+        FindingInfo fi1 = new FindingInfo("1", 0.60f, 0.94f, 0.90f, 0.80f, 0.70f, 0.30f, 0.33f, 0.94f, "刘奕宁1", true, "123", 20, "学生");
+        FindingInfo fi2 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁2", true, "123", 20, "教师");
+        FindingInfo fi3 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁3", true, "123", 20, "教师");
+        FindingInfo fi4 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁4", true, "123", 20, "教师");
+
+        mList.add(fi1);
+        mList.add(fi2);
+        mList.add(fi3);
+        mList.add(fi4);
+
 
     }
 
@@ -243,12 +263,23 @@ public class FindingFragment extends Fragment {
 //            }, 1);
 //    }
 
-    @OnClick({R.id.btn_finding_go})
+    @OnClick({R.id.btn_finding_go, R.id.iv_finding_left, R.id.iv_finding_right})
     public void onClick(View v) {
         switch (v.getId()) {
 
             case R.id.btn_finding_go:
-                startActivity(new Intent(getActivity(), FindingDataAnlaysisActivity.class));
+                Intent t = new Intent(getActivity(), FindingDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("findinglike", fll);
+                t.putExtras(bundle);
+                startActivity(t);
+                break;
+            case R.id.iv_finding_left:
+                //cardCallback.onSwiped(findingCardSwlpeAdapter.getViewHolder(),ItemTouchHelper.LEFT);
+                break;
+            case R.id.iv_finding_right:
+                //cardCallback.onSwiped(findingCardSwlpeAdapter.getViewHolder(),ItemTouchHelper.RIGHT);
+                break;
         }
 
     }
