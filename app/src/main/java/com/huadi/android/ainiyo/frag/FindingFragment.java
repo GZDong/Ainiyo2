@@ -120,7 +120,7 @@ public class FindingFragment extends Fragment {
 //        }).sendEmptyMessageDelayed(0, 200);
 
 */
-        initView();
+        //initView();
         initData();
         return view;
     }
@@ -178,19 +178,47 @@ public class FindingFragment extends Fragment {
     }
 
     private void initData() {
-//        mList.add(R.mipmap.girl4);
-//        mList.add(R.mipmap.girl3);
-//        mList.add(R.mipmap.gril2);
-//        mList.add(R.mipmap.gril1);
-        FindingInfo fi1 = new FindingInfo("1", 0.60f, 0.94f, 0.90f, 0.80f, 0.70f, 0.30f, 0.33f, 0.94f, "刘奕宁1", true, "123", 20, "学生");
-        FindingInfo fi2 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁2", true, "123", 20, "教师");
-        FindingInfo fi3 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁3", true, "123", 20, "教师");
-        FindingInfo fi4 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁4", true, "123", 20, "教师");
+//        FindingInfo fi1 = new FindingInfo("1", 0.60f, 0.94f, 0.90f, 0.80f, 0.70f, 0.30f, 0.33f, 0.94f, "刘奕宁1", true, "123", 20, "学生");
+//        FindingInfo fi2 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁2", true, "123", 20, "教师");
+//        FindingInfo fi3 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁3", true, "123", 20, "教师");
+//        FindingInfo fi4 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁4", true, "123", 20, "教师");
+//
+//        mList.add(fi1);
+//        mList.add(fi2);
+//        mList.add(fi3);
+//        mList.add(fi4);
 
-        mList.add(fi1);
-        mList.add(fi2);
-        mList.add(fi3);
-        mList.add(fi4);
+        mList.clear();
+        RequestParams params = new RequestParams();
+
+        ECApplication application = (ECApplication) getActivity().getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
+
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, FINDING_USER_DESTINY, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                ResponseObject<ArrayList<FindingInfo>> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ArrayList<FindingInfo>>>() {
+                        }.getType());
+
+                if (object.getStatus() == 0) {
+                    // 渲染内容到界面上
+                    //清空原来的数据
+                    mList = object.getResult();
+
+                    initView();
+
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+
+                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }

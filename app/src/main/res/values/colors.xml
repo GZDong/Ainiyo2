@@ -13,4 +13,5 @@
     <color name="edit">#c2c1c1</color>
     <color name="theme_statusBar_red">#2b5caa</color>
     <color name="theme_statusBar_red1">#812b36</color>
+    <color name="finding_data_text_color">#3d3a3a</color>
 </resources>

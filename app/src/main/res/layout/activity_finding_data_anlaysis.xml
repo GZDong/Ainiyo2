@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#1e252b"
     android:orientation="vertical"
     android:id="@+id/finding_data_background"
     android:weightSum="1">
@@ -28,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="匹配度:"
-                android:textColor="@color/white"
+                android:textColor="@color/finding_data_text_color"
 
                 />
 
@@ -44,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:text="爱好:"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_hobby_score"
@@ -52,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:text="0.95"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
             </LinearLayout>
 
@@ -68,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:text="工作:"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_job_score"
@@ -76,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:text="0.94"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
             </LinearLayout>
 
@@ -92,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:text="住处:"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_live_score"
@@ -100,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:text="0.94"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:text="年龄:"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_age_score"
@@ -123,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:text="0.94"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
             </LinearLayout>
 
@@ -139,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:text="性格:"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_character_score"
@@ -147,7 +146,7 @@
                     android:layout_height="wrap_content"
                     android:text="0.94"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
             </LinearLayout>
 
             <LinearLayout
@@ -162,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:text="情感:"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_emotion_score"
@@ -170,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:text="0.94"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
             </LinearLayout>
 
@@ -186,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:text="颜值:"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_beauty_score"
@@ -194,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:text="0.94"
                     android:textSize="20dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/finding_data_text_color" />
 
             </LinearLayout>
         </RelativeLayout>
@@ -203,14 +202,14 @@
             android:id="@+id/windRoseDiagramView"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            app:anchorColor="#fff"
+            app:anchorColor="#302c2c"
             app:anchorWidth="4dp"
             app:windRoseBackgroundColor="#00000000"
             app:foregroundColor="#881888ec"
-            app:outlineColor="#ccffffff"
-            app:outlineWidth="1dp"
+            app:outlineColor="#cc323131"
+            app:outlineWidth="1.5dp"
             app:windRoseStartAngle="90"
-            app:windRoseTextColor="#ccffffff"
+            app:windRoseTextColor="#cc1e1c1c"
             app:windRoseTextSize="15sp"
             app:touchSlop="24dp" />
 

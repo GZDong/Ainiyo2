@@ -8,35 +8,35 @@ import java.io.Serializable;
 
 public class FindingInfo implements Serializable {
     private String Id;
-    private float summary;
-    private float beauty;
-    private float hobby;
-    private float jobscore;
-    private float residence;
-    private float agescore;
-    private float impression;
-    private float emotion;
-    private String name;
-    private boolean isVip;
-    private String avatar;
-    private int age;
-    private String job;
+    private float Summary;
+    private float Beauty;
+    private float Hobby;
+    private float Jobscore;
+    private float Residence;
+    private float Agescore;
+    private float Impression;
+    private float Emotion;
+    private String Name;
+    private boolean IsVip;
+    private String Avatar;
+    private int Age;
+    private String Job;
 
     public FindingInfo(String id, float summary, float beauty, float hobby, float jobscore, float residence, float agescore, float impression, float emotion, String name, boolean isVip, String avatar, int age, String job) {
-        this.Id = id;
-        this.summary = summary;
-        this.beauty = beauty;
-        this.hobby = hobby;
-        this.jobscore = jobscore;
-        this.residence = residence;
-        this.agescore = agescore;
-        this.impression = impression;
-        this.emotion = emotion;
-        this.name = name;
-        this.isVip = isVip;
-        this.avatar = avatar;
-        this.age = age;
-        this.job = job;
+        Id = id;
+        Summary = summary;
+        Beauty = beauty;
+        Hobby = hobby;
+        Jobscore = jobscore;
+        Residence = residence;
+        Agescore = agescore;
+        Impression = impression;
+        Emotion = emotion;
+        Name = name;
+        IsVip = isVip;
+        Avatar = avatar;
+        Age = age;
+        Job = job;
     }
 
     public String getId() {
@@ -48,106 +48,106 @@ public class FindingInfo implements Serializable {
     }
 
     public float getSummary() {
-        return summary;
+        return Summary;
     }
 
     public void setSummary(float summary) {
-        this.summary = summary;
+        Summary = summary;
     }
 
     public float getBeauty() {
-        return beauty;
+        return Beauty;
     }
 
     public void setBeauty(float beauty) {
-        this.beauty = beauty;
+        Beauty = beauty;
     }
 
     public float getHobby() {
-        return hobby;
+        return Hobby;
     }
 
     public void setHobby(float hobby) {
-        this.hobby = hobby;
+        Hobby = hobby;
     }
 
     public float getJobscore() {
-        return jobscore;
+        return Jobscore;
     }
 
     public void setJobscore(float jobscore) {
-        this.jobscore = jobscore;
+        Jobscore = jobscore;
     }
 
     public float getResidence() {
-        return residence;
+        return Residence;
     }
 
     public void setResidence(float residence) {
-        this.residence = residence;
+        Residence = residence;
     }
 
     public float getAgescore() {
-        return agescore;
+        return Agescore;
     }
 
     public void setAgescore(float agescore) {
-        this.agescore = agescore;
+        Agescore = agescore;
     }
 
     public float getImpression() {
-        return impression;
+        return Impression;
     }
 
     public void setImpression(float impression) {
-        this.impression = impression;
+        Impression = impression;
     }
 
     public float getEmotion() {
-        return emotion;
+        return Emotion;
     }
 
     public void setEmotion(float emotion) {
-        this.emotion = emotion;
+        Emotion = emotion;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 
     public boolean isVip() {
-        return isVip;
+        return IsVip;
     }
 
     public void setVip(boolean vip) {
-        isVip = vip;
+        IsVip = vip;
     }
 
     public String getAvatar() {
-        return avatar;
+        return Avatar;
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar;
+        Avatar = avatar;
     }
 
     public int getAge() {
-        return age;
+        return Age;
     }
 
     public void setAge(int age) {
-        this.age = age;
+        Age = age;
     }
 
     public String getJob() {
-        return job;
+        return Job;
     }
 
     public void setJob(String job) {
-        this.job = job;
+        Job = job;
     }
 }
