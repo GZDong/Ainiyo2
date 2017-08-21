@@ -169,6 +169,8 @@
         <activity android:name=".activity.FindingDataAnlaysisActivity" />
         <activity android:name=".activity.FindingUserInfoActivity" />
         <activity android:name=".activity.MovementJoinedActivity" />
+        <activity android:name=".activity.DeleteFriendActivity"
+            android:parentActivityName=".activity.FriendsListActivity"/>
     </application>
 
 </manifest>

@@ -308,7 +308,25 @@ public class FriendsLab {
         }
         return null;
     }
+    //删除会话
+    public void deleteDialog(String name){
+        for (Friends friends: mFriendses){
+            if (friends.getName().equals(name)){
+                friends.setShowInChooseFragment(false);
+                friends.save();
+            }
+        }
+    }
+    //删除好友
+    public void deleteFriends(String name){
+        //数据库删除数据
+        for (Friends friends: mFriendses){
+            if (friends.getName().equals(name)){
+                DataSupport.deleteAll(Friends.class,"name = ?",name);
+                mFriendses.remove(friends);  //单例移除
+            }
+        }
+        //服务器删除数据
 
-    /*String name =  FriendsLab.get(LoginActivity.this).findNameById(id);
-    String url = FriendsLab.get(LoginActivity.this).findUrlById(id);*/
+    }
 }
