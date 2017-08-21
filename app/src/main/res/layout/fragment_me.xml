@@ -83,7 +83,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/youjiantou"
+                    android:src="@drawable/right_arrow"
                     android:layout_gravity="center_vertical" />
 
             </LinearLayout>
@@ -124,7 +124,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/youjiantou"
+                    android:src="@drawable/right_arrow"
                     android:layout_gravity="center_vertical" />
 
             </LinearLayout>
@@ -159,7 +159,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/youjiantou"
+                    android:src="@drawable/right_arrow"
                     android:layout_gravity="center_vertical" />
 
             </LinearLayout>
@@ -191,7 +191,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/youjiantou"
+                    android:src="@drawable/right_arrow"
                     android:layout_gravity="center_vertical" />
 
             </LinearLayout>
@@ -225,7 +225,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/youjiantou"
+                    android:src="@drawable/right_arrow"
                     android:layout_gravity="center_vertical" />
 
             </LinearLayout>
@@ -269,7 +269,7 @@
                     android:layout_width="50dp"
                     android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/youjiantou" />
+                    android:src="@drawable/right_arrow" />
 
             </LinearLayout>
             <TextView
@@ -303,7 +303,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/youjiantou"
+                    android:src="@drawable/right_arrow"
                     android:layout_gravity="center_vertical" />
 
             </LinearLayout>
