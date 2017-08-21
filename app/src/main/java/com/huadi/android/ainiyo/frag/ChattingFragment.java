@@ -380,14 +380,14 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         }
 
         private void initClick() {
-            leftImage.setOnClickListener(new View.OnClickListener() {
+            rightImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                 }
             });
 
-            rightImage.setOnClickListener(new View.OnClickListener() {
+            leftImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), FriendsInfoActivity.class);
@@ -424,32 +424,32 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
             if (msg.getFrom().equals(mChatId)) {   //mChatId是目标的id
 
-                holder.leftLayout.setVisibility(View.GONE);
-                holder.rightLayout.setVisibility(View.VISIBLE);
+                holder.rightLayout.setVisibility(View.GONE);
+                holder.leftLayout.setVisibility(View.VISIBLE);
 
                 //加载图片
                 //  Glide.with(getActivity()).load(bm).fitCenter().into(holder.rightImage);
                 if (!TextUtils.isEmpty(friends.getPicUrl())) {
-                    Glide.with(ChattingFragment.this).load(friends.getPicUrl()).into(holder.rightImage);
+                    Glide.with(ChattingFragment.this).load(friends.getPicUrl()).into(holder.leftImage);
                 } else {
                     Bitmap bm = BitmapFactory.decodeResource(getResources(), mImage);
-                    holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
+                    holder.leftImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
                 }
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
-                holder.rightMsg.setText(body.getMessage());
+                holder.leftMsg.setText(body.getMessage());
 
             }else {
 
-                holder.rightLayout.setVisibility(View.GONE);
-                holder.leftLayout.setVisibility(View.VISIBLE);
+                holder.leftLayout.setVisibility(View.GONE);
+                holder.rightLayout.setVisibility(View.VISIBLE);
 
                 Bitmap bm = BitmapFactory.decodeResource(getResources(),userImage);
                 //加载图片
-                holder.leftImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
+                holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
                 //Glide.with(getActivity()).load(bm).fitCenter().into(holder.leftImage);
 
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
-                holder.leftMsg.setText(body.getMessage());
+                holder.rightMsg.setText(body.getMessage());
             }
         }
 

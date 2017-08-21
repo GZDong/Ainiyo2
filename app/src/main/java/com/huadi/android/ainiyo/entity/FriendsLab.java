@@ -53,6 +53,9 @@ public class FriendsLab {
         }
         return sFriendsLab;
     }
+    public static FriendsLab get(Context context) {
+        return sFriendsLab;
+    }
 
     private FriendsLab(Context context, UserInfo userInfo) {
         mContext = context.getApplicationContext();
@@ -121,7 +124,7 @@ public class FriendsLab {
                                             Log.e("test", "好友的id：" + resultForFriend.getName());
                                             Log.e("test", "好友的Url为：" + resultForFriend.getAvatar());
                                             Log.e("test", "此时的用户id为：" + mUserInfo.getUsername());
-                                            Friends friends = new Friends(mUserInfo.getUsername(), resultForFriend.getName(), resultForFriend.getAvatar());
+                                            Friends friends = new Friends(mUserInfo.getUsername(), resultForFriend.getName(), resultForFriend.getAvatar(),resultForFriend.getId());
                                             mmFriendses.add(friends);
                                         }
                                         //获得数据后先获得每个好友的未读信息，后存入数据库
@@ -288,4 +291,24 @@ public class FriendsLab {
             }
         }
     }
+
+    public String findNameById(String id){
+        for (Friends friends : mFriendses){
+            if (friends.getFriId().equals(id)){
+                return friends.getName();
+            }
+        }
+        return null;
+    }
+    public String findUrlById(String id){
+        for (Friends friends : mFriendses){
+            if (friends.getFriId().equals(id)){
+                return friends.getPicUrl();
+            }
+        }
+        return null;
+    }
+
+    /*String name =  FriendsLab.get(LoginActivity.this).findNameById(id);
+    String url = FriendsLab.get(LoginActivity.this).findUrlById(id);*/
 }

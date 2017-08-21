@@ -7,7 +7,7 @@
         android:id="@+id/toolbar_choose"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#F3485D"
+        android:background="@color/theme_blue"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/refuse"
-        android:background="@color/theme_blue"
+        android:background="@color/theme_red"
         android:layout_marginBottom="44dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

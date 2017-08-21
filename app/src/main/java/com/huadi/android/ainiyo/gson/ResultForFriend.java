@@ -16,4 +16,8 @@ public class ResultForFriend {
     public String getAvatar() {
         return Avatar;
     }
+
+    public String getId() {
+        return Id;
+    }
 }

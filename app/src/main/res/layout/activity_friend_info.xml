@@ -135,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/send_msg"
-            android:background="#d26165"
+            android:background="@color/soothing_blue"
             android:textColor="#FFF" />
 
 
