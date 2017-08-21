@@ -138,7 +138,7 @@ public class MeFragment extends Fragment{
         return view;
     }
 
-    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever,R.id.joined_activity})
+    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever, R.id.joined_activity})
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:

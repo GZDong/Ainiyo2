@@ -43,8 +43,7 @@ public class FindingDetailActivity extends AppCompatActivity {
 
     @ViewInject(R.id.finding_detail_list_view)
     private PullToRefreshListView finding_detail_list_view;
-    @ViewInject(R.id.btn_finding_detail_add)
-    private ImageView btn_finding_detail_add;
+    
 
     private FindingLikeList fll;
 
