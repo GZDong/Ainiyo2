@@ -8,7 +8,7 @@
         android:id="@+id/toolbar_add_friend"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#F3485D"
+        android:background="@color/theme_red"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
