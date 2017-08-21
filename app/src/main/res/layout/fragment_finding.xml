@@ -6,14 +6,14 @@
     android:orientation="vertical"
     tools:context="com.huadi.android.ainiyo.frag.FindingFragment"
     android:weightSum="1"
-    android:background="@color/theme_red">
+    android:background="@color/theme_blue">
 
 
     <RelativeLayout
         android:id="@+id/title_bar_finding"
         android:layout_width="match_parent"
         android:layout_height="@dimen/titile_bar_height"
-        android:background="@color/theme_red">
+        android:background="@color/theme_blue">
 
 
 
@@ -49,12 +49,15 @@
     <!--android:layout_weight="1"></com.handmark.pulltorefresh.library.PullToRefreshListView>-->
 
     <android.support.v7.widget.RecyclerView
-        android:background="@color/theme_red"
         android:id="@+id/finding_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="405dp"
-        android:layout_weight="2.13" />
+        android:background="@color/theme_blue" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <!--<include layout="@layout/finding_loul_buttons" />-->
     <include layout="@layout/finding_wisdom" />
+    </LinearLayout>
 </LinearLayout>

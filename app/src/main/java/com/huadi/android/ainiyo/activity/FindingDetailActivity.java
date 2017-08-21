@@ -165,10 +165,11 @@ public class FindingDetailActivity extends AppCompatActivity {
         }
     }
 
-    @OnItemClick({R.id.finding_detail_list_view})
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(FindingDetailActivity.this, "position:  " + String.valueOf(position), Toast.LENGTH_SHORT).show();
-
-    }
+//    @OnItemClick({R.id.finding_detail_list_view})
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//       startActivity(new Intent(FindingDetailActivity.this,FindingUserInfoActivity.class));
+//        Toast.makeText(FindingDetailActivity.this, "position:  " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+//
+//    }
 
 }

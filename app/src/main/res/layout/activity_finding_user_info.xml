@@ -3,21 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
 
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/theme_blue"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></android.support.v7.widget.Toolbar>
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:background="@color/theme_blue">
+
+            <ImageView
+                android:id="@+id/iv_finding_userinfo_back"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:src="@mipmap/back" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
@@ -27,18 +33,18 @@
             >
 
             <ImageView
-                app:srcCompat="@drawable/placeholder360x160"
-                android:id="@+id/background"
+                app:srcCompat="@mipmap/girl3"
+                android:id="@+id/iv_finding_userinfo_background"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/background2" />
+                android:src="@mipmap/girl3" />
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/imageView"
+                android:id="@+id/iv_finding_userinfo_avatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/placeholder100x100"
+                android:src="@mipmap/girl4"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FFF"
                 android:layout_gravity="center_horizontal"
@@ -53,10 +59,10 @@
             android:layout_weight="1">
 
             <TextView
-                android:text="NAME"
+                android:text="刘奕宁"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/NameTextView"
+                android:id="@+id/tv_finding_userinfo_username"
                 android:textSize="30sp"
                 android:layout_gravity="center_horizontal"
                 android:padding="5dp"
@@ -66,7 +72,7 @@
                 android:text="运气绝不是守株待兔等来的！"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/signField"
+                android:id="@+id/tv_finding_userinfo_signField"
                 android:textColor="#696969"
                 android:textSize="20sp"
                 android:layout_marginLeft="5dp"
@@ -77,7 +83,7 @@
                 android:text="女 25 成都"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/describe"
+                android:id="@+id/tv_finding_userinfo_describe"
                 android:textAlignment="center"
                 android:textSize="15sp"
                 android:padding="5dp" />
@@ -87,7 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"
-                android:id="@+id/list"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/ll_finding_userinfo"
                 android:divider="?android:attr/dividerVertical"
                 android:showDividers="beginning" />
 
@@ -96,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
                 android:divider="?android:attr/dividerHorizontal"
                 android:showDividers="beginning">
 
@@ -104,74 +112,44 @@
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/bb6" />
+                    android:src="@mipmap/girl1" />
 
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/bb2" />
+                    android:src="@mipmap/girl2" />
 
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/bb3" />
+                    android:src="@mipmap/girl3" />
 
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/bb5" />
+                    android:src="@mipmap/girl4" />
             </LinearLayout>
 
         </LinearLayout>
 
         <Button
-            android:text="@string/send_chat_request"
+            android:text="添加好友"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/send_msg"
+            android:id="@+id/btn_finding_add_friend"
             android:background="#d26165"
             android:textColor="#FFF" />
 
 
     </LinearLayout>
+
 </ScrollView>
 
-    <!--
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="109dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/right_image"
-            android:id="@+id/imageView"/>
 
-        <Button
-            android:id="@+id/send_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="114dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/send_chat_request"/>
-
-        <TextView
-            android:id="@+id/NameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="21dp"
-            android:text="TextView"/>
-
-    </RelativeLayout>-->

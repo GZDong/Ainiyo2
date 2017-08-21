@@ -71,7 +71,7 @@ public class ModeFragment extends Fragment {
     private ModeAdapter mAdapter;
     private int page = 1;
     private int pagesize = 20;
-    private int pagecount = 1;
+    private int pagecount = 10;
     private static final int REQUEST_CODE = 0x00000012;
     private static final String phourl = "http://120.24.168.102:8080/getalumb?sessionid=5ca6b5f4b438030f123fb149ff19fd8769365789";
 
@@ -121,8 +121,8 @@ public class ModeFragment extends Fragment {
         //获得sessionId，保存在Application里作为全局变量
         ECApplication application = (ECApplication) getActivity().getApplication();
         params.addBodyParameter("sessionid", application.sessionId);
-        params.addBodyParameter("page", "0");
-        params.addBodyParameter("pagesize", "10");
+        params.addBodyParameter("page", String.valueOf(page));
+        params.addBodyParameter("pagesize", "3");
         params.addBodyParameter("type", "1");
 
         new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
@@ -160,7 +160,7 @@ public class ModeFragment extends Fragment {
                             ModeInfo mi;
                             mi = gson.fromJson(mwd1.getContent(), type);
 
-                            ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
+                            ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate(), sum);
                             mList.add(mld);
                         }
 
@@ -186,6 +186,28 @@ public class ModeFragment extends Fragment {
                         });
                     } else {// 尾部刷新
                         //mList.addAll(object.getDatas());
+                        ArrayList<Integer> idorder = new ArrayList<Integer>();
+                        mwd = object.getResult().getData();
+                        int sum = object.getResult().getSum();
+                        ModeWebData mwd1;
+                        for (int i = sum - 1; i >= 0; i--) {
+                            mwd1 = mwd[i];
+
+                            idorder.add(mwd1.getId());
+                            ToolKits.appendInteger(getActivity(), "Integer", idorder);
+
+                            int userid = mwd1.getUserid();
+                            String content = mwd1.getContent();
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<ModeInfo>() {
+                            }.getType();
+                            ModeInfo mi;
+                            mi = gson.fromJson(mwd1.getContent(), type);
+
+                            ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate(), sum);
+                            mList.add(mld);
+                        }
+
                         mAdapter.notifyDataSetChanged();
                     }
                     if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了

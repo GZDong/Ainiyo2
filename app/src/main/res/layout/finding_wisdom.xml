@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal|bottom"
-    android:layout_marginBottom="40dp"
+    android:layout_marginTop="5dp"
     android:orientation="vertical"
-    android:background="@color/theme_red"
+    android:background="@color/theme_blue"
     android:paddingLeft="50dp"
     android:paddingRight="50dp">
 
@@ -15,6 +14,7 @@
         android:src="@mipmap/ic_finding_quote" />
 
     <TextView
+        android:id="@+id/tv_finding_aphorism_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="生命在他里头,这生命就是人的光.光照在了黑暗里,黑暗却不接受光"
@@ -23,6 +23,7 @@
         android:textColor="@color/white" />
 
     <TextView
+        android:id="@+id/tv_finding_aphorism_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

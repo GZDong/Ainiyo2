@@ -14,10 +14,12 @@ import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.FindingDataAnlaysisActivity;
+import com.huadi.android.ainiyo.activity.FindingUserInfoActivity;
 import com.huadi.android.ainiyo.entity.FindingInfo;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +57,7 @@ public class FindingCardSwlpeAdapter extends RecyclerView.Adapter {
         //ImageView avatarImageView = ((MyViewHolder) holder).avatarImageView;
         //myHolder.avatarImageView.setImageResource(mList.get(position));
 
+        DecimalFormat df = new DecimalFormat("#.##");
         FindingInfo findingInfo = mList.get(position);
         if (findingInfo.getAge() != 0) {
             myHolder.iv_finding_age.setText(String.valueOf(findingInfo.getAge()));
@@ -69,6 +72,9 @@ public class FindingCardSwlpeAdapter extends RecyclerView.Adapter {
         if (findingInfo.getJob() != null) {
             myHolder.tv_finding_job.setText(findingInfo.getJob());
         }
+        if (findingInfo.getSummary() != 0) {
+            myHolder.tv_finding_match_percent.setText(String.valueOf(df.format(findingInfo.getSummary())));
+        }
 //        if(findingInfo.getAvatar()!=null)
 //        {
 //            Glide.with(parent.getContext()).load(findingInfo.getAvatar()).into(holder.iv_finding_pic);
@@ -76,7 +82,9 @@ public class FindingCardSwlpeAdapter extends RecyclerView.Adapter {
         myHolder.myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "position: " + String.valueOf(0) + "view: " + mList.get(0).getName(), Toast.LENGTH_SHORT).show();
+                mContext.startActivity(new Intent(mContext, FindingUserInfoActivity.class));
+
+                //Toast.makeText(mContext, "position: " + String.valueOf(0) + "view: " + mList.get(0).getName(), Toast.LENGTH_SHORT).show();
             }
         });
 

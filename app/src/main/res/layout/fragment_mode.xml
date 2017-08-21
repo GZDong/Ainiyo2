@@ -10,7 +10,7 @@
         android:id="@+id/title_bar_mode"
         android:layout_width="match_parent"
         android:layout_height="@dimen/titile_bar_height"
-        android:background="@color/theme_red">
+        android:background="@color/theme_blue">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
 

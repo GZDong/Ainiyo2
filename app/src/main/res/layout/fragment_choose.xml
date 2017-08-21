@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:gravity="center_vertical"
-        android:background="@color/theme_red"
+        android:background="@color/theme_blue"
         >
         <TextView
             android:layout_width="0dp"

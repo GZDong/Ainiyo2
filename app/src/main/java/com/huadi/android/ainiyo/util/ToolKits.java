@@ -86,7 +86,18 @@ public class ToolKits {
 		editor.commit();
 	}
 
-	public static ArrayList<Integer> fetchInteger(Context context, String key) {
+    public static void appendInteger(Context context, String key, ArrayList<Integer> value) {
+        SharedPreferences sharedPreferences = getSharedPreferences(context);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        ArrayList<Integer> mList = fetchInteger(context, key);
+        value.addAll(mList);
+        Gson gson = new Gson();
+        String json = gson.toJson(value);
+        editor.putString(key, json);
+        editor.commit();
+    }
+
+    public static ArrayList<Integer> fetchInteger(Context context, String key) {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		SharedPreferences.Editor editor = sharedPreferences.edit();

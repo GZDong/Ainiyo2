@@ -11,12 +11,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -25,6 +27,7 @@ import com.huadi.android.ainiyo.activity.FindingDetailActivity;
 import com.huadi.android.ainiyo.adapter.FindingAdapter;
 import com.huadi.android.ainiyo.adapter.FindingCardSwlpeAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FindingAphorism;
 import com.huadi.android.ainiyo.entity.FindingInfo;
 import com.huadi.android.ainiyo.entity.FindingLikeList;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
@@ -65,6 +68,7 @@ import me.yuqirong.cardswipelayout.CardLayoutManager;
 import me.yuqirong.cardswipelayout.OnSwipeListener;
 
 import static com.huadi.android.ainiyo.util.CONST.FINDING_USER_DESTINY;
+import static com.huadi.android.ainiyo.util.CONST.GETING_APHORISM;
 import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
 
 
@@ -79,6 +83,11 @@ public class FindingFragment extends Fragment {
 
     @ViewInject(R.id.finding_recyclerView)
     private RecyclerView recyclerView;
+    @ViewInject(R.id.tv_finding_aphorism_name)
+    private TextView tv_finding_aphorism_name;
+    @ViewInject(R.id.tv_finding_aphorism_content)
+    private TextView tv_finding_aphorism_content;
+
     private FindingCardSwlpeAdapter findingCardSwlpeAdapter;
     //private FindingCardSwlpeAdapter.MyViewHolder myHolder1;
 
@@ -87,6 +96,9 @@ public class FindingFragment extends Fragment {
     //private List<Integer> mList = new ArrayList<>();
     private List<FindingInfo> mList = new ArrayList<>();
     private FindingLikeList fll = new FindingLikeList();
+
+    private Handler handle;
+    public static final int UPDATE_CONTENT = 1001;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -121,7 +133,20 @@ public class FindingFragment extends Fragment {
 
 */
         //initView();
+        initAphorism();
         initData();
+
+        handle = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case UPDATE_CONTENT:
+                        FindingAphorism fa = (FindingAphorism) msg.obj;
+                        tv_finding_aphorism_content.setText(fa.getContent());
+                        tv_finding_aphorism_name.setText("——" + fa.getAuthor());
+                }
+            }
+        };
         return view;
     }
 
@@ -152,6 +177,9 @@ public class FindingFragment extends Fragment {
                 viewHolder.itemView.setAlpha(1f);
                 myHolder.dislikeImageView.setAlpha(0f);
                 myHolder.likeImageView.setAlpha(0f);
+
+                initAphorism();
+
                 if (direction == CardConfig.SWIPED_RIGHT) {
                     fll.mList.add(o);
                 }
@@ -176,6 +204,39 @@ public class FindingFragment extends Fragment {
         recyclerView.setLayoutManager(cardLayoutManager);
         touchHelper.attachToRecyclerView(recyclerView);
     }
+
+    private void initAphorism() {
+        RequestParams params = new RequestParams();
+
+        ECApplication application = (ECApplication) getActivity().getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
+        new HttpUtils().send(HttpMethod.POST, GETING_APHORISM, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                final ResponseObject<FindingAphorism> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<FindingAphorism>>() {
+                        }.getType());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Message message = new Message();
+                        message.what = UPDATE_CONTENT;
+                        message.obj = object.getResult();
+                        handle.sendMessage(message);
+                    }
+                }).start();
+
+
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+
+            }
+        });
+    }
+
 
     private void initData() {
 //        FindingInfo fi1 = new FindingInfo("1", 0.60f, 0.94f, 0.90f, 0.80f, 0.70f, 0.30f, 0.33f, 0.94f, "刘奕宁1", true, "123", 20, "学生");

@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/refuse"
-        android:background="@color/theme_red"
+        android:background="@color/theme_blue"
         android:layout_marginBottom="44dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

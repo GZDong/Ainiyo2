@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:background="@color/theme_red">
+        android:background="@color/theme_blue">
 
         <ImageView
             android:id="@+id/mode_detail_nine_grid_back"
@@ -93,17 +93,17 @@
                             android:id="@+id/tv_createTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="9dp"
+                            android:layout_marginTop="13dp"
                             android:text="2017-08-12 12:30"
                             android:textColor="#8e8e8e"
-                            android:textSize="12sp"
+                            android:textSize="16sp"
                             android:layout_alignParentLeft="true" />
 
                         <ImageView
                             android:id="@+id/btn_mode_nine_grid_comment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="9dp"
+                            android:layout_marginTop="13dp"
                             android:layout_alignParentRight="true"
                             android:background="@mipmap/ic_mode_nine_detail_coment" />
 
