@@ -13,7 +13,7 @@
             android:id="@+id/back"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/zuojiantou"
+            android:src="@drawable/left_arrow"
             android:padding="5dp" />
 
         <TextView

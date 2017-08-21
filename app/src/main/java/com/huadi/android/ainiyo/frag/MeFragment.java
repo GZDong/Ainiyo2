@@ -24,6 +24,7 @@ import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.EditInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
+import com.huadi.android.ainiyo.activity.MovementJoinedActivity;
 import com.huadi.android.ainiyo.activity.PhotoActivity;
 import com.huadi.android.ainiyo.activity.VipApply;
 import com.huadi.android.ainiyo.activity.VipHint;
@@ -64,6 +65,8 @@ public class MeFragment extends Fragment{
     private LinearLayout vipapply;
     @ViewInject(R.id.vip_lever)
     private LinearLayout vip_lever;
+    @ViewInject(R.id.joined_activity)
+    private LinearLayout joined_activity;
     private TextView te;
     private TextView job_text;
     private TextView vip_text;
@@ -135,7 +138,7 @@ public class MeFragment extends Fragment{
         return view;
     }
 
-    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever})
+    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever,R.id.joined_activity})
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
@@ -146,6 +149,9 @@ public class MeFragment extends Fragment{
                break;
            case R.id.xiangce:
                startActivity(new Intent(getActivity(),PhotoActivity.class));
+               break;
+           case R.id.joined_activity:
+               startActivity(new Intent(getActivity(), MovementJoinedActivity.class));
                break;
            case R.id.vipapply:
                RequestParams params = new RequestParams();

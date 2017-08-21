@@ -15,7 +15,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
-
     private Context mContext;
     private ArrayList<String> mImages;
     private LayoutInflater mInflater;
