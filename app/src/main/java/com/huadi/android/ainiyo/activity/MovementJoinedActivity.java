@@ -65,7 +65,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joined_movement);
         ViewUtils.inject(this);
-        Toast.makeText(this,"created",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"created",Toast.LENGTH_SHORT).show();
         // Set a listener to be invoked when the list should be refreshed.
         movement_list_view.setMode(PullToRefreshBase.Mode.BOTH);
         movement_list_view.setScrollingWhileRefreshingEnabled(true);

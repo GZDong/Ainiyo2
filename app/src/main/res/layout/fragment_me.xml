@@ -205,17 +205,18 @@
                 android:layout_marginTop="-18dp" />
 
             <LinearLayout
+                android:id="@+id/joined_activity"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="参加活动"
-                    android:textSize="17sp"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="15dp"
+                    android:text="参加活动"
                     android:textColor="#0b0b0b"
-                    android:layout_gravity="center_vertical" />
+                    android:textSize="17sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -225,8 +226,8 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/right_arrow"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/right_arrow" />
 
             </LinearLayout>
 

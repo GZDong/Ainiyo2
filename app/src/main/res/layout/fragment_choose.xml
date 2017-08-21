@@ -26,8 +26,8 @@
             android:id="@+id/btn_friends"
             android:layout_width="53dp"
             android:layout_height="match_parent"
-            android:background="#f3485d"
-            android:src="@mipmap/ic_per"/>
+            android:background="@color/theme_red"
+            android:src="@drawable/ic_contact" />
 
 
     </LinearLayout>
