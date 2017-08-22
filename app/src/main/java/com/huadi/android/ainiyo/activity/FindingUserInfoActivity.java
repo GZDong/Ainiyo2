@@ -34,7 +34,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
         ViewUtils.inject(this);
 
         final Intent t = getIntent();
-        FindingInfo fi = (FindingInfo) t.getSerializableExtra("findingusername");
+        FindingInfo fi = (FindingInfo) t.getSerializableExtra("findinginfo");
 
         tv_finding_userinfo_username.setText(fi.getName());
 

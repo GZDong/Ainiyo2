@@ -83,7 +83,7 @@ public class FindingCardSwlpeAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 Intent t = new Intent(mContext, FindingUserInfoActivity.class);
-                t.putExtra("findingusername", findingInfo);
+                t.putExtra("findinginfo", findingInfo);
                 mContext.startActivity(t);
                 //Toast.makeText(mContext, "position: " + String.valueOf(0) + "view: " + mList.get(0).getName(), Toast.LENGTH_SHORT).show();
             }
