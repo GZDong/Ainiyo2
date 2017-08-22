@@ -1,5 +1,6 @@
 package com.huadi.android.ainiyo.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -53,7 +54,9 @@ public class FindingUserInfoActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.btn_finding_add_friend:
-
+                Intent intent = new Intent(FindingUserInfoActivity.this,AddFriendActivity.class);
+                intent.putExtra("name","gaodd");
+                startActivity(intent);
                 break;
         }
     }

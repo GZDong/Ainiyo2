@@ -93,6 +93,7 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
             Toast.makeText(AddFriendActivity.this, EMClient.getInstance().getCurrentUser(),Toast.LENGTH_LONG).show();
         }
 
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar_add_friend);
         setSupportActionBar(mToolbar);
 
@@ -105,6 +106,17 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
         mSearchBtn = (Button) findViewById(R.id.search_btn) ;
         mClearEditText = (ClearEditText) findViewById(R.id.search_edit);
         mEditText = (EditText) findViewById(R.id.attach_text);
+
+        String tag = getIntent().getStringExtra("name");
+        if (tag.equals("nothing")){
+            Log.e("test","List -> add");
+        }else{
+            Log.e("test","Push -> add " + tag);
+            mClearEditText.setText(tag);
+            mSearchBtn.setVisibility(View.VISIBLE);
+            mEditText.setVisibility(View.VISIBLE);
+        }
+
         mClearEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -128,69 +140,6 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.search_btn){
-
-            /*if (!TextUtils.isEmpty(mClearEditText.getText())) {
-                ECApplication ecApplication =(ECApplication) getApplication();
-
-                *//* RequestParams params=new RequestParams();
-                params.addBodyParameter("sessionid",ecApplication.sessionId);
-                params.addBodyParameter("friendid",mClearEditText.getText().toString());
-                params.addBodyParameter("attach",mEditText.getText().toString());
-
-                HttpUtils http=new HttpUtils();
-                http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/addfriend",params,new RequestCallBack<String>() {
-                            @Override
-                            public void onSuccess(ResponseInfo<String> responseInFo){
-                                String info=responseInFo.result.toString();
-                                try{
-                                    JSONObject object=new JSONObject(info);
-                                    String msg=object.getString("Msg");
-                                    int Status = object.getInt("Status");
-                                    switch (Status){
-                                        case 310:
-                                            Toast.makeText(AddFriendActivity.this,"添加成功!",Toast.LENGTH_LONG).show();
-                                            // FriendsLab.get(AddFriendActivity.this, UserInfoLab.get(AddFriendActivity.this).getUserInfo()).addFriend(response.body().);
-                                            break;
-                                        case 201:
-                                            Toast.makeText(AddFriendActivity.this,"请先登陆!",Toast.LENGTH_LONG).show();
-                                            break;
-                                        case 93:
-                                            Toast.makeText(AddFriendActivity.this,"服务器发生错误!",Toast.LENGTH_LONG).show();
-                                            break;
-                                        case 97:
-                                            Toast.makeText(AddFriendActivity.this,"输入了非法符号，请重新输入!",Toast.LENGTH_LONG).show();
-                                            break;
-                                        case 181:
-                                            Toast.makeText(AddFriendActivity.this,"该用户不存在，请确认!",Toast.LENGTH_LONG).show();
-                                            break;
-                                        case 312:
-                                            Toast.makeText(AddFriendActivity.this,"已经发送好友请求!",Toast.LENGTH_LONG).show();
-                                            break;
-                                        case 380:
-                                            Toast.makeText(AddFriendActivity.this,"你们已经是好友了!",Toast.LENGTH_LONG).show();
-                                            break;
-                                        case 99:
-                                            Toast.makeText(AddFriendActivity.this,"发生未知错误!",Toast.LENGTH_LONG).show();
-                                            break;
-                                    }
-
-
-                                }
-                                catch (JSONException e){
-                                    e.printStackTrace();
-                                }
-
-
-
-                            }
-                            @Override
-                            public void onFailure(HttpException error, String msg){
-
-                            }
-
-
-                        }
-                );*/
 
             if (!TextUtils.isEmpty(mClearEditText.getText().toString())) {
                 ECApplication ecApplication =(ECApplication) getApplication();
