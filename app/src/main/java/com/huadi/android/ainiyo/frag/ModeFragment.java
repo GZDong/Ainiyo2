@@ -146,7 +146,7 @@ public class ModeFragment extends Fragment {
                         mwd = object.getResult().getData();
                         int sum = object.getResult().getSum();
                         ModeWebData mwd1;
-                        for (int i = sum - 1; i >= 0; i--) {
+                        for (int i = 0; i < sum; i++) {
                             mwd1 = mwd[i];
 
                             idorder.add(mwd1.getId());
