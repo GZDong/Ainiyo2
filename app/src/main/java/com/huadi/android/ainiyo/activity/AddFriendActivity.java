@@ -113,6 +113,7 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
         }else{
             Log.e("test","Push -> add " + tag);
             mClearEditText.setText(tag);
+            mClearEditText.setSelection(mClearEditText.getText().length());
             mSearchBtn.setVisibility(View.VISIBLE);
             mEditText.setVisibility(View.VISIBLE);
         }

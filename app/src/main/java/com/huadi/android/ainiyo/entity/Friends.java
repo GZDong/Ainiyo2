@@ -35,7 +35,7 @@ public class Friends extends DataSupport {
     public Friends(String user, String name) {
         this.user = user;
         this.name = name;
-        this.picture = R.drawable.touxiang;
+        this.picture = R.drawable.gagaki;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
         this.showInChooseFragment = true;
@@ -45,7 +45,7 @@ public class Friends extends DataSupport {
     public Friends(String user, String name, String picUrl,String friId) {
           this.user = user;
         this.name = name;
-        this.picture = R.drawable.touxiang;
+        this.picture = R.drawable.gagaki;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
         this.showInChooseFragment = true;

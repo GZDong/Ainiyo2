@@ -9,7 +9,7 @@
         android:id="@+id/toolbar_choose"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/theme_red"
+        android:background="@color/theme_blue"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -23,9 +23,9 @@
         android:text="对方请求添加你为好友"
         android:textAlignment="center"
         android:textSize="25sp"
-        android:textStyle="normal" />
+        android:textStyle="normal"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -33,18 +33,25 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="52dp">
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-
+                android:layout_marginBottom="15dp"
                 android:text="名称:"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/person_id_text"
@@ -54,15 +61,19 @@
                 android:ellipsize="marquee"
                 android:maxLines="1"
                 android:text="username"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_below="@+id/linearLayout3"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            >
 
             <TextView
                 android:id="@+id/textView2"
@@ -70,7 +81,7 @@
                 android:layout_height="wrap_content"
 
                 android:text="请求理由:"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/reason"
@@ -80,10 +91,10 @@
                 android:ellipsize="marquee"
                 android:maxLines="5"
                 android:text="invitation description invitation description invitation description invitation description "
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,22 +102,22 @@
         android:layout_gravity="center_horizontal|bottom"
         android:orientation="horizontal">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/refuse_btn"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="40dp"
             android:onClick="left"
             android:src="@drawable/home_buttons_dislike" />
 
 
-        <ImageView
+        <ImageButton
             android:id="@+id/accept_btn"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="10dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="180dp"
             android:src="@drawable/home_buttons_like" />
 
     </LinearLayout>

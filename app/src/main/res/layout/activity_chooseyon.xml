@@ -13,27 +13,27 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <Button
+    <ImageButton
         android:id="@+id/accept_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:text="@string/accept"
-        android:background="@color/soothing_blue"
-        android:layout_above="@+id/refuse_btn"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="31dp" />
+        android:src="@drawable/home_buttons_like"
+        android:layout_alignTop="@+id/refuse_btn"
+        android:layout_toRightOf="@+id/reason"
+        android:layout_toEndOf="@+id/reason"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/refuse_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:text="@string/refuse"
-        android:background="@color/theme_red"
+
         android:layout_marginBottom="44dp"
+        android:src="@drawable/home_buttons_dislike"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toLeftOf="@+id/text"
+        android:layout_toStartOf="@+id/text"/>
 
     <TextView
         android:id="@+id/text"

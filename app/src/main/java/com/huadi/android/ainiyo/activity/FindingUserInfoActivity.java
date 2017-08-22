@@ -25,6 +25,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
     private ListView mListView;
     @ViewInject(R.id.tv_finding_userinfo_username)
     private TextView tv_finding_userinfo_username;
+    private FindingInfo fi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
         ViewUtils.inject(this);
 
         final Intent t = getIntent();
-        FindingInfo fi = (FindingInfo) t.getSerializableExtra("findingusername");
+        fi = (FindingInfo) t.getSerializableExtra("findingusername");
 
         tv_finding_userinfo_username.setText(fi.getName());
 
@@ -63,7 +64,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
                 break;
             case R.id.btn_finding_add_friend:
                 Intent intent = new Intent(FindingUserInfoActivity.this,AddFriendActivity.class);
-                intent.putExtra("name","gaodd");
+                intent.putExtra("name",fi.getName());
                 startActivity(intent);
                 break;
         }
