@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/theme_red"
+        android:background="@color/theme_blue"
         >
         <ImageView
             android:id="@+id/back"
@@ -85,7 +85,7 @@
             android:id="@+id/short_line"
             android:layout_width="170dp"
             android:layout_height="2dp"
-            android:background="@color/theme_red"/>
+            android:background="@color/theme_blue"/>
     </RelativeLayout>
 
     //基本信息//

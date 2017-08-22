@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/edit_flag"
+          android:layout_width="60dp"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:maxLines="1"
+    android:ellipsize="end">
+
+</EditText>
