@@ -8,19 +8,24 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.donkingliang.imageselector.entry.Image;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.activity.FindingDataAnlaysisActivity;
 import com.huadi.android.ainiyo.activity.FindingDetailActivity;
@@ -147,6 +152,8 @@ public class FindingFragment extends Fragment {
                 }
             }
         };
+
+        showTipsPopup();
         return view;
     }
 
@@ -384,6 +391,22 @@ public class FindingFragment extends Fragment {
 
     }
 
+    public void showTipsPopup(){
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_tips, null);
+        ImageView tips = view.findViewById(R.id.tipsImage);
+        final PopupWindow popup = new PopupWindow(view, LinearLayoutCompat.LayoutParams.FILL_PARENT,
+                LinearLayoutCompat.LayoutParams.FILL_PARENT,true);
+        popup.showAtLocation(recyclerView, Gravity.CENTER,0,0);
+        popup.update();
+
+        tips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //view.setVisibility(View.GONE);
+                popup.dismiss();
+            }
+        });
+    }
 
     @Override
     public void setMenuVisibility(boolean menuVisible) {
