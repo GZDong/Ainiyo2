@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.huadi.android.ainiyo.R;
 
-public class VipRespon extends AppCompatActivity {
+public class VipResponActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -7,39 +7,6 @@ package com.huadi.android.ainiyo.entity;
 public class UserData {
 
 
-    private int Id;
-    private boolean Vip;
-    private String birthday;
-    private int Area;
-    private String Job;
-    private double Salary;
-    private Boolean HaveKids;
-    private Boolean parentsalive;
-    private String maritallstatus;
-    private String Emotion;
-    private String Hobby;
-    private String Requir;
-    private String avatar;
-    private int Userid;
-
-
-    public UserData(int Id, boolean Vip, String birthday, int Area, String Job, double Salary, Boolean HaveKids, Boolean parentsalive, String maritallstatus, String Emotion, String Hobby, String Requir, String avatar, int Userid) {
-        this.Id = Id;
-        this.Vip = Vip;
-        this.birthday = birthday;
-        this.Area = Area;
-        this.Job = Job;
-        this.Salary = Salary;
-        this.HaveKids = HaveKids;
-        this.parentsalive = parentsalive;
-        this.maritallstatus = maritallstatus;
-        this.Emotion = Emotion;
-        this.Hobby = Hobby;
-        this.Requir = Requir;
-        this.avatar = avatar;
-        this.Userid = Userid;
-    }
-
     public int getId() {
         return Id;
     }
@@ -47,7 +14,6 @@ public class UserData {
     public void setId(int id) {
         Id = id;
     }
-
 
     public boolean isVip() {
         return Vip;
@@ -58,11 +24,11 @@ public class UserData {
     }
 
     public String getBirthday() {
-        return birthday;
+        return Birthday;
     }
 
     public void setBirthday(String birthday) {
-        this.birthday = birthday;
+        Birthday = birthday;
     }
 
     public int getArea() {
@@ -89,28 +55,28 @@ public class UserData {
         Salary = salary;
     }
 
-    public Boolean getHaveKids() {
+    public boolean isHaveKids() {
         return HaveKids;
     }
 
-    public void setHaveKids(Boolean haveKids) {
+    public void setHaveKids(boolean haveKids) {
         HaveKids = haveKids;
     }
 
-    public Boolean getParentsalive() {
-        return parentsalive;
+    public boolean isParentsalive() {
+        return Parentsalive;
     }
 
-    public void setParentsalive(Boolean parentsalive) {
-        this.parentsalive = parentsalive;
+    public void setParentsalive(boolean parentsalive) {
+        Parentsalive = parentsalive;
     }
 
     public String getMaritallstatus() {
-        return maritallstatus;
+        return Maritallstatus;
     }
 
     public void setMaritallstatus(String maritallstatus) {
-        this.maritallstatus = maritallstatus;
+        Maritallstatus = maritallstatus;
     }
 
     public String getEmotion() {
@@ -138,11 +104,11 @@ public class UserData {
     }
 
     public String getAvatar() {
-        return avatar;
+        return Avatar;
     }
 
     public void setAvatar(String avatar) {
-        this.avatar = avatar;
+        Avatar = avatar;
     }
 
     public int getUserid() {
@@ -153,5 +119,24 @@ public class UserData {
         Userid = userid;
     }
 
+    private int Id;
+    private boolean Vip;
+    private String Birthday;
+    private int Area;
+    private String Job;
+    private double Salary;
+    private boolean HaveKids;
+    private boolean Parentsalive;
+    private String Maritallstatus;
+    private String Emotion;
+    private String Hobby;
+    private String Requir;
+    private String Avatar;
+    private int Userid;
 
-}
+
+
+    }
+
+
+

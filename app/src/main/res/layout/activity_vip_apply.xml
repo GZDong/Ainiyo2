@@ -151,30 +151,6 @@
             android:textColor="#FFFF"
             android:background="@drawable/button" />
     </LinearLayout>
-    <ImageView
-        android:id="@+id/image1_progress"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/jindu"
-        android:layout_marginLeft="290dp"
-        android:layout_marginTop="155dp"
-        android:visibility="gone"/>
-    <ImageView
-        android:id="@+id/image2_progress"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/jindu"
-        android:layout_marginLeft="290dp"
-        android:layout_marginTop="280dp"
-        android:visibility="gone"/>
-    <ImageView
-        android:id="@+id/image3_progress"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/jindu"
-        android:layout_marginLeft="290dp"
-        android:layout_marginTop="405dp"
-        android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/progress"

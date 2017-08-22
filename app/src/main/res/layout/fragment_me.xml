@@ -35,7 +35,7 @@
                 android:layout_height="100dp"
                 android:id="@+id/info">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/avatar_imag"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
@@ -89,13 +89,13 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
+                android:layout_height="12dp"
                 android:background="#eae7e7"
                 android:layout_marginTop="-3dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:id="@+id/vip_lever">
 
                 <TextView
@@ -137,7 +137,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:id="@+id/vipapply">
 
                 <TextView
@@ -163,13 +163,13 @@
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
+                android:layout_height="12dp"
                 android:background="#eae7e7"
                 android:layout_marginTop="-3dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:id="@+id/xiangce">
 
                 <TextView
@@ -204,7 +204,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="55dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -231,7 +231,7 @@
             <TextView
 
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
+                android:layout_height="12dp"
                 android:layout_marginTop="-3dp"
                 android:background="#e2dede" />
 
@@ -246,7 +246,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="55dp"
+                android:id="@+id/help">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -270,7 +271,7 @@
                     android:src="@drawable/youjiantou" />
 
             </LinearLayout>
-            <TextView
+               <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="_________________________________________________________________________________"
@@ -278,10 +279,44 @@
                 android:layout_marginLeft="10dp"
                 android:textColor="#e2dede"
                 android:layout_marginTop="-18dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:id="@+id/manager">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="管理员"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="#0b0b0b"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:src="@drawable/youjiantou"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="_________________________________________________________________________________"
+                android:maxLines="1"
+                android:layout_marginLeft="10dp"
+                android:textColor="#eae7e7"
+                android:layout_marginTop="-18dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="55dp"
                 android:id="@+id/logoff">
 
                 <TextView
@@ -304,7 +339,7 @@
                     android:src="@drawable/youjiantou"
                     android:layout_gravity="center_vertical" />
 
-            </LinearLayout>
+        </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

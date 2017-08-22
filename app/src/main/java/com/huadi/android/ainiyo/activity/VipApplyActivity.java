@@ -13,14 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.MainActivity;
-import com.huadi.android.ainiyo.entity.Photo;
 import com.huadi.android.ainiyo.util.LGImgCompressor;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.util.LGImgCompressor;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -40,7 +36,7 @@ import java.util.List;
 
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
-public class VipApply extends AppCompatActivity implements LGImgCompressor.CompressListener {
+public class VipApplyActivity extends AppCompatActivity implements LGImgCompressor.CompressListener {
     @ViewInject(R.id.first)
     private ImageView first;
     @ViewInject(R.id.second)
@@ -56,9 +52,6 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
     @ViewInject(R.id.progress)
     private ProgressBar progress;
 
-    private ImageView image1_progress=(ImageView)findViewById(R.id.image1_progress);//
-    private ImageView image2_progress=(ImageView)findViewById(R.id.image2_progress);//旋转的进度圈
-    private ImageView image3_progress=(ImageView)findViewById(R.id.image3_progress);//
 
     private List<String> fi = new ArrayList<>();//
     private List<String> se = new ArrayList<>();//还未进行压缩的URL//
@@ -91,16 +84,16 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.first:
-                ImageSelectorUtils.openPhoto(VipApply.this, 1, true, 0);
+                ImageSelectorUtils.openPhoto(VipApplyActivity.this, 1, true, 0);
                 break;
             case R.id.second:
-                ImageSelectorUtils.openPhoto(VipApply.this, 2, true, 0);
+                ImageSelectorUtils.openPhoto(VipApplyActivity.this, 2, true, 0);
                 break;
             case R.id.third:
-                ImageSelectorUtils.openPhoto(VipApply.this, 3, true, 0);
+                ImageSelectorUtils.openPhoto(VipApplyActivity.this, 3, true, 0);
                 break;
             case R.id.back:
-                startActivity(new Intent(VipApply.this, VipHint.class));
+                startActivity(new Intent(VipApplyActivity.this, VipHintActivity.class));
                 break;
             case R.id.finish:
                 progress.setVisibility(View.VISIBLE);
@@ -123,16 +116,16 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
                                     try {
                                         JSONObject object = new JSONObject(info);
                                         String msg = object.getString("Msg");
-                                        Integer status = object.getInt("Status");
+                                        int status = object.getInt("Status");
                                         if (status == 0) {
                                             progress.setVisibility(View.GONE);
-                                            Toast.makeText(VipApply.this, "提交成功，等待审核", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(VipApply.this, MainActivity.class));
+                                            Toast.makeText(VipApplyActivity.this, "提交成功，等待审核", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(VipApplyActivity.this, MainActivity.class));
 
 
                                         } else {
                                             progress.setVisibility(View.GONE);
-                                            Toast.makeText(VipApply.this, msg, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(VipApplyActivity.this, msg, Toast.LENGTH_SHORT).show();
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -142,23 +135,23 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
                                 @Override
                                 public void onFailure(HttpException error, String msg) {
                                     progress.setVisibility(View.GONE);
-                                    Toast.makeText(VipApply.this, msg, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(VipApplyActivity.this, msg, Toast.LENGTH_SHORT).show();
                                 }
                             });
 
                         } else {
                             progress.setVisibility(View.GONE);
-                            Toast.makeText(VipApply.this, "请上传三张图片", Toast.LENGTH_LONG).show();
+                            Toast.makeText(VipApplyActivity.this, "请上传三张图片", Toast.LENGTH_LONG).show();
                         }
 
                     } else {
                         progress.setVisibility(View.GONE);
-                        Toast.makeText(VipApply.this, "请上传三张图片", Toast.LENGTH_LONG).show();
+                        Toast.makeText(VipApplyActivity.this, "请上传三张图片", Toast.LENGTH_LONG).show();
                     }
 
                 } else {
                     progress.setVisibility(View.GONE);
-                    Toast.makeText(VipApply.this, "请上传三张图片", Toast.LENGTH_LONG).show();
+                    Toast.makeText(VipApplyActivity.this, "请上传三张图片", Toast.LENGTH_LONG).show();
                 }
         }
     }
@@ -184,7 +177,7 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
         ima = images;
         compressImages.clear();
         for (String srcImgUrl : images) {
-            LGImgCompressor.getInstance(VipApply.this).starCompressWithDefault(srcImgUrl);
+            LGImgCompressor.getInstance(VipApplyActivity.this).starCompressWithDefault(srcImgUrl);
         }
 
     }
@@ -199,42 +192,27 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
         if (ima == fi) {
             change1 = true;
             done1 = compressImages;
-            image1_progress.setVisibility(View.VISIBLE);
             first.setVisibility(View.GONE);
-            ImageView imageView = (ImageView) findViewById(R.id.image1_progress);
-            //动画
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.img_animation);
-            LinearInterpolator lin = new LinearInterpolator();//设置动画匀速运动
-            animation.setInterpolator(lin);
-            imageView.startAnimation(animation);
+
+
             sendImages(done1);
 
         }
         if (ima == se) {
             change2 = true;
             done2 = compressImages;
-            image2_progress.setVisibility(View.VISIBLE);
             second.setVisibility(View.GONE);
-            ImageView imageView = (ImageView) findViewById(R.id.image2_progress);
             //动画
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.img_animation);
-            LinearInterpolator lin = new LinearInterpolator();//设置动画匀速运动
-            animation.setInterpolator(lin);
-            imageView.startAnimation(animation);
+
             sendImages(done2);
 
         }
         if (ima == th) {
             change3 = true;
             done3 = compressImages;
-            image3_progress.setVisibility(View.VISIBLE);
             third.setVisibility(View.GONE);
-            ImageView imageView = (ImageView) findViewById(R.id.image3_progress);
-            //动画
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.img_animation);
-            LinearInterpolator lin = new LinearInterpolator();//设置动画匀速运动
-            animation.setInterpolator(lin);
-            imageView.startAnimation(animation);
+
+
             sendImages(done3);
         }
 
@@ -258,39 +236,27 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
                     String msg = object.getString("Msg");
                     if (msg.equals("success")) {
                         if (images == done1) {
-                            image1_progress.setVisibility(View.GONE);
-                            first.setVisibility(View.VISIBLE);
-                            Glide.with(VipApply.this).load(R.drawable.chenggong).into(first);
+                            Glide.with(VipApplyActivity.this).load(R.drawable.chenggong).into(first);
                             url1 = result;
                         }
                         if (images == done2) {
-                            image2_progress.setVisibility(View.GONE);
-                            second.setVisibility(View.VISIBLE);
-                            Glide.with(VipApply.this).load(R.drawable.chenggong).into(second);
+                            Glide.with(VipApplyActivity.this).load(R.drawable.chenggong).into(second);
                             url2 = result;
                         }
                         if (images == done3) {
-                            image3_progress.setVisibility(View.GONE);
-                            third.setVisibility(View.VISIBLE);
-                            Glide.with(VipApply.this).load(R.drawable.chenggong).into(third);
+                            Glide.with(VipApplyActivity.this).load(R.drawable.chenggong).into(third);
                             url3 = result;
                         }
 
                     } else {
                         if (images == done1) {
-                            image1_progress.setVisibility(View.GONE);
-                            first.setVisibility(View.VISIBLE);
-                            Glide.with(VipApply.this).load(R.drawable.cuowu).into(first);
+                            Glide.with(VipApplyActivity.this).load(R.drawable.cuowu).into(first);
                         }
                         if (images == done2) {
-                            image2_progress.setVisibility(View.GONE);
-                            second.setVisibility(View.VISIBLE);
-                            Glide.with(VipApply.this).load(R.drawable.cuowu).into(second);
+                            Glide.with(VipApplyActivity.this).load(R.drawable.cuowu).into(second);
                         }
                         if (images == done3) {
-                            image3_progress.setVisibility(View.GONE);
-                            third.setVisibility(View.VISIBLE);
-                            Glide.with(VipApply.this).load(R.drawable.cuowu).into(third);
+                            Glide.with(VipApplyActivity.this).load(R.drawable.cuowu).into(third);
                         }
 
                     }
@@ -303,7 +269,7 @@ public class VipApply extends AppCompatActivity implements LGImgCompressor.Compr
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                Toast.makeText(VipApply.this, "连接错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VipApplyActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
             }
         });
