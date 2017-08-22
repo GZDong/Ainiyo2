@@ -8,24 +8,33 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.format.DateUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.donkingliang.imageselector.entry.Image;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.activity.FindingDataAnlaysisActivity;
 import com.huadi.android.ainiyo.activity.FindingDetailActivity;
 import com.huadi.android.ainiyo.adapter.FindingAdapter;
 import com.huadi.android.ainiyo.adapter.FindingCardSwlpeAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FindingAphorism;
 import com.huadi.android.ainiyo.entity.FindingInfo;
+import com.huadi.android.ainiyo.entity.FindingLikeList;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
@@ -64,6 +73,7 @@ import me.yuqirong.cardswipelayout.CardLayoutManager;
 import me.yuqirong.cardswipelayout.OnSwipeListener;
 
 import static com.huadi.android.ainiyo.util.CONST.FINDING_USER_DESTINY;
+import static com.huadi.android.ainiyo.util.CONST.GETING_APHORISM;
 import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
 
 
@@ -78,9 +88,22 @@ public class FindingFragment extends Fragment {
 
     @ViewInject(R.id.finding_recyclerView)
     private RecyclerView recyclerView;
+    @ViewInject(R.id.tv_finding_aphorism_name)
+    private TextView tv_finding_aphorism_name;
+    @ViewInject(R.id.tv_finding_aphorism_content)
+    private TextView tv_finding_aphorism_content;
 
-    private List<Integer> mList = new ArrayList<>();
+    private FindingCardSwlpeAdapter findingCardSwlpeAdapter;
+    //private FindingCardSwlpeAdapter.MyViewHolder myHolder1;
 
+    CardItemTouchHelperCallback cardCallback;
+
+    //private List<Integer> mList = new ArrayList<>();
+    private List<FindingInfo> mList = new ArrayList<>();
+    private FindingLikeList fll = new FindingLikeList();
+
+    private Handler handle;
+    public static final int UPDATE_CONTENT = 1001;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -114,38 +137,60 @@ public class FindingFragment extends Fragment {
 //        }).sendEmptyMessageDelayed(0, 200);
 
 */
-        initView();
+        //initView();
+        initAphorism();
         initData();
+
+        handle = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case UPDATE_CONTENT:
+                        FindingAphorism fa = (FindingAphorism) msg.obj;
+                        tv_finding_aphorism_content.setText(fa.getContent());
+                        tv_finding_aphorism_name.setText("——" + fa.getAuthor());
+                }
+            }
+        };
+
+        showTipsPopup();
         return view;
     }
 
     private void initView() {
+        findingCardSwlpeAdapter = new FindingCardSwlpeAdapter(getActivity(), mList);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(new FindingCardSwlpeAdapter(getActivity(), mList));
-        CardItemTouchHelperCallback cardCallback = new CardItemTouchHelperCallback(recyclerView.getAdapter(), mList);
-        cardCallback.setOnSwipedListener(new OnSwipeListener<Integer>() {
+        recyclerView.setAdapter(findingCardSwlpeAdapter);
+        cardCallback = new CardItemTouchHelperCallback(recyclerView.getAdapter(), mList);
+        cardCallback.setOnSwipedListener(new OnSwipeListener<FindingInfo>() {
 
             @Override
             public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
                 FindingCardSwlpeAdapter.MyViewHolder myHolder = (FindingCardSwlpeAdapter.MyViewHolder) viewHolder;
                 viewHolder.itemView.setAlpha(1 - Math.abs(ratio) * 0.2f);
-//                if (direction == CardConfig.SWIPING_LEFT) {
-//                    myHolder.dislikeImageView.setAlpha(Math.abs(ratio));
-//                } else if (direction == CardConfig.SWIPING_RIGHT) {
-//                    myHolder.likeImageView.setAlpha(Math.abs(ratio));
-//                } else {
-//                    myHolder.dislikeImageView.setAlpha(0f);
-//                    myHolder.likeImageView.setAlpha(0f);
-//                }
+                if (direction == CardConfig.SWIPING_LEFT) {
+                    myHolder.dislikeImageView.setAlpha(Math.abs(ratio));
+                } else if (direction == CardConfig.SWIPING_RIGHT) {
+                    myHolder.likeImageView.setAlpha(Math.abs(ratio));
+                } else {
+                    myHolder.dislikeImageView.setAlpha(0f);
+                    myHolder.likeImageView.setAlpha(0f);
+                }
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, Integer o, int direction) {
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, FindingInfo o, int direction) {
                 FindingCardSwlpeAdapter.MyViewHolder myHolder = (FindingCardSwlpeAdapter.MyViewHolder) viewHolder;
                 viewHolder.itemView.setAlpha(1f);
-//                myHolder.dislikeImageView.setAlpha(0f);
-//                myHolder.likeImageView.setAlpha(0f);
-                Toast.makeText(getActivity(), direction == CardConfig.SWIPED_LEFT ? "swiped left" : "swiped right", Toast.LENGTH_SHORT).show();
+                myHolder.dislikeImageView.setAlpha(0f);
+                myHolder.likeImageView.setAlpha(0f);
+
+                initAphorism();
+
+                if (direction == CardConfig.SWIPED_RIGHT) {
+                    fll.mList.add(o);
+                }
+                Toast.makeText(getActivity(), direction == CardConfig.SWIPED_LEFT ? "不喜欢" : "喜欢", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -167,11 +212,93 @@ public class FindingFragment extends Fragment {
         touchHelper.attachToRecyclerView(recyclerView);
     }
 
+    private void initAphorism() {
+        RequestParams params = new RequestParams();
+
+        ECApplication application = (ECApplication) getActivity().getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
+        new HttpUtils().send(HttpMethod.POST, GETING_APHORISM, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                final ResponseObject<FindingAphorism> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<FindingAphorism>>() {
+                        }.getType());
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Message message = new Message();
+                        message.what = UPDATE_CONTENT;
+                        message.obj = object.getResult();
+                        handle.sendMessage(message);
+                    }
+                }).start();
+
+
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+
+            }
+        });
+    }
+
+
     private void initData() {
-        mList.add(R.mipmap.girl4);
-        mList.add(R.mipmap.girl3);
-        mList.add(R.mipmap.gril2);
-        mList.add(R.mipmap.gril1);
+//        FindingInfo fi1 = new FindingInfo("1", 0.60f, 0.94f, 0.90f, 0.80f, 0.70f, 0.30f, 0.33f, 0.94f, "刘奕宁1", true, "123", 20, "学生");
+//        FindingInfo fi2 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁2", true, "123", 20, "教师");
+//        FindingInfo fi3 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁3", true, "123", 20, "教师");
+//        FindingInfo fi4 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁4", true, "123", 20, "教师");
+//
+//        mList.add(fi1);
+//        mList.add(fi2);
+//        mList.add(fi3);
+//        mList.add(fi4);
+
+        mList.clear();
+        RequestParams params = new RequestParams();
+
+        ECApplication application = (ECApplication) getActivity().getApplication();
+        params.addBodyParameter("sessionid", application.sessionId);
+
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, FINDING_USER_DESTINY, params, new RequestCallBack<String>() {
+
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                ResponseObject<ArrayList<FindingInfo>> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ArrayList<FindingInfo>>>() {
+                        }.getType());
+
+                if (object.getStatus() == 0) {
+                    // 渲染内容到界面上
+                    //清空原来的数据
+                    mList = object.getResult();
+
+                    initView();
+
+                } else {
+                    FindingInfo fi1 = new FindingInfo("1", 0.60f, 0.94f, 0.90f, 0.80f, 0.70f, 0.30f, 0.33f, 0.94f, "刘奕宁1", true, "123", 20, "学生");
+                    FindingInfo fi2 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁2", true, "123", 20, "教师");
+                    FindingInfo fi3 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁3", true, "123", 20, "教师");
+                    FindingInfo fi4 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁4", true, "123", 20, "教师");
+
+                    mList.add(fi1);
+                    mList.add(fi2);
+                    mList.add(fi3);
+                    mList.add(fi4);
+                    initView();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+
+                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 
@@ -243,16 +370,43 @@ public class FindingFragment extends Fragment {
 //            }, 1);
 //    }
 
-    @OnClick({R.id.btn_finding_go})
+    @OnClick({R.id.btn_finding_go, R.id.iv_finding_left, R.id.iv_finding_right})
     public void onClick(View v) {
         switch (v.getId()) {
 
             case R.id.btn_finding_go:
-                startActivity(new Intent(getActivity(), FindingDataAnlaysisActivity.class));
+                Intent t = new Intent(getActivity(), FindingDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("findinglike", fll);
+                t.putExtras(bundle);
+                startActivity(t);
+                break;
+            case R.id.iv_finding_left:
+                //cardCallback.onSwiped(findingCardSwlpeAdapter.getViewHolder(),ItemTouchHelper.LEFT);
+                break;
+            case R.id.iv_finding_right:
+                //cardCallback.onSwiped(findingCardSwlpeAdapter.getViewHolder(),ItemTouchHelper.RIGHT);
+                break;
         }
 
     }
 
+    public void showTipsPopup(){
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_tips, null);
+        ImageView tips = view.findViewById(R.id.tipsImage);
+        final PopupWindow popup = new PopupWindow(view, LinearLayoutCompat.LayoutParams.FILL_PARENT,
+                LinearLayoutCompat.LayoutParams.FILL_PARENT,true);
+        popup.showAtLocation(recyclerView, Gravity.CENTER,0,0);
+        popup.update();
+
+        tips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //view.setVisibility(View.GONE);
+                popup.dismiss();
+            }
+        });
+    }
 
     @Override
     public void setMenuVisibility(boolean menuVisible) {

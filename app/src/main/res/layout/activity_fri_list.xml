@@ -11,7 +11,7 @@
         android:id="@+id/toolbar_contact"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#F3485D"
+        android:background="#478bf8"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -56,6 +56,8 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             />
+
     </RelativeLayout>
+
 
 </LinearLayout>

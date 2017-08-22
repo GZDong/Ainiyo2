@@ -12,12 +12,14 @@ public class ModeLocalData implements Serializable {
     private int Userid;
     private ModeInfo mi;
     private String Date;
+    private int CommentNum;
 
-    public ModeLocalData(int id, int userid, ModeInfo mi, String date) {
+    public ModeLocalData(int id, int userid, ModeInfo mi, String date, int commentNum) {
         Id = id;
         Userid = userid;
         this.mi = mi;
         Date = date;
+        CommentNum = commentNum;
     }
 
     public int getId() {
@@ -48,7 +50,15 @@ public class ModeLocalData implements Serializable {
         return Date;
     }
 
-    public void setDate(String data) {
-        Date = data;
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public int getCommentNum() {
+        return CommentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        CommentNum = commentNum;
     }
 }

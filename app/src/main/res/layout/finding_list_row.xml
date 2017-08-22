@@ -5,34 +5,62 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="beforeDescendants">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="10dp"
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="0dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="false"
-        tools:targetApi="lollipop">
+        tools:targetApi="lollipop"
+        android:descendantFocusability="beforeDescendants">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-
+            android:id="@+id/ll_finding_all"
+            android:descendantFocusability="beforeDescendants"
             >
 
-            <ImageView
-                android:id="@+id/iv_finding_pic"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/girl4" />
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/iv_finding_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/girl4" />
+
+                <ImageView
+                    android:id="@+id/iv_finding_dislike"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:alpha="0"
+                    android:src="@drawable/home_card_dislike" />
+
+                <ImageView
+                    android:id="@+id/iv_finding_like"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:alpha="0"
+                    android:src="@drawable/home_card_like" />
+
+            </RelativeLayout>
 
 
             <LinearLayout
@@ -54,7 +82,7 @@
                         android:id="@+id/tv_finding_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="10dp"
                         android:text="刘奕宁"
                         android:textColor="#333030"
                         android:textSize="20sp" />
@@ -94,7 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:background="@color/theme_red"
+                            android:background="@color/theme_blue"
                             android:paddingBottom="3dp"
                             android:paddingLeft="7dp"
                             android:paddingRight="7dp"
@@ -131,10 +159,10 @@
                         android:id="@+id/tv_finding_match_percent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="4dp"
                         android:text="96%"
                         android:textColor="#333030"
-                        android:textSize="25dp" />
+                        android:textSize="27dp" />
 
                     <TextView
                         android:layout_width="wrap_content"

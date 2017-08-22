@@ -59,9 +59,9 @@ public class ModeMeActivity extends AppCompatActivity {
     private ModeResult modeResult;
     private ModeWebData[] mwd;
 
-    private int page = 0;
+    private int page = 1;
     private int pagesize = 20;
-    private int pagecount = 0;
+    private int pagecount = 10;
 
 
     @Override
@@ -102,8 +102,8 @@ public class ModeMeActivity extends AppCompatActivity {
 
         ECApplication application = (ECApplication) getApplication();
         params.addBodyParameter("sessionid", application.sessionId);
-        params.addBodyParameter("page", "0");
-        params.addBodyParameter("pagesize", "10");
+        params.addBodyParameter("page", String.valueOf(page));
+        params.addBodyParameter("pagesize", "3");
         params.addBodyParameter("type", "1");
 
         new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
@@ -124,7 +124,7 @@ public class ModeMeActivity extends AppCompatActivity {
                     mwd = object.getResult().getData();
                     int sum = object.getResult().getSum();
                     ModeWebData mwd1;
-                    for (int i = sum - 1; i >= 0; i--) {
+                    for (int i = 0; i < sum; i++) {
                         mwd1 = mwd[i];
                         int userid = mwd1.getUserid();
                         String content = mwd1.getContent();
@@ -162,6 +162,20 @@ public class ModeMeActivity extends AppCompatActivity {
 
                 } else {// 尾部刷新
                     //mList.addAll(object.getDatas());
+                    mwd = object.getResult().getData();
+                    int sum = object.getResult().getSum();
+                    ModeWebData mwd1;
+                    for (int i = sum - 1; i >= 0; i--) {
+                        mwd1 = mwd[i];
+                        int userid = mwd1.getUserid();
+                        String content = mwd1.getContent();
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<ModeInfo>() {
+                        }.getType();
+                        ModeInfo mi;
+                        mi = gson.fromJson(mwd1.getContent(), type);
+                        mList.add(mi);
+                    }
                     mAdapter.notifyDataSetChanged();
                 }
                     if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了

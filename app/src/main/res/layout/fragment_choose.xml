@@ -4,6 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
+              android:background="#F4F4F4"
               tools:context="com.huadi.android.ainiyo.frag.ChooseFragment">
 
     <LinearLayout
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="49dp"
         android:gravity="center_vertical"
-        android:background="@color/theme_red"
+        android:background="@color/theme_blue"
         >
         <TextView
             android:layout_width="0dp"
@@ -24,10 +25,11 @@
 
         <ImageButton
             android:id="@+id/btn_friends"
-            android:layout_width="53dp"
-            android:layout_height="match_parent"
-            android:background="#f3485d"
-            android:src="@mipmap/ic_per"/>
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginRight="5dp"
+            android:background="#ffffff"
+            android:src="@drawable/ic_per5"/>
 
 
     </LinearLayout>
@@ -38,7 +40,7 @@
         android:layout_height="match_parent"
 
         android:id="@+id/fri_recycler_view"
-        android:background="#f2eeee"
+        android:background="#ffffff"
         >
 
     </android.support.v7.widget.RecyclerView>

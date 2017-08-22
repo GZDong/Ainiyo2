@@ -162,13 +162,17 @@
         <activity android:name=".activity.BigImageActivity" />
         <activity android:name=".activity.ModeDetailNineGridActivity" />
         <activity android:name=".activity.MovementDetailActivity" />
-        <activity android:name=".activity.VipApplyActivity" />
-        <activity android:name=".activity.VipHintActivity" />
-        <activity android:name=".activity.VipResponActivity" />
+        <activity android:name=".activity.VipApply" />
+        <activity android:name=".activity.VipHint" />
+        <activity android:name=".activity.VipRespon" />
         <activity android:name=".activity.VipLeverActivity" />
         <activity android:name=".activity.FindingDataAnlaysisActivity" />
         <activity android:name=".activity.ManagerActivity" />
         <activity android:name=".activity.HelpActivity"></activity>
+        <activity android:name=".activity.FindingUserInfoActivity" />
+        <activity android:name=".activity.MovementJoinedActivity" />
+        <activity android:name=".activity.DeleteFriendActivity"
+            android:parentActivityName=".activity.FriendsListActivity"/>
     </application>
 
 </manifest>

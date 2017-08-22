@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:background="@color/theme_red">
+        android:background="@color/theme_blue">
 
         <ImageView
             android:id="@+id/finding_detail_back"
@@ -17,17 +17,6 @@
             android:layout_height="fill_parent"
             android:src="@mipmap/back" />
 
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/btn_finding_detail_add"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:padding="10dp"
-            android:src="@drawable/ic_tab_mode_add" />
 
 
     </LinearLayout>

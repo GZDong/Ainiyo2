@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity  {
                 params.addBodyParameter("name",login_name.getText().toString());
                 params.addBodyParameter("pwd",login_pwd.getText().toString());
                 //初始化用户信息
-                final UserInfo userInfo = new UserInfo(login_name.getText().toString(), login_pwd.getText().toString(), R.drawable.right_image);
+                final UserInfo userInfo = new UserInfo(login_name.getText().toString(), login_pwd.getText().toString(), R.drawable.left_image);
                 UserInfoLab.get(LoginActivity.this,userInfo);
                 UserInfoLab.get(LoginActivity.this,userInfo).setUserInfo(userInfo);
                 /*FriendsLab.get(LoginActivity.this,userInfo).setFriListNull();
@@ -165,9 +165,6 @@ public class LoginActivity extends AppCompatActivity  {
                                 catch (JSONException e){
                                     e.printStackTrace();
                                 }
-
-
-
                             }
                             @Override
                             public void onFailure(HttpException error,String msg){

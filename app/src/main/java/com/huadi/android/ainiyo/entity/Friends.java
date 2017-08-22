@@ -25,26 +25,32 @@ public class Friends extends DataSupport {
 
     private String letters;  //首写字母
 
-    private boolean showInChooseFragment;  //是否出现在聊天列表
+    private boolean showInChooseFragment;//是否出现在聊天列表
+
+    private String friId;
+
+    private int flag_delete = 0;
+
 
     public Friends(String user, String name) {
         this.user = user;
         this.name = name;
-        this.picture = R.drawable.touxiang;
+        this.picture = R.drawable.gagaki;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
         this.showInChooseFragment = true;
         this.picUrl = null;
     }
 
-    public Friends(String user, String name, String picUrl) {
+    public Friends(String user, String name, String picUrl,String friId) {
           this.user = user;
         this.name = name;
-        this.picture = R.drawable.touxiang;
+        this.picture = R.drawable.gagaki;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
         this.showInChooseFragment = true;
         this.picUrl = picUrl;
+        this.friId = friId;
     }
 
     //创建一个该用户的好友
@@ -118,5 +124,21 @@ public class Friends extends DataSupport {
 
     public String getPicUrl() {
         return picUrl;
+    }
+
+    public String getFriId() {
+        return friId;
+    }
+
+    public void setFriId(String friId) {
+        this.friId = friId;
+    }
+
+    public void setFlag_delete(int flag_delete) {
+        this.flag_delete = flag_delete;
+    }
+
+    public int getFlag_delete() {
+        return flag_delete;
     }
 }

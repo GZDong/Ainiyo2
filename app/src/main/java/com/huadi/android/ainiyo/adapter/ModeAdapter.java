@@ -95,6 +95,7 @@ public class ModeAdapter extends BaseAdapter {
 //                mAdapter.refresh(modeInfo.getImgUrlforContent());
 //            }
         }
+
         holder.pic_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +120,8 @@ public class ModeAdapter extends BaseAdapter {
         TextView mode_username;
         @ViewInject(R.id.mode_content)
         TextView mode_content;
+        @ViewInject(R.id.tv_mode_comment_num)
+        TextView tv_mode_comment_num;
 
     }
 

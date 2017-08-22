@@ -125,8 +125,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_conversation:
-                //删除会话
-                Snackbar.make(mView,"确定聊天记录删除吗？",Snackbar.LENGTH_LONG)
+                //删除记录
+                Snackbar.make(mView,"确定清空聊天记录吗？",Snackbar.LENGTH_LONG)
                         .setAction("确定", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -142,12 +142,22 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 //**********开启singleTask的MainActivity**********
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
-
+                break;
+            case R.id.delete_dialog:
+                //删除会话
+                Snackbar.make(mView,"确定删除当前会话吗？",Snackbar.LENGTH_LONG)
+                        .setAction("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                FriendsLab.get(getActivity()).deleteDialog(mChatId);
+                                getActivity().finish();
+                            }
+                        }).show();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-
+        return true;
     }
 
     @Nullable
@@ -380,14 +390,14 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         }
 
         private void initClick() {
-            leftImage.setOnClickListener(new View.OnClickListener() {
+            rightImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                 }
             });
 
-            rightImage.setOnClickListener(new View.OnClickListener() {
+            leftImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), FriendsInfoActivity.class);
@@ -424,32 +434,32 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
             if (msg.getFrom().equals(mChatId)) {   //mChatId是目标的id
 
-                holder.leftLayout.setVisibility(View.GONE);
-                holder.rightLayout.setVisibility(View.VISIBLE);
+                holder.rightLayout.setVisibility(View.GONE);
+                holder.leftLayout.setVisibility(View.VISIBLE);
 
                 //加载图片
                 //  Glide.with(getActivity()).load(bm).fitCenter().into(holder.rightImage);
                 if (!TextUtils.isEmpty(friends.getPicUrl())) {
-                    Glide.with(ChattingFragment.this).load(friends.getPicUrl()).into(holder.rightImage);
+                    Glide.with(ChattingFragment.this).load(friends.getPicUrl()).into(holder.leftImage);
                 } else {
                     Bitmap bm = BitmapFactory.decodeResource(getResources(), mImage);
-                    holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
+                    holder.leftImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
                 }
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
-                holder.rightMsg.setText(body.getMessage());
+                holder.leftMsg.setText(body.getMessage());
 
             }else {
 
-                holder.rightLayout.setVisibility(View.GONE);
-                holder.leftLayout.setVisibility(View.VISIBLE);
+                holder.leftLayout.setVisibility(View.GONE);
+                holder.rightLayout.setVisibility(View.VISIBLE);
 
                 Bitmap bm = BitmapFactory.decodeResource(getResources(),userImage);
                 //加载图片
-                holder.leftImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
+                holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
                 //Glide.with(getActivity()).load(bm).fitCenter().into(holder.leftImage);
 
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
-                holder.leftMsg.setText(body.getMessage());
+                holder.rightMsg.setText(body.getMessage());
             }
         }
 

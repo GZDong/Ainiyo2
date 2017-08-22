@@ -7,9 +7,11 @@ import android.widget.Toast;
 
 import com.huadi.android.ainiyo.Retrofit2.GetRequest_friend_Interface;
 import com.huadi.android.ainiyo.Retrofit2.PostRequest_getFriAvatar_Interface;
+import com.huadi.android.ainiyo.Retrofit2.PostRequest_removefriend_Interface;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.gson.FriImg;
 import com.huadi.android.ainiyo.gson.FriendGot;
+import com.huadi.android.ainiyo.gson.ResultForDeleteFri;
 import com.huadi.android.ainiyo.gson.ResultForFriend;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -51,6 +53,9 @@ public class FriendsLab {
         if (sFriendsLab == null){
             sFriendsLab = new FriendsLab(context, userInfo);
         }
+        return sFriendsLab;
+    }
+    public static FriendsLab get(Context context) {
         return sFriendsLab;
     }
 
@@ -121,7 +126,7 @@ public class FriendsLab {
                                             Log.e("test", "好友的id：" + resultForFriend.getName());
                                             Log.e("test", "好友的Url为：" + resultForFriend.getAvatar());
                                             Log.e("test", "此时的用户id为：" + mUserInfo.getUsername());
-                                            Friends friends = new Friends(mUserInfo.getUsername(), resultForFriend.getName(), resultForFriend.getAvatar());
+                                            Friends friends = new Friends(mUserInfo.getUsername(), resultForFriend.getName(), resultForFriend.getAvatar(),resultForFriend.getId());
                                             mmFriendses.add(friends);
                                         }
                                         //获得数据后先获得每个好友的未读信息，后存入数据库
@@ -287,5 +292,73 @@ public class FriendsLab {
                 friends.save();
             }
         }
+    }
+
+    public String findNameById(String id){
+        for (Friends friends : mFriendses){
+            if (friends.getFriId().equals(id)){
+                return friends.getName();
+            }
+        }
+        return null;
+    }
+    public String findUrlById(String id){
+        for (Friends friends : mFriendses){
+            if (friends.getFriId().equals(id)){
+                return friends.getPicUrl();
+            }
+        }
+        return null;
+    }
+    //删除会话
+    public void deleteDialog(String name){
+        for (Friends friends: mFriendses){
+            if (friends.getName().equals(name)){
+                friends.setShowInChooseFragment(false);
+                friends.save();
+            }
+        }
+    }
+    //删除好友
+    public void deleteFriends(String name){
+        //数据库删除数据
+        for (Friends friends: mFriendses){
+            if (friends.getName().equals(name)){
+                Log.e("test","被删除好友的id：" + friends.getFriId());
+                DataSupport.deleteAll(Friends.class,"name = ?",name);
+                mFriendses.remove(friends);  //单例移除
+
+                //服务器删除数据
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://120.24.168.102:8080/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                        .build();
+                PostRequest_removefriend_Interface removefriend_interface = retrofit.create(PostRequest_removefriend_Interface.class);
+                Observable<ResultForDeleteFri> observable = removefriend_interface.getObservable(((ECApplication) mContext.getApplicationContext()).sessionId,friends.getFriId());
+                observable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<ResultForDeleteFri>() {
+                            @Override
+                            public void onCompleted() {
+                                Log.e("test","onCompleted___删除好友");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e("test","onError___删除好友异常");
+                            }
+
+                            @Override
+                            public void onNext(ResultForDeleteFri resultForDeleteFri) {
+                                Log.e("test","onNext___删除好友 " + resultForDeleteFri.getMsg());
+                                if (resultForDeleteFri.getStatus().equals("320")){
+                                    Toast.makeText(mContext,"删除好友成功！",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            }
+        }
+
     }
 }

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:background="@color/theme_red">
+        android:background="@color/theme_blue">
 
         <ImageView
             android:id="@+id/movement_detail_back"
@@ -61,7 +61,7 @@
             android:id="@+id/btn_join_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/theme_red"
+            android:background="@color/theme_blue"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="我要参加"

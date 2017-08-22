@@ -16,6 +16,8 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.timqi.windrosediagram.WindRoseClickListener;
 import com.timqi.windrosediagram.WindRoseDiagramView;
 
+import java.text.DecimalFormat;
+
 public class FindingDataAnlaysisActivity extends AppCompatActivity {
 
 
@@ -50,23 +52,25 @@ public class FindingDataAnlaysisActivity extends AppCompatActivity {
 
         //Toast.makeText(FindingDataAnlaysisActivity.this,fi.getName(),Toast.LENGTH_SHORT).show();
 
+        DecimalFormat df = new DecimalFormat("#.##");
+
         WRDAdapter adapter = new WRDAdapter(fi);
         windRoseDiagramView.setAdapter(adapter);
-        windRoseDiagramView.setOutlineWidth(3);
         windRoseDiagramView.setAnchorWidth(5);
         windRoseDiagramView.setStartAngle(0);
+
 
         windRoseDiagramView.setWindRoseClickListener(windRoseClickListener);
         windRoseDiagramView.setOnClickListener(normalClickListener);
 
 
-        tv_finding_data_age_score.setText(String.valueOf(fi.getAgescore()));
-        tv_finding_data_character_score.setText(String.valueOf(fi.getImpression()));
-        tv_finding_data_emotion_score.setText(String.valueOf(fi.getEmotion()));
-        tv_finding_data_hobby_score.setText(String.valueOf(fi.getHobby()));
-        tv_finding_data_live_score.setText(String.valueOf(fi.getResidence()));
-        tv_finding_job_score.setText(String.valueOf(fi.getJobscore()));
-        tv_finding_data_beauty_score.setText(String.valueOf(fi.getBeauty()));
+        tv_finding_data_age_score.setText(String.valueOf(df.format(fi.getAgescore())));
+        tv_finding_data_character_score.setText(String.valueOf(df.format(fi.getImpression())));
+        tv_finding_data_emotion_score.setText(String.valueOf(df.format(fi.getEmotion())));
+        tv_finding_data_hobby_score.setText(String.valueOf(df.format(fi.getHobby())));
+        tv_finding_data_live_score.setText(String.valueOf(df.format(fi.getResidence())));
+        tv_finding_job_score.setText(String.valueOf(df.format(fi.getJobscore())));
+        tv_finding_data_beauty_score.setText(String.valueOf(df.format(fi.getBeauty())));
     }
 
     private WindRoseClickListener windRoseClickListener

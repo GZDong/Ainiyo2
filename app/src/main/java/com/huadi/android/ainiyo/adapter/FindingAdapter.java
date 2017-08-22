@@ -1,20 +1,27 @@
 package com.huadi.android.ainiyo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.activity.FindingUserInfoActivity;
 import com.huadi.android.ainiyo.entity.FindingInfo;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -27,6 +34,7 @@ public class FindingAdapter extends BaseAdapter {
     private ImageAdapter mAdapter;
     private Context mContext;
     private OnPiPeiItemClickListener mPiPeiItemClickListener;
+    private PopupWindow mPopWindow;
 
     public FindingAdapter(Context mContext, List<FindingInfo> list) {
         this.mContext = mContext;
@@ -62,6 +70,7 @@ public class FindingAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        DecimalFormat df = new DecimalFormat("#.##");
         FindingInfo findingInfo = mList.get(position);
         if (findingInfo.getAge() != 0) {
             holder.iv_finding_age.setText(String.valueOf(findingInfo.getAge()));
@@ -76,6 +85,9 @@ public class FindingAdapter extends BaseAdapter {
         if (findingInfo.getJob() != null) {
             holder.tv_finding_job.setText(findingInfo.getJob());
         }
+        if (findingInfo.getSummary() != 0) {
+            holder.tv_finding_match_percent.setText(String.valueOf(df.format(findingInfo.getSummary())));
+        }
 //        if(findingInfo.getAvatar()!=null)
 //        {
 //            Glide.with(parent.getContext()).load(findingInfo.getAvatar()).into(holder.iv_finding_pic);
@@ -88,7 +100,58 @@ public class FindingAdapter extends BaseAdapter {
             }
         });
 
+        //整个View的长按事件
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //设置contentView
+                View contentView = LayoutInflater.from(mContext).inflate(R.layout.mode_comment_delete_pop_window, null);
+                mPopWindow = new PopupWindow(contentView,
+                        WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+                mPopWindow.setContentView(contentView);
+                //设置各个控件的点击响应
+                TextView tv1 = (TextView) contentView.findViewById(R.id.pop_computer);
+                TextView tv2 = (TextView) contentView.findViewById(R.id.pop_financial);
+                tv1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Toast.makeText(ModeDetailNineGridActivity.this,"clicked Delete",Toast.LENGTH_SHORT).show();
+                        DeleteComment(position);
+                        mPopWindow.dismiss();
+                        //Toast.makeText(ModeDetailNineGridActivity.this,mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+                tv2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Toast.makeText(ModeDetailNineGridActivity.this,"clicked cancel",Toast.LENGTH_SHORT).show();
+                        mPopWindow.dismiss();
+                    }
+                });
+                //显示PopupWindow
+                View rootview = LayoutInflater.from(mContext).inflate(R.layout.activity_finding_detail, null);
+                mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
+                return true;
+            }
+        });
+
+        //整个View的点击事件
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(mContext, "position:  " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+                mContext.startActivity(new Intent(mContext, FindingUserInfoActivity.class));
+            }
+        });
+
         return convertView;
+    }
+
+    private void DeleteComment(int position) {
+        mList.remove(position);
+        this.notifyDataSetChanged();
     }
 
     public void setOnPipeiItemClickListener(OnPiPeiItemClickListener listener) {
