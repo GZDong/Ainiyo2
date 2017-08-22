@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.FindingInfo;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -21,6 +23,8 @@ public class FindingUserInfoActivity extends AppCompatActivity {
     private List<String> mList;
     @ViewInject(R.id.ll_finding_userinfo)
     private ListView mListView;
+    @ViewInject(R.id.tv_finding_userinfo_username)
+    private TextView tv_finding_userinfo_username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,10 @@ public class FindingUserInfoActivity extends AppCompatActivity {
 
         ViewUtils.inject(this);
 
+        final Intent t = getIntent();
+        FindingInfo fi = (FindingInfo) t.getSerializableExtra("findingusername");
+
+        tv_finding_userinfo_username.setText(fi.getName());
 
         initView();
     }

@@ -58,7 +58,7 @@ public class FindingCardSwlpeAdapter extends RecyclerView.Adapter {
         //myHolder.avatarImageView.setImageResource(mList.get(position));
 
         DecimalFormat df = new DecimalFormat("#.##");
-        FindingInfo findingInfo = mList.get(position);
+        final FindingInfo findingInfo = mList.get(position);
         if (findingInfo.getAge() != 0) {
             myHolder.iv_finding_age.setText(String.valueOf(findingInfo.getAge()));
         }
@@ -82,8 +82,9 @@ public class FindingCardSwlpeAdapter extends RecyclerView.Adapter {
         myHolder.myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mContext.startActivity(new Intent(mContext, FindingUserInfoActivity.class));
-
+                Intent t = new Intent(mContext, FindingUserInfoActivity.class);
+                t.putExtra("findingusername", findingInfo);
+                mContext.startActivity(t);
                 //Toast.makeText(mContext, "position: " + String.valueOf(0) + "view: " + mList.get(0).getName(), Toast.LENGTH_SHORT).show();
             }
         });
