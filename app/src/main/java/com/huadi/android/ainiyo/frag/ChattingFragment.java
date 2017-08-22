@@ -125,8 +125,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_conversation:
-                //删除会话
-                Snackbar.make(mView,"确定聊天记录删除吗？",Snackbar.LENGTH_LONG)
+                //删除记录
+                Snackbar.make(mView,"确定清空聊天记录吗？",Snackbar.LENGTH_LONG)
                         .setAction("确定", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -142,12 +142,22 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 //**********开启singleTask的MainActivity**********
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
-
+                break;
+            case R.id.delete_dialog:
+                //删除会话
+                Snackbar.make(mView,"确定删除当前会话吗？",Snackbar.LENGTH_LONG)
+                        .setAction("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                FriendsLab.get(getActivity()).deleteDialog(mChatId);
+                                getActivity().finish();
+                            }
+                        }).show();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
-
+        return true;
     }
 
     @Nullable

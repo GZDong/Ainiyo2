@@ -29,6 +29,8 @@ public class Friends extends DataSupport {
 
     private String friId;
 
+    private int flag_delete = 0;
+
 
     public Friends(String user, String name) {
         this.user = user;
@@ -130,5 +132,13 @@ public class Friends extends DataSupport {
 
     public void setFriId(String friId) {
         this.friId = friId;
+    }
+
+    public void setFlag_delete(int flag_delete) {
+        this.flag_delete = flag_delete;
+    }
+
+    public int getFlag_delete() {
+        return flag_delete;
     }
 }

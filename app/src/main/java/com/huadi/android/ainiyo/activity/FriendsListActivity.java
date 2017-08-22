@@ -18,13 +18,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 
 import com.huadi.android.ainiyo.adapter.SortAdapter;
+import com.huadi.android.ainiyo.adapter.SortAdapter.ViewHolder;
 import com.huadi.android.ainiyo.definedView.ClearEditText;
 import com.huadi.android.ainiyo.definedView.SideBar;
 import com.huadi.android.ainiyo.entity.Friends;
@@ -63,6 +68,7 @@ public class FriendsListActivity extends AppCompatActivity{
     LinearLayoutManager manager;
 
     private PinyinComparator pinyinComparator;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +90,6 @@ public class FriendsListActivity extends AppCompatActivity{
         mToolbar = (Toolbar) findViewById(R.id.toolbar_contact);
         setSupportActionBar(mToolbar);
 
-
-
-
-
         ActionBar actionBar = getSupportActionBar();
         if (actionBar !=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -95,12 +97,21 @@ public class FriendsListActivity extends AppCompatActivity{
             actionBar.setTitle(R.string.contact_title);
         }
 
-
-
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String[] names = FriendsLab.get(this, mUserInfo).getNames();
+        SourceDateList = filledData(names);
+        adapter = new SortAdapter(this, SourceDateList, mUserInfo);
+        mRecyclerView.setAdapter(adapter);
+    }
+
     private void initViews() {
 
-         FriList = new ArrayList<>();
+
+        FriList = new ArrayList<>();
         pinyinComparator = new PinyinComparator();
 
         sideBar = (SideBar) findViewById(R.id.sideBar);
@@ -165,6 +176,8 @@ public class FriendsListActivity extends AppCompatActivity{
             public void afterTextChanged(Editable s) {
             }
         });
+
+
     }
 
     @Override
@@ -186,7 +199,9 @@ public class FriendsListActivity extends AppCompatActivity{
                 startActivity(intent1);
                 return true;
             case R.id.delete_friend:
-
+                //开启新的界面
+                Intent intent2 = new Intent(this,DeleteFriendActivity.class);
+                startActivity(intent2);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
