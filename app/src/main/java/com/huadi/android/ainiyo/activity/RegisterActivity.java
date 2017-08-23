@@ -42,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText register_pwd2;
     @ViewInject(R.id.check_box)
     private CheckBox check_box;
+    @ViewInject(R.id.back)
+    private ImageView back;
 
 
     @Override
@@ -62,9 +64,12 @@ public class RegisterActivity extends AppCompatActivity {
         ViewUtils.inject(this);
     }
 
-    @OnClick({R.id.register2,})
+    @OnClick({R.id.register2,R.id.back})
     public void onClick (View v){
         switch (v.getId()){
+            case R.id.back:
+                startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                break;
             case R.id.register2:
                 if(register_name.getText().toString().trim().length()<=0){
                     register_name.setError("用户名不能为空！");
@@ -83,6 +88,10 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 if(register_pwd1.getText().toString().trim().length()<=0){
                     register_pwd1.setError("密码不能为空！");
+                    return;
+                }
+                if(register_pwd1.getText().toString().trim().length()<7){
+                    register_pwd1.setError("密码长度不能小于6");
                     return;
                 }
                 if(!register_pwd1.getText().toString().equals(register_pwd2.getText().toString())){
