@@ -83,14 +83,13 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
         }
 
         if (!EMClient.getInstance().isLoggedInBefore()) {
-            Toast.makeText(AddFriendActivity.this,"第三方没有登陆",Toast.LENGTH_LONG).show();
+            Log.e("test","第三方没有登陆");
             UserInfo userInfo = UserInfoLab.get(AddFriendActivity.this).getUserInfo();
             String name = userInfo.getUsername();
             String pass = userInfo.getPassword();
             SignInUtil.signIn(name,pass,AddFriendActivity.this);
         }else {
-            Toast.makeText(AddFriendActivity.this,"第三方登陆",Toast.LENGTH_LONG).show();
-            Toast.makeText(AddFriendActivity.this, EMClient.getInstance().getCurrentUser(),Toast.LENGTH_LONG).show();
+            Log.e("test","第三方登陆,id为 " + EMClient.getInstance().getCurrentUser());
         }
 
 
@@ -169,9 +168,7 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                                     Log.e("test", "onNext___验证是否存在" + resultForCheckName.getMsg());
                                     Toast.makeText(AddFriendActivity.this,"用户不存在",Toast.LENGTH_LONG).show();
                                 }else if (resultForCheckName.getStatus().equals("123")){
-                                    //在这里缺少向服务器发送添加该好友的信息的代码
                                     Log.e("test", "onNext____验证是否存在" + resultForCheckName.getMsg());
-
                                     if (!TextUtils.isEmpty(mEditText.getText().toString())){
                                         attach = mEditText.getText().toString();
                                     }else {
@@ -190,7 +187,7 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                                     } else {
                                         call = reqFriInterface.getCall(ecApplication.sessionId, mClearEditText.getText().toString(), " ");
                                     }
-                                    Log.e("testCanshu", "请求好友输入的3个参数值：" + ecApplication.sessionId + mClearEditText.getText().toString() + mEditText.getText().toString());
+                                    Log.e("test", "请求好友输入的3个参数值：" + ecApplication.sessionId + mClearEditText.getText().toString() + mEditText.getText().toString());
                                     call.subscribeOn(Schedulers.io())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe(new Subscriber<ResultForRequset>() {
@@ -276,8 +273,6 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                             }
                         });
 
-                //异步添加
-               // new ().execute(mClearEditText.getText().toString(),attach);
             }
 
         }

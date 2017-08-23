@@ -64,7 +64,7 @@ public class FriendsLab {
         String name = userInfo.getUsername();
         String passwd = userInfo.getPassword();
         int picture = userInfo.getPicture();
-        mUserInfo = new UserInfo(name,passwd,picture);
+        mUserInfo = new UserInfo(name,passwd);
        // initFriends(userInfo);
     }
 
@@ -87,10 +87,8 @@ public class FriendsLab {
         }
         //如果数据库里没有好友，就到服务器请求好友列表
         if (mFriendses.size() == 0) {
-            //根据userInfo发起网络请求
-            //获得数据
-            //模拟：假如mmFriendses就是返回的数据
-           mmFriendses = new ArrayList<>();
+
+            mmFriendses = new ArrayList<>();
 
             //**********RxJava + Retrofit*******
             Retrofit retrofit = new Retrofit.Builder()
@@ -236,8 +234,7 @@ public class FriendsLab {
 
 
     public void addFriend(Friends friends) {
-        //这里还需要向服务器添加
-
+        //服务器添加的代码在使用这个方法的地方
         String user = friends.getUser();
         String name = friends.getName();
         Friends friends1 = new Friends(user,name);

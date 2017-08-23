@@ -148,13 +148,6 @@ public class FriendsListActivity extends AppCompatActivity{
         mRecyclerView.setLayoutManager(manager);
         adapter = new SortAdapter(this, SourceDateList, mUserInfo);
         mRecyclerView.setAdapter(adapter);
-        //item点击事件
-        /*adapter.setOnItemClickListener(new SortAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(MainActivity.this, ((Friends)adapter.getItem(position)).getName(),Toast.LENGTH_SHORT).show();
-            }
-        });*/
         mClearEditText = (ClearEditText) findViewById(R.id.filter_edit);
 
         //根据输入框输入值的改变来过滤搜索

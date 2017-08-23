@@ -77,7 +77,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
 
     private List<EMMessage> mMessages;
 
-    private View mView;   //?????
+    private View mView;
 
     private UserInfo mUserInfo;
 
@@ -104,14 +104,10 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
         mUserInfo = (UserInfo) getArguments().getSerializable("userInfo");
 
         //获得用户自己的头像
-
         userImage = mUserInfo.getPicture();
-
         mMessageListener = this;
-
         mMessages = new ArrayList<>();
 
-        //signIn();
 
         //*******在onCreate的方法里登陆********
         String name = mUserInfo.getUsername();
@@ -453,10 +449,13 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 holder.leftLayout.setVisibility(View.GONE);
                 holder.rightLayout.setVisibility(View.VISIBLE);
 
-                Bitmap bm = BitmapFactory.decodeResource(getResources(),userImage);
-                //加载图片
-                holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
-                //Glide.with(getActivity()).load(bm).fitCenter().into(holder.leftImage);
+                if (mUserInfo.getPicUrl()==null){
+                    Bitmap bm = BitmapFactory.decodeResource(getResources(),userImage);
+                    //加载图片
+                    holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
+                }else {
+                    Glide.with(getActivity()).load(mUserInfo.getPicUrl()).into(holder.rightImage);
+                }
 
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
                 holder.rightMsg.setText(body.getMessage());
