@@ -5,32 +5,38 @@ package com.huadi.android.ainiyo.entity;
  */
 
 public class MovementData {
-    private int id;
-    private String date;
-    private String content;
+    private int Id;
+    private String Data;
+    private String Content;
+
+    public MovementData(int id, String data, String content) {
+        Id = id;
+        Data = data;
+        Content = content;
+    }
 
     public int getId() {
-        return id;
+        return Id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.Id = id;
     }
 
 
     public String getDate() {
-        return date;
+        return Data;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.Data = date;
     }
 
     public String getContent() {
-        return content;
+        return Content;
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.Content = content;
     }
 }

@@ -5,42 +5,50 @@ package com.huadi.android.ainiyo.entity;
  */
 
 public class MovementContentData {
-    private int id;
-    private String title;
-    private String date;
-    private String imageUrl;
+    private int Id;
+    private String Title;
+    private String Date;
+    private String ImageUrl;
     private String article;
 
+    public MovementContentData(int id, String title, String date, String imageUrl, String article) {
+        Id = id;
+        Title = title;
+        Date = date;
+        ImageUrl = imageUrl;
+        this.article = article;
+    }
+
     public int getId() {
-        return id;
+        return Id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public String getDate() {
-        return date;
+        return Date;
     }
 
     public void setDate(String date) {
-        this.date = date;
+        this.Date = date;
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return ImageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.ImageUrl = imageUrl;
     }
 
     public String getArticle() {

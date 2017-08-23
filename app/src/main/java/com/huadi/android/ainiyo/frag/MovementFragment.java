@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,6 +100,7 @@ public class MovementFragment extends Fragment {
 
     private void loadDatas(final boolean direction) {
         RequestParams params = new RequestParams();
+        //Log.d("MOVEMENT", "moved");
         if (!direction) {// 如果是尾部刷新要重新计算分页数据
             page++;
         } else {
@@ -116,11 +118,13 @@ public class MovementFragment extends Fragment {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 movement_list_view.onRefreshComplete();
+                String newResponse = responseInfo.result.replaceAll("\\n","");
+                //Log.e("MOVEMENT", newResponse);
                 ResponseObject<MovementResult> object = new GsonBuilder().create().
-                        fromJson(responseInfo.result, new TypeToken<ResponseObject<MovementResult>>() {
+                        fromJson(newResponse, new TypeToken<ResponseObject<MovementResult>>() {
                         }.getType());
-
-                if (object.getStatus() == 400) {
+                //Log.e("MOVEMENT", String.valueOf(object.getResult().getData()[0].getDate()));
+                if (object.getStatus() == 0) {
                     if (direction)// 头部刷新
                     {// 渲染内容到界面上
                         //清空原来的数据
@@ -130,27 +134,34 @@ public class MovementFragment extends Fragment {
                         mwd = object.getResult().getData();
                         int sum = object.getResult().getSum();
                         MovementData mwd1;
-                        for (int i = sum - 1; i >= 0; i--) {
+
+                        for (int i = 0; i >= 0; i--) {
                             mwd1 = mwd[i];
 
                             idorder.add(mwd1.getId());
                             ToolKits.putInteger(getActivity(), "Integer", idorder);
 
                             //int userid = mwd1.getUserid();
-                            String content = mwd1.getContent();
+                            String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
+                            if(mwd1.getContent()!=null){
+                                Log.e("MOVEMENT",content);
+                            }
+
+
                             Gson gson = new Gson();
                             Type type = new TypeToken<MovementContentData>() {
                             }.getType();
-                            MovementContentData mcd = gson.fromJson(mwd1.getContent(), type);
-                            //ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
-                            mList.add(mcd);
+                            MovementContentData mcd = gson.fromJson(content, type);
+                            if(mcd!=null){
+                                mList.add(mcd);
+                            }
                         }
 
 
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
                         mAdapter = new MovementAdapter(mList, ((ECApplication) getActivity().getApplication()).sessionId);
-                        mAdapter.setFather(getParentFragment().getActivity());
+//                        mAdapter.setFather(getParentFragment().getActivity());
                         movement_list_view.setAdapter(mAdapter);
                     } else {// 尾部刷新
                         //mList.addAll(object.getDatas());
@@ -177,7 +188,7 @@ public class MovementFragment extends Fragment {
         Intent intent = new Intent(getActivity(), MovementDetailActivity.class);
 
 
-        MovementContentData mcd = mList.get(position);
+        MovementContentData mcd = mList.get(position-1);
         intent.putExtra("id", mcd.getId());
         intent.putExtra("title", mcd.getTitle());
         intent.putExtra("date", mcd.getDate());
