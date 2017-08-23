@@ -135,7 +135,7 @@ public class MovementFragment extends Fragment {
                         int sum = object.getResult().getSum();
                         MovementData mwd1;
 
-                        for (int i = 0; i >= 0; i--) {
+                        for (int i = mwd.length - 1; i >= 0; i--) {
                             mwd1 = mwd[i];
 
                             idorder.add(mwd1.getId());
@@ -146,21 +146,23 @@ public class MovementFragment extends Fragment {
                             if(mwd1.getContent()!=null){
                                 Log.e("MOVEMENT",content);
                             }
-
-
                             Gson gson = new Gson();
                             Type type = new TypeToken<MovementContentData>() {
                             }.getType();
-                            MovementContentData mcd = gson.fromJson(content, type);
-                            if(mcd!=null){
-                                mList.add(mcd);
+                            if(content.startsWith("{")) {
+                                MovementContentData mcd = gson.fromJson(content, type);
+
+                                mcd.setId(mwd1.getId());//ID同步校正
+                                if (mcd != null) {
+                                    mList.add(mcd);
+                                }
                             }
                         }
 
 
 
                         //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new MovementAdapter(mList, ((ECApplication) getActivity().getApplication()).sessionId);
+                        mAdapter = new MovementAdapter(mList, ((ECApplication) getActivity().getApplication()).sessionId,false);
 //                        mAdapter.setFather(getParentFragment().getActivity());
                         movement_list_view.setAdapter(mAdapter);
                     } else {// 尾部刷新
@@ -203,7 +205,7 @@ public class MovementFragment extends Fragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_movement_me:
-                Toast.makeText(getActivity(), "tap me", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "tap me", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(), MovementJoinedActivity.class));
         }
     }

@@ -1,10 +1,12 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -41,7 +43,11 @@ public class MovementDetailActivity extends AppCompatActivity {
     ImageView image;
     @ViewInject(R.id.partyMainText)
     TextView article;
+    @ViewInject(R.id.btn_join_now)
+    Button joinButton;
+
     private ProgressDialog dialog;
+
 
     private Bundle extras;
     @Override
@@ -63,6 +69,18 @@ public class MovementDetailActivity extends AppCompatActivity {
         title.setText(extras.getString("title"));
         date.setText(extras.getString("date"));
         article.setText(extras.getString("article"));
+
+
+        if(extras.getBoolean("isJoined",false)){
+            SetUnJoinable();
+        }
+
+    }
+
+    private void SetUnJoinable(){
+        joinButton.setBackgroundColor(Color.GRAY);
+        joinButton.setText("已参加");
+        joinButton.setEnabled(false);
     }
 
 

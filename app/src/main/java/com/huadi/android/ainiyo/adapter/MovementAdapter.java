@@ -1,6 +1,7 @@
 package com.huadi.android.ainiyo.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.hp.hpl.sparta.Text;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.activity.MovementDetailActivity;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.MovementContentData;
@@ -51,11 +53,12 @@ public class MovementAdapter extends BaseAdapter {
     private String sessionId;
     private ImageAdapter mAdapter;
     private Context father;
+    private boolean isJoinedMode = false;
 
-
-    public MovementAdapter(List<MovementContentData> list, String session) {
+    public MovementAdapter(List<MovementContentData> list, String session,boolean joined) {
         mList = list;
         sessionId = session;
+        isJoinedMode = joined;
     }
 
     public void setFather(Context father) {
@@ -105,7 +108,13 @@ public class MovementAdapter extends BaseAdapter {
         }
 
         if (mcd.getArticle() != null) {
-            holder.article.setText(mcd.getArticle());
+            if (mcd.getArticle().length() >= 60) {
+                String previewText = mcd.getArticle().substring(0, 59) + " ……";
+                holder.article.setText(previewText);//预览显示少部分文字
+            }
+            else {
+                holder.article.setText(mcd.getArticle());
+            }
         }
 
         if (mcd.getImageUrl() != null) {
@@ -116,31 +125,38 @@ public class MovementAdapter extends BaseAdapter {
         }
 
 
-        holder.join.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if(isJoinedMode){
+            holder.join.setVisibility(View.GONE);
+        }
+        else {
+            holder.join.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                RequestParams params = new RequestParams();
-                params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("aid", String.valueOf(mcd.getId()));
-
-
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
-
-                    @Override
-                    public void onSuccess(ResponseInfo<String> responseInfo) {
-                        Toast.makeText(father, "参加成功", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onFailure(HttpException error, String msg) {
-
-                    }
-                });
-            }
-        });
+                    RequestParams params = new RequestParams();
+                    params.addBodyParameter("sessionid", sessionId);
+                    params.addBodyParameter("aid", String.valueOf(mcd.getId()));
 
 
+                    new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
+
+                        @Override
+                        public void onSuccess(ResponseInfo<String> responseInfo) {
+                            Log.e("MOVEMENT_ADAPTER", "JOINED");
+                            //Toast.makeText(MovementDetailActivity.this, "参加成功", Toast.LENGTH_SHORT).show();
+                            //?
+                        }
+
+                        @Override
+                        public void onFailure(HttpException error, String msg) {
+
+                        }
+                    });
+
+                }
+            });
+
+        }
 
         return convertView;
     }

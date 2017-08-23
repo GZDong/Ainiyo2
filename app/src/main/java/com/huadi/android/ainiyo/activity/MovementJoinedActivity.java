@@ -112,7 +112,8 @@ public class MovementJoinedActivity extends AppCompatActivity {
                         fromJson(responseInfo.result, new TypeToken<ResponseObject<MovementResult>>() {
                         }.getType());
 
-                if (object.getStatus() == 400) {
+                //Log.e("MOVEMENT_JOINED",object.getStatus());
+                if (object.getStatus() == 0) {
                     if (direction)// 头部刷新
                     {// 渲染内容到界面上
                         //清空原来的数据
@@ -122,19 +123,18 @@ public class MovementJoinedActivity extends AppCompatActivity {
                         mwd = object.getResult().getData();
                         int sum = object.getResult().getSum();
                         MovementData mwd1;
-
-                        for (int i = 0; i >= 0; i--) {
+                        //Log.e("MOVEMENT_JONIED","data "+object.getResult().getSum());
+                        for (int i = mwd.length - 1; i >= 0; i--) {
                             mwd1 = mwd[i];
 
                             idorder.add(mwd1.getId());
                             ToolKits.putInteger(MovementJoinedActivity.this, "Integer", idorder);
 
-                            //int userid = mwd1.getUserid();
                             String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
+                            //だれ
                             if(mwd1.getContent()!=null){
-                                Log.e("MOVEMENT",content);
+                                Log.e("MOVEMENT_JOINED",content);
                             }
-
 
                             Gson gson = new Gson();
                             Type type = new TypeToken<MovementContentData>() {
@@ -145,18 +145,9 @@ public class MovementJoinedActivity extends AppCompatActivity {
                             }
                         }
 
-//                    Toast.makeText(getActivity(),
-//                            "content=" + content + ",userid=" + String.valueOf(userid)
-//                                    + ",msg=" + object.getMsg() + ",Status=" + object.getStatus(),
-//                            Toast.LENGTH_SHORT).show();
 
-//                    Toast.makeText(getActivity(),
-//                            "imageUrL:  "+mi.getImgUrlforContent().size(),
-//                            Toast.LENGTH_SHORT).show();
 
-                        //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
-                        mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId);
-                        //mAdapter.setFather(getParentFragment().getActivity());
+                        mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId,true);
                         movement_list_view.setAdapter(mAdapter);
                     } else {// 尾部刷新
                         //mList.addAll(object.getDatas());
@@ -171,7 +162,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
             @Override
             public void onFailure(HttpException error, String msg) {
                 movement_list_view.onRefreshComplete();
-                Toast.makeText(MovementJoinedActivity.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MovementJoinedActivity.this, "HTTP ERROR "+msg, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -203,13 +194,14 @@ public class MovementJoinedActivity extends AppCompatActivity {
         Intent intent = new Intent(MovementJoinedActivity.this, MovementDetailActivity.class);
 
 
-        MovementContentData mcd = mList.get(position);
+        MovementContentData mcd = mList.get(position-1);
         intent.putExtra("id", mcd.getId());
         intent.putExtra("title", mcd.getTitle());
         intent.putExtra("date", mcd.getDate());
         intent.putExtra("imageUrl", mcd.getImageUrl());
         intent.putExtra("article", mcd.getArticle());
 
+        intent.putExtra("isJoined",true);
 
         startActivity(intent);
     }
