@@ -1,6 +1,7 @@
 package com.huadi.android.ainiyo.frag;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -72,9 +73,11 @@ import me.yuqirong.cardswipelayout.CardItemTouchHelperCallback;
 import me.yuqirong.cardswipelayout.CardLayoutManager;
 import me.yuqirong.cardswipelayout.OnSwipeListener;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.huadi.android.ainiyo.util.CONST.FINDING_USER_DESTINY;
 import static com.huadi.android.ainiyo.util.CONST.GETING_APHORISM;
 import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
+import static com.huadi.android.ainiyo.util.ToolKits.getSharedPreferences;
 
 
 public class FindingFragment extends Fragment {
@@ -153,7 +156,11 @@ public class FindingFragment extends Fragment {
             }
         };
 
-        showTipsPopup();
+
+        SharedPreferences pref= getActivity().getSharedPreferences("data",MODE_PRIVATE);
+        if(pref.getBoolean("isFirstTime",true)){
+            showTipsPopup(pref);
+        }
         return view;
     }
 
@@ -391,7 +398,7 @@ public class FindingFragment extends Fragment {
 
     }
 
-    public void showTipsPopup(){
+    public void showTipsPopup(SharedPreferences pref){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_tips, null);
         ImageView tips = view.findViewById(R.id.tipsImage);
         final PopupWindow popup = new PopupWindow(view, LinearLayoutCompat.LayoutParams.FILL_PARENT,
@@ -406,6 +413,11 @@ public class FindingFragment extends Fragment {
                 popup.dismiss();
             }
         });
+
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("isFirstTime",false);
+        editor.apply();
+
     }
 
     @Override
