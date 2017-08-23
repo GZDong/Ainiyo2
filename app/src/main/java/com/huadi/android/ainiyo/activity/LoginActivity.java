@@ -109,11 +109,9 @@ public class LoginActivity extends AppCompatActivity  {
                 params.addBodyParameter("name",login_name.getText().toString());
                 params.addBodyParameter("pwd",login_pwd.getText().toString());
                 //初始化用户信息
-                final UserInfo userInfo = new UserInfo(login_name.getText().toString(), login_pwd.getText().toString(), R.drawable.left_image);
+                final UserInfo userInfo = new UserInfo(login_name.getText().toString(), login_pwd.getText().toString());
                 UserInfoLab.get(LoginActivity.this,userInfo);
                 UserInfoLab.get(LoginActivity.this,userInfo).setUserInfo(userInfo);
-                /*FriendsLab.get(LoginActivity.this,userInfo).setFriListNull();
-                FriendsLab.get(LoginActivity.this,userInfo).initFriends();*/
 
                 Log.e("test","onLoginActivity "+userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
                 HttpUtils http=new HttpUtils();

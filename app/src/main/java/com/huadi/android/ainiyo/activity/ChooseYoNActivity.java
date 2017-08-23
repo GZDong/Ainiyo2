@@ -69,7 +69,7 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
         name = getIntent().getStringExtra("id");
         reason = getIntent().getStringExtra("reason");
 
-        Log.e("name",name + reason + "++++");
+        Log.e("name","用户："+ name+" 请求添加你为好友，理由是：" + reason);
 
         idText = (TextView) findViewById(R.id.person_id_text);
         reasonText = (TextView) findViewById(R.id.reason);

@@ -159,6 +159,6 @@ public class MovementAdapter extends BaseAdapter {
         TextView article;
 
         @ViewInject(R.id.btn_movement_tpi)
-        Button join;
+        TextView join;
     }
 }

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,20 +122,27 @@ public class MovementJoinedActivity extends AppCompatActivity {
                         mwd = object.getResult().getData();
                         int sum = object.getResult().getSum();
                         MovementData mwd1;
-                        for (int i = sum - 1; i >= 0; i--) {
+
+                        for (int i = 0; i >= 0; i--) {
                             mwd1 = mwd[i];
-//what
+
                             idorder.add(mwd1.getId());
                             ToolKits.putInteger(MovementJoinedActivity.this, "Integer", idorder);
 
                             //int userid = mwd1.getUserid();
-                            String content = mwd1.getContent();
+                            String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
+                            if(mwd1.getContent()!=null){
+                                Log.e("MOVEMENT",content);
+                            }
+
+
                             Gson gson = new Gson();
                             Type type = new TypeToken<MovementContentData>() {
                             }.getType();
-                            MovementContentData mcd = gson.fromJson(mwd1.getContent(), type);
-                            //ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate());
-                            mList.add(mcd);
+                            MovementContentData mcd = gson.fromJson(content, type);
+                            if(mcd!=null){
+                                mList.add(mcd);
+                            }
                         }
 
 //                    Toast.makeText(getActivity(),

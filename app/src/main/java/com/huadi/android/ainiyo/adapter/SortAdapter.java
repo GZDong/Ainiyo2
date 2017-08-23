@@ -37,7 +37,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
     public SortAdapter(Context context, List<Friends> data, UserInfo userInfo) {
         mInflater = LayoutInflater.from(context);
         mData = data;
-        mUserInfo = new UserInfo(userInfo.getUsername(), userInfo.getPassword(), userInfo.getPicture());
+        mUserInfo = new UserInfo(userInfo.getUsername(), userInfo.getPassword());
         this.mContext = context;
     }
 

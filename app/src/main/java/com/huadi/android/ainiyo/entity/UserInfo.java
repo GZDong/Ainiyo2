@@ -1,5 +1,7 @@
 package com.huadi.android.ainiyo.entity;
 
+import com.huadi.android.ainiyo.R;
+
 import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
@@ -13,13 +15,14 @@ public class UserInfo extends DataSupport implements Serializable {
     private String username;
     private String password;
     private int picture;
-    //private String picUrl;
+    private String picUrl;
 
 
-    public UserInfo(String username, String password, int picture) {
+    public UserInfo(String username, String password) {
         this.username = username;
         this.password = password;
-        this.picture = picture;
+        this.picture = R.drawable.left_image;
+        this.picUrl = null;
     }
 
     public int getPicture() {
@@ -44,5 +47,13 @@ public class UserInfo extends DataSupport implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
     }
 }
