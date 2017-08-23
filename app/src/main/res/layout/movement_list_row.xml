@@ -65,9 +65,10 @@
                     android:id="@+id/btn_movement_tpi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@mipmap/movement_attending"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
+                    android:drawableTop="@mipmap/movement_attending"
                     android:text="我要参加"
                     android:textColor="#d81e06" />
 
