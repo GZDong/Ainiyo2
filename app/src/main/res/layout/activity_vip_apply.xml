@@ -62,7 +62,7 @@
                 android:layout_height="35dp"
                 android:src="@drawable/tianjia"
                 android:layout_gravity="center"
-                android:layout_marginLeft="70dp" />
+                android:layout_marginLeft="50dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -100,7 +100,7 @@
                 android:layout_height="35dp"
                 android:src="@drawable/tianjia"
                 android:layout_gravity="center"
-                android:layout_marginLeft="70dp" />
+                android:layout_marginLeft="50dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -138,7 +138,7 @@
                 android:layout_height="35dp"
                 android:src="@drawable/tianjia"
                 android:layout_gravity="center"
-                android:layout_marginLeft="70dp" />
+                android:layout_marginLeft="50dp" />
         </LinearLayout>
 
 

@@ -192,7 +192,6 @@ public class VipApplyActivity extends AppCompatActivity implements LGImgCompress
         if (ima == fi) {
             change1 = true;
             done1 = compressImages;
-            first.setVisibility(View.GONE);
 
 
             sendImages(done1);
@@ -201,7 +200,6 @@ public class VipApplyActivity extends AppCompatActivity implements LGImgCompress
         if (ima == se) {
             change2 = true;
             done2 = compressImages;
-            second.setVisibility(View.GONE);
             //动画
 
             sendImages(done2);
@@ -210,7 +208,6 @@ public class VipApplyActivity extends AppCompatActivity implements LGImgCompress
         if (ima == th) {
             change3 = true;
             done3 = compressImages;
-            third.setVisibility(View.GONE);
 
 
             sendImages(done3);
