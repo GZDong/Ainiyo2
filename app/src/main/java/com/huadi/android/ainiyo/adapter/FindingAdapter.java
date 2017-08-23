@@ -2,6 +2,7 @@ package com.huadi.android.ainiyo.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +72,7 @@ public class FindingAdapter extends BaseAdapter {
         }
 
         DecimalFormat df = new DecimalFormat("#.##");
-        FindingInfo findingInfo = mList.get(position);
+        final FindingInfo findingInfo = mList.get(position);
         if (findingInfo.getAge() != 0) {
             holder.iv_finding_age.setText(String.valueOf(findingInfo.getAge()));
         }
@@ -141,8 +142,12 @@ public class FindingAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent t = new Intent(mContext, FindingUserInfoActivity.class);
+                Bundle b = new Bundle();
+                b.putSerializable("findinginfo", findingInfo);
+                t.putExtras(b);
                 //Toast.makeText(mContext, "position:  " + String.valueOf(position), Toast.LENGTH_SHORT).show();
-                mContext.startActivity(new Intent(mContext, FindingUserInfoActivity.class));
+                mContext.startActivity(t);
             }
         });
 

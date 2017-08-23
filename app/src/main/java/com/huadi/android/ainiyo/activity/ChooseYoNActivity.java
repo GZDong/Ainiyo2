@@ -55,7 +55,7 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chooseyon);
-       // setContentView(R.layout.activity_new_friend_invitation);
+        // setContentView(R.layout.activity_new_friend_invitation);
         initView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

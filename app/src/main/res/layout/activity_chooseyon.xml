@@ -21,7 +21,7 @@
         android:src="@drawable/home_buttons_like"
         android:layout_alignTop="@+id/refuse_btn"
         android:layout_toRightOf="@+id/reason"
-        android:layout_toEndOf="@+id/reason"/>
+        android:layout_toEndOf="@+id/reason" />
 
     <ImageButton
         android:id="@+id/refuse_btn"
@@ -33,7 +33,7 @@
         android:src="@drawable/home_buttons_dislike"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/text"
-        android:layout_toStartOf="@+id/text"/>
+        android:layout_toStartOf="@+id/text" />
 
     <TextView
         android:id="@+id/text"

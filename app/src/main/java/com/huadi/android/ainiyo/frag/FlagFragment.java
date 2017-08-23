@@ -22,7 +22,7 @@ public class FlagFragment extends DialogFragment {
     public static FlagFragment newInstance(String name) {
 
         Bundle args = new Bundle();
-        args.putString("name",name);
+        args.putString("name", name);
         FlagFragment fragment = new FlagFragment();
         fragment.setArguments(args);
         return fragment;
@@ -32,7 +32,7 @@ public class FlagFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         String name = getArguments().getString("name");
-        final EditText editText = (EditText) LayoutInflater.from(getActivity()).inflate(R.layout.text_flag,null,false);
+        final EditText editText = (EditText) LayoutInflater.from(getActivity()).inflate(R.layout.text_flag, null, false);
         editText.setText(name);
         editText.setSelection(editText.getText().length());
         return new AlertDialog.Builder(getActivity())
@@ -41,8 +41,8 @@ public class FlagFragment extends DialogFragment {
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (TextUtils.isEmpty(editText.getText())){
-                            Toast.makeText(getActivity(),"不能为空！",Toast.LENGTH_LONG).show();
+                        if (TextUtils.isEmpty(editText.getText())) {
+                            Toast.makeText(getActivity(), "不能为空！", Toast.LENGTH_LONG).show();
                         }
                     }
                 })

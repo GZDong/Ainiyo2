@@ -47,14 +47,14 @@ public class VipLeverActivity extends AppCompatActivity {
 
                             //如果获取数据成功，获得数据//
                             if (msg.equals("success")) {
-                                if(userData.isVip()){
-                                    text="VIP用户";
-                                    TextView vip=(TextView)findViewById(R.id.vip);
+                                if (userData.isVip()) {
+                                    text = "VIP用户";
+                                    TextView vip = (TextView) findViewById(R.id.vip);
                                     vip.setText(text);
                                 }
-                                if(!userData.isVip()){
-                                    text="普通用户";
-                                    TextView vip=(TextView)findViewById(R.id.vip);
+                                if (!userData.isVip()) {
+                                    text = "普通用户";
+                                    TextView vip = (TextView) findViewById(R.id.vip);
                                     vip.setText(text);
                                 }
                             } else {
@@ -76,10 +76,10 @@ public class VipLeverActivity extends AppCompatActivity {
 
                 }
         );
-        ImageView back=(ImageView)findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener(){
+        ImageView back = (ImageView) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 startActivity(new Intent(VipLeverActivity.this, MainActivity.class));
             }
         });

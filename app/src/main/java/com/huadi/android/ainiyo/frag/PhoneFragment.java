@@ -23,16 +23,17 @@ public class PhoneFragment extends DialogFragment {
     public static PhoneFragment newInstance(String number) {
 
         Bundle args = new Bundle();
-        args.putString("number",number);
+        args.putString("number", number);
         PhoneFragment fragment = new PhoneFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.text_phone,null,false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.text_phone, null, false);
         final TextView textView = (TextView) view;
         textView.setText(getArguments().getString("number"));
         return new AlertDialog.Builder(getActivity())
@@ -41,7 +42,7 @@ public class PhoneFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(Uri.parse("tel:"+textView.getText()));
+                        intent.setData(Uri.parse("tel:" + textView.getText()));
                         startActivity(intent);
                     }
                 })

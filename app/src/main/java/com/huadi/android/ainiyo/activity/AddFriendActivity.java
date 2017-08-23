@@ -108,10 +108,10 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
         mEditText = (EditText) findViewById(R.id.attach_text);
 
         String tag = getIntent().getStringExtra("name");
-        if (tag.equals("nothing")){
-            Log.e("test","List -> add");
-        }else{
-            Log.e("test","Push -> add " + tag);
+        if (tag.equals("nothing")) {
+            Log.e("test", "List -> add");
+        } else {
+            Log.e("test", "Push -> add " + tag);
             mClearEditText.setText(tag);
             mClearEditText.setSelection(mClearEditText.getText().length());
             mSearchBtn.setVisibility(View.VISIBLE);
