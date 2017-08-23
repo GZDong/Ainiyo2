@@ -256,6 +256,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 //根据得到的地区代码，返回省，城市，区，然后sp.setSelection(arrayAdapter.getPosition("广东")设置默认值//
 
 
+
                                 if (Parentsalive) {
                                     edit_parentsalive1.setChecked(true);
                                 }

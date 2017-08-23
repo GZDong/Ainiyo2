@@ -90,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                     register_pwd1.setError("密码不能为空！");
                     return;
                 }
-                if(register_pwd1.getText().toString().trim().length()<7){
+                if(register_pwd1.getText().toString().trim().length()>7&&register_pwd1.getText().toString().trim().length()<17){
                     register_pwd1.setError("密码长度不能小于6");
                     return;
                 }
