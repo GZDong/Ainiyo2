@@ -57,10 +57,9 @@
             android:layout_height="wrap_content"
             android:button="@null"
             android:layout_weight="1"
-            android:text="基本信息"
             android:textColor="@color/gray"
+            android:text="基本信息"
             android:gravity="center"
-            android:background="@drawable/radiobutton"
             android:textSize="25sp" />
 
         <RadioButton
@@ -71,7 +70,6 @@
             android:text="情感经历"
             android:textColor="@color/gray"
             android:gravity="center"
-            android:background="@drawable/radiobutton"
             android:textSize="25sp"
             android:layout_weight="1" />
     </RadioGroup>

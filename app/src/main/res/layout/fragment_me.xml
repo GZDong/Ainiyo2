@@ -81,7 +81,7 @@
 
                 <ImageView
                     android:layout_width="50dp"
-                    android:layout_height="25dp"
+                    android:layout_height="19dp"
                     android:src="@drawable/youjiantou"
                     android:layout_gravity="center_vertical" />
 
@@ -121,7 +121,7 @@
 
                 <ImageView
                     android:layout_width="50dp"
-                    android:layout_height="25dp"
+                    android:layout_height="19dp"
                     android:src="@drawable/youjiantou"
                     android:layout_gravity="center_vertical" />
 
@@ -156,7 +156,7 @@
 
                 <ImageView
                     android:layout_width="50dp"
-                    android:layout_height="25dp"
+                    android:layout_height="19dp"
                     android:src="@drawable/youjiantou"
                     android:layout_gravity="center_vertical" />
 
@@ -188,7 +188,7 @@
 
                 <ImageView
                     android:layout_width="50dp"
-                    android:layout_height="25dp"
+                    android:layout_height="19dp"
                     android:src="@drawable/youjiantou"
                     android:layout_gravity="center_vertical" />
 
@@ -222,7 +222,7 @@
 
                 <ImageView
                     android:layout_width="50dp"
-                    android:layout_height="25dp"
+                    android:layout_height="19dp"
                     android:src="@drawable/youjiantou"
                     android:layout_gravity="center_vertical" />
 
@@ -266,7 +266,7 @@
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="50dp"
-                    android:layout_height="25dp"
+                    android:layout_height="19dp"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/youjiantou" />
 
@@ -302,7 +302,7 @@
 
                 <ImageView
                     android:layout_width="50dp"
-                    android:layout_height="25dp"
+                    android:layout_height="19dp"
                     android:src="@drawable/youjiantou"
                     android:layout_gravity="center_vertical" />
 
@@ -338,7 +338,7 @@
 
                 <ImageView
                     android:layout_width="50dp"
-                    android:layout_height="25dp"
+                    android:layout_height="19dp"
                     android:src="@drawable/youjiantou"
                     android:layout_gravity="center_vertical" />
 
