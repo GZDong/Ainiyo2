@@ -91,18 +91,18 @@ public class MeFragment extends Fragment{
                         try {
                             JSONObject object = new JSONObject(info);
                             String msg = object.getString("Msg");
+                            if (msg.equals("success")) {
                             Gson gson = new Gson();
                             UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
 
                             //如果获取数据成功，则把数据加载到各项
-                            if (msg.equals("success")) {
                                 String job = userData.getJob();
                                 Boolean vip = userData.isVip();
                                 String image = userData.getAvatar();
                                 job_text = (TextView) getActivity().findViewById(R.id.job_text);
                                 job_text.setText(job);
                                 avatar_imag = (CircleImageView) getActivity().findViewById(R.id.avatar_imag);
-                                if (image != null) {
+                                if (!image.equals("")) {
                                     Glide.with(getActivity()).load(image).into(avatar_imag);
                                 }
                                 if (vip) {

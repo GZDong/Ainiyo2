@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.AreaData;
 import com.huadi.android.ainiyo.entity.City;
 import com.huadi.android.ainiyo.entity.County;
 import com.huadi.android.ainiyo.entity.Photo;
@@ -102,6 +103,16 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     private Spinner citySpinner;
     @ViewInject(R.id.countySpinner)
     private Spinner countySpinner;
+    @ViewInject(R.id.change)
+    private TextView change;
+    @ViewInject(R.id.address)
+    private TextView address;
+
+
+
+    private String provincename_get;//
+    private String cityname_get;//从用户详细信息获取的省，市，区名
+    private String countyname_get;//
 
 
     private ArrayAdapter<String> provinceAdapter = null;  //省级适配器
@@ -243,17 +254,53 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 Avatar = userData.getAvatar();
                                 Userid = userData.getUserid();
                                 //在完善信息里获得用户上次写过的详细信息//
-                                if (Avatar != null) {
+                                if (!Avatar.equals("")) {
                                     Glide.with(EditInfoActivity.this).load(Avatar).into(edit_avatar);
                                 }
                                 edit_job.setText(Job);
                                 if (Salary != 1.111111) {
                                     edit_salary.setText(String.valueOf(Salary));
                                 }
-                                if (Birthday != null) {
+                                if (!Birthday.equals("")) {
                                     edit_birthday.setText(Birthday.substring(0, 10));
                                 }
                                 //根据得到的地区代码，返回省，城市，区，然后sp.setSelection(arrayAdapter.getPosition("广东")设置默认值//
+                                if(Area!=0){
+                                    RequestParams params = new RequestParams();
+                                    params.addBodyParameter("sessionid", sessionId);
+                                    params.addBodyParameter("areaid",Area+"");
+                                    new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/search/area/id", params, new RequestCallBack<String>() {
+                                        @Override
+                                        public void onSuccess(ResponseInfo<String> responseInfo) {
+                                            try {
+                                                JSONObject object = new JSONObject(responseInfo.result.toString());
+                                                int status = object.getInt("Status");
+                                                if (status == 1000) {
+                                                    Gson gson = new Gson();
+                                                    AreaData area=gson.fromJson(object.getJSONObject("Result").toString(),AreaData.class);
+                                                    provinceId=area.getCountryid();//
+                                                    cityId=area.getCountryid();//初始化成用户上次保存的ID
+                                                    countyId=area.getCountyid();//
+                                                    provincename_get=area.getProvince();
+                                                    cityname_get= area.getCountry();
+                                                    countyname_get= area.getCounty();
+                                                    address.setText(provincename_get+cityname_get+countyname_get);
+
+                                                }
+
+
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(HttpException error, String msg) {
+                                            Toast.makeText(EditInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
+                                }
 
 
 
@@ -264,7 +311,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                     edit_parentsalive2.setChecked(true);
                                 }
                                 //判断是否空对象//
-                                if (Maritallstatus != null) {
+                                if (!Maritallstatus.equals("")) {
                                     if (Maritallstatus.equals("未婚")) {
                                         edit_maritallstatus1.setChecked(true);
                                     } else {
@@ -332,11 +379,18 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
 
 
     //事件监听//
-    @OnClick({R.id.back, R.id.save, R.id.edit_avatar})
+    @OnClick({R.id.back, R.id.save, R.id.edit_avatar,R.id.change})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
                 startActivity(new Intent(EditInfoActivity.this, MainActivity.class));
+                break;
+            case R.id.change:
+                address.setVisibility(View.GONE);
+                change.setVisibility(View.GONE);
+                provinceSpinner.setVisibility(View.VISIBLE);
+                citySpinner.setVisibility(View.VISIBLE);
+                countySpinner.setVisibility(View.VISIBLE);
                 break;
             case R.id.edit_avatar:
                 ImageSelectorUtils.openPhoto(EditInfoActivity.this, 1, true, 0);
@@ -526,6 +580,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 provinceAdapter = new ArrayAdapter<String>(EditInfoActivity.this,
                                         android.R.layout.simple_spinner_item, province);
                                 provinceSpinner.setAdapter(provinceAdapter);
+                                provinceSpinner.setSelection(18);
+
                             }
                         }
                     }
@@ -569,6 +625,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 cityAdapter = new ArrayAdapter<String>(EditInfoActivity.this,
                                         android.R.layout.simple_spinner_item, city);
                                 citySpinner.setAdapter(cityAdapter);
+                                citySpinner.setSelection(0);
+
                             }
                         }
                     }
@@ -613,6 +671,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 countyAdapter = new ArrayAdapter<String>(EditInfoActivity.this,
                                         android.R.layout.simple_spinner_item, county);
                                 countySpinner.setAdapter(countyAdapter);
+                                countySpinner.setSelection(3);
+
                             }
                         }
                     }
