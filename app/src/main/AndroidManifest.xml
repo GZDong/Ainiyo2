@@ -173,6 +173,7 @@
         <activity android:name=".activity.MovementJoinedActivity" />
         <activity android:name=".activity.DeleteFriendActivity"
             android:parentActivityName=".activity.FriendsListActivity"/>
+        <activity android:name=".activity.PhoneWallActivity"/>
     </application>
 
 </manifest>
