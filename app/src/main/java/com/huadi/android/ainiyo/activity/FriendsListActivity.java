@@ -196,6 +196,7 @@ public class FriendsListActivity extends AppCompatActivity{
                 return true;
             case R.id.add_friend:
                 Intent intent1 = new Intent(this, AddFriendActivity.class);
+                intent1.putExtra("name","nothing");
                 startActivity(intent1);
                 return true;
             case R.id.delete_friend:

@@ -72,7 +72,7 @@ public class WelcomActivity extends AppCompatActivity {
                     password=pref2.getString("pwd","");
 
                     //初始化用户信息
-                    final UserInfo userInfo = new UserInfo(username, password, R.drawable.right_image);
+                    final UserInfo userInfo = new UserInfo(username, password, R.drawable.left_image);
                     UserInfoLab.get(WelcomActivity.this,userInfo);
                     /*FriendsLab.get(WelcomActivity.this,userInfo).setFriListNull();
                     FriendsLab.get(WelcomActivity.this,userInfo).initFriends();*/

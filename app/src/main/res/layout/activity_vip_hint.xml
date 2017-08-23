@@ -15,14 +15,14 @@
             android:id="@+id/back"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/left_arrow"
+            android:src="@drawable/zuojiantou"
             android:padding="5dp" />
     </LinearLayout>
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/apply"
+        android:src="@drawable/vip"
         android:layout_marginTop="30dp"
         android:layout_gravity="center" />
 
@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="第一步：上传三张照片，包括身份证正面，身份证背面，本人手持身份证照"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp" />
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="第二步：等待审核人员审核"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="3dp" />
@@ -58,7 +58,7 @@
         android:layout_height="55dp"
         android:text="下一步"
         android:layout_marginTop="20dp"
-        android:textSize="23sp"
+        android:textSize="19sp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textColor="#FFFF"

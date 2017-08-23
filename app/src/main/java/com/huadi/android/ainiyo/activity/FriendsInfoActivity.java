@@ -1,29 +1,35 @@
 package com.huadi.android.ainiyo.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.renderscript.Long2;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.entity.Friends;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.frag.FlagFragment;
+import com.huadi.android.ainiyo.frag.HobbyFragment;
+import com.huadi.android.ainiyo.frag.PhoneFragment;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 
@@ -38,25 +44,33 @@ public class FriendsInfoActivity extends AppCompatActivity {
 
     private int picture;
     private String name;
-    private TextView mTextView;
-    private Button mButton;
+    private FloatingActionButton mFloatBtn;
     private ImageView mImageView;
     private UserInfo mUserInfo;
     private Toolbar mToolbar;
-    private ListView mListView;
+    private ListView mListViewForOther;
     private List<String> mList;
     private String from;
+    private TextView areaText;
+    private TextView phoneText;
+
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_info);
+        setContentView(R.layout.activity_new_fir_info);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             //设置状态栏的颜色
             this.getWindow().setStatusBarColor(getResources().getColor(R.color.theme_statusBar_red));
+        }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+                    localLayoutParams.flags);
         }
 
         Intent intent = getIntent();
@@ -78,11 +92,6 @@ public class FriendsInfoActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar2, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -106,11 +115,26 @@ public class FriendsInfoActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        mTextView =(TextView) findViewById(R.id.NameTextView);
+
         mImageView = (ImageView) findViewById(R.id.imageView);
-        mButton = (Button) findViewById(R.id.send_msg);
+        mFloatBtn = (FloatingActionButton) findViewById(R.id.send_msg);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mListView = (ListView) findViewById(R.id.list);
+        mListViewForOther = (ListView) findViewById(R.id.list);
+        areaText = (TextView) findViewById(R.id.area_text);
+        phoneText = (TextView) findViewById(R.id.phone_text);
+        phoneText.setText("13322223344");
+        phoneText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                PhoneFragment fragment = PhoneFragment.newInstance(phoneText.getText().toString());
+                fragment.show(fm,"Phone");
+            }
+        });
+
+        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mCollapsingToolbarLayout.setTitle(name);
+        mCollapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
 
         mList = new ArrayList<>();
         String tag1 = "设置备注和标签";
@@ -120,7 +144,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mList.add(tag2);
         mList.add(tag3);
 
-        mTextView.setText(name);
+
         if (!TextUtils.isEmpty(FriendsLab.get(this, mUserInfo).getFriend(name).getPicUrl())) {
             Glide.with(this).load(FriendsLab.get(this, mUserInfo).getFriend(name).getPicUrl()).into(mImageView);
         } else {
@@ -128,9 +152,29 @@ public class FriendsInfoActivity extends AppCompatActivity {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(FriendsInfoActivity.this, android.R.layout.simple_list_item_1, mList);
-        mListView.setAdapter(adapter);
+        mListViewForOther.setAdapter(adapter);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+
+        mListViewForOther.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                if (mList.get(position).equals("设置备注和标签")){
+                    FragmentManager fm = getSupportFragmentManager();
+                    FlagFragment flagFragment = FlagFragment.newInstance(name);
+                    flagFragment.show(fm,"Fri");
+                }
+                if (mList.get(position).equals("兴趣爱好")){
+                    FragmentManager fm = getSupportFragmentManager();
+                    HobbyFragment hobbyFragment = new HobbyFragment();
+                    hobbyFragment.show(fm,"Hob");
+                }
+                if (mList.get(position).equals("生活照")){
+                    Intent intent = new Intent(FriendsInfoActivity.this,PhoneWallActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -152,7 +196,10 @@ public class FriendsInfoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
+
 
 
 }

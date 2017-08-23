@@ -9,11 +9,38 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/theme_blue"
-        android:id="@+id/kk"></LinearLayout>
-
-    <View
+        android:id="@+id/kk">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/zuojiantou"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:background="#161515" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您现在的用户级别是："
+        android:textSize="18sp"/>
+     <TextView
+         android:id="@+id/vip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+         android:textSize="18sp"
+         android:textColor="@color/blue"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="成为VIP有什么特权"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
 </LinearLayout>

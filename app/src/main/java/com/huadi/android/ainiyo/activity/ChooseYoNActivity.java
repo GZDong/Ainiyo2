@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,8 +42,8 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
 
     private TextView idText;
     private TextView reasonText;
-    private Button acceptBtn;
-    private Button refuseBtn;
+    private ImageButton acceptBtn;
+    private ImageButton refuseBtn;
     private Toolbar mToolbar;
 
     private String name;
@@ -53,8 +54,8 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_chooseyon);
-        setContentView(R.layout.activity_new_friend_invitation);
+        setContentView(R.layout.activity_chooseyon);
+       // setContentView(R.layout.activity_new_friend_invitation);
         initView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -72,8 +73,8 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
 
         idText = (TextView) findViewById(R.id.person_id_text);
         reasonText = (TextView) findViewById(R.id.reason);
-        acceptBtn = (Button) findViewById(R.id.accept_btn);
-        refuseBtn = (Button) findViewById(R.id.refuse_btn);
+        acceptBtn = (ImageButton) findViewById(R.id.accept_btn);
+        refuseBtn = (ImageButton) findViewById(R.id.refuse_btn);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_choose);
 
         setSupportActionBar(mToolbar);

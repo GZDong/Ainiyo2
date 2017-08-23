@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="black">#000000</color>
+    <color name="black">#ff000000</color>
     <color name="white">#ffffff</color>
     <color name="gray">#ff666666</color>
     <color name="blue">#304dbb</color>
@@ -13,5 +13,6 @@
     <color name="edit">#c2c1c1</color>
     <color name="theme_statusBar_red">#2b5caa</color>
     <color name="theme_statusBar_red1">#812b36</color>
+    <color name="smallgray">#dcdce1</color>
     <color name="finding_data_text_color">#3d3a3a</color>
 </resources>
