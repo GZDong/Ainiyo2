@@ -8,14 +8,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/theme_blue"
-        >
+        android:background="@color/theme_blue">
+
         <ImageView
             android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/zuojiantou"/>
+            android:src="@drawable/zuojiantou" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,10 +25,12 @@
             android:text="个人信息"
             android:textSize="24sp"
             android:textColor="#f1ecec" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/save"
             android:layout_width="wrap_content"
@@ -37,17 +39,18 @@
             android:textSize="20sp"
             android:textColor="#f1ecec"
             android:layout_marginRight="10dp"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
     //选择//
+
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/base"
             android:layout_width="wrap_content"
@@ -58,7 +61,8 @@
             android:textColor="@color/gray"
             android:gravity="center"
             android:background="@drawable/radiobutton"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
+
         <RadioButton
             android:id="@+id/emotion"
             android:layout_width="wrap_content"
@@ -69,357 +73,380 @@
             android:gravity="center"
             android:background="@drawable/radiobutton"
             android:textSize="25sp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
     </RadioGroup>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp">
+
         <View
             android:id="@+id/long_line"
             android:layout_width="340dp"
             android:layout_height="2dp"
-            android:background="#eae7e7"/>
+            android:background="#eae7e7" />
+
         <View
             android:id="@+id/short_line"
             android:layout_width="170dp"
             android:layout_height="2dp"
-            android:background="@color/theme_blue"/>
+            android:background="@color/theme_blue" />
     </RelativeLayout>
 
     //基本信息//
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/info_layout"
-     >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/info_layout">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        >
-        <TextView
-            android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="头像"
-            android:textSize="17dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/edit_avatar"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/init"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FFF"
-            android:layout_marginRight="20dp"
-            />
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="13dp"
-        android:background="#eae7e7"
-        android:layout_marginTop="-3dp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="职业"
-            android:textSize="17dp"
-            android:layout_marginLeft="20dp"/>
-        <EditText
-            android:id="@+id/edit_job"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:maxLines="1"
-            android:hint="请输入职业"
-            android:maxLength="15"
-            android:textSize="17dp"
-            android:background="@null"
-            />
+            android:layout_height="80dp">
 
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="________________________________________________________________"
-        android:maxLines="1"
-        android:textColor="#dedada"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="-20dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="月薪"
-            android:textSize="17dp"
-            android:layout_marginLeft="20dp"/>
+            <TextView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="头像"
+                android:textSize="17dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp" />
 
-        <EditText
-            android:id="@+id/edit_salary"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="47dp"
-            android:background="@null"
-            android:maxLines="1"
-            android:hint="请输入月薪"
-            android:maxLength="15"
-            android:textSize="17dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="________________________________________________________________"
-        android:maxLines="1"
-        android:textColor="#dedada"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="-20dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="生日"
-            android:textSize="17dp"
-            android:layout_marginLeft="20dp"/>
-        <EditText
-            android:id="@+id/edit_birthday"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="47dp"
-            android:maxLines="1"
-            android:maxLength="15"
-            android:hint="请输入生日（比如1995-03-02）"
-            android:textSize="17dp"
-            android:background="@null"
-            />
-
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="________________________________________________________________"
-        android:maxLines="1"
-        android:textColor="#dedada"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="-20dp"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="地址"
-            android:textSize="17dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
-        <Spinner
-            android:id="@+id/provinceSpinner"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"/>
-        <Spinner
-            android:id="@+id/citySpinner"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-        <Spinner
-            android:id="@+id/countySpinner"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-          />
-
-    </LinearLayout>
+            <de.hdodenhof.circleimageview.CircleImageView android:id="@+id/edit_avatar"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/init"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FFF"
+                android:layout_marginRight="20dp" />
+        </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="13dp"
         android:background="#eae7e7"
         android:layout_marginTop="-3dp" />
 
-    <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="职业"
+                android:textSize="17dp"
+                android:layout_marginLeft="20dp" />
+
+            <EditText
+                android:id="@+id/edit_job"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:maxLines="1"
+                android:hint="请输入职业"
+                android:maxLength="15"
+                android:textSize="17dp"
+                android:background="@null" />
+
+        </LinearLayout>
+
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:text="________________________________________________________________"
+        android:maxLines="1"
+            android:textColor="#dedada"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="月薪"
+                android:textSize="17dp"
+                android:layout_marginLeft="20dp" />
+
+            <EditText
+                android:id="@+id/edit_salary"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="47dp"
+                android:background="@null"
+                android:maxLines="1"
+                android:hint="请输入月薪"
+                android:maxLength="15"
+                android:textSize="17dp" />
+
+        </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="________________________________________________________________"
+        android:maxLines="1"
+        android:textColor="#dedada"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="-20dp" />
+
+        <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="生日"
+                android:textSize="17dp"
+                android:layout_marginLeft="20dp" />
+
+            <EditText
+                android:id="@+id/edit_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="47dp"
+                android:maxLines="1"
+                android:maxLength="15"
+                android:hint="请输入生日（比如1995-03-02）"
+                android:textSize="17dp"
+                android:background="@null" />
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="父母状况"
-            android:textSize="17dp"
+            android:text="________________________________________________________________"
+            android:maxLines="1"
+            android:textColor="#dedada"
             android:layout_marginLeft="20dp"
-            android:layout_gravity="center"/>
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-20dp" />
 
-        <RadioGroup
+        <LinearLayout
             android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="30dp"
-            android:layout_gravity="center">
-            <RadioButton
-                android:id="@+id/edit_parentsalive1"
-                android:layout_width="45dp"
-                android:layout_height="30dp"
-                android:text="健在"
-                android:gravity="center"
-                android:button="@null"
-                android:background="@drawable/info_select"
+                android:text="地址"
                 android:textSize="17dp"
-                />
-            <RadioButton
-                android:id="@+id/edit_parentsalive2"
-                android:layout_width="45dp"
-                android:layout_height="30dp"
-                android:text="去世"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp" />
+
+            <Spinner
+                android:id="@+id/provinceSpinner"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp" />
+
+            <Spinner
+                android:id="@+id/citySpinner"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <Spinner
+                android:id="@+id/countySpinner"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:background="#eae7e7"
+            android:layout_marginTop="-3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="父母状况"
                 android:textSize="17dp"
-                android:button="@null"
-                android:gravity="center"
-                android:background="@drawable/info_select"
                 android:layout_marginLeft="20dp"
-                />
-        </RadioGroup>
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="________________________________________________________________"
-        android:maxLines="1"
-        android:textColor="#dedada"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="-20dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
+                android:layout_gravity="center" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_gravity="center">
+
+                <RadioButton
+                    android:id="@+id/edit_parentsalive1"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:text="健在"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:background="@drawable/info_select"
+                    android:textSize="17dp" />
+
+                <RadioButton
+                    android:id="@+id/edit_parentsalive2"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:text="去世"
+                    android:textSize="17dp"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:background="@drawable/info_select"
+                    android:layout_marginLeft="20dp" />
+            </RadioGroup>
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="婚姻状况"
-            android:textSize="17dp"
+            android:text="________________________________________________________________"
+            android:maxLines="1"
+            android:textColor="#dedada"
             android:layout_marginLeft="20dp"
-            android:layout_gravity="center"/>
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-20dp" />
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="30dp"
-            android:layout_gravity="center">
-            <RadioButton
-                android:id="@+id/edit_maritallstatus1"
-                android:layout_width="45dp"
-                android:layout_height="30dp"
-                android:text="未婚"
-                android:gravity="center"
-                android:button="@null"
-                android:background="@drawable/info_select"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="婚姻状况"
                 android:textSize="17dp"
-                />
-            <RadioButton
-                android:id="@+id/edit_maritallstatus2"
-                android:layout_width="45dp"
-                android:layout_height="30dp"
-                android:text="已婚"
-                android:textSize="17dp"
-                android:button="@null"
-                android:gravity="center"
-                android:background="@drawable/info_select"
                 android:layout_marginLeft="20dp"
-                />
+                android:layout_gravity="center" />
 
-        </RadioGroup>
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="________________________________________________________________"
-        android:maxLines="1"
-        android:textColor="#dedada"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="-20dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="30dp"
+                android:layout_gravity="center">
+
+                <RadioButton
+                    android:id="@+id/edit_maritallstatus1"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:text="未婚"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:background="@drawable/info_select"
+                    android:textSize="17dp" />
+
+                <RadioButton
+                    android:id="@+id/edit_maritallstatus2"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:text="已婚"
+                    android:textSize="17dp"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:background="@drawable/info_select"
+                    android:layout_marginLeft="20dp" />
+
+            </RadioGroup>
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="是否有孩子"
-            android:textSize="17dp"
+            android:text="________________________________________________________________"
+            android:maxLines="1"
+            android:textColor="#dedada"
             android:layout_marginLeft="20dp"
-            android:layout_gravity="center"/>
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-20dp" />
 
-        <RadioGroup
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="是否有孩子"
+                android:textSize="17dp"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center" />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="14dp"
+                android:layout_gravity="center">
+
+                <RadioButton
+                    android:id="@+id/edit_havekids1"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:text="否"
+                    android:gravity="center"
+                    android:button="@null"
+                    android:background="@drawable/info_select"
+                    android:textSize="17dp" />
+
+                <RadioButton
+                    android:id="@+id/edit_havekids2"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:text="是"
+                    android:textSize="17dp"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:background="@drawable/info_select"
+                    android:layout_marginLeft="20dp" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="14dp"
-            android:layout_gravity="center">
-        <RadioButton
-            android:id="@+id/edit_havekids1"
-            android:layout_width="45dp"
-            android:layout_height="30dp"
-            android:text="否"
-            android:gravity="center"
-            android:button="@null"
-            android:background="@drawable/info_select"
-            android:textSize="17dp"
-            />
-        <RadioButton
-            android:id="@+id/edit_havekids2"
-            android:layout_width="45dp"
-            android:layout_height="30dp"
-            android:text="是"
-            android:textSize="17dp"
-            android:button="@null"
-            android:gravity="center"
-            android:background="@drawable/info_select"
+            android:text="________________________________________________________________"
+            android:maxLines="1"
+            android:textColor="#dedada"
             android:layout_marginLeft="20dp"
-            />
-        </RadioGroup>
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="-20dp" />
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="________________________________________________________________"
-        android:maxLines="1"
-        android:textColor="#dedada"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="-20dp"/>
-</LinearLayout>
 
-//感情经历//
+    //感情经历//
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -428,13 +455,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-android:visibility="gone"
-      >
+        android:visibility="gone">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="情感经历:"
-            android:textSize="17sp"/>
+            android:textSize="17sp" />
 
 
         <EditText
@@ -445,15 +472,14 @@ android:visibility="gone"
             android:maxLines="3"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            />
+            android:layout_marginRight="20dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="兴趣爱好:"
-        android:layout_marginTop="80dp"
-        android:textSize="17sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="兴趣爱好:"
+            android:layout_marginTop="80dp"
+            android:textSize="17sp" />
 
         <EditText
             android:id="@+id/edit_hobby"
@@ -463,10 +489,7 @@ android:visibility="gone"
             android:maxLines="3"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            />
-
-
+            android:layout_marginRight="20dp" />
 
 
         <TextView
@@ -474,7 +497,8 @@ android:visibility="gone"
             android:layout_height="wrap_content"
             android:text="择偶标准"
             android:textSize="15sp"
-            android:layout_marginTop="80dp"/>
+            android:layout_marginTop="80dp" />
+
         <EditText
             android:id="@+id/edit_requir"
             android:layout_width="match_parent"
@@ -483,9 +507,7 @@ android:visibility="gone"
             android:maxLines="3"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            />
-
+            android:layout_marginRight="20dp" />
 
 
     </LinearLayout>

@@ -3,20 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/theme_blue"
-        >
+        android:background="@color/theme_blue">
+
         <ImageView
             android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/zuojiantou"/>
+            android:src="@drawable/zuojiantou" />
     </LinearLayout>
+
     <WebView
         android:id="@+id/manager_web"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

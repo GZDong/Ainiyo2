@@ -128,7 +128,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FragmentManager fm = getSupportFragmentManager();
                 PhoneFragment fragment = PhoneFragment.newInstance(phoneText.getText().toString());
-                fragment.show(fm,"Phone");
+                fragment.show(fm, "Phone");
             }
         });
 
@@ -158,18 +158,18 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mListViewForOther.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if (mList.get(position).equals("设置备注和标签")){
+                if (mList.get(position).equals("设置备注和标签")) {
                     FragmentManager fm = getSupportFragmentManager();
                     FlagFragment flagFragment = FlagFragment.newInstance(name);
-                    flagFragment.show(fm,"Fri");
+                    flagFragment.show(fm, "Fri");
                 }
-                if (mList.get(position).equals("兴趣爱好")){
+                if (mList.get(position).equals("兴趣爱好")) {
                     FragmentManager fm = getSupportFragmentManager();
                     HobbyFragment hobbyFragment = new HobbyFragment();
-                    hobbyFragment.show(fm,"Hob");
+                    hobbyFragment.show(fm, "Hob");
                 }
-                if (mList.get(position).equals("生活照")){
-                    Intent intent = new Intent(FriendsInfoActivity.this,PhoneWallActivity.class);
+                if (mList.get(position).equals("生活照")) {
+                    Intent intent = new Intent(FriendsInfoActivity.this, PhoneWallActivity.class);
                     startActivity(intent);
                 }
             }
@@ -199,7 +199,6 @@ public class FriendsInfoActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

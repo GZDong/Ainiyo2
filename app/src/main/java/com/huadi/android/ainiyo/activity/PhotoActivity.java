@@ -160,7 +160,9 @@ public class PhotoActivity extends AppCompatActivity implements LGImgCompressor.
                         for (int i = 0; i < photo.size(); i++) {
                             picName.add(photo.get(i).getPicname());//获得全部相册的URL
                         }
-                        if(photocount==picName.size()){photocount=picName.size();}//如果没有加入相片，则不需要加载recyclerview
+                        if (photocount == picName.size()) {
+                            photocount = picName.size();
+                        }//如果没有加入相片，则不需要加载recyclerview
                         else{photocount=picName.size();showPhoto();}
 
 

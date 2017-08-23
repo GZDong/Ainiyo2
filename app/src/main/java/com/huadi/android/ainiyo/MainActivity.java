@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         username=pref.getString("name","");
         password=pref.getString("pwd","");
 
-        UserInfo userInfo = new UserInfo(username,password,R.drawable.left_image);
+        UserInfo userInfo = new UserInfo(username, password, R.drawable.left_image);
         UserInfoLab.get(MainActivity.this,userInfo);
         Log.e("test","onMainActivity" + userInfo.getUsername()+UserInfoLab.get(MainActivity.this).getUserInfo().getUsername());
 

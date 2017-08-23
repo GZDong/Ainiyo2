@@ -104,7 +104,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     private Spinner countySpinner;
 
 
-
     private ArrayAdapter<String> provinceAdapter = null;  //省级适配器
     private ArrayAdapter<String> cityAdapter = null;    //地级适配器
     private ArrayAdapter<String> countyAdapter = null;    //县级适配器
@@ -116,8 +115,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     private List<City> citys;//城市对象
     private List<County> countys;//区对象
 
-    private int provinceId=0;//
-    private int cityId=0;//地址ID
+    private int provinceId = 0;//
+    private int cityId = 0;//地址ID
     private int countyId;//
     //用户信息//
     private int Id;
@@ -125,9 +124,9 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     private String Birthday;
     private int Area;
     private String Job;
-    private double Salary=1.111111;
+    private double Salary = 1.111111;
     private boolean HaveKids;
-    private boolean Parentsalive=true;
+    private boolean Parentsalive = true;
     private String Maritallstatus;
     private String Emotion;
     private String Hobby;
@@ -138,7 +137,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
 
     private List<String> image = new ArrayList<>();//从选择器得到的头像//
     private List<String> compressImages = new ArrayList<>();//压缩完成的头像//
-    private String avatar_done ;//上传完成的头像//
+    private String avatar_done;//上传完成的头像//
 
     private Animation move_to_left, move_to_right;
 
@@ -168,9 +167,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
         });
 
 
-
-
-
         //下拉框选择
         citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -193,8 +189,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
         });
 
 
-
-
         //下拉框选择
         countySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -214,7 +208,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
             }
 
         });
-
 
 
         move_to_left = AnimationUtils.loadAnimation(this, R.anim.move_to_left);
@@ -250,18 +243,17 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 Avatar = userData.getAvatar();
                                 Userid = userData.getUserid();
                                 //在完善信息里获得用户上次写过的详细信息//
-                                if(Avatar!=null) {
+                                if (Avatar != null) {
                                     Glide.with(EditInfoActivity.this).load(Avatar).into(edit_avatar);
                                 }
                                 edit_job.setText(Job);
-                                if(Salary!=1.111111) {
+                                if (Salary != 1.111111) {
                                     edit_salary.setText(String.valueOf(Salary));
                                 }
-                                if(Birthday!=null) {
-                                    edit_birthday.setText(Birthday.substring(0,10));
+                                if (Birthday != null) {
+                                    edit_birthday.setText(Birthday.substring(0, 10));
                                 }
                                 //根据得到的地区代码，返回省，城市，区，然后sp.setSelection(arrayAdapter.getPosition("广东")设置默认值//
-
 
 
                                 if (Parentsalive) {
@@ -271,13 +263,15 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                     edit_parentsalive2.setChecked(true);
                                 }
                                 //判断是否空对象//
-                                if(Maritallstatus!=null) {
+                                if (Maritallstatus != null) {
                                     if (Maritallstatus.equals("未婚")) {
                                         edit_maritallstatus1.setChecked(true);
                                     } else {
                                         edit_maritallstatus2.setChecked(true);
                                     }
-                                }else {edit_maritallstatus1.setChecked(true);}
+                                } else {
+                                    edit_maritallstatus1.setChecked(true);
+                                }
 
 
                                 if (!HaveKids) {
@@ -310,10 +304,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
 
                 }
         );
-
-
-
-
 
 
         getallprovince();
@@ -352,24 +342,24 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 break;
             case R.id.save:
                 //判断是否已经完善信息//
-                if(edit_birthday.getText().toString().trim().length()<=0){
-                    Toast.makeText(EditInfoActivity.this,"没有完善信息",Toast.LENGTH_SHORT).show();
+                if (edit_birthday.getText().toString().trim().length() <= 0) {
+                    Toast.makeText(EditInfoActivity.this, "没有完善信息", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(edit_job.getText().toString().trim().length()<=0){
-                    Toast.makeText(EditInfoActivity.this,"没有完善信息",Toast.LENGTH_SHORT).show();
+                if (edit_job.getText().toString().trim().length() <= 0) {
+                    Toast.makeText(EditInfoActivity.this, "没有完善信息", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(edit_salary.getText().toString().trim().length()<=0){
-                    Toast.makeText(EditInfoActivity.this,"没有完善信息",Toast.LENGTH_SHORT).show();
+                if (edit_salary.getText().toString().trim().length() <= 0) {
+                    Toast.makeText(EditInfoActivity.this, "没有完善信息", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(provinceId==0){
-                    Toast.makeText(EditInfoActivity.this,"没有完善信息",Toast.LENGTH_SHORT).show();
+                if (provinceId == 0) {
+                    Toast.makeText(EditInfoActivity.this, "没有完善信息", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(cityId==0){
-                    Toast.makeText(EditInfoActivity.this,"没有完善信息",Toast.LENGTH_SHORT).show();
+                if (cityId == 0) {
+                    Toast.makeText(EditInfoActivity.this, "没有完善信息", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -379,10 +369,10 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 params.addHeader("sessionid", sessionId);
                 params.addBodyParameter("sessionid", sessionId);
                 params.addBodyParameter("birthday", edit_birthday.getText().toString());
-               params.addBodyParameter("job", edit_job.getText().toString());
-                params.addBodyParameter("province",provinceId+"");
-                params.addBodyParameter("country",cityId+"");
-                params.addBodyParameter("county",countyId+"");
+                params.addBodyParameter("job", edit_job.getText().toString());
+                params.addBodyParameter("province", provinceId + "");
+                params.addBodyParameter("country", cityId + "");
+                params.addBodyParameter("county", countyId + "");
                 params.addBodyParameter("salary", edit_salary.getText().toString());
 
                 if (edit_havekids1.isChecked()) {
@@ -398,26 +388,26 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 }
 
                 if (edit_maritallstatus1.isChecked()) {
-                   params.addBodyParameter("maritallstatus", "未婚");
-               } else {
+                    params.addBodyParameter("maritallstatus", "未婚");
+                } else {
                     params.addBodyParameter("maritallstatus", "已婚");
                 }
 
 
-             if(edit_emotion.getText().toString().trim().length()>0){
-                   params.addBodyParameter("emotion", edit_emotion.getText().toString());
-              }
-               if(edit_hobby.toString().trim().length()>0) {
-                   params.addBodyParameter("hobby", edit_hobby.getText().toString());
-               }
-                if(edit_requir.toString().trim().length()>0) {
-                   params.addBodyParameter("requir", edit_requir.getText().toString());
+                if (edit_emotion.getText().toString().trim().length() > 0) {
+                    params.addBodyParameter("emotion", edit_emotion.getText().toString());
                 }
-               //如果没有修改头像,则头像参数就用原来的//
-                if(avatar_done!=null){
+                if (edit_hobby.toString().trim().length() > 0) {
+                    params.addBodyParameter("hobby", edit_hobby.getText().toString());
+                }
+                if (edit_requir.toString().trim().length() > 0) {
+                    params.addBodyParameter("requir", edit_requir.getText().toString());
+                }
+                //如果没有修改头像,则头像参数就用原来的//
+                if (avatar_done != null) {
                     params.addBodyParameter("avatar", avatar_done);
                 }
-                if(avatar_done==null&&Avatar!=null){
+                if (avatar_done == null && Avatar != null) {
                     params.addBodyParameter("avatar", Avatar);
                 }
                 HttpUtils http = new HttpUtils();
@@ -428,7 +418,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 try {
                                     JSONObject object = new JSONObject(info);
                                     String msg = object.getString("Msg");
-                                    Toast.makeText(EditInfoActivity.this,msg,Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -439,7 +429,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
 
                             @Override
                             public void onFailure(HttpException error, String msg) {
-                                Toast.makeText(EditInfoActivity.this,msg,Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                             }
 
@@ -476,7 +466,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
         compressImages.add(imageOutPath.getOutPath());
         sendImage(compressImages);//上传这张头像//
     }
-    public void sendImage(final List<String> images){
+
+    public void sendImage(final List<String> images) {
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
         File file = new File(images.get(0));
@@ -489,11 +480,12 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     int status = object.getInt("Status");
                     String result = object.getString("Result");
                     String msg = object.getString("Msg");
-                   if(msg.equals("success")){
-                       avatar_done=result;
-                       Glide.with(EditInfoActivity.this).load(avatar_done).into(edit_avatar);
-                   }
-                   else {Toast.makeText(EditInfoActivity.this,msg,Toast.LENGTH_SHORT).show();}
+                    if (msg.equals("success")) {
+                        avatar_done = result;
+                        Glide.with(EditInfoActivity.this).load(avatar_done).into(edit_avatar);
+                    } else {
+                        Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
 
 
                 } catch (JSONException e) {
@@ -511,11 +503,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     }
 
 
-
-
-
     //获得省数组//
-    public void getallprovince(){
+    public void getallprovince() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
         new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/search/area/province", params, new RequestCallBack<String>() {
@@ -526,12 +515,12 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     int status = object.getInt("Status");
                     if (status == 0) {
                         Gson gson = new Gson();
-                       provinces = gson.fromJson(object.getJSONArray("Result").toString(), new TypeToken<List<Province>>() {
+                        provinces = gson.fromJson(object.getJSONArray("Result").toString(), new TypeToken<List<Province>>() {
                         }.getType());
                         province.clear();
                         for (int i = 0; i < provinces.size(); i++) {
                             province.add(provinces.get(i).getName());
-                            if(province.size()==provinces.size()){
+                            if (province.size() == provinces.size()) {
                                 //设置province适配器
                                 provinceAdapter = new ArrayAdapter<String>(EditInfoActivity.this,
                                         android.R.layout.simple_spinner_item, province);
@@ -557,10 +546,10 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     }
 
     //获得城市数组//
-    public void getallcity(){
+    public void getallcity() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
-        params.addBodyParameter("province", provinceId+"");
+        params.addBodyParameter("province", provinceId + "");
         new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/search/area/country", params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -574,7 +563,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                         city.clear();
                         for (int i = 0; i < citys.size(); i++) {
                             city.add(citys.get(i).getName());
-                            if(city.size()==citys.size()){
+                            if (city.size() == citys.size()) {
                                 //设置city适配器
                                 cityAdapter = new ArrayAdapter<String>(EditInfoActivity.this,
                                         android.R.layout.simple_spinner_item, city);
@@ -600,11 +589,11 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     }
 
     //获得区数组//
-    public void getallcounty(){
+    public void getallcounty() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
-        params.addBodyParameter("province", provinceId+"");
-        params.addBodyParameter("country", cityId+"");
+        params.addBodyParameter("province", provinceId + "");
+        params.addBodyParameter("country", cityId + "");
         new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/search/area/county", params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -618,7 +607,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                         county.clear();
                         for (int i = 0; i < countys.size(); i++) {
                             county.add(countys.get(i).getName());
-                            if(county.size()==countys.size()){
+                            if (county.size() == countys.size()) {
                                 //设置county适配器
                                 countyAdapter = new ArrayAdapter<String>(EditInfoActivity.this,
                                         android.R.layout.simple_spinner_item, county);
@@ -642,10 +631,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
 
 
     }
-
-
-
-
 
 
 }

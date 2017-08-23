@@ -22,7 +22,7 @@ public class HobbyFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.text_hobby,null,false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.text_hobby, null, false);
         TextView textView = (TextView) view;
 
         return new AlertDialog.Builder(getActivity())

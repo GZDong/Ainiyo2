@@ -30,9 +30,10 @@ public class ManagerActivity extends AppCompatActivity {
         manager_web.setWebViewClient(new WebViewClient());
         manager_web.loadUrl("http://www.baidu.com");
     }
-    @OnClick({R.id.manager_web,R.id.back})
-    public void onClick(View v){
-        switch (v.getId()){
+
+    @OnClick({R.id.manager_web, R.id.back})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
                 startActivity(new Intent(ManagerActivity.this, MainActivity.class));
                 break;

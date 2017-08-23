@@ -35,7 +35,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
         ViewUtils.inject(this);
 
         final Intent t = getIntent();
-        fi = (FindingInfo) t.getSerializableExtra("findingusername");
+        fi = (FindingInfo) t.getSerializableExtra("findinginfo");
 
         tv_finding_userinfo_username.setText(fi.getName());
 
@@ -63,8 +63,8 @@ public class FindingUserInfoActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.btn_finding_add_friend:
-                Intent intent = new Intent(FindingUserInfoActivity.this,AddFriendActivity.class);
-                intent.putExtra("name",fi.getName());
+                Intent intent = new Intent(FindingUserInfoActivity.this, AddFriendActivity.class);
+                intent.putExtra("name", fi.getName());
                 startActivity(intent);
                 break;
         }

@@ -102,7 +102,7 @@ public class MeFragment extends Fragment{
                                 job_text = (TextView) getActivity().findViewById(R.id.job_text);
                                 job_text.setText(job);
                                 avatar_imag = (CircleImageView) getActivity().findViewById(R.id.avatar_imag);
-                                if(image!=null) {
+                                if (image != null) {
                                     Glide.with(getActivity()).load(image).into(avatar_imag);
                                 }
                                 if (vip) {
@@ -135,7 +135,7 @@ public class MeFragment extends Fragment{
         return view;
     }
 
-    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever,R.id.manager,R.id.help})
+    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever, R.id.manager, R.id.help})
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
@@ -145,7 +145,7 @@ public class MeFragment extends Fragment{
                startActivity(new Intent(getActivity(), ManagerActivity.class));
                break;
            case R.id.help:
-               startActivity(new Intent(getActivity(),HelpActivity.class));
+               startActivity(new Intent(getActivity(), HelpActivity.class));
                break;
            case R.id.vip_lever:
                startActivity(new Intent(getActivity(), VipLeverActivity.class));

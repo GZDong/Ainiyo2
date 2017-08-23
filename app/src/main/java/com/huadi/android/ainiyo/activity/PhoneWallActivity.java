@@ -43,7 +43,7 @@ public class PhoneWallActivity extends AppCompatActivity {
         mListUrl = new ArrayList<>();
         initListUrl();
         mRecyclerView = (RecyclerView) findViewById(R.id.phone_recycler_view);
-        GridLayoutManager layoutManager = new GridLayoutManager(this,3);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         mRecyclerView.setLayoutManager(layoutManager);
         mMyAdapter = new MyAdapter(mListUrl);
         mRecyclerView.setAdapter(mMyAdapter);
@@ -55,9 +55,9 @@ public class PhoneWallActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        try{
+                        try {
                             Thread.sleep(2000);  //模拟网络请求
-                        }catch (InterruptedException e){
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         runOnUiThread(new Runnable() {   //切换到主线程
@@ -72,29 +72,33 @@ public class PhoneWallActivity extends AppCompatActivity {
         });
     }
 
-    private class MyViewHolder extends RecyclerView.ViewHolder{
+    private class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView mImageView;
-        public MyViewHolder(View view){
+
+        public MyViewHolder(View view) {
             super(view);
             mImageView = (ImageView) view.findViewById(R.id.picture_image);
         }
     }
-    private class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
+
+    private class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         List<String> mList;
-        public MyAdapter(List<String> list){
+
+        public MyAdapter(List<String> list) {
             mList = list;
         }
+
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(PhoneWallActivity.this).inflate(R.layout.item_phone,parent,false);
+            View view = LayoutInflater.from(PhoneWallActivity.this).inflate(R.layout.item_phone, parent, false);
             return new MyViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            if (mList.get(position)!= null){
+            if (mList.get(position) != null) {
                 Glide.with(PhoneWallActivity.this).load(mList.get(position)).into(holder.mImageView);
-            }else{
+            } else {
                 holder.mImageView.setImageResource(R.drawable.examplepicture);
             }
         }
@@ -105,10 +109,10 @@ public class PhoneWallActivity extends AppCompatActivity {
         }
     }
 
-    public void initListUrl(){
-       for (int i = 0;i<10;i++){
-           String test = null;
-           mListUrl.add(test);
-       }
+    public void initListUrl() {
+        for (int i = 0; i < 10; i++) {
+            String test = null;
+            mListUrl.add(test);
+        }
     }
 }
