@@ -141,7 +141,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
                             }.getType();
                             MovementContentData mcd = gson.fromJson(content, type);
                             if(mcd!=null){
-                                mList.add(mcd);
+                                mList.add(0,mcd);
                             }
                         }
 

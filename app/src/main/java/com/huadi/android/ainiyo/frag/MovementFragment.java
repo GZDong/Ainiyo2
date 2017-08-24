@@ -154,7 +154,7 @@ public class MovementFragment extends Fragment {
 
                                 mcd.setId(mwd1.getId());//ID同步校正
                                 if (mcd != null) {
-                                    mList.add(mcd);
+                                    mList.add(0,mcd);
                                 }
                             }
                         }
