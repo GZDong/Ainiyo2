@@ -1,6 +1,7 @@
 package com.huadi.android.ainiyo.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,7 @@ public class MovementAdapter extends BaseAdapter {
     private ImageAdapter mAdapter;
     private Context father;
     private boolean isJoinedMode = false;
+    private boolean isJoinSuccess = false;
 
     public MovementAdapter(List<MovementContentData> list, String session,boolean joined) {
         mList = list;
@@ -108,8 +110,8 @@ public class MovementAdapter extends BaseAdapter {
         }
 
         if (mcd.getArticle() != null) {
-            if (mcd.getArticle().length() >= 60) {
-                String previewText = mcd.getArticle().substring(0, 59) + " ……";
+            if (mcd.getArticle().length() >= 59) {
+                String previewText = mcd.getArticle().substring(0, 58) + " ……";
                 holder.article.setText(previewText);//预览显示少部分文字
             }
             else {
@@ -133,9 +135,13 @@ public class MovementAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
 
+                    TextView thisView = (TextView)view;
                     RequestParams params = new RequestParams();
                     params.addBodyParameter("sessionid", sessionId);
                     params.addBodyParameter("aid", String.valueOf(mcd.getId()));
+
+
+
 
 
                     new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
@@ -143,22 +149,35 @@ public class MovementAdapter extends BaseAdapter {
                         @Override
                         public void onSuccess(ResponseInfo<String> responseInfo) {
                             Log.e("MOVEMENT_ADAPTER", "JOINED");
+                            setJoinSuccess(true);
                             //Toast.makeText(MovementDetailActivity.this, "参加成功", Toast.LENGTH_SHORT).show();
                             //?
                         }
 
                         @Override
                         public void onFailure(HttpException error, String msg) {
-
+                            setJoinSuccess(false);
                         }
                     });
+
+                    if(isJoinSuccess){
+                        thisView.setText("已参加");
+                        thisView.setEnabled(false);
+                    }
+
 
                 }
             });
 
+
+
         }
 
         return convertView;
+    }
+
+    public void setJoinSuccess(boolean joinSuccess) {
+        isJoinSuccess = joinSuccess;
     }
 
     class ViewHolder {

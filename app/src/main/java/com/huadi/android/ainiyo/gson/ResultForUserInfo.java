@@ -15,21 +15,25 @@ public class ResultForUserInfo {
     public class ResultClass{
         private String Id;
         private boolean Vip;
-        private String birthday;
+        private String Birthday;
         private int Area;
         private String Job;
         private double Salary;
         private boolean HaveKids;
-        private boolean parentsalive;
-        private String maritallstatus;
+        private boolean Parentsalive;
+        private String Maritallstatus;
         private String Emotion;
         private String Hobby;
         private String Requir;
-        private String avatar;
+        private String Avatar;
         private String Userid;
 
         public String getAvatar() {
-            return avatar;
+            return Avatar;
+        }
+
+        public String getId() {
+            return Id;
         }
     }
 
@@ -40,4 +44,5 @@ public class ResultForUserInfo {
     public ResultClass getResult() {
         return Result;
     }
+
 }

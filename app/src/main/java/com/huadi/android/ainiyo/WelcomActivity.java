@@ -71,9 +71,11 @@ public class WelcomActivity extends AppCompatActivity {
                     username=pref2.getString("name","");
                     password=pref2.getString("pwd","");
 
+                    Log.e("test", "自动登录时的用户名和密码是："+ username + password );
+
                     //初始化用户信息
-                    final UserInfo userInfo = new UserInfo(username, password);
-                    UserInfoLab.get(WelcomActivity.this,userInfo);
+                    UserInfoLab.get(WelcomActivity.this,username,password);
+
                     /*FriendsLab.get(WelcomActivity.this,userInfo).setFriListNull();
                     FriendsLab.get(WelcomActivity.this,userInfo).initFriends();*/
 
@@ -96,6 +98,7 @@ public class WelcomActivity extends AppCompatActivity {
                                 @Override
                                 public void onError(Throwable e) {
                                     Toast.makeText(WelcomActivity.this,"登陆异常",Toast.LENGTH_LONG).show();
+                                    Log.e("test", "登录出错的原因 " + e );
                                 }
 
                                 @Override
@@ -106,9 +109,15 @@ public class WelcomActivity extends AppCompatActivity {
                                         application.sessionId = resultForLogin.getSessionid();
 
                                         Log.e("test","自动重新登陆成功：" + application.sessionId);
-                                        Toast.makeText(WelcomActivity.this,"自动登陆成功",Toast.LENGTH_LONG).show();
-                                        FriendsLab.get(WelcomActivity.this, userInfo).setFriListNull();
-                                        FriendsLab.get(WelcomActivity.this, userInfo).initFriends();
+                                       // Toast.makeText(WelcomActivity.this,"自动登陆成功",Toast.LENGTH_LONG).show();
+
+                                        UserInfoLab.get(WelcomActivity.this).refreshSessionid(application.sessionId);
+                                       // Log.e("test", "初始化用户的url为 " +UserInfoLab.get(WelcomActivity.this,username,password).getUserInfo().getPicUrl() );
+                                        Log.e("test", "执行点0");
+                                        FriendsLab.get(WelcomActivity.this, UserInfoLab.get(WelcomActivity.this).getUserInfo()).setFriListNull();
+                                        Log.e("test", "执行点1");
+                                        FriendsLab.get(WelcomActivity.this, UserInfoLab.get(WelcomActivity.this).getUserInfo()).initFriends();
+                                        Log.e("test", "执行点2");
                                         Intent intent = new Intent("com.huadi.android.ainiyo.refresh");
                                         sendBroadcast(intent);
                                         mHandler.sendEmptyMessageDelayed(Turn, 4000);

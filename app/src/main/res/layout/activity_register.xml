@@ -38,6 +38,7 @@
         android:layout_marginLeft="50sp"
         android:layout_marginRight="50sp"
         android:hint="用户名"
+        android:maxLength="15"
         android:textColorHint="#585454"
         />
     <EditText
@@ -60,6 +61,7 @@
         android:layout_marginRight="50sp"
         android:textColorHint="#585454"
         android:hint="密码"
+        android:maxLength="15"
         android:inputType="textPassword"/>
     <EditText
         android:id="@+id/register_pwd2"
@@ -75,20 +77,20 @@
     <Button
         android:id="@+id/register2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50sp"
-        android:layout_marginRight="50sp"
-        android:layout_marginTop="10sp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="30sp"
+        android:layout_marginRight="30sp"
+        android:layout_marginTop="20sp"
         android:background="@drawable/button"
-        android:text="register"
+        android:text="注册"
         android:textColor="#fdd7d0d6"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/text_view1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100sp"
+        android:layout_marginTop="90sp"
         android:layout_marginLeft="50sp"
         android:layout_marginRight="50sp"
         android:text="__________________________________________________________________________"
