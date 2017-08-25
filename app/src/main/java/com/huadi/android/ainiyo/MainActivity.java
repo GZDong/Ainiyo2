@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         UserInfo userInfo = new UserInfo(username,password);
         UserInfoLab.get(MainActivity.this,userInfo);
-        Log.e("test","onMainActivity" + userInfo.getUsername()+UserInfoLab.get(MainActivity.this).getUserInfo().getUsername());
+//      Log.e("test","onMainActivity" + userInfo.getUsername()+UserInfoLab.get(MainActivity.this).getUserInfo().getUsername());
 
         ViewUtils.inject(this);
 

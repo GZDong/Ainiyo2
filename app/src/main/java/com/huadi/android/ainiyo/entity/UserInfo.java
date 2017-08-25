@@ -16,12 +16,20 @@ public class UserInfo extends DataSupport implements Serializable {
     private String password;
     private int picture;
     private String picUrl;
+    private String Id;
 
 
     public UserInfo(String username, String password) {
         this.username = username;
         this.password = password;
         this.picture = R.drawable.left_image;
+    }
+    public UserInfo(String username, String password,String url,String Id) {
+        this.username = username;
+        this.password = password;
+        this.picture = R.drawable.left_image;
+        this.picUrl = url;
+        this.Id = Id;
     }
 
     public int getPicture() {
@@ -54,5 +62,13 @@ public class UserInfo extends DataSupport implements Serializable {
 
     public String getPicUrl() {
         return picUrl;
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
     }
 }

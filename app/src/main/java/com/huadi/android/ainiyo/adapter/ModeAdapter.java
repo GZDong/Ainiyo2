@@ -17,6 +17,7 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeAddingActivity;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -82,7 +83,9 @@ public class ModeAdapter extends BaseAdapter {
         }
         if (modeInfo.getImgUrlforHead()!=null)
         {
-
+            //Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(ImageVIew);
+            //用户姓名：UserInfoLab.get(mContext).getUserInfo().getUsername();
+            //用户Id：UserInfoLab.get(mContext).getUserInfo().getId();
         }
         if (modeInfo.getImgUrlforContent()!=null)
         {
