@@ -97,7 +97,7 @@ public class WelcomActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    Toast.makeText(WelcomActivity.this,"Wel登陆异常",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(WelcomActivity.this,"登陆异常",Toast.LENGTH_LONG).show();
                                 }
 
                                 @Override
@@ -108,7 +108,7 @@ public class WelcomActivity extends AppCompatActivity {
                                         application.sessionId = resultForLogin.getSessionid();
 
                                         Log.e("test","自动重新登陆成功：" + application.sessionId);
-                                        Toast.makeText(WelcomActivity.this,"自动登陆成功",Toast.LENGTH_LONG).show();
+                                     //   Toast.makeText(WelcomActivity.this,"自动登陆成功",Toast.LENGTH_LONG).show();
                                         UserInfoLab.get(WelcomActivity.this,userInfo);
                                         Log.e("test", "初始化用户的url为 " +UserInfoLab.get(WelcomActivity.this,userInfo).getUserInfo().getPicUrl() );
                                         FriendsLab.get(WelcomActivity.this, userInfo).setFriListNull();
