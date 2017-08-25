@@ -449,12 +449,13 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 holder.leftLayout.setVisibility(View.GONE);
                 holder.rightLayout.setVisibility(View.VISIBLE);
 
-                if (mUserInfo.getPicUrl()==null){
+                Log.e("test", "用户的Url " + UserInfoLab.get(getActivity()).getUserInfo().getPicUrl());
+                if (UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()==null){
                     Bitmap bm = BitmapFactory.decodeResource(getResources(),userImage);
                     //加载图片
                     holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
                 }else {
-                    Glide.with(getActivity()).load(mUserInfo.getPicUrl()).into(holder.rightImage);
+                    Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).into(holder.rightImage);
                 }
 
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();

@@ -110,10 +110,9 @@ public class LoginActivity extends AppCompatActivity  {
                 params.addBodyParameter("pwd",login_pwd.getText().toString());
                 //初始化用户信息
                 final UserInfo userInfo = new UserInfo(login_name.getText().toString(), login_pwd.getText().toString());
-                UserInfoLab.get(LoginActivity.this,userInfo);
-                UserInfoLab.get(LoginActivity.this,userInfo).setUserInfo(userInfo);
 
-                Log.e("test","onLoginActivity "+userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
+
+               // Log.e("test","onLoginActivity "+userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
                 HttpUtils http=new HttpUtils();
                 http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login",params,new RequestCallBack<String>() {
                             @Override
@@ -127,6 +126,8 @@ public class LoginActivity extends AppCompatActivity  {
                                     ECApplication application = (ECApplication) getApplication();
                                     application.sessionId = null;
                                     application.sessionId = object.getString("Sessionid");
+                                    UserInfoLab.get(LoginActivity.this,userInfo).clearUserInfo();
+                                    UserInfoLab.get(LoginActivity.this,userInfo);
                                     FriendsLab.get(LoginActivity.this, userInfo).setFriListNull();
                                     FriendsLab.get(LoginActivity.this, userInfo).initFriends();
 

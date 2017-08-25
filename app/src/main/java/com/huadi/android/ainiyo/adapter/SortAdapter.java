@@ -87,7 +87,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
             }
         });
         if (!TextUtils.isEmpty(mData.get(position).getPicUrl())) {
-            Glide.with(mContext).load(mData.get(position).getPicUrl()).into(holder.imgView);
+            Glide.with(mContext).load(mData.get(position).getPicUrl()).centerCrop().into(holder.imgView);
         } else {
             holder.imgView.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(mContext.getResources(), this.mData.get(position).getPicture(), 50, 50));
         }

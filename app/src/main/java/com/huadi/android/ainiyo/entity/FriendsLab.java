@@ -117,7 +117,7 @@ public class FriendsLab {
                             Log.e("test", "onNext____请求好友列表");
                             if (friendGot.getStatus().equals("300") ){
                                 Log.e("test", "状态码为300 " + friendGot.getMsg());
-                                    Toast.makeText(mContext,"请求好友列表成功",Toast.LENGTH_LONG).show();
+                                  //  Toast.makeText(mContext,"请求好友列表成功",Toast.LENGTH_LONG).show();
                                 Log.e("test", "返回的Result ：" + friendGot.getFriendList().toString());
                                     if (friendGot.friendList != null && friendGot.friendList.size() > 0){
                                         for (ResultForFriend resultForFriend : friendGot.friendList){
@@ -151,7 +151,7 @@ public class FriendsLab {
                                             initFriends();
                                         } else if (mmFriendses.size() == 0) {
                                             //没有好友
-                                            Toast.makeText(mContext, "没有好友", Toast.LENGTH_LONG).show();
+                                           // Toast.makeText(mContext, "没有好友", Toast.LENGTH_LONG).show();
                                         }
                                     }
                             }else {

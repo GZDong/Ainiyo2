@@ -71,9 +71,11 @@ public class WelcomActivity extends AppCompatActivity {
                     username=pref2.getString("name","");
                     password=pref2.getString("pwd","");
 
+                    Log.e("test", "自动登录时的用户名和密码是："+ username + password );
+
                     //初始化用户信息
                     final UserInfo userInfo = new UserInfo(username, password);
-                    UserInfoLab.get(WelcomActivity.this,userInfo);
+
                     /*FriendsLab.get(WelcomActivity.this,userInfo).setFriListNull();
                     FriendsLab.get(WelcomActivity.this,userInfo).initFriends();*/
 
@@ -106,7 +108,9 @@ public class WelcomActivity extends AppCompatActivity {
                                         application.sessionId = resultForLogin.getSessionid();
 
                                         Log.e("test","自动重新登陆成功：" + application.sessionId);
-                                        Toast.makeText(WelcomActivity.this,"自动登陆成功",Toast.LENGTH_LONG).show();
+                                     //   Toast.makeText(WelcomActivity.this,"自动登陆成功",Toast.LENGTH_LONG).show();
+                                        UserInfoLab.get(WelcomActivity.this,userInfo);
+                                        Log.e("test", "初始化用户的url为 " +UserInfoLab.get(WelcomActivity.this,userInfo).getUserInfo().getPicUrl() );
                                         FriendsLab.get(WelcomActivity.this, userInfo).setFriListNull();
                                         FriendsLab.get(WelcomActivity.this, userInfo).initFriends();
                                         Intent intent = new Intent("com.huadi.android.ainiyo.refresh");

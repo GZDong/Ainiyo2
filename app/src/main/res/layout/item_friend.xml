@@ -29,7 +29,7 @@
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="7dp"
                 android:cropToPadding="true"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
 
                 />
             <LinearLayout
