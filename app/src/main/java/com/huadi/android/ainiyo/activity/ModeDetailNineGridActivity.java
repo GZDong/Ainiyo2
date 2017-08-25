@@ -530,11 +530,11 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                     if (i == 2) {
                         //Toast.makeText(ModeDetailNineGridActivity.this,"id:  "+mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
                         updateComment(info, i, mCommentList.get(position).getId());
-                        imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
                     } else {
                         updateComment(info, i, "");
-                        imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
                     }
+                    imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
+                    replyEdit.setText("");
                 } else {
                     Toast.makeText(ModeDetailNineGridActivity.this, "请输入内容后在留言", Toast.LENGTH_SHORT).show();
                 }

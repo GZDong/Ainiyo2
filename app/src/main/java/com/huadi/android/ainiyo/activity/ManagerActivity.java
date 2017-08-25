@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -26,9 +27,23 @@ public class ManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager);
         ViewUtils.inject(this);
-        manager_web.getSettings().setJavaScriptEnabled(true);
+        //manager_web.getSettings().setJavaScriptEnabled(true);
+        webViewClick();
         manager_web.setWebViewClient(new WebViewClient());
-        manager_web.loadUrl("http://www.baidu.com");
+        manager_web.loadUrl("http://120.24.168.102:8080/static/ainiyoweb/dist/index.html");
+    }
+
+    public void webViewClick() {
+        WebSettings webSettings = manager_web.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowContentAccess(true);
+        webSettings.setAppCacheEnabled(false);
+        webSettings.setBuiltInZoomControls(false);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+
+
     }
 
     @OnClick({R.id.manager_web, R.id.back})

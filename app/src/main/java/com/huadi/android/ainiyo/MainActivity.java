@@ -45,6 +45,7 @@ import com.huadi.android.ainiyo.frag.MeFragment;
 import com.huadi.android.ainiyo.frag.ModeFragment;
 import com.huadi.android.ainiyo.gson.ResultForCheck;
 import com.huadi.android.ainiyo.gson.ResultForLogin;
+import com.huadi.android.ainiyo.util.ToolKits;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_main);
             linear_bar.setVisibility(View.VISIBLE);
             //获取到状态栏的高度
-            int statusHeight = getStatusBarHeight();
+            int statusHeight = ToolKits.getStatusBarHeight(this);
             //动态的设置隐藏布局的高度
             linear_bar.getLayoutParams().height = statusHeight;
         }
@@ -294,23 +295,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
 
-    /**
-     * 通过反射的方式获取状态栏高度
-     *
-     * @return
-     */
-    private int getStatusBarHeight() {
-        try {
-            Class<?> c = Class.forName("com.android.internal.R$dimen");
-            Object obj = c.newInstance();
-            Field field = c.getField("status_bar_height");
-            int x = Integer.parseInt(field.get(obj).toString());
-            return getResources().getDimensionPixelSize(x);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

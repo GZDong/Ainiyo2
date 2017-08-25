@@ -154,7 +154,6 @@ public class ModeMeActivity extends AppCompatActivity {
                         @Override
                         public void OnDeleteItemClick(int position) {
                             DeletingTheMode(ToolKits.fetchInteger(ModeMeActivity.this, "Integer").get(position));
-                            Toast.makeText(ModeMeActivity.this, String.valueOf(position) + "删除成功,请下拉刷新", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -233,6 +232,7 @@ public class ModeMeActivity extends AppCompatActivity {
 
                 if (object.getMsg().equals("success")) {
                     loadDatas(true, mList);
+                    Toast.makeText(ModeMeActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(ModeMeActivity.this, "删除的status: " + object.getStatus(), Toast.LENGTH_SHORT).show();

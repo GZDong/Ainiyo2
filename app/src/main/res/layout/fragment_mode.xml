@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text=""
+            android:text="心情"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
