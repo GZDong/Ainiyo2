@@ -22,7 +22,6 @@ public class UserInfo extends DataSupport implements Serializable {
         this.username = username;
         this.password = password;
         this.picture = R.drawable.left_image;
-        this.picUrl = null;
     }
 
     public int getPicture() {
