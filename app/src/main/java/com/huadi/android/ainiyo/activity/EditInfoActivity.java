@@ -459,10 +459,10 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     params.addBodyParameter("requir", edit_requir.getText().toString());
                 }
                 //如果没有修改头像,则头像参数就用原来的//
-                if (avatar_done != null) {
+                if (!avatar_done.equals("")) {
                     params.addBodyParameter("avatar", avatar_done);
                 }
-                if (avatar_done == null && Avatar != null) {
+                if (avatar_done.equals("") && (!Avatar.equals(""))) {
                     params.addBodyParameter("avatar", Avatar);
                 }
                 HttpUtils http = new HttpUtils();

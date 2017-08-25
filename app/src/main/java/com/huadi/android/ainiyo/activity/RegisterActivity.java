@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
             actionbar.hide();
@@ -62,6 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
             this.getWindow().setStatusBarColor(getResources().getColor(R.color.theme_statusBar_red));
         }
         ViewUtils.inject(this);
+        register2.getBackground().setAlpha(200);
     }
 
     @OnClick({R.id.register2,R.id.back})
@@ -73,6 +75,10 @@ public class RegisterActivity extends AppCompatActivity {
             case R.id.register2:
                 if(register_name.getText().toString().trim().length()<=0){
                     register_name.setError("用户名不能为空！");
+                    return;
+                }
+                if(register_name.getText().toString().trim().length()<5){
+                    register_name.setError("用户名长度不能小于5！");
                     return;
                 }
 
@@ -90,8 +96,8 @@ public class RegisterActivity extends AppCompatActivity {
                     register_pwd1.setError("密码不能为空！");
                     return;
                 }
-                if(register_pwd1.getText().toString().trim().length()>7&&register_pwd1.getText().toString().trim().length()<17){
-                    register_pwd1.setError("密码长度不能小于6");
+                if(register_pwd1.getText().toString().trim().length()<5){
+                    register_pwd1.setError("密码长度不能小于5");
                     return;
                 }
                 if(!register_pwd1.getText().toString().equals(register_pwd2.getText().toString())){
