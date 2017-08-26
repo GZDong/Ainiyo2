@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeAddingActivity;
+import com.huadi.android.ainiyo.entity.Friends;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
@@ -81,12 +83,24 @@ public class ModeAdapter extends BaseAdapter {
         if(modeInfo.getContent()!=null) {
             holder.mode_content.setText(modeInfo.getContent());
         }
-        if (modeInfo.getImgUrlforHead()!=null)
-        {
-            //Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(ImageVIew);
-            //用户姓名：UserInfoLab.get(mContext).getUserInfo().getUsername();
-            //用户Id：UserInfoLab.get(mContext).getUserInfo().getId();
+
+        if (UserInfoLab.get(mContext).getUserInfo().getId() != null && modeInfo.getId() != null) {
+            if (modeInfo.getId().equals(UserInfoLab.get(mContext).getUserInfo().getId())) {
+                //Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
+                Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
+                holder.mode_username.setText(UserInfoLab.get(mContext).getUserInfo().getUsername());
+                Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(holder.pic_head);
+            } else {
+                //Toast.makeText(mContext,"myid: "+String.valueOf(modeInfo.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
+                holder.mode_username.setText(FriendsLab.get(mContext).findNameById(modeInfo.getId()));
+                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(modeInfo.getId())).placeholder(R.drawable.left_image).into(holder.pic_head);
+            }
         }
+//            //用户姓名：
+//            UserInfoLab.get(mContext).getUserInfo().getUsername();
+//            //用户Id：
+//            UserInfoLab.get(mContext).getUserInfo().getId();
+
         if (modeInfo.getImgUrlforContent()!=null)
         {
 //            if(modeInfo.getImgUrlforContent().size()==1) {

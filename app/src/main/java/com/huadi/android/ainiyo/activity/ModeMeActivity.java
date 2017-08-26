@@ -1,6 +1,7 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,10 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -69,6 +72,9 @@ public class ModeMeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_me);
         ViewUtils.inject(this);
+
+        setImmersive();
+
         // Set a listener to be invoked when the list should be refreshed.
         mode_me_list_view.setMode(PullToRefreshBase.Mode.BOTH);
         mode_me_list_view.setScrollingWhileRefreshingEnabled(true);
@@ -215,6 +221,21 @@ public class ModeMeActivity extends AppCompatActivity {
 //        }
 //
 
+    }
+
+    public void setImmersive() {
+        //设置状态栏沉浸
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_mode_me);
+            linear_bar.setVisibility(View.VISIBLE);
+            //获取到状态栏的高度
+            int statusHeight = ToolKits.getStatusBarHeight(this);
+            //动态的设置隐藏布局的高度
+            linear_bar.getLayoutParams().height = statusHeight;
+        }
     }
 
     public void DeletingTheMode(int id) {

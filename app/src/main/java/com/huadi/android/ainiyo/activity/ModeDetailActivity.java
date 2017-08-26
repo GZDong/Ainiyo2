@@ -2,12 +2,15 @@ package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.adapter.ImageAdapter;
@@ -33,6 +36,7 @@ public class ModeDetailActivity extends AppCompatActivity {
 
 
         ViewUtils.inject(this);
+        setImmersive();
 
         // 判断屏幕方向
         Configuration configuration = getResources().getConfiguration();
@@ -67,6 +71,23 @@ public class ModeDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void setImmersive() {
+        //设置状态栏沉浸
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_mode_detail);
+            linear_bar.setVisibility(View.VISIBLE);
+            //获取到状态栏的高度
+            int statusHeight = ToolKits.getStatusBarHeight(this);
+            //动态的设置隐藏布局的高度
+            linear_bar.getLayoutParams().height = statusHeight;
+        }
+    }
+
+
     @OnClick({R.id.mode_detail_back})
     public void onClick(View v)
     {

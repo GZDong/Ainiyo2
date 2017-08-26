@@ -126,9 +126,9 @@ public class UserInfoLab {
                         @Override
                         public void onNext(ResultForUserInfo resultForUserInfo) {
                             Log.e("test","onNext____获取用户头像URL: " + resultForUserInfo.getResult().getAvatar());
-                            Log.e("test","onNext____获取用户id：" + resultForUserInfo.getResult().getId());
+                            Log.e("test", "onNext____获取用户id：" + resultForUserInfo.getResult().getUserid());
                             mUserInfo.setPicUrl(resultForUserInfo.getResult().getAvatar());
-                            mUserInfo.setId(resultForUserInfo.getResult().getId());
+                            mUserInfo.setId(resultForUserInfo.getResult().getUserid());
                             mUserInfo.save();
                             //重新到数据库里读取
                            initUser(name, password);
@@ -184,9 +184,9 @@ public class UserInfoLab {
                     @Override
                     public void onNext(ResultForUserInfo resultForUserInfo) {
                         Log.e("test","onNext____获取用户头像URL: " + resultForUserInfo.getResult().getAvatar());
-                        Log.e("test","onNext____获取用户id：" + resultForUserInfo.getResult().getId());
+                        Log.e("test", "onNext____获取用户id：" + resultForUserInfo.getResult().getUserid());
                         mUserInfo.setPicUrl(resultForUserInfo.getResult().getAvatar());
-                        mUserInfo.setId(resultForUserInfo.getResult().getId());
+                        mUserInfo.setId(resultForUserInfo.getResult().getUserid());
                         mUserInfo.save();
                     }
                 });

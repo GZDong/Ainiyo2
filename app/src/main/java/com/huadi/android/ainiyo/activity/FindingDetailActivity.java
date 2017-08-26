@@ -62,22 +62,7 @@ public class FindingDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_finding_detail);
         ViewUtils.inject(this);
 
-        //设置状态栏沉浸
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_finding_datail);
-            linear_bar.setVisibility(View.VISIBLE);
-            //获取到状态栏的高度
-            int statusHeight = ToolKits.getStatusBarHeight(this);
-            //动态的设置隐藏布局的高度
-            linear_bar.getLayoutParams().height = statusHeight;
-        }
-
-
-
-
+        setImmersive();
 
         final Intent t = getIntent();
         fll = (FindingLikeList) t.getSerializableExtra("findinglike");
@@ -105,6 +90,20 @@ public class FindingDetailActivity extends AppCompatActivity {
         }).sendEmptyMessageDelayed(0, 200);
     }
 
+    public void setImmersive() {
+        //设置状态栏沉浸
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_finding_datail);
+            linear_bar.setVisibility(View.VISIBLE);
+            //获取到状态栏的高度
+            int statusHeight = ToolKits.getStatusBarHeight(this);
+            //动态的设置隐藏布局的高度
+            linear_bar.getLayoutParams().height = statusHeight;
+        }
+    }
 
     private void loadDatas(final boolean direction) {
 

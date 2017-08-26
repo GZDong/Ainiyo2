@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -96,10 +97,10 @@ public class ToolKits {
         SharedPreferences sharedPreferences = getSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         ArrayList<Integer> mList = fetchInteger(context, key);
-        value.addAll(mList);
-        Gson gson = new Gson();
-        String json = gson.toJson(value);
-        editor.putString(key, json);
+		mList.addAll(value);
+		Gson gson = new Gson();
+		String json = gson.toJson(mList);
+		editor.putString(key, json);
         editor.commit();
     }
 
@@ -175,19 +176,4 @@ public class ToolKits {
         return 0;
     }
 
-//	public static void immersion(Context mContext)
-//	{
-//		//设置状态栏沉浸
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//			//透明状态栏
-//			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//			//透明导航栏
-//			LinearLayout linear_bar = (LinearLayout) mContext.findViewById(R.id.status_bar_main);
-//			linear_bar.setVisibility(View.VISIBLE);
-//			//获取到状态栏的高度
-//			int statusHeight = ToolKits.getStatusBarHeight(mContext);
-//			//动态的设置隐藏布局的高度
-//			linear_bar.getLayoutParams().height = statusHeight;
-//		}
-//	}
 }

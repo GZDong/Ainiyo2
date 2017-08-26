@@ -141,6 +141,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         button3 = (RadioButton)findViewById(R.id.radio3);
         button4 = (RadioButton)findViewById(R.id.radio4);
 
+        setImmersive();
+    }
+
+    public void setImmersive() {
         //设置状态栏沉浸
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
@@ -154,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             linear_bar.getLayoutParams().height = statusHeight;
         }
     }
-
 
 
     @OnCheckedChange({R.id.bottom_bar})

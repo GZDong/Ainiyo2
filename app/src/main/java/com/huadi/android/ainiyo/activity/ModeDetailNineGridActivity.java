@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -114,6 +115,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
         ViewUtils.inject(this);
 
+        setImmersive();
 
         NineGridView.setImageLoader(new GlideImageLoader());
         final Intent intent = getIntent();
@@ -128,6 +130,22 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
         initToCommentItemDelete();
     }
+
+    public void setImmersive() {
+        //设置状态栏沉浸
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_mode_detail_nine_grid);
+            linear_bar.setVisibility(View.VISIBLE);
+            //获取到状态栏的高度
+            int statusHeight = ToolKits.getStatusBarHeight(this);
+            //动态的设置隐藏布局的高度
+            linear_bar.getLayoutParams().height = statusHeight;
+        }
+    }
+
 
     //加载九宫格图片
     public void LoadNineGridPho(ArrayList<String> mPhoList) {

@@ -160,6 +160,7 @@ public class ModeFragment extends Fragment {
                             ModeInfo mi;
                             mi = gson.fromJson(mwd1.getContent(), type);
 
+                            mi.setId(String.valueOf(mwd1.getUserid()));
                             ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate(), sum);
                             mList.add(mld);
                         }
