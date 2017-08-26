@@ -87,7 +87,7 @@ public class ModeAdapter extends BaseAdapter {
         if (UserInfoLab.get(mContext).getUserInfo().getId() != null && modeInfo.getId() != null) {
             if (modeInfo.getId().equals(UserInfoLab.get(mContext).getUserInfo().getId())) {
                 //Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
-                Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
+                //Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
                 holder.mode_username.setText(UserInfoLab.get(mContext).getUserInfo().getUsername());
                 Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(holder.pic_head);
             } else {

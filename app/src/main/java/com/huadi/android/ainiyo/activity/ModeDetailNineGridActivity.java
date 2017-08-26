@@ -38,6 +38,7 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.adapter.ModeCommentAdapter;
 import com.huadi.android.ainiyo.adapter.ModeToCommentAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.ModeComment;
 import com.huadi.android.ainiyo.entity.ModeCommentData;
 import com.huadi.android.ainiyo.entity.ModeCommentResult;
@@ -45,6 +46,7 @@ import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
@@ -73,6 +75,10 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
     TextView tv_content;
     @ViewInject(R.id.tv_createTime)
     TextView tv_createTime;
+    @ViewInject(R.id.mode_nine_grid_pic_head)
+    ImageView mode_nine_grid_pic_head;
+    @ViewInject(R.id.tv_mode_nine_grid_username)
+    TextView tv_mode_nine_grid_username;
     @ViewInject(R.id.lv_comments)
     ListView comments;
     @ViewInject(R.id.mode_ll_liuyan)
@@ -124,6 +130,20 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         LoadNineGridPho(mld.getMi().getImgUrlforContent());
         tv_content.setText(mld.getMi().getContent());
         tv_createTime.setText(mld.getDate());
+
+
+        if (String.valueOf(mld.getUserid()).equals(UserInfoLab.get(this).getUserInfo().getId())) {
+            //Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
+            //Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
+            tv_mode_nine_grid_username.setText(UserInfoLab.get(this).getUserInfo().getUsername());
+            Glide.with(this).load(UserInfoLab.get(this).getUserInfo().getPicUrl()).into(mode_nine_grid_pic_head);
+        } else {
+            //Toast.makeText(mContext,"myid: "+String.valueOf(mc.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
+            tv_mode_nine_grid_username.setText(FriendsLab.get(this).findNameById(String.valueOf(mld.getUserid())));
+            Glide.with(this).load(FriendsLab.get(this).findUrlById(String.valueOf(mld.getUserid()))).into(mode_nine_grid_pic_head);
+        }
+
+
 
         initCommentData(mld.getId(), true);
 

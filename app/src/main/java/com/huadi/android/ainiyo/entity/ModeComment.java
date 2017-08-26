@@ -9,15 +9,15 @@ import java.io.Serializable;
  */
 public class ModeComment implements Serializable {
     private String id;
-    private String name;
+    private String userid;
     private String imgUrl;
     private String content;
     private String time;
     private String replyed;//回复了谁
 
-    public ModeComment(String id, String name, String imgUrl, String content, String time, String replyed) {
+    public ModeComment(String id, String userid, String imgUrl, String content, String time, String replyed) {
         this.id = id;
-        this.name = name;
+        this.userid = userid;
         this.imgUrl = imgUrl;
         this.content = content;
         this.time = time;
@@ -32,12 +32,12 @@ public class ModeComment implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getImgUrl() {

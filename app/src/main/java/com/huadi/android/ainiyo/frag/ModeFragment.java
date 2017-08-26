@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
@@ -36,6 +38,7 @@ import com.huadi.android.ainiyo.activity.ModeDetailActivity;
 import com.huadi.android.ainiyo.activity.ModeMeActivity;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
@@ -64,6 +67,8 @@ public class ModeFragment extends Fragment {
     private PullToRefreshListView mode_list_view;
     @ViewInject(R.id.btn_mode_add)
     private ImageView btn_mode_add;
+    @ViewInject(R.id.iv_topbar_mode_pic_head)
+    ImageView iv_topbar_mode_pic_head;
 
     private List<ModeLocalData> mList = new ArrayList<>();
     private ModeResult modeResult;
@@ -83,6 +88,9 @@ public class ModeFragment extends Fragment {
         // Inflate the layout for this fragment2
 
         ViewUtils.inject(this, view);
+
+        Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).into(iv_topbar_mode_pic_head);
+
         // Set a listener to be invoked when the list should be refreshed.
         mode_list_view.setMode(PullToRefreshBase.Mode.BOTH);
         mode_list_view.setScrollingWhileRefreshingEnabled(true);
@@ -281,13 +289,13 @@ public class ModeFragment extends Fragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.btn_mode_add,R.id.tv_mode_me})
+    @OnClick({R.id.btn_mode_add, R.id.iv_topbar_mode_pic_head})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btn_mode_add:
                 startActivityForResult(new Intent(getActivity(), ModeAddingActivity.class),REQUEST_CODE);
                 break;
-            case R.id.tv_mode_me:
+            case R.id.iv_topbar_mode_pic_head:
                 startActivity(new Intent(getActivity(), ModeMeActivity.class));
         }
 

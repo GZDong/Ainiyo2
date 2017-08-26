@@ -9,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.ModeComment;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -61,9 +64,7 @@ public class ModeToCommentAdapter extends BaseAdapter {
             holder = (ViewHolder) converView.getTag();
         }
         ModeComment mc = mList.get(position);
-        if (mc.getName() != null) {
-            holder.tv_mode_to_comment_reply.setText(mc.getName());
-        }
+
         if (mc.getContent() != null) {
             holder.tv_mode_to_comment_content.setText(mc.getContent());
         }
@@ -74,11 +75,26 @@ public class ModeToCommentAdapter extends BaseAdapter {
             holder.tv_mode_to_comment_time.setText(mc.getTime());
         }
 
+        if (UserInfoLab.get(mContext).getUserInfo().getId() != null && mc.getUserid() != null) {
+            if (mc.getUserid().equals(UserInfoLab.get(mContext).getUserInfo().getId())) {
+                //Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
+                //Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
+                holder.tv_mode_to_comment_reply.setText(UserInfoLab.get(mContext).getUserInfo().getUsername());
+                Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(holder.mode_to_comment_pic_head);
+            } else {
+                //Toast.makeText(mContext,"myid: "+String.valueOf(mc.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
+                holder.tv_mode_to_comment_reply.setText(FriendsLab.get(mContext).findNameById(mc.getId()));
+                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mc.getId())).into(holder.mode_to_comment_pic_head);
+            }
+        }
+
 
         return converView;
     }
 
     class ViewHolder {
+        @ViewInject(R.id.mode_to_comment_pic_head)
+        ImageView mode_to_comment_pic_head;
         @ViewInject(R.id.tv_mode_to_comment_reply)
         TextView tv_mode_to_comment_reply;
         @ViewInject(R.id.tv_mode_to_comment_replyed)
