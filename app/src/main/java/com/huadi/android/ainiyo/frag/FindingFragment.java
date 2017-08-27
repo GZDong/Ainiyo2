@@ -36,6 +36,7 @@ import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.FindingAphorism;
 import com.huadi.android.ainiyo.entity.FindingInfo;
 import com.huadi.android.ainiyo.entity.FindingLikeList;
+import com.huadi.android.ainiyo.entity.FindingResult;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
@@ -102,8 +103,10 @@ public class FindingFragment extends Fragment {
     CardItemTouchHelperCallback cardCallback;
 
     //private List<Integer> mList = new ArrayList<>();
-    private List<FindingInfo> mList = new ArrayList<>();
+    private ArrayList<FindingInfo> mList = new ArrayList<>();
     private FindingLikeList fll = new FindingLikeList();
+    private int page = 1;
+    private int pagecount = 10;
 
     private Handler handle;
     public static final int UPDATE_CONTENT = 1001;
@@ -204,6 +207,7 @@ public class FindingFragment extends Fragment {
             public void onSwipedClear() {
                 Toast.makeText(getActivity(), "data clear", Toast.LENGTH_SHORT).show();
 
+                page++;
                         initData();
                         recyclerView.getAdapter().notifyDataSetChanged();
 
@@ -265,21 +269,26 @@ public class FindingFragment extends Fragment {
 
         ECApplication application = (ECApplication) getActivity().getApplication();
         params.addBodyParameter("sessionid", application.sessionId);
+        params.addBodyParameter("page", String.valueOf(page));
+        params.addBodyParameter("pagesize", "4");
 
         new HttpUtils().send(HttpRequest.HttpMethod.POST, FINDING_USER_DESTINY, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
 
-                ResponseObject<ArrayList<FindingInfo>> object = new GsonBuilder().create().
-                        fromJson(responseInfo.result, new TypeToken<ResponseObject<ArrayList<FindingInfo>>>() {
+                ResponseObject<FindingResult> object = new GsonBuilder().create().
+                        fromJson(responseInfo.result, new TypeToken<ResponseObject<FindingResult>>() {
                         }.getType());
 
                 if (object.getStatus() == 0) {
                     // 渲染内容到界面上
                     //清空原来的数据
-                    mList = object.getResult();
+                    pagecount = object.getResult().getPagesize();
 
+                    mList = object.getResult().getData();
+
+                    //Log.i("mListhaha",mList.toString());
                     initView();
 
                 } else {
