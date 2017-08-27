@@ -127,6 +127,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     protected void onDestroy() {
         super.onDestroy();
         Log.e("test","onDestroy_MainActivity");
+
+        //每次退出都重置允许下次finding页面的tips
+        SharedPreferences pref = this.getSharedPreferences("data", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("isFirstTime", true);
+        editor.apply();
+
         EMClient.getInstance().contactManager().removeContactListener(this);
     }
 

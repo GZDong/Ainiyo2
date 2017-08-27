@@ -148,7 +148,7 @@ public class ModeFragment extends Fragment {
                     {// 渲染内容到界面上
                         //清空原来的数据
                         mList.clear();
-                        ArrayList<Integer> idorder = new ArrayList<Integer>();
+                        //ArrayList<Integer> idorder = new ArrayList<Integer>();
 
 
                         mwd = object.getResult().getData();
@@ -157,8 +157,8 @@ public class ModeFragment extends Fragment {
                         for (int i = 0; i < sum; i++) {
                             mwd1 = mwd[i];
 
-                            idorder.add(mwd1.getId());
-                            ToolKits.putInteger(getActivity(), "Integer", idorder);
+//                            idorder.add(mwd1.getId());
+//                            ToolKits.putInteger(getActivity(), "Integer", idorder);
 
                             int userid = mwd1.getUserid();
                             String content = mwd1.getContent();
@@ -195,15 +195,15 @@ public class ModeFragment extends Fragment {
                         });
                     } else {// 尾部刷新
                         //mList.addAll(object.getDatas());
-                        ArrayList<Integer> idorder = new ArrayList<Integer>();
+                        //ArrayList<Integer> idorder = new ArrayList<Integer>();
                         mwd = object.getResult().getData();
                         int sum = object.getResult().getSum();
                         ModeWebData mwd1;
-                        for (int i = sum - 1; i >= 0; i--) {
+                        for (int i = 0; i < sum; i++) {
                             mwd1 = mwd[i];
 
-                            idorder.add(mwd1.getId());
-                            ToolKits.appendInteger(getActivity(), "Integer", idorder);
+//                            idorder.add(mwd1.getId());
+//                            ToolKits.appendInteger(getActivity(), "Integer", idorder);
 
                             int userid = mwd1.getUserid();
                             String content = mwd1.getContent();

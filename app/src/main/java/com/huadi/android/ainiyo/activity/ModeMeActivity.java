@@ -26,6 +26,7 @@ import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.adapter.ModeMeAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
@@ -58,7 +59,7 @@ public class ModeMeActivity extends AppCompatActivity {
     private ModeMeAdapter mAdapter;
     private static final int REQUEST_CODE = 0x00000012;
 
-    private List<ModeInfo> mList = new ArrayList<>();
+    private List<ModeLocalData> mList = new ArrayList<>();
     private ModeResult modeResult;
     private ModeWebData[] mwd;
 
@@ -96,7 +97,7 @@ public class ModeMeActivity extends AppCompatActivity {
         }).sendEmptyMessageDelayed(0, 200);
     }
 
-    private void loadDatas(final boolean direction, final List<ModeInfo> mList)
+    private void loadDatas(final boolean direction, final List<ModeLocalData> mList)
     {
 
         RequestParams params = new RequestParams();
@@ -110,7 +111,7 @@ public class ModeMeActivity extends AppCompatActivity {
         params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("page", String.valueOf(page));
         params.addBodyParameter("pagesize", "3");
-        params.addBodyParameter("type", "1");
+        params.addBodyParameter("type", "2");
 
         new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
 
@@ -126,12 +127,18 @@ public class ModeMeActivity extends AppCompatActivity {
                 {// 渲染内容到界面上
                     //清空原来的数据
                     mList.clear();
+                    ArrayList<Integer> idorder = new ArrayList<Integer>();
 
                     mwd = object.getResult().getData();
                     int sum = object.getResult().getSum();
                     ModeWebData mwd1;
                     for (int i = 0; i < sum; i++) {
                         mwd1 = mwd[i];
+
+                        idorder.add(mwd1.getId());
+                        ToolKits.putInteger(ModeMeActivity.this, "Integer", idorder);
+
+
                         int userid = mwd1.getUserid();
                         String content = mwd1.getContent();
                         Gson gson = new Gson();
@@ -139,7 +146,9 @@ public class ModeMeActivity extends AppCompatActivity {
                         }.getType();
                         ModeInfo mi;
                         mi = gson.fromJson(mwd1.getContent(), type);
-                        mList.add(mi);
+                        ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate(), sum);
+
+                        mList.add(mld);
                     }
 
 //                    Toast.makeText(getActivity(),
@@ -167,11 +176,17 @@ public class ModeMeActivity extends AppCompatActivity {
 
                 } else {// 尾部刷新
                     //mList.addAll(object.getDatas());
+                    ArrayList<Integer> idorder = new ArrayList<Integer>();
                     mwd = object.getResult().getData();
                     int sum = object.getResult().getSum();
                     ModeWebData mwd1;
-                    for (int i = sum - 1; i >= 0; i--) {
+                    for (int i = 0; i < sum; i++) {
                         mwd1 = mwd[i];
+
+                        idorder.add(mwd1.getId());
+                        ToolKits.appendInteger(ModeMeActivity.this, "Integer", idorder);
+
+
                         int userid = mwd1.getUserid();
                         String content = mwd1.getContent();
                         Gson gson = new Gson();
@@ -179,7 +194,9 @@ public class ModeMeActivity extends AppCompatActivity {
                         }.getType();
                         ModeInfo mi;
                         mi = gson.fromJson(mwd1.getContent(), type);
-                        mList.add(mi);
+                        ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate(), sum);
+
+                        mList.add(mld);
                     }
                     mAdapter.notifyDataSetChanged();
                 }
@@ -287,8 +304,14 @@ public class ModeMeActivity extends AppCompatActivity {
 
     @OnItemClick({R.id.mode_me_list_view})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(ModeMeActivity.this, ModeDetailActivity.class);
-        intent.putExtra("item", mAdapter.getItem(position-1).getImgUrlforContent());
+//        Intent intent = new Intent(ModeMeActivity.this, ModeDetailActivity.class);
+//        intent.putExtra("item", mAdapter.getItem(position-1).getMi().getImgUrlforContent());
+//        startActivity(intent);
+
+        Intent intent = new Intent(this, ModeDetailNineGridActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("item", mAdapter.getItem(position - 1));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }
