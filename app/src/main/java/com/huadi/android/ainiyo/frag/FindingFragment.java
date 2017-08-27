@@ -203,13 +203,10 @@ public class FindingFragment extends Fragment {
             @Override
             public void onSwipedClear() {
                 Toast.makeText(getActivity(), "data clear", Toast.LENGTH_SHORT).show();
-                recyclerView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+
                         initData();
                         recyclerView.getAdapter().notifyDataSetChanged();
-                    }
-                }, 3000L);
+
             }
 
         });
@@ -291,10 +288,12 @@ public class FindingFragment extends Fragment {
                     FindingInfo fi3 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁3", true, "123", 20, "教师");
                     FindingInfo fi4 = new FindingInfo("1", 0.90f, 0.60f, 0.80f, 0.40f, 0.77f, 0.90f, 0.80f, 0.40f, "刘奕宁4", true, "123", 20, "教师");
 
+
                     mList.add(fi1);
                     mList.add(fi2);
                     mList.add(fi3);
                     mList.add(fi4);
+
                     initView();
                 }
             }

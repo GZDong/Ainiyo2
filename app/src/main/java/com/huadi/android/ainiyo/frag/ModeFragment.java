@@ -74,6 +74,7 @@ public class ModeFragment extends Fragment {
     private ModeResult modeResult;
     private ModeWebData[] mwd;
     private ModeAdapter mAdapter;
+    private ArrayList<String> return_images = new ArrayList<String>();
     private int page = 1;
     private int pagesize = 20;
     private int pagecount = 10;
@@ -131,7 +132,7 @@ public class ModeFragment extends Fragment {
         params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("page", String.valueOf(page));
         params.addBodyParameter("pagesize", "3");
-        params.addBodyParameter("type", "1");
+        params.addBodyParameter("type", "2");
 
         new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
 
@@ -280,6 +281,32 @@ public class ModeFragment extends Fragment {
 //        }
 //    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode) {
+            case 10:
+                Bundle b = data.getExtras();
+                return_images = b.getStringArrayList("return_images");
+                String return_content = b.getString("return_content");
+
+//            Log.i("return_iamge_content", "requestCode: " + String.valueOf(requestCode)
+//                    + "resultCode:" + String.valueOf(resultCode)
+//                    + "  content: " + return_content);
+
+                ModeInfo mi = new ModeInfo("", return_content, "", return_images);
+                ModeLocalData mld = new ModeLocalData(0, Integer.parseInt(UserInfoLab.get(getActivity()).getUserInfo().getId()), mi, "", 0);
+                mList.add(0, mld);
+                mAdapter.notifyDataSetChanged();
+                break;
+            case 11:
+                //删除心情后返回到心情页面主动加载数据，避免每次要下拉刷新
+                loadDatas(true);
+        }
+    }
+
+
     @OnItemClick({R.id.mode_list_view})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), ModeDetailNineGridActivity.class);
@@ -296,7 +323,7 @@ public class ModeFragment extends Fragment {
                 startActivityForResult(new Intent(getActivity(), ModeAddingActivity.class),REQUEST_CODE);
                 break;
             case R.id.iv_topbar_mode_pic_head:
-                startActivity(new Intent(getActivity(), ModeMeActivity.class));
+                startActivityForResult(new Intent(getActivity(), ModeMeActivity.class), 0);
         }
 
     }

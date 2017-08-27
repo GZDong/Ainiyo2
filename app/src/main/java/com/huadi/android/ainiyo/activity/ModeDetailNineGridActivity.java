@@ -129,7 +129,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         //加载九宫格图片
         LoadNineGridPho(mld.getMi().getImgUrlforContent());
         tv_content.setText(mld.getMi().getContent());
-        tv_createTime.setText(mld.getDate());
+        tv_createTime.setText(mld.getDate().substring(0, 10));
 
 
         if (String.valueOf(mld.getUserid()).equals(UserInfoLab.get(this).getUserInfo().getId())) {
@@ -273,7 +273,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
                     for (int i = 0; i < sum; i++) {
                         ModeComment mc = null;
-                        mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), String.valueOf(mcd[i].getUserid()));
+                        mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), String.valueOf(mcd[i].getTargetid()));
                         mToCommentList.add(mc);
                     }
 
@@ -326,12 +326,24 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
     @OnItemClick({R.id.lv_comments})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Toast.makeText(ModeDetailNineGridActivity.this, String.valueOf(position), Toast.LENGTH_SHORT).show();
-        comment(2, position);
+        //Toast.makeText(ModeDetailNineGridActivity.this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+        if (!UserInfoLab.get(this).getUserInfo().getId().equals(mCommentAdapter.getItem(position).getUserid())) {
+            comment(2, position);
+        } else {
+            popDeleteWindows(position);
+        }
+
     }
 
     @OnItemLongClick({R.id.lv_comments})
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+        popDeleteWindows(position);
+
+        return true;
+    }
+
+    private void popDeleteWindows(final int position) {
         // Toast.makeText(ModeDetailNineGridActivity.this,"Long:  "+String.valueOf(position),Toast.LENGTH_SHORT).show();
         //设置contentView
         View contentView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.mode_comment_delete_pop_window, null);
@@ -361,8 +373,6 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         //显示PopupWindow
         View rootview = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.activity_mode_detail_nine_grid, null);
         mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
-
-        return true;
     }
 
     public void initToCommentItemDelete() {

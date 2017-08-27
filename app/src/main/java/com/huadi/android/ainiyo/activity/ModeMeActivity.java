@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -30,6 +31,7 @@ import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
@@ -58,6 +60,7 @@ public class ModeMeActivity extends AppCompatActivity {
     private ImageView btn_mode_add;
     private ModeMeAdapter mAdapter;
     private static final int REQUEST_CODE = 0x00000012;
+    private ArrayList<String> return_images = new ArrayList<String>();
 
     private List<ModeLocalData> mList = new ArrayList<>();
     private ModeResult modeResult;
@@ -111,7 +114,7 @@ public class ModeMeActivity extends AppCompatActivity {
         params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("page", String.valueOf(page));
         params.addBodyParameter("pagesize", "3");
-        params.addBodyParameter("type", "2");
+        params.addBodyParameter("type", "1");
 
         new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
 
@@ -286,6 +289,27 @@ public class ModeMeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode) {
+            case 10:
+                Bundle b = data.getExtras();
+                return_images = b.getStringArrayList("return_images");
+                String return_content = b.getString("return_content");
+
+                Log.i("return_iamge_content", "requestCode: " + String.valueOf(requestCode)
+                        + "resultCode:" + String.valueOf(resultCode)
+                        + "  content: " + return_content);
+
+                ModeInfo mi = new ModeInfo("", return_content, "", return_images);
+                ModeLocalData mld = new ModeLocalData(0, Integer.parseInt(UserInfoLab.get(this).getUserInfo().getId()), mi, "", 0);
+                mList.add(0, mld);
+                mAdapter.notifyDataSetChanged();
+                break;
+        }
+    }
 
     @OnClick({R.id.btn_mode_me_add,R.id.mode_me_back})
     public void onClick(View v){
@@ -296,6 +320,7 @@ public class ModeMeActivity extends AppCompatActivity {
 //            case R.id.mode_me_delete:
 //                ToolKits.DeletingModeData(ModeMeActivity.this,"modeMeInfoList",);
             case R.id.mode_me_back:
+                setResult(11, new Intent());
                 ToolKits.putInt(ModeMeActivity.this,"fragment",2);
                 finish();
         }
@@ -313,5 +338,13 @@ public class ModeMeActivity extends AppCompatActivity {
         bundle.putSerializable("item", mAdapter.getItem(position - 1));
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            setResult(11, new Intent());
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

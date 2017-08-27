@@ -130,7 +130,13 @@ public class ModeAddingActivity extends AppCompatActivity {
                 upLoadPho();
                 //Toast.makeText(ModeAddingActivity.this,String.valueOf(imagesUrl.size()),Toast.LENGTH_SHORT).show();
 
-
+                //使其返回后在fragment中的onActivityResult中加载刚刚上传的心情（本地）
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("return_images", images);
+                bundle.putString("return_content", et_mode_add_saying.getText().toString());
+                intent.putExtras(bundle);
+                setResult(10, intent);
 
                 finish();
                 break;

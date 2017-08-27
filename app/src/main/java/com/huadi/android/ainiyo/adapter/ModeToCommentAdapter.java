@@ -72,7 +72,7 @@ public class ModeToCommentAdapter extends BaseAdapter {
             holder.tv_mode_to_comment_replyed.setText(mc.getReplyed());
         }
         if (mc.getTime() != null) {
-            holder.tv_mode_to_comment_time.setText(mc.getTime());
+            holder.tv_mode_to_comment_time.setText(mc.getTime().substring(0, 10));
         }
 
         if (UserInfoLab.get(mContext).getUserInfo().getId() != null && mc.getUserid() != null) {
@@ -83,8 +83,8 @@ public class ModeToCommentAdapter extends BaseAdapter {
                 Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(holder.mode_to_comment_pic_head);
             } else {
                 //Toast.makeText(mContext,"myid: "+String.valueOf(mc.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
-                holder.tv_mode_to_comment_reply.setText(FriendsLab.get(mContext).findNameById(mc.getId()));
-                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mc.getId())).into(holder.mode_to_comment_pic_head);
+                holder.tv_mode_to_comment_reply.setText(FriendsLab.get(mContext).findNameById(mc.getUserid()));
+                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mc.getUserid())).into(holder.mode_to_comment_pic_head);
             }
         }
 

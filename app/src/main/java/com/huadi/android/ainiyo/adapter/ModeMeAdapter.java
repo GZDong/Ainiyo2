@@ -78,11 +78,15 @@ public class ModeMeAdapter extends BaseAdapter {
         }
 
         ModeInfo modeInfo = mList.get(position).getMi();
-        if(modeInfo.getName()!=null){
-            holder.mode_username.setText(modeInfo.getName());
-        }
+
+        //绑定内容
         if(modeInfo.getContent()!=null) {
             holder.mode_content.setText(modeInfo.getContent());
+        }
+        //绑定日期
+        String date = mList.get(position).getDate();
+        if (date != null) {
+            holder.mode_me_date.setText(date.substring(0, 10));
         }
 
         String mode_me_user_id = String.valueOf(mList.get(position).getUserid());
@@ -140,6 +144,8 @@ public class ModeMeAdapter extends BaseAdapter {
         TextView mode_content;
         @ViewInject(R.id.mode_me_delete)
         TextView mode_me_delete;
+        @ViewInject(R.id.mode_me_date)
+        TextView mode_me_date;
     }
 
 //    @OnClick(R.id.mode_me_delete)

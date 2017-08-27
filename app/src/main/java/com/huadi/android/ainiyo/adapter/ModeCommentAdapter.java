@@ -62,7 +62,7 @@ public class ModeCommentAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public ModeComment getItem(int position) {
         return (mList == null || position >= mList.size()) ? null : mList.get(position);
     }
 
@@ -89,7 +89,7 @@ public class ModeCommentAdapter extends BaseAdapter {
             holder.tv_mode_comment_content.setText(mc.getContent());
         }
         if (mc.getTime() != null) {
-            holder.tv_mode_comment_time.setText(mc.getTime());
+            holder.tv_mode_comment_time.setText(mc.getTime().substring(0, 10));
         }
 
         if (UserInfoLab.get(mContext).getUserInfo().getId() != null && mc.getUserid() != null) {
@@ -100,8 +100,8 @@ public class ModeCommentAdapter extends BaseAdapter {
                 Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(holder.mode_comment_pic_head);
             } else {
                 //Toast.makeText(mContext,"myid: "+String.valueOf(mc.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
-                holder.mode_comment_name.setText(FriendsLab.get(mContext).findNameById(mc.getId()));
-                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mc.getId())).into(holder.mode_comment_pic_head);
+                holder.mode_comment_name.setText(FriendsLab.get(mContext).findNameById(mc.getUserid()));
+                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mc.getUserid())).into(holder.mode_comment_pic_head);
             }
         }
 
