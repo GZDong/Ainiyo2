@@ -95,7 +95,15 @@ public class MovementFragment extends Fragment {
             }
         }).sendEmptyMessageDelayed(0, 200);
 
+
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        movement_list_view.setMode(PullToRefreshBase.Mode.BOTH);
     }
 
     private void loadDatas(final boolean direction) {
@@ -103,15 +111,16 @@ public class MovementFragment extends Fragment {
         //Log.d("MOVEMENT", "moved");
         if (!direction) {// 如果是尾部刷新要重新计算分页数据
             page++;
+            Log.d("MOVEMENT","scroll down");
         } else {
             page = 1;
         }
 
         ECApplication application = (ECApplication) getActivity().getApplication();
         params.addBodyParameter("sessionid", application.sessionId);
-        params.addBodyParameter("page", "0");
+        params.addBodyParameter("page", String.valueOf(page));
         params.addBodyParameter("pagesize", "10");
-        //params.addBodyParameter("type", "1");
+
 
         new HttpUtils().send(HttpRequest.HttpMethod.POST, FETCH_ACTIVITY, params, new RequestCallBack<String>() {
 
@@ -125,46 +134,45 @@ public class MovementFragment extends Fragment {
                         }.getType());
                 //Log.e("MOVEMENT", String.valueOf(object.getResult().getData()[0].getDate()));
                 if (object.getStatus() == 0) {
-                    if (direction)// 头部刷新
-                    {// 渲染内容到界面上
-                        //清空原来的数据
+                    if(direction){//head refresh
                         mList.clear();
+                    }
 
-                        mwd = object.getResult().getData();
-                        int sum = object.getResult().getSum();
-                        MovementData mwd1;
+                    pagecount = object.getResult().getPagecount();
+                    mwd = object.getResult().getData();
+                    int sum = object.getResult().getSum();
+                    MovementData mwd1;
 
-                        for (int i = mwd.length - 1; i >= 0; i--) {
-                            mwd1 = mwd[i];
+                    for (int i = 0; i <= mwd.length - 1; ++i) {
+                        mwd1 = mwd[i];
 
-                            //int userid = mwd1.getUserid();
-                            String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
-                            if(mwd1.getContent()!=null){
-                                Log.e("MOVEMENT",content);
-                            }
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<MovementContentData>() {
-                            }.getType();
-                            if(content.startsWith("{")) {
-                                MovementContentData mcd = gson.fromJson(content, type);
+                        String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
+                        if(mwd1.getContent()!=null){
+                            Log.e("MOVEMENT",content);
+                        }
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<MovementContentData>() {
+                        }.getType();
 
-                                mcd.setId(mwd1.getId());//ID同步校正
-                                if (mcd != null) {
-                                    mList.add(0,mcd);
-                                }
+                        if(content.startsWith("{")) {//排除无效字符串
+                            MovementContentData mcd = gson.fromJson(content, type);
+                            mcd.setId(mwd1.getId());//ID同步校正
+                            mcd.setJoined(mwd1.isAttended());
+
+                            if (mcd != null) {
+                                mList.add(mcd);//
                             }
                         }
+                    }
 
-
-
-                        //mList= ToolKits.GettingModedata(getActivity(),"modeInfoList");
+                    if(direction){//head refresh
                         mAdapter = new MovementAdapter(mList, ((ECApplication) getActivity().getApplication()).sessionId,false);
-//                        mAdapter.setFather(getParentFragment().getActivity());
                         movement_list_view.setAdapter(mAdapter);
-                    } else {// 尾部刷新
-                        //mList.addAll(object.getDatas());
+                    }
+                    else {//tail refresh
                         mAdapter.notifyDataSetChanged();
                     }
+
                     if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
                         movement_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                     }
@@ -185,13 +193,13 @@ public class MovementFragment extends Fragment {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), MovementDetailActivity.class);
 
-
         MovementContentData mcd = mList.get(position-1);
         intent.putExtra("id", mcd.getId());
         intent.putExtra("title", mcd.getTitle());
         intent.putExtra("date", mcd.getDate());
         intent.putExtra("imageUrl", mcd.getImageUrl());
         intent.putExtra("article", mcd.getArticle());
+        intent.putExtra("isJoined",mcd.isJoined());
 
 
         startActivity(intent);

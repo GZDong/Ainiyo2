@@ -55,7 +55,7 @@ public class MovementAdapter extends BaseAdapter {
     private ImageAdapter mAdapter;
     private Context father;
     private boolean isJoinedMode = false;
-    private boolean isJoinSuccess = false;
+
 
     public MovementAdapter(List<MovementContentData> list, String session,boolean joined) {
         mList = list;
@@ -87,7 +87,7 @@ public class MovementAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.movement_list_row, null);
@@ -126,49 +126,59 @@ public class MovementAdapter extends BaseAdapter {
 
         }
 
+        Log.e("MOVEADA",String.valueOf(mcd.getId())+mcd.getTitle()+String.valueOf(mcd.isJoined()));
+        if(mcd.isJoined()){
+            holder.join.setText("已参加");
+            holder.join.setEnabled(false);
+            holder.join.setBackgroundColor(Color.GRAY);
+        }
+        else {
+            holder.join.setText("我要参加");
+            holder.join.setEnabled(true);
+            holder.join.setBackgroundColor(Color.parseColor("#478bf8"));
+        }
 
         if(isJoinedMode){
             holder.join.setVisibility(View.GONE);
         }
         else {
-            holder.join.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            {
+                holder.join.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                    TextView thisView = (TextView)view;
-                    RequestParams params = new RequestParams();
-                    params.addBodyParameter("sessionid", sessionId);
-                    params.addBodyParameter("aid", String.valueOf(mcd.getId()));
-
-
-
+                        final TextView thisView = (TextView)view;
+                        RequestParams params = new RequestParams();
+                        params.addBodyParameter("sessionid", sessionId);
+                        params.addBodyParameter("aid", String.valueOf(mcd.getId()));
 
 
-                    new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
+                        new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
 
-                        @Override
-                        public void onSuccess(ResponseInfo<String> responseInfo) {
-                            Log.e("MOVEMENT_ADAPTER", "JOINED");
-                            setJoinSuccess(true);
-                            //Toast.makeText(MovementDetailActivity.this, "参加成功", Toast.LENGTH_SHORT).show();
-                            //?
-                        }
+                            @Override
+                            public void onSuccess(ResponseInfo<String> responseInfo) {
+                                Log.i("MOVEMENT_ADAPTER", "JOINED");
+                                mList.get(position).setJoined(true);
+                                thisView.setText("已参加");
+                                thisView.setEnabled(false);
+                                thisView.setBackgroundColor(Color.GRAY);
+                            }
 
-                        @Override
-                        public void onFailure(HttpException error, String msg) {
-                            setJoinSuccess(false);
-                        }
-                    });
+                            @Override
+                            public void onFailure(HttpException error, String msg) {
+                                //Toast.makeText(MovementAdapter.this.father,"网络异常",Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-                    if(isJoinSuccess){
-                        thisView.setText("已参加");
-                        thisView.setEnabled(false);
+//                        if(mList.get(position).isJoined()){
+//                            thisView.setText("已参加");
+//                            thisView.setEnabled(false);
+//                        }
+
+
                     }
-
-
-                }
-            });
-
+                });
+            }
 
 
         }
@@ -176,9 +186,7 @@ public class MovementAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void setJoinSuccess(boolean joinSuccess) {
-        isJoinSuccess = joinSuccess;
-    }
+
 
     class ViewHolder {
         @ViewInject(R.id.iv_movement_pic)

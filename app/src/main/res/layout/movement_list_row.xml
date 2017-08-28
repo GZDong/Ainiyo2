@@ -15,9 +15,10 @@
         android:layout_marginTop="10dp"
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="0dp"
+        app:cardCornerRadius="2dp"
         app:cardUseCompatPadding="false"
-        app:cardPreventCornerOverlap="false">
+        app:cardPreventCornerOverlap="false"
+        app:cardElevation="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,6 +26,13 @@
             android:orientation="vertical"
 
             >
+
+            <ImageView
+                android:id="@+id/iv_movement_pic"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/content_image1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -37,62 +45,52 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_movement_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="大夫山出游活动"
-                        android:textSize="24dp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="10dp" />
-
-                    <TextView
                         android:id="@+id/tv_movement_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
+                        android:drawableLeft="@drawable/ic_today_black_24dp"
+                        android:drawablePadding="5dp"
+                        android:gravity="center_vertical"
                         android:text="8月7日"
                         android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/tv_movement_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="-1dp"
+                        android:text="大夫山出游活动"
+                        android:textColor="@color/black"
+                        android:textSize="24dp" />
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/btn_movement_tpi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:drawableTop="@mipmap/movement_attending"
-                    android:text="我要参加"
-                    android:textColor="#d81e06" />
-
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_movement_pic"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/content_image1" />
 
             <TextView
                 android:id="@+id/tv_movement_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:text="      本周日我们将联合广旅组织一次大夫山联谊活动,届时有丰富的游戏环节和交流活动让会员间更好地了解对方..."
-                android:textSize="15dp"
+                android:layout_marginBottom="5dp"
 
-                />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="      本周日我们将联合广旅组织一次大夫山联谊活动,届时有丰富的游戏环节和交流活动让会员间更好地了解对方..."
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/btn_movement_tpi"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@color/theme_blue"
+                android:gravity="center"
+                android:text="我要参加"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
         </LinearLayout>
 
 
