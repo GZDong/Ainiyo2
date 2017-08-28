@@ -24,6 +24,7 @@ import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.ModeDetailNineGridActivity;
 import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
@@ -55,7 +56,9 @@ import com.lidroid.xutils.view.annotation.event.OnItemClick;
 import com.lidroid.xutils.view.annotation.event.OnLongClick;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
@@ -190,7 +193,22 @@ public class ModeFragment extends Fragment {
                         mAdapter.setmPicHeadItemClickListener(new ModeAdapter.OnPicHeadItemClickListener() {
                             @Override
                             public void OnPicHeadItemClick(int positon) {
-                                startActivity(new Intent(getActivity(), FriendsInfoActivity.class));
+                                Intent intent = null;
+                                if (!String.valueOf(mList.get(positon).getUserid()).equals(UserInfoLab.get(getActivity()).getUserInfo().getId())) {
+                                    FriendsLab.get(getActivity()).findNameById(String.valueOf(mList.get(positon).getUserid()));
+                                    intent = new Intent(getActivity(), FriendsInfoActivity.class);
+                                    intent.putExtra("name", FriendsLab.get(getActivity()).findNameById(String.valueOf(mList.get(positon).getUserid())));
+                                    intent.putExtra("userInfo",UserInfoLab.get(getActivity()).getUserInfo());
+                                    intent.putExtra("from","ModeFragment");
+                                    intent.putExtra("picture",FriendsLab.get(getActivity()).getFriend(FriendsLab.get(getActivity()).findNameById(String.valueOf(mList.get(positon).getUserid()))).getPicture());
+                                }else {
+                                    intent = new Intent(getActivity(), FriendsInfoActivity.class);
+                                    intent.putExtra("name", UserInfoLab.get(getActivity()).getUserInfo().getUsername());
+                                    intent.putExtra("userInfo",UserInfoLab.get(getActivity()).getUserInfo());
+                                    intent.putExtra("from","ModeFragment");
+                                    intent.putExtra("picture",UserInfoLab.get(getActivity()).getUserInfo().getPicture());
+                                }
+                                startActivity(intent);
                                 //Log.i("testpichead",String.valueOf(positon));
                             }
                         });
@@ -296,7 +314,8 @@ public class ModeFragment extends Fragment {
 //                    + "  content: " + return_content);
 
                 ModeInfo mi = new ModeInfo("", return_content, "", return_images);
-                ModeLocalData mld = new ModeLocalData(0, Integer.parseInt(UserInfoLab.get(getActivity()).getUserInfo().getId()), mi, "", 0);
+                ModeLocalData mld = new ModeLocalData(0, Integer.parseInt(UserInfoLab.get(getActivity()).getUserInfo().getId()),
+                        mi, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), 0);
                 mList.add(0, mld);
                 mAdapter.notifyDataSetChanged();
                 break;

@@ -113,11 +113,8 @@ public class WelcomActivity extends AppCompatActivity {
 
                                         UserInfoLab.get(WelcomActivity.this).refreshSessionid(application.sessionId);
                                        // Log.e("test", "初始化用户的url为 " +UserInfoLab.get(WelcomActivity.this,username,password).getUserInfo().getPicUrl() );
-                                        Log.e("test", "执行点0");
                                         FriendsLab.get(WelcomActivity.this, UserInfoLab.get(WelcomActivity.this).getUserInfo()).setFriListNull();
-                                        Log.e("test", "执行点1");
                                         FriendsLab.get(WelcomActivity.this, UserInfoLab.get(WelcomActivity.this).getUserInfo()).initFriends();
-                                        Log.e("test", "执行点2");
                                         Intent intent = new Intent("com.huadi.android.ainiyo.refresh");
                                         sendBroadcast(intent);
                                         mHandler.sendEmptyMessageDelayed(Turn, 4000);

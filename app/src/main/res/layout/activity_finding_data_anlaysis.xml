@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/finding_data_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:id="@+id/finding_data_background"
-    android:weightSum="1">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/status_bar_finding_data_anlaysis"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:orientation="vertical"
         android:background="@color/theme_blue"
+        android:orientation="vertical"
         android:visibility="gone"></LinearLayout>
 
     <LinearLayout
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="0.08">
+        android:layout_gravity="center"
+        android:layout_weight="0.08"
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/pipei"
@@ -50,16 +49,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="爱好:"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:drawableLeft="@mipmap/ic_finding_data_anlaysic_hobby"
+                    android:drawablePadding="3dp"
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_text_size" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_hobby_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.95"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
 
             </LinearLayout>
 
@@ -74,16 +75,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="工作:"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:drawableLeft="@mipmap/ic_finding_data_anlaysic_work"
+                    android:drawablePadding="3dp"
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_text_size" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_job_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
 
             </LinearLayout>
 
@@ -98,16 +101,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="住处:"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:drawableLeft="@mipmap/ic_finding_data_anlaysic_living_place"
+                    android:drawablePadding="3dp"
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_text_size" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_live_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
             </LinearLayout>
 
             <LinearLayout
@@ -121,16 +126,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="年龄:"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:drawableLeft="@mipmap/ic_finding_data_anlaysic_age"
+                    android:drawablePadding="3dp"
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_text_size" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_age_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
 
             </LinearLayout>
 
@@ -145,16 +152,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="性格:"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:drawableLeft="@mipmap/ic_finding_data_anlaysic_character"
+                    android:drawablePadding="3dp"
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_text_size" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_character_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
             </LinearLayout>
 
             <LinearLayout
@@ -168,16 +177,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="情感:"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:drawableLeft="@mipmap/ic_finding_data_anlaysic_mood"
+                    android:drawablePadding="3dp"
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_text_size" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_emotion_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
 
             </LinearLayout>
 
@@ -192,25 +203,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="颜值:"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:drawableLeft="@mipmap/ic_finding_data_anlaysic_outlooking"
+                    android:drawablePadding="3dp"
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_text_size" />
 
                 <TextView
                     android:id="@+id/tv_finding_data_beauty_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0.94"
-                    android:textSize="20dp"
-                    android:textColor="@color/finding_data_text_color" />
+                    android:textColor="@color/finding_data_text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
 
             </LinearLayout>
         </RelativeLayout>
 
         <com.timqi.windrosediagram.WindRoseDiagramView
             android:id="@+id/windRoseDiagramView"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingTop="170dp"
             app:anchorColor="#302c2c"
             app:anchorWidth="4dp"
             app:foregroundColor="#881888ec"

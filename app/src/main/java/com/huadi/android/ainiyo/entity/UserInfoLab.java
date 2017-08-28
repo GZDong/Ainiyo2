@@ -65,8 +65,7 @@ public class UserInfoLab {
     }
 
     public static UserInfoLab get(Context context) {
-        sUserInfoLab.mContext = context.getApplicationContext();
-
+        //sUserInfoLab.mContext = context.getApplicationContext();
         return sUserInfoLab;
     }
 
@@ -87,7 +86,7 @@ public class UserInfoLab {
             for (UserInfo userInfo : mUserInfos) {
                 if (userInfo !=null) {
                     if (userInfo.getUsername().equals(name)) {
-                        //Log.e("test","用户的姓名是" + userInfo.getUsername());
+                        Log.e("test","用户的姓名是" + userInfo.getUsername());
                         mUserInfo = userInfo;
                         break;
                     }

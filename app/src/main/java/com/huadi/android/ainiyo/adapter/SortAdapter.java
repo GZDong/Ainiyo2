@@ -23,8 +23,8 @@ import com.huadi.android.ainiyo.util.ImgScaleUtil;
 import java.util.List;
 
 /**
- * @author: xp
- * @date: 2017/7/19
+ * Created by zhidong on 2017/8/8.
+ * 这个适配器的主要任务就是根据是否是首次出现而设置item的Tag布局是否显示
  */
 
 public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
