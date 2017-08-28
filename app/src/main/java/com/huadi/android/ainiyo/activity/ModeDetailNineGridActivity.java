@@ -102,6 +102,8 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
     private ModeCommentData[] mcd;
 
+    private int modeid;
+
     private Handler Myhandle;
     private Message msg;
     private PopupWindow mPopWindow;
@@ -144,8 +146,9 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         }
 
 
+        modeid = mld.getId();
 
-        initCommentData(mld.getId(), true);
+        initCommentData(modeid, true);
 
 
         initToCommentItemDelete();
@@ -284,6 +287,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                         }
                         mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), replyed_username);
                         mToCommentList.add(mc);
+                        initToCommentData(mcd[i].getId(), mcd[i].getUserid(), 1);
                     }
 
 //                    Bundle bundle =new Bundle();
@@ -347,7 +351,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
     @OnItemLongClick({R.id.lv_comments})
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-        if (!UserInfoLab.get(this).getUserInfo().getId().equals(mCommentAdapter.getItem(position).getUserid()))
+        if (UserInfoLab.get(this).getUserInfo().getId().equals(mCommentAdapter.getItem(position).getUserid()))
             popDeleteWindows(mCommentList.get(position).getId(), position, true);
 
         return true;
@@ -399,8 +403,11 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         tocomments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if (UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getId().equals(mToCommentAdapter.getItem(position).getUserid()))
+                if (UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getId().equals(mToCommentAdapter.getItem(position).getUserid())) {
                     popDeleteWindows(mToCommentList.get(position).getId(), position, false);
+                } else {
+                    comment(3, position);
+                }
             }
         });
     }
@@ -422,13 +429,15 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                         }.getType());
                 if (object.getStatus() == 420) {
                     Toast.makeText(ModeDetailNineGridActivity.this, "comment delete success", Toast.LENGTH_SHORT).show();
-                    if (flag) {
-                        mCommentList.remove(position);
-                        mCommentAdapter.notifyDataSetChanged();
-                    } else {
-                        mToCommentList.remove(position);
-                        mToCommentAdapter.notifyDataSetChanged();
-                    }
+//                    if (flag) {
+//                        mCommentList.remove(position);
+//                        mCommentAdapter.notifyDataSetChanged();
+//                    } else {
+//                        mToCommentList.remove(position);
+//                        mToCommentAdapter.notifyDataSetChanged();
+//                    }
+                    //删除后更新UI
+                    initCommentData(modeid, true);
                 } else {
                     Toast.makeText(ModeDetailNineGridActivity.this, "status:  " + object.getStatus(), Toast.LENGTH_SHORT).show();
                 }
@@ -530,13 +539,13 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         }
     }
 
-    //i=1时为评论心情，i=2为评论评论
+    //i=1时为评论心情，i=2,3为评论评论
     private void comment(final int i, final int position) {
 
 //        if (i == 2)
 //            Toast.makeText(ModeDetailNineGridActivity.this, "size:  " + mCommentList.size(), Toast.LENGTH_SHORT).show();
 
-        View editView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.mode_comment_reply_input, null);
+        final View editView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.mode_comment_reply_input, null);
         rootView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.activity_mode_detail_nine_grid, null);
         editWindow = new PopupWindow(editView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         editWindow.setOutsideTouchable(true);
@@ -571,11 +580,14 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                     if (i == 2) {
                         //Toast.makeText(ModeDetailNineGridActivity.this,"id:  "+mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
                         updateComment(info, i, mCommentList.get(position).getId());
-                    } else {
+                    } else if (i == 1) {
                         updateComment(info, i, "");
+                    } else if (i == 3) {
+                        updateComment(info, 2, mToCommentList.get(position).getId());
                     }
-                    imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
-                    replyEdit.setText("");
+//                    imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
+//                    replyEdit.setText("");
+                    editWindow.dismiss();
                 } else {
                     Toast.makeText(ModeDetailNineGridActivity.this, "请输入内容后在留言", Toast.LENGTH_SHORT).show();
                 }

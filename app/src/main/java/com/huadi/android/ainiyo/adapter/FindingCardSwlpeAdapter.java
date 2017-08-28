@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.FindingDataAnlaysisActivity;
 import com.huadi.android.ainiyo.activity.FindingUserInfoActivity;
@@ -75,10 +76,9 @@ public class FindingCardSwlpeAdapter extends RecyclerView.Adapter {
         if (findingInfo.getSummary() != 0) {
             myHolder.tv_finding_match_percent.setText(String.valueOf(df.format(findingInfo.getSummary())));
         }
-//        if(findingInfo.getAvatar()!=null)
-//        {
-//            Glide.with(parent.getContext()).load(findingInfo.getAvatar()).into(holder.iv_finding_pic);
-//        }
+        if (findingInfo.getAvatar() != null) {
+            Glide.with(mContext).load(findingInfo.getAvatar()).placeholder(R.mipmap.girl4).into(myHolder.iv_finding_pic);
+        }
         myHolder.myView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,8 +109,7 @@ public class FindingCardSwlpeAdapter extends RecyclerView.Adapter {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        @ViewInject(R.id.iv_finding_pic)
-        ImageView avatarImageView;
+
         @ViewInject(R.id.tv_finding_name)
         TextView iv_finding_name;
         @ViewInject(R.id.tv_finding_age)

@@ -10,4 +10,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="titile_bar_height">50dp</dimen>
     <dimen name="titile_bar_icon_size">45dp</dimen>
+    <dimen name="finding_data_anlaysis_pipei_text_size">18dp</dimen>
+    <dimen name="finding_data_anlaysis_pipei_score_text_size">16dp</dimen>
 </resources>
