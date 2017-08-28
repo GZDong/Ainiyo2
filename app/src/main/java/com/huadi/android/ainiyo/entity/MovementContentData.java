@@ -10,6 +10,7 @@ public class MovementContentData {
     private String Date;
     private String ImageUrl;
     private String article;
+    private boolean Joined = false;
 
     public MovementContentData(int id, String title, String date, String imageUrl, String article) {
         Id = id;
@@ -57,5 +58,13 @@ public class MovementContentData {
 
     public void setArticle(String article) {
         this.article = article;
+    }
+
+    public boolean isJoined() {
+        return Joined;
+    }
+
+    public void setJoined(boolean joined) {
+        Joined = joined;
     }
 }

@@ -8,6 +8,7 @@ public class MovementData {
     private int Id;
     private String Data;
     private String Content;
+    private boolean Attended;
 
     public MovementData(int id, String data, String content) {
         Id = id;
@@ -38,5 +39,13 @@ public class MovementData {
 
     public void setContent(String content) {
         this.Content = content;
+    }
+
+    public boolean isAttended() {
+        return Attended;
+    }
+
+    public void setAttended(boolean attended) {
+        Attended = attended;
     }
 }

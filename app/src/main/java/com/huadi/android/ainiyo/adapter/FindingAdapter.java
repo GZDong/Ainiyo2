@@ -89,6 +89,9 @@ public class FindingAdapter extends BaseAdapter {
         if (findingInfo.getSummary() != 0) {
             holder.tv_finding_match_percent.setText(String.valueOf(df.format(findingInfo.getSummary())));
         }
+        if (findingInfo.getAvatar() != null) {
+            Glide.with(mContext).load(findingInfo.getAvatar()).placeholder(R.mipmap.girl4).into(holder.pic_head);
+        }
 //        if(findingInfo.getAvatar()!=null)
 //        {
 //            Glide.with(parent.getContext()).load(findingInfo.getAvatar()).into(holder.iv_finding_pic);
@@ -171,8 +174,6 @@ public class FindingAdapter extends BaseAdapter {
         TextView iv_finding_name;
         @ViewInject(R.id.tv_finding_age)
         TextView iv_finding_age;
-        @ViewInject(R.id.iv_finding_pic)
-        ImageView iv_finding_pic;
         @ViewInject(R.id.tv_finding_match_percent)
         TextView tv_finding_match_percent;
         @ViewInject(R.id.tv_finding_job)

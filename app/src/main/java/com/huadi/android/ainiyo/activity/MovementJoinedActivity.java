@@ -89,6 +89,12 @@ public class MovementJoinedActivity extends AppCompatActivity {
         }).sendEmptyMessageDelayed(0, 200);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        movement_list_view.setMode(PullToRefreshBase.Mode.BOTH);
+    }
+
     private void loadDatas(final boolean direction) {
         RequestParams params = new RequestParams();
         if (!direction) {// 如果是尾部刷新要重新计算分页数据
@@ -99,7 +105,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
 
         ECApplication application = (ECApplication) getApplication();
         params.addBodyParameter("sessionid", application.sessionId);
-        params.addBodyParameter("page", "0");
+        params.addBodyParameter("page", String.valueOf(page));
         params.addBodyParameter("pagesize", "10");
         //params.addBodyParameter("type", "1");
 
@@ -114,45 +120,45 @@ public class MovementJoinedActivity extends AppCompatActivity {
 
                 //Log.e("MOVEMENT_JOINED",object.getStatus());
                 if (object.getStatus() == 0) {
-                    if (direction)// 头部刷新
-                    {// 渲染内容到界面上
-                        //清空原来的数据
+                    if(direction){//head refresh
                         mList.clear();
-                        ArrayList<Integer> idorder = new ArrayList<Integer>();
+                    }
 
-                        mwd = object.getResult().getData();
-                        int sum = object.getResult().getSum();
-                        MovementData mwd1;
-                        //Log.e("MOVEMENT_JONIED","data "+object.getResult().getSum());
-                        for (int i = mwd.length - 1; i >= 0; i--) {
-                            mwd1 = mwd[i];
+                    pagecount = object.getResult().getPagecount();
+                    mwd = object.getResult().getData();
+                    int sum = object.getResult().getSum();
+                    MovementData mwd1;
 
-                            idorder.add(mwd1.getId());
-                            ToolKits.putInteger(MovementJoinedActivity.this, "Integer", idorder);
+                    for (int i = 0; i <= mwd.length - 1; ++i) {
+                        mwd1 = mwd[i];
 
-                            String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
-                            //だれ
-                            if(mwd1.getContent()!=null){
-                                Log.e("MOVEMENT_JOINED",content);
-                            }
+                        String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
+                        if(mwd1.getContent()!=null){
+                            Log.e("MOVEMENT",content);
+                        }
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<MovementContentData>() {
+                        }.getType();
 
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<MovementContentData>() {
-                            }.getType();
+                        if(content.startsWith("{")) {//排除无效字符串
                             MovementContentData mcd = gson.fromJson(content, type);
-                            if(mcd!=null){
-                                mList.add(0,mcd);
+                            mcd.setId(mwd1.getId());//ID同步校正
+                            mcd.setJoined(mwd1.isAttended());
+
+                            if (mcd != null) {
+                                mList.add(mcd);//
                             }
                         }
+                    }
 
-
-
+                    if(direction){//head refresh
                         mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId,true);
                         movement_list_view.setAdapter(mAdapter);
-                    } else {// 尾部刷新
-                        //mList.addAll(object.getDatas());
+                    }
+                    else {//tail refresh
                         mAdapter.notifyDataSetChanged();
                     }
+
                     if (pagecount == page) {// 如果是最后一页的话则底部就不能再刷新了
                         movement_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                     }

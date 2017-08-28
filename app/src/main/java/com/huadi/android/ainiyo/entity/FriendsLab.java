@@ -293,16 +293,21 @@ public class FriendsLab {
 
     public String findNameById(String id){
         for (Friends friends : mFriendses){
-            if (friends.getFriId().equals(id)){
-                return friends.getName();
+
+            if (friends != null) {
+                if (friends.getFriId().equals(id)){
+                    return friends.getName();
+                }
             }
         }
         return null;
     }
     public String findUrlById(String id){
         for (Friends friends : mFriendses){
-            if (friends.getFriId().equals(id)){
-                return friends.getPicUrl();
+            if (friends != null) {
+                if (friends.getFriId().equals(id)){
+                    return friends.getPicUrl();
+                }
             }
         }
         return null;

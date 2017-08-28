@@ -97,8 +97,11 @@ public class ModeAdapter extends BaseAdapter {
                 holder.mode_username.setText(UserInfoLab.get(mContext).getUserInfo().getUsername());
                 Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(holder.pic_head);
             } else {
+
+                if (FriendsLab.get(mContext).findNameById(mode_me_user_id) != null)
                 //Toast.makeText(mContext,"myid: "+String.valueOf(modeInfo.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
                 holder.mode_username.setText(FriendsLab.get(mContext).findNameById(mode_me_user_id));
+                if (FriendsLab.get(mContext).findUrlById(mode_me_user_id) != null)
                 Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mode_me_user_id)).placeholder(R.drawable.left_image).into(holder.pic_head);
             }
         }
