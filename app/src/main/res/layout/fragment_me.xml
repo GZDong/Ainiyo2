@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="9dp"
+                    android:layout_marginLeft="10dp"
                     android:text="用户级别"
                     android:textColor="#0b0b0b"
                     android:textSize="15sp" />
@@ -336,7 +336,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="9dp"
+                    android:layout_marginLeft="10dp"
                     android:text="退出"
                     android:textColor="#0b0b0b"
                     android:textSize="15sp" />
