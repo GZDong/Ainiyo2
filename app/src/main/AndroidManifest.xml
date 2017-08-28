@@ -176,7 +176,8 @@
             android:name=".activity.DeleteFriendActivity"
             android:parentActivityName=".activity.FriendsListActivity" />
         <activity android:name=".activity.PhoneWallActivity" />
-        <activity android:name=".activity.ActivityActivity"></activity>
+        <activity android:name=".activity.ActivityActivity" />
+        <activity android:name=".activity.ActivityDetil"></activity>
     </application>
 
 </manifest>

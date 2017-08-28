@@ -514,43 +514,47 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     @Override
     public void onCompressEnd(LGImgCompressor.CompressResult imageOutPath) {
         compressImages.add(imageOutPath.getOutPath());
-        sendImage(compressImages);//上传这张头像//
+
+         modifyImage(compressImages); //修改头像
     }
 
-    public void sendImage(final List<String> images) {
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("sessionid", sessionId);
-        File file = new File(images.get(0));
-        params.addBodyParameter("avatar", file);
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/uploadavatar", params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                try {
-                    JSONObject object = new JSONObject(responseInfo.result.toString());
-                    int status = object.getInt("Status");
-                    String result = object.getString("Result");
-                    String msg = object.getString("Msg");
-                    if (msg.equals("success")) {
-                        avatar_done = result;
-                        Glide.with(EditInfoActivity.this).load(result).into(edit_avatar);
-                    } else {
-                        Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+
+        public void modifyImage(final List<String> images) {
+            RequestParams params = new RequestParams();
+            params.addBodyParameter("sessionid", sessionId);
+            File file = new File(images.get(0));
+            params.addBodyParameter("avatar", file);
+            new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyavatar", params, new RequestCallBack<String>() {
+                @Override
+                public void onSuccess(ResponseInfo<String> responseInfo) {
+                    try {
+                        JSONObject object = new JSONObject(responseInfo.result.toString());
+                        int status = object.getInt("Status");
+                        String result = object.getString("Result");
+                        String msg = object.getString("Msg");
+                        if (msg.equals("success")) {
+                            avatar_done = result;
+                            Glide.with(EditInfoActivity.this).load(result).into(edit_avatar);
+                        } else {
+                            Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onFailure(HttpException error, String msg) {
-                Toast.makeText(EditInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                @Override
+                public void onFailure(HttpException error, String msg) {
+                    Toast.makeText(EditInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                }
+            });
 
-    }
+        }
+
 
 
     //获得省数组//

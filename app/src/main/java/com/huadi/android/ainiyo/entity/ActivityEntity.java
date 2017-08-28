@@ -5,7 +5,7 @@ package com.huadi.android.ainiyo.entity;
  */
 
 public class ActivityEntity {
-    private String Title;
+
 
     public String getTitle() {
         return Title;
@@ -19,12 +19,22 @@ public class ActivityEntity {
         return Date;
     }
 
+
+
+    private String Title;
     private String ImageUrl;
     private String Date;
 
-    public void ActivityEntity(String Title,String ImageUrl,String Date){
+    public String getArticle() {
+        return Article;
+    }
+
+    private String Article;
+
+    public  ActivityEntity(String Title,String ImageUrl,String Date,String Article){
         this.Title=Title;
         this.ImageUrl=ImageUrl;
         this.Date=Date;
+        this.Article=Article;
     }
 }
