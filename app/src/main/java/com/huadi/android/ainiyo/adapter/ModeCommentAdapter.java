@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.ModeComment;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
@@ -58,7 +62,7 @@ public class ModeCommentAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public ModeComment getItem(int position) {
         return (mList == null || position >= mList.size()) ? null : mList.get(position);
     }
 
@@ -80,15 +84,27 @@ public class ModeCommentAdapter extends BaseAdapter {
             holder = (ViewHolder) converView.getTag();
         }
         ModeComment mc = mList.get(position);
-        if (mc.getName() != null) {
-            holder.mode_comment_name.setText(mc.getName());
-        }
+
         if (mc.getContent() != null) {
             holder.tv_mode_comment_content.setText(mc.getContent());
         }
         if (mc.getTime() != null) {
-            holder.tv_mode_comment_time.setText(mc.getTime());
+            holder.tv_mode_comment_time.setText(mc.getTime().substring(0, 10));
         }
+
+        if (UserInfoLab.get(mContext).getUserInfo().getId() != null && mc.getUserid() != null) {
+            if (mc.getUserid().equals(UserInfoLab.get(mContext).getUserInfo().getId())) {
+                //Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
+                //Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
+                holder.mode_comment_name.setText(UserInfoLab.get(mContext).getUserInfo().getUsername());
+                Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(holder.mode_comment_pic_head);
+            } else {
+                //Toast.makeText(mContext,"myid: "+String.valueOf(mc.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
+                holder.mode_comment_name.setText(FriendsLab.get(mContext).findNameById(mc.getUserid()));
+                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mc.getUserid())).into(holder.mode_comment_pic_head);
+            }
+        }
+
 
         // LoadToCommentData(position);
 

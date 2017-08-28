@@ -31,6 +31,14 @@ public class ResultForUserInfo {
         public String getAvatar() {
             return Avatar;
         }
+
+        public String getId() {
+            return Id;
+        }
+
+        public String getUserid() {
+            return Userid;
+        }
     }
 
     public String getStatus() {
@@ -40,4 +48,6 @@ public class ResultForUserInfo {
     public ResultClass getResult() {
         return Result;
     }
+
+
 }

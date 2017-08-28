@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -37,6 +38,7 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.adapter.ModeCommentAdapter;
 import com.huadi.android.ainiyo.adapter.ModeToCommentAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.ModeComment;
 import com.huadi.android.ainiyo.entity.ModeCommentData;
 import com.huadi.android.ainiyo.entity.ModeCommentResult;
@@ -44,6 +46,7 @@ import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
@@ -72,6 +75,10 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
     TextView tv_content;
     @ViewInject(R.id.tv_createTime)
     TextView tv_createTime;
+    @ViewInject(R.id.mode_nine_grid_pic_head)
+    ImageView mode_nine_grid_pic_head;
+    @ViewInject(R.id.tv_mode_nine_grid_username)
+    TextView tv_mode_nine_grid_username;
     @ViewInject(R.id.lv_comments)
     ListView comments;
     @ViewInject(R.id.mode_ll_liuyan)
@@ -114,6 +121,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
         ViewUtils.inject(this);
 
+        setImmersive();
 
         NineGridView.setImageLoader(new GlideImageLoader());
         final Intent intent = getIntent();
@@ -121,13 +129,43 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         //加载九宫格图片
         LoadNineGridPho(mld.getMi().getImgUrlforContent());
         tv_content.setText(mld.getMi().getContent());
-        tv_createTime.setText(mld.getDate());
+        tv_createTime.setText(mld.getDate().substring(0, 10));
+
+
+        if (String.valueOf(mld.getUserid()).equals(UserInfoLab.get(this).getUserInfo().getId())) {
+            //Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
+            //Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
+            tv_mode_nine_grid_username.setText(UserInfoLab.get(this).getUserInfo().getUsername());
+            Glide.with(this).load(UserInfoLab.get(this).getUserInfo().getPicUrl()).into(mode_nine_grid_pic_head);
+        } else {
+            //Toast.makeText(mContext,"myid: "+String.valueOf(mc.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
+            tv_mode_nine_grid_username.setText(FriendsLab.get(this).findNameById(String.valueOf(mld.getUserid())));
+            Glide.with(this).load(FriendsLab.get(this).findUrlById(String.valueOf(mld.getUserid()))).into(mode_nine_grid_pic_head);
+        }
+
+
 
         initCommentData(mld.getId(), true);
 
 
         initToCommentItemDelete();
     }
+
+    public void setImmersive() {
+        //设置状态栏沉浸
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_mode_detail_nine_grid);
+            linear_bar.setVisibility(View.VISIBLE);
+            //获取到状态栏的高度
+            int statusHeight = ToolKits.getStatusBarHeight(this);
+            //动态的设置隐藏布局的高度
+            linear_bar.getLayoutParams().height = statusHeight;
+        }
+    }
+
 
     //加载九宫格图片
     public void LoadNineGridPho(ArrayList<String> mPhoList) {
@@ -179,8 +217,9 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                         ModeComment mc = null;
                         mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), "");
                         mCommentList.add(mc);
+
                         if (flag) {
-                            initToCommentData(mcd[i].getId(), i);
+                            initToCommentData(mcd[i].getId(), mcd[i].getUserid(), i);
                         }
 //                        Myhandle=new Handler(){
 //                            public void handleMessage(Message msg)
@@ -208,7 +247,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
     }
 
-    private void initToCommentData(int id, int i) {
+    private void initToCommentData(int id, final int userid, int i) {
         if (i == 0) {
             mToCommentList.clear();
         }
@@ -235,7 +274,15 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 
                     for (int i = 0; i < sum; i++) {
                         ModeComment mc = null;
-                        mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), String.valueOf(mcd[i].getUserid()));
+
+                        //定义回复者的名字
+                        String replyed_username;
+                        if (String.valueOf(userid).equals(UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getId())) {
+                            replyed_username = UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getUsername();
+                        } else {
+                            replyed_username = FriendsLab.get(ModeDetailNineGridActivity.this).findNameById(String.valueOf(userid));
+                        }
+                        mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), replyed_username);
                         mToCommentList.add(mc);
                     }
 
@@ -270,7 +317,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
     }
 
     /**
-     * Glide 加载
+     * Glide 加载 NineGridView
      */
     private class GlideImageLoader implements NineGridView.ImageLoader {
         @Override
@@ -288,12 +335,25 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
     @OnItemClick({R.id.lv_comments})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Toast.makeText(ModeDetailNineGridActivity.this, String.valueOf(position), Toast.LENGTH_SHORT).show();
-        comment(2, position);
+        //Toast.makeText(ModeDetailNineGridActivity.this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+        if (!UserInfoLab.get(this).getUserInfo().getId().equals(mCommentAdapter.getItem(position).getUserid())) {
+            comment(2, position);
+        } else {
+            popDeleteWindows(mCommentList.get(position).getId(), position, true);
+        }
+
     }
 
     @OnItemLongClick({R.id.lv_comments})
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+        if (!UserInfoLab.get(this).getUserInfo().getId().equals(mCommentAdapter.getItem(position).getUserid()))
+            popDeleteWindows(mCommentList.get(position).getId(), position, true);
+
+        return true;
+    }
+
+    public void popDeleteWindows(final String id, final int position, final boolean flag) {
         // Toast.makeText(ModeDetailNineGridActivity.this,"Long:  "+String.valueOf(position),Toast.LENGTH_SHORT).show();
         //设置contentView
         View contentView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.mode_comment_delete_pop_window, null);
@@ -307,7 +367,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(ModeDetailNineGridActivity.this,"clicked Delete",Toast.LENGTH_SHORT).show();
-                DeleteComment(mCommentList.get(position).getId(), position, true);
+                DeleteComment(id, position, flag);
                 mPopWindow.dismiss();
                 //Toast.makeText(ModeDetailNineGridActivity.this,mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
             }
@@ -323,43 +383,24 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         //显示PopupWindow
         View rootview = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.activity_mode_detail_nine_grid, null);
         mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
-
-        return true;
     }
 
     public void initToCommentItemDelete() {
         tocomments.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long l) {
-                View contentView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.mode_comment_delete_pop_window, null);
-                mPopWindow = new PopupWindow(contentView,
-                        WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
-                mPopWindow.setContentView(contentView);
-                //设置各个控件的点击响应
-                TextView tv1 = (TextView) contentView.findViewById(R.id.pop_computer);
-                TextView tv2 = (TextView) contentView.findViewById(R.id.pop_financial);
-                tv1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //Toast.makeText(ModeDetailNineGridActivity.this,"clicked Delete",Toast.LENGTH_SHORT).show();
-                        DeleteComment(mToCommentList.get(position).getId(), position, false);
-                        mPopWindow.dismiss();
-                        //Toast.makeText(ModeDetailNineGridActivity.this,mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
-                    }
-                });
 
-                tv2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //Toast.makeText(ModeDetailNineGridActivity.this,"clicked cancel",Toast.LENGTH_SHORT).show();
-                        mPopWindow.dismiss();
-                    }
-                });
-                //显示PopupWindow
-                View rootview = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.activity_mode_detail_nine_grid, null);
-                mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
-
+                if (UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getId().equals(mToCommentAdapter.getItem(position).getUserid()))
+                    popDeleteWindows(mToCommentList.get(position).getId(), position, false);
                 return true;
+
+            }
+        });
+        tocomments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                if (UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getId().equals(mToCommentAdapter.getItem(position).getUserid()))
+                    popDeleteWindows(mToCommentList.get(position).getId(), position, false);
             }
         });
     }
@@ -489,11 +530,11 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         }
     }
 
-
+    //i=1时为评论心情，i=2为评论评论
     private void comment(final int i, final int position) {
 
-        if (i == 2)
-            Toast.makeText(ModeDetailNineGridActivity.this, "size:  " + mCommentList.size(), Toast.LENGTH_SHORT).show();
+//        if (i == 2)
+//            Toast.makeText(ModeDetailNineGridActivity.this, "size:  " + mCommentList.size(), Toast.LENGTH_SHORT).show();
 
         View editView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.mode_comment_reply_input, null);
         rootView = LayoutInflater.from(ModeDetailNineGridActivity.this).inflate(R.layout.activity_mode_detail_nine_grid, null);
@@ -530,11 +571,11 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                     if (i == 2) {
                         //Toast.makeText(ModeDetailNineGridActivity.this,"id:  "+mCommentList.get(position).getContent(),Toast.LENGTH_SHORT).show();
                         updateComment(info, i, mCommentList.get(position).getId());
-                        imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
                     } else {
                         updateComment(info, i, "");
-                        imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
                     }
+                    imm.hideSoftInputFromWindow(replyEdit.getWindowToken(), 0);
+                    replyEdit.setText("");
                 } else {
                     Toast.makeText(ModeDetailNineGridActivity.this, "请输入内容后在留言", Toast.LENGTH_SHORT).show();
                 }

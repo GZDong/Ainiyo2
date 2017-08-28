@@ -1,15 +1,19 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,9 +27,11 @@ import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.adapter.ModeMeAdapter;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
 import com.huadi.android.ainiyo.entity.ResponseObject;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
@@ -54,8 +60,9 @@ public class ModeMeActivity extends AppCompatActivity {
     private ImageView btn_mode_add;
     private ModeMeAdapter mAdapter;
     private static final int REQUEST_CODE = 0x00000012;
+    private ArrayList<String> return_images = new ArrayList<String>();
 
-    private List<ModeInfo> mList = new ArrayList<>();
+    private List<ModeLocalData> mList = new ArrayList<>();
     private ModeResult modeResult;
     private ModeWebData[] mwd;
 
@@ -69,6 +76,9 @@ public class ModeMeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_me);
         ViewUtils.inject(this);
+
+        setImmersive();
+
         // Set a listener to be invoked when the list should be refreshed.
         mode_me_list_view.setMode(PullToRefreshBase.Mode.BOTH);
         mode_me_list_view.setScrollingWhileRefreshingEnabled(true);
@@ -90,7 +100,7 @@ public class ModeMeActivity extends AppCompatActivity {
         }).sendEmptyMessageDelayed(0, 200);
     }
 
-    private void loadDatas(final boolean direction, final List<ModeInfo> mList)
+    private void loadDatas(final boolean direction, final List<ModeLocalData> mList)
     {
 
         RequestParams params = new RequestParams();
@@ -120,12 +130,18 @@ public class ModeMeActivity extends AppCompatActivity {
                 {// 渲染内容到界面上
                     //清空原来的数据
                     mList.clear();
+                    ArrayList<Integer> idorder = new ArrayList<Integer>();
 
                     mwd = object.getResult().getData();
                     int sum = object.getResult().getSum();
                     ModeWebData mwd1;
                     for (int i = 0; i < sum; i++) {
                         mwd1 = mwd[i];
+
+                        idorder.add(mwd1.getId());
+                        ToolKits.putInteger(ModeMeActivity.this, "Integer", idorder);
+
+
                         int userid = mwd1.getUserid();
                         String content = mwd1.getContent();
                         Gson gson = new Gson();
@@ -133,7 +149,9 @@ public class ModeMeActivity extends AppCompatActivity {
                         }.getType();
                         ModeInfo mi;
                         mi = gson.fromJson(mwd1.getContent(), type);
-                        mList.add(mi);
+                        ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate(), sum);
+
+                        mList.add(mld);
                     }
 
 //                    Toast.makeText(getActivity(),
@@ -154,7 +172,6 @@ public class ModeMeActivity extends AppCompatActivity {
                         @Override
                         public void OnDeleteItemClick(int position) {
                             DeletingTheMode(ToolKits.fetchInteger(ModeMeActivity.this, "Integer").get(position));
-                            Toast.makeText(ModeMeActivity.this, String.valueOf(position) + "删除成功,请下拉刷新", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -162,11 +179,17 @@ public class ModeMeActivity extends AppCompatActivity {
 
                 } else {// 尾部刷新
                     //mList.addAll(object.getDatas());
+                    ArrayList<Integer> idorder = new ArrayList<Integer>();
                     mwd = object.getResult().getData();
                     int sum = object.getResult().getSum();
                     ModeWebData mwd1;
-                    for (int i = sum - 1; i >= 0; i--) {
+                    for (int i = 0; i < sum; i++) {
                         mwd1 = mwd[i];
+
+                        idorder.add(mwd1.getId());
+                        ToolKits.appendInteger(ModeMeActivity.this, "Integer", idorder);
+
+
                         int userid = mwd1.getUserid();
                         String content = mwd1.getContent();
                         Gson gson = new Gson();
@@ -174,7 +197,9 @@ public class ModeMeActivity extends AppCompatActivity {
                         }.getType();
                         ModeInfo mi;
                         mi = gson.fromJson(mwd1.getContent(), type);
-                        mList.add(mi);
+                        ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate(), sum);
+
+                        mList.add(mld);
                     }
                     mAdapter.notifyDataSetChanged();
                 }
@@ -218,6 +243,21 @@ public class ModeMeActivity extends AppCompatActivity {
 
     }
 
+    public void setImmersive() {
+        //设置状态栏沉浸
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_mode_me);
+            linear_bar.setVisibility(View.VISIBLE);
+            //获取到状态栏的高度
+            int statusHeight = ToolKits.getStatusBarHeight(this);
+            //动态的设置隐藏布局的高度
+            linear_bar.getLayoutParams().height = statusHeight;
+        }
+    }
+
     public void DeletingTheMode(int id) {
         RequestParams params = new RequestParams();
         ECApplication application = (ECApplication) getApplication();
@@ -233,6 +273,7 @@ public class ModeMeActivity extends AppCompatActivity {
 
                 if (object.getMsg().equals("success")) {
                     loadDatas(true, mList);
+                    Toast.makeText(ModeMeActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(ModeMeActivity.this, "删除的status: " + object.getStatus(), Toast.LENGTH_SHORT).show();
@@ -248,6 +289,27 @@ public class ModeMeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode) {
+            case 10:
+                Bundle b = data.getExtras();
+                return_images = b.getStringArrayList("return_images");
+                String return_content = b.getString("return_content");
+
+                Log.i("return_iamge_content", "requestCode: " + String.valueOf(requestCode)
+                        + "resultCode:" + String.valueOf(resultCode)
+                        + "  content: " + return_content);
+
+                ModeInfo mi = new ModeInfo("", return_content, "", return_images);
+                ModeLocalData mld = new ModeLocalData(0, Integer.parseInt(UserInfoLab.get(this).getUserInfo().getId()), mi, "", 0);
+                mList.add(0, mld);
+                mAdapter.notifyDataSetChanged();
+                break;
+        }
+    }
 
     @OnClick({R.id.btn_mode_me_add,R.id.mode_me_back})
     public void onClick(View v){
@@ -258,6 +320,7 @@ public class ModeMeActivity extends AppCompatActivity {
 //            case R.id.mode_me_delete:
 //                ToolKits.DeletingModeData(ModeMeActivity.this,"modeMeInfoList",);
             case R.id.mode_me_back:
+                setResult(11, new Intent());
                 ToolKits.putInt(ModeMeActivity.this,"fragment",2);
                 finish();
         }
@@ -266,8 +329,22 @@ public class ModeMeActivity extends AppCompatActivity {
 
     @OnItemClick({R.id.mode_me_list_view})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(ModeMeActivity.this, ModeDetailActivity.class);
-        intent.putExtra("item", mAdapter.getItem(position-1).getImgUrlforContent());
+//        Intent intent = new Intent(ModeMeActivity.this, ModeDetailActivity.class);
+//        intent.putExtra("item", mAdapter.getItem(position-1).getMi().getImgUrlforContent());
+//        startActivity(intent);
+
+        Intent intent = new Intent(this, ModeDetailNineGridActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("item", mAdapter.getItem(position - 1));
+        intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            setResult(11, new Intent());
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

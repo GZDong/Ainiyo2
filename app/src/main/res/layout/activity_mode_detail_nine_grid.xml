@@ -5,6 +5,14 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/status_bar_mode_detail_nine_grid"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:background="@color/theme_blue"
+        android:visibility="gone"></LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
@@ -45,7 +53,7 @@
                 android:paddingTop="12.5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/mode_pic_head"
+                    android:id="@+id/mode_nine_grid_pic_head"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:src="@drawable/left_image"
@@ -59,7 +67,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_username"
+                        android:id="@+id/tv_mode_nine_grid_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

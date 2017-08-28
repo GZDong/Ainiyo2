@@ -10,12 +10,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeAddingActivity;
 import com.huadi.android.ainiyo.activity.ModeMeActivity;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.entity.ModeLocalData;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -31,11 +35,15 @@ import java.util.List;
 
 public class ModeMeAdapter extends BaseAdapter {
 
-    private List<ModeInfo> mList;
+    private List<ModeLocalData> mList;
     private ImageAdapter mAdapter;
     private OnDeleteItemClickListener mDeleteItemClickListener;
     private Context mContext;
-    public ModeMeAdapter(Context context, List<ModeInfo> list){mContext=context; mList = list; }
+
+    public ModeMeAdapter(Context context, List<ModeLocalData> list) {
+        mContext = context;
+        mList = list;
+    }
 
     @Override
     public int getCount() {
@@ -43,12 +51,12 @@ public class ModeMeAdapter extends BaseAdapter {
     }
 
     @Override
-    public ModeInfo getItem(int position) {
+    public ModeLocalData getItem(int position) {
         return (mList == null || position>=mList.size())?null:mList.get(position);
     }
 
     public String getPhoItem(int position) {
-        return (mList == null || position>=mList.size())?null:mList.get(position).getImgUrlforContent().get(position);
+        return (mList == null || position >= mList.size()) ? null : mList.get(position).getMi().getImgUrlforContent().get(position);
     }
 
     @Override
@@ -69,17 +77,33 @@ public class ModeMeAdapter extends BaseAdapter {
             holder=(ViewHolder) convertView.getTag();
         }
 
-        ModeInfo modeInfo=mList.get(position);
-        if(modeInfo.getName()!=null){
-            holder.mode_username.setText(modeInfo.getName());
-        }
+        ModeInfo modeInfo = mList.get(position).getMi();
+
+        //绑定内容
         if(modeInfo.getContent()!=null) {
             holder.mode_content.setText(modeInfo.getContent());
         }
-        if (modeInfo.getImgUrlforHead()!=null)
-        {
-
+        //绑定日期
+        String date = mList.get(position).getDate();
+        if (date != null) {
+            holder.mode_me_date.setText(date.substring(0, 10));
         }
+
+        String mode_me_user_id = String.valueOf(mList.get(position).getUserid());
+        if (UserInfoLab.get(mContext).getUserInfo().getId() != null && mode_me_user_id != null) {
+            if (mode_me_user_id.equals(UserInfoLab.get(mContext).getUserInfo().getId())) {
+                // Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
+                // Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
+                holder.mode_username.setText(UserInfoLab.get(mContext).getUserInfo().getUsername());
+                Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).placeholder(R.drawable.left_image).into(holder.pic_head);
+            } else {
+                // Toast.makeText(mContext,"myid: "+mode_me_user_id+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
+                holder.mode_username.setText(FriendsLab.get(mContext).findNameById(mode_me_user_id));
+                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mode_me_user_id)).placeholder(R.drawable.left_image).into(holder.pic_head);
+            }
+        }
+
+
         if (modeInfo.getImgUrlforContent()!=null)
         {
 //            if(modeInfo.getImgUrlforContent().size()==1) {
@@ -120,6 +144,8 @@ public class ModeMeAdapter extends BaseAdapter {
         TextView mode_content;
         @ViewInject(R.id.mode_me_delete)
         TextView mode_me_delete;
+        @ViewInject(R.id.mode_me_date)
+        TextView mode_me_date;
     }
 
 //    @OnClick(R.id.mode_me_delete)

@@ -1,6 +1,7 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,8 +10,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
@@ -64,6 +67,8 @@ public class ModeAddingActivity extends AppCompatActivity {
 
         ViewUtils.inject(this);
 
+        setImmersive();
+
         rvImage = (RecyclerView) findViewById(R.id.rv_image);
         rvImage.setLayoutManager(new GridLayoutManager(this, 3));
 
@@ -73,6 +78,20 @@ public class ModeAddingActivity extends AppCompatActivity {
 
     }
 
+    public void setImmersive() {
+        //设置状态栏沉浸
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_mode_adding);
+            linear_bar.setVisibility(View.VISIBLE);
+            //获取到状态栏的高度
+            int statusHeight = ToolKits.getStatusBarHeight(this);
+            //动态的设置隐藏布局的高度
+            linear_bar.getLayoutParams().height = statusHeight;
+        }
+    }
 
 
     @Override
@@ -111,7 +130,13 @@ public class ModeAddingActivity extends AppCompatActivity {
                 upLoadPho();
                 //Toast.makeText(ModeAddingActivity.this,String.valueOf(imagesUrl.size()),Toast.LENGTH_SHORT).show();
 
-
+                //使其返回后在fragment中的onActivityResult中加载刚刚上传的心情（本地）
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("return_images", images);
+                bundle.putString("return_content", et_mode_add_saying.getText().toString());
+                intent.putExtras(bundle);
+                setResult(10, intent);
 
                 finish();
                 break;

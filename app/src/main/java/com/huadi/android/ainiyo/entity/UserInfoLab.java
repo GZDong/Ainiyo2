@@ -51,7 +51,13 @@ public class UserInfoLab {
     private List<UserInfo> mUserInfos;  //名字相同的用户，没有实际意义，只是满足语法
     private UserInfo userInfo;
 
-    public static UserInfoLab get(Context mContext, UserInfo userInfo) {
+    public static UserInfoLab get(Context mContext, String name,String password) {
+        if (sUserInfoLab == null){
+            sUserInfoLab = new UserInfoLab(mContext, name, password);
+        }
+        return sUserInfoLab;
+    }
+    public static UserInfoLab get(Context mContext,UserInfo userInfo) {
         if (sUserInfoLab == null){
             sUserInfoLab = new UserInfoLab(mContext, userInfo.getUsername(), userInfo.getPassword());
         }
@@ -70,19 +76,31 @@ public class UserInfoLab {
         initUser(name, password);
     }
 
+
     private void initUser(final String name,final String password) {
 
         //找出已经保留在数据库里的用户
         mUserInfos = DataSupport.where("username = ?", name).find(UserInfo.class);
-        for (UserInfo userInfo : mUserInfos) {
-            if (userInfo.getUsername().equals(name)) {
-                mUserInfo = userInfo;
-                break;
+        Log.e("test","请求数据库完毕");
+        if (mUserInfos!=null) {
+            Log.e("test", "用户数据库数据不为空" + mUserInfos.toString());
+            for (UserInfo userInfo : mUserInfos) {
+                if (userInfo !=null) {
+                    if (userInfo.getUsername().equals(name)) {
+                        //Log.e("test","用户的姓名是" + userInfo.getUsername());
+                        mUserInfo = userInfo;
+                        break;
+                    }
+                }
             }
+          //  Log.e("test","用户的姓名是" +mUserInfo.getUsername());
         }
         //数据库里没有该用户,则储存到数据库里
-        if (mUserInfo == null) {
 
+        if (mUserInfo ==null) {
+            mUserInfo = new UserInfo(name,password);
+            mUserInfo.save();
+            Log.e("test", "数据库没有该用户");
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://120.24.168.102:8080/")
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -102,23 +120,22 @@ public class UserInfoLab {
                         @Override
                         public void onError(Throwable e) {
                             Log.e("test", "onError: "+" 请求用户头像异常" );
-                            userInfo = new UserInfo(name, password);
-                            userInfo.setPicUrl(null);
-                            userInfo.save();
-                            initUser(name,password);
+
                         }
 
                         @Override
                         public void onNext(ResultForUserInfo resultForUserInfo) {
                             Log.e("test","onNext____获取用户头像URL: " + resultForUserInfo.getResult().getAvatar());
-                            userInfo = new UserInfo(name, password);
-                            userInfo.setPicUrl(resultForUserInfo.getResult().getAvatar());
-                            userInfo.save();
+                            Log.e("test", "onNext____获取用户id：" + resultForUserInfo.getResult().getUserid());
+                            mUserInfo.setPicUrl(resultForUserInfo.getResult().getAvatar());
+                            mUserInfo.setId(resultForUserInfo.getResult().getUserid());
+                            mUserInfo.save();
                             //重新到数据库里读取
-                            initUser(name, password);
+                           initUser(name, password);
                         }
                     });
         }
+
     }
 
     public void setUserInfo(UserInfo userInfo) {
@@ -139,5 +156,39 @@ public class UserInfoLab {
         sUserInfoLab = null;
         mUserInfos = null;
         userInfo = null;
+    }
+
+    public void refreshSessionid(String sessionid){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://120.24.168.102:8080/")
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        PostRequest_getuserinfo_Interface getuserinfoInterface = retrofit.create(PostRequest_getuserinfo_Interface.class);
+        Log.e("test", "请求头像时的sessionid: " +  sessionid);
+        Observable<ResultForUserInfo> observable = getuserinfoInterface.getObservable(sessionid);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResultForUserInfo>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.e("test", "onCompleted: "+" 请求用户头像结束" );
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("test", "onError: "+" 请求用户头像异常" );
+
+                    }
+
+                    @Override
+                    public void onNext(ResultForUserInfo resultForUserInfo) {
+                        Log.e("test","onNext____获取用户头像URL: " + resultForUserInfo.getResult().getAvatar());
+                        Log.e("test", "onNext____获取用户id：" + resultForUserInfo.getResult().getUserid());
+                        mUserInfo.setPicUrl(resultForUserInfo.getResult().getAvatar());
+                        mUserInfo.setId(resultForUserInfo.getResult().getUserid());
+                        mUserInfo.save();
+                    }
+                });
     }
 }

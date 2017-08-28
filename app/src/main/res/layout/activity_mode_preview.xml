@@ -5,6 +5,14 @@
     android:orientation="vertical"
     tools:context="com.huadi.android.ainiyo.activity.ModePreviewActivity">
 
+    <LinearLayout
+        android:id="@+id/status_bar_mode_preview"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:background="@color/theme_blue"
+        android:visibility="gone"></LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

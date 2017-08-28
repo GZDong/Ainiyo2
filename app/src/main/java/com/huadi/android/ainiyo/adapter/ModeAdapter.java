@@ -15,8 +15,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ModeAddingActivity;
+import com.huadi.android.ainiyo.entity.Friends;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
@@ -80,10 +83,30 @@ public class ModeAdapter extends BaseAdapter {
         if(modeInfo.getContent()!=null) {
             holder.mode_content.setText(modeInfo.getContent());
         }
-        if (modeInfo.getImgUrlforHead()!=null)
-        {
-
+        String date = mList.get(position).getDate();
+        if (date != null) {
+            holder.mode_date.setText(date.substring(0, 10));
         }
+
+
+        String mode_me_user_id = String.valueOf(mList.get(position).getUserid());
+        if (UserInfoLab.get(mContext).getUserInfo().getId() != null && mode_me_user_id != null) {
+            if (mode_me_user_id.equals(UserInfoLab.get(mContext).getUserInfo().getId())) {
+                //Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
+                //Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
+                holder.mode_username.setText(UserInfoLab.get(mContext).getUserInfo().getUsername());
+                Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(holder.pic_head);
+            } else {
+                //Toast.makeText(mContext,"myid: "+String.valueOf(modeInfo.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
+                holder.mode_username.setText(FriendsLab.get(mContext).findNameById(mode_me_user_id));
+                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mode_me_user_id)).placeholder(R.drawable.left_image).into(holder.pic_head);
+            }
+        }
+//            //用户姓名：
+//            UserInfoLab.get(mContext).getUserInfo().getUsername();
+//            //用户Id：
+//            UserInfoLab.get(mContext).getUserInfo().getId();
+
         if (modeInfo.getImgUrlforContent()!=null)
         {
 //            if(modeInfo.getImgUrlforContent().size()==1) {
@@ -122,6 +145,8 @@ public class ModeAdapter extends BaseAdapter {
         TextView mode_content;
         @ViewInject(R.id.tv_mode_comment_num)
         TextView tv_mode_comment_num;
+        @ViewInject(R.id.mode_date)
+        TextView mode_date;
 
     }
 

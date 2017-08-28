@@ -10,9 +10,9 @@
         tools:targetApi="lollipop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:clickable="false"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="0dp"
@@ -77,7 +77,7 @@
             <ImageView
                 android:id="@+id/iv_movement_pic"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="220dp"
                 android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/content_image1" />

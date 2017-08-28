@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
@@ -36,6 +38,7 @@ import com.huadi.android.ainiyo.activity.ModeDetailActivity;
 import com.huadi.android.ainiyo.activity.ModeMeActivity;
 import com.huadi.android.ainiyo.adapter.ModeAdapter;
 import com.huadi.android.ainiyo.entity.ModeInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
@@ -64,11 +67,14 @@ public class ModeFragment extends Fragment {
     private PullToRefreshListView mode_list_view;
     @ViewInject(R.id.btn_mode_add)
     private ImageView btn_mode_add;
+    @ViewInject(R.id.iv_topbar_mode_pic_head)
+    ImageView iv_topbar_mode_pic_head;
 
     private List<ModeLocalData> mList = new ArrayList<>();
     private ModeResult modeResult;
     private ModeWebData[] mwd;
     private ModeAdapter mAdapter;
+    private ArrayList<String> return_images = new ArrayList<String>();
     private int page = 1;
     private int pagesize = 20;
     private int pagecount = 10;
@@ -83,6 +89,9 @@ public class ModeFragment extends Fragment {
         // Inflate the layout for this fragment2
 
         ViewUtils.inject(this, view);
+
+        Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).into(iv_topbar_mode_pic_head);
+
         // Set a listener to be invoked when the list should be refreshed.
         mode_list_view.setMode(PullToRefreshBase.Mode.BOTH);
         mode_list_view.setScrollingWhileRefreshingEnabled(true);
@@ -123,7 +132,7 @@ public class ModeFragment extends Fragment {
         params.addBodyParameter("sessionid", application.sessionId);
         params.addBodyParameter("page", String.valueOf(page));
         params.addBodyParameter("pagesize", "3");
-        params.addBodyParameter("type", "1");
+        params.addBodyParameter("type", "2");
 
         new HttpUtils().send(HttpRequest.HttpMethod.POST, RETURN_MODE, params, new RequestCallBack<String>() {
 
@@ -140,7 +149,7 @@ public class ModeFragment extends Fragment {
                     {// 渲染内容到界面上
                         //清空原来的数据
                         mList.clear();
-                        ArrayList<Integer> idorder = new ArrayList<Integer>();
+                        //ArrayList<Integer> idorder = new ArrayList<Integer>();
 
 
                         mwd = object.getResult().getData();
@@ -149,8 +158,8 @@ public class ModeFragment extends Fragment {
                         for (int i = 0; i < sum; i++) {
                             mwd1 = mwd[i];
 
-                            idorder.add(mwd1.getId());
-                            ToolKits.putInteger(getActivity(), "Integer", idorder);
+//                            idorder.add(mwd1.getId());
+//                            ToolKits.putInteger(getActivity(), "Integer", idorder);
 
                             int userid = mwd1.getUserid();
                             String content = mwd1.getContent();
@@ -160,6 +169,7 @@ public class ModeFragment extends Fragment {
                             ModeInfo mi;
                             mi = gson.fromJson(mwd1.getContent(), type);
 
+                            mi.setId(String.valueOf(mwd1.getUserid()));
                             ModeLocalData mld = new ModeLocalData(mwd1.getId(), userid, mi, mwd1.getDate(), sum);
                             mList.add(mld);
                         }
@@ -186,15 +196,15 @@ public class ModeFragment extends Fragment {
                         });
                     } else {// 尾部刷新
                         //mList.addAll(object.getDatas());
-                        ArrayList<Integer> idorder = new ArrayList<Integer>();
+                        //ArrayList<Integer> idorder = new ArrayList<Integer>();
                         mwd = object.getResult().getData();
                         int sum = object.getResult().getSum();
                         ModeWebData mwd1;
-                        for (int i = sum - 1; i >= 0; i--) {
+                        for (int i = 0; i < sum; i++) {
                             mwd1 = mwd[i];
 
-                            idorder.add(mwd1.getId());
-                            ToolKits.appendInteger(getActivity(), "Integer", idorder);
+//                            idorder.add(mwd1.getId());
+//                            ToolKits.appendInteger(getActivity(), "Integer", idorder);
 
                             int userid = mwd1.getUserid();
                             String content = mwd1.getContent();
@@ -271,6 +281,32 @@ public class ModeFragment extends Fragment {
 //        }
 //    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode) {
+            case 10:
+                Bundle b = data.getExtras();
+                return_images = b.getStringArrayList("return_images");
+                String return_content = b.getString("return_content");
+
+//            Log.i("return_iamge_content", "requestCode: " + String.valueOf(requestCode)
+//                    + "resultCode:" + String.valueOf(resultCode)
+//                    + "  content: " + return_content);
+
+                ModeInfo mi = new ModeInfo("", return_content, "", return_images);
+                ModeLocalData mld = new ModeLocalData(0, Integer.parseInt(UserInfoLab.get(getActivity()).getUserInfo().getId()), mi, "", 0);
+                mList.add(0, mld);
+                mAdapter.notifyDataSetChanged();
+                break;
+            case 11:
+                //删除心情后返回到心情页面主动加载数据，避免每次要下拉刷新
+                loadDatas(true);
+        }
+    }
+
+
     @OnItemClick({R.id.mode_list_view})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), ModeDetailNineGridActivity.class);
@@ -280,14 +316,14 @@ public class ModeFragment extends Fragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.btn_mode_add,R.id.tv_mode_me})
+    @OnClick({R.id.btn_mode_add, R.id.iv_topbar_mode_pic_head})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.btn_mode_add:
                 startActivityForResult(new Intent(getActivity(), ModeAddingActivity.class),REQUEST_CODE);
                 break;
-            case R.id.tv_mode_me:
-                startActivity(new Intent(getActivity(), ModeMeActivity.class));
+            case R.id.iv_topbar_mode_pic_head:
+                startActivityForResult(new Intent(getActivity(), ModeMeActivity.class), 0);
         }
 
     }

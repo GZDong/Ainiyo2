@@ -129,7 +129,6 @@ public class MovementFragment extends Fragment {
                     {// 渲染内容到界面上
                         //清空原来的数据
                         mList.clear();
-                        ArrayList<Integer> idorder = new ArrayList<Integer>();
 
                         mwd = object.getResult().getData();
                         int sum = object.getResult().getSum();
@@ -137,9 +136,6 @@ public class MovementFragment extends Fragment {
 
                         for (int i = mwd.length - 1; i >= 0; i--) {
                             mwd1 = mwd[i];
-
-                            idorder.add(mwd1.getId());
-                            ToolKits.putInteger(getActivity(), "Integer", idorder);
 
                             //int userid = mwd1.getUserid();
                             String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");

@@ -9,6 +9,14 @@
     android:weightSum="1">
 
     <LinearLayout
+        android:id="@+id/status_bar_finding_data_anlaysis"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:background="@color/theme_blue"
+        android:visibility="gone"></LinearLayout>
+
+    <LinearLayout
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +26,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp">
 

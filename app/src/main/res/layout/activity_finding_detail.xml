@@ -6,6 +6,14 @@
     tools:context="com.huadi.android.ainiyo.activity.FindingDetailActivity">
 
     <LinearLayout
+        android:id="@+id/status_bar_finding_datail"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical"
+        android:background="@color/theme_blue"
+        android:visibility="gone"></LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
@@ -16,6 +24,17 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/txt_topbar_finding_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="30dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="我喜欢的"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
 
 

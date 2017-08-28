@@ -2,12 +2,19 @@ package com.huadi.android.ainiyo.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.ModeInfo;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,10 +97,10 @@ public class ToolKits {
         SharedPreferences sharedPreferences = getSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         ArrayList<Integer> mList = fetchInteger(context, key);
-        value.addAll(mList);
-        Gson gson = new Gson();
-        String json = gson.toJson(value);
-        editor.putString(key, json);
+		mList.addAll(value);
+		Gson gson = new Gson();
+		String json = gson.toJson(mList);
+		editor.putString(key, json);
         editor.commit();
     }
 
@@ -150,5 +157,23 @@ public class ToolKits {
 		editor.clear();
 		editor.commit();
 	}
+
+    /**
+     * 通过反射的方式获取状态栏高度
+     *
+     * @return
+     */
+    public static int getStatusBarHeight(Context mContext) {
+        try {
+            Class<?> c = Class.forName("com.android.internal.R$dimen");
+            Object obj = c.newInstance();
+            Field field = c.getField("status_bar_height");
+            int x = Integer.parseInt(field.get(obj).toString());
+            return mContext.getResources().getDimensionPixelSize(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
 }
