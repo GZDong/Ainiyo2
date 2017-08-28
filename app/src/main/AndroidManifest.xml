@@ -177,7 +177,8 @@
             android:parentActivityName=".activity.FriendsListActivity" />
         <activity android:name=".activity.PhoneWallActivity" />
         <activity android:name=".activity.ActivityActivity" />
-        <activity android:name=".activity.ActivityDetil"></activity>
+        <activity android:name=".activity.ActivityDetil" />
+        <activity android:name=".activity.EditInitInfoActivity"></activity>
     </application>
 
 </manifest>

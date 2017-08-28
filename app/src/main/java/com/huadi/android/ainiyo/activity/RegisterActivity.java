@@ -1,10 +1,12 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -13,7 +15,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FriendsLab;
+import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.SignInUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -124,9 +131,63 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 //如果自己的服务器注册成功，就拿数据去环形服务器注册
                                 SignInUtil.signUp(RegisterActivity.this, register_name.getText().toString(), register_pwd1.getText().toString());
+                                //如果注册成功就登陆
 
-                                Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
-                                finish();
+                                RequestParams params1=new RequestParams();
+                                params1.addBodyParameter("name",register_name.getText().toString());
+                                params1.addBodyParameter("pwd",register_pwd1.getText().toString());
+
+                                final UserInfo userInfo = new UserInfo(register_name.getText().toString(), register_pwd1.getText().toString());
+                                UserInfoLab.get(RegisterActivity.this,userInfo).clearUserInfo();
+                                UserInfoLab.get(RegisterActivity.this,userInfo);
+
+                                // Log.e("test","onLoginActivity "+userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
+                                HttpUtils http=new HttpUtils();
+                                http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login",params1,new RequestCallBack<String>() {
+                                            @Override
+                                            public void onSuccess(ResponseInfo<String> responseInFo){
+                                                String info=responseInFo.result.toString();
+                                                try{
+                                                    JSONObject object=new JSONObject(info);
+                                                    String msg=object.getString("Msg");
+
+                                                    //获得sessionId，保存在Application里作为全局变量
+                                                    ECApplication application = (ECApplication) getApplication();
+                                                    application.sessionId = null;
+                                                    application.sessionId = object.getString("Sessionid");
+                                                    UserInfoLab.get(RegisterActivity.this).refreshSessionid(application.sessionId);
+                                                    FriendsLab.get(RegisterActivity.this, userInfo).setFriListNull();
+                                                    FriendsLab.get(RegisterActivity.this, userInfo).initFriends();
+
+                                                    Log.e("test",application.sessionId);
+
+                                                    if(msg.equals("success")){
+
+
+                                                        SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
+                                                        editor.putString("username",register_name.getText().toString());
+                                                        editor.putString("password",register_pwd1.getText().toString());
+                                                        editor.apply();
+
+                                                        startActivity(new Intent(RegisterActivity.this,EditInitInfoActivity.class));
+                                                        finish();
+                                                    }
+                                                    Toast.makeText(RegisterActivity.this,msg,Toast.LENGTH_SHORT).show();
+
+                                                }
+                                                catch (JSONException e){
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            @Override
+                                            public void onFailure(HttpException error,String msg){
+                                                Toast.makeText(RegisterActivity.this,"登陆失败，请重试！",Toast.LENGTH_SHORT).show();
+                                            }
+
+
+                                        }
+                                );
+
                             }
                             Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }catch (JSONException e) {
