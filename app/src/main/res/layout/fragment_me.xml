@@ -204,7 +204,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp">
+                android:layout_height="55dp"
+                android:id="@+id/activity">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -244,42 +245,6 @@
                 android:textColor="#eae7e7"
                 android:layout_marginTop="-18dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:id="@+id/help">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="帮助"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="15dp"
-                    android:textColor="#0b0b0b"
-                    android:layout_gravity="center_vertical" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="50dp"
-                    android:layout_height="19dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/youjiantou" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="_________________________________________________________________________________"
-                android:maxLines="1"
-                android:layout_marginLeft="10dp"
-                android:textColor="#e2dede"
-                android:layout_marginTop="-18dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

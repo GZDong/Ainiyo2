@@ -146,8 +146,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     private int Userid;
 
 
-    private List<String> image = new ArrayList<>();//从选择器得到的头像//
-    private List<String> compressImages = new ArrayList<>();//压缩完成的头像//
+    private List<String> image=new ArrayList<>();//从选择器得到的头像//
+    private List<String> compressImages=new ArrayList<>();
     private String avatar_done;//上传完成的头像//
 
     private Animation move_to_left, move_to_right;
@@ -278,7 +278,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                                 if (status == 1000) {
                                                     Gson gson = new Gson();
                                                     AreaData area=gson.fromJson(object.getJSONObject("Result").toString(),AreaData.class);
-                                                    provinceId=area.getCountryid();//
+                                                    provinceId=area.getProvinceid();   //
                                                     cityId=area.getCountryid();//初始化成用户上次保存的ID
                                                     countyId=area.getCountyid();//
                                                     provincename_get=area.getProvince();
@@ -409,14 +409,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     Toast.makeText(EditInfoActivity.this, "没有完善信息", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (provinceId == 0) {
-                    Toast.makeText(EditInfoActivity.this, "没有完善信息", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (cityId == 0) {
-                    Toast.makeText(EditInfoActivity.this, "没有完善信息", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
 
                 //保存个人信息//
@@ -459,14 +451,15 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     params.addBodyParameter("requir", edit_requir.getText().toString());
                 }
                 //如果没有修改头像,则头像参数就用原来的//
-                if (!avatar_done.equals("")) {
+
+                if (avatar_done!=null) {
                     params.addBodyParameter("avatar", avatar_done);
                 }
-                if (avatar_done.equals("") && (!Avatar.equals(""))) {
+                if(avatar_done==null&&Avatar!=null){
                     params.addBodyParameter("avatar", Avatar);
                 }
                 HttpUtils http = new HttpUtils();
-                http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/perfectinfor", params, new RequestCallBack<String>() {
+                http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/perfectinfor",params, new RequestCallBack<String>() {
                             @Override
                             public void onSuccess(ResponseInfo<String> responseInFo) {
                                 String info = responseInFo.result.toString();
@@ -491,6 +484,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
 
                         }
                 );
+
         }
     }
 
@@ -498,6 +492,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     //得到从相册选择的图片//
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        image.clear();
         if (requestCode == 1 && data != null) {
             image = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
             propressImg(image);//讲选择图片进行压缩//
@@ -537,7 +532,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     String msg = object.getString("Msg");
                     if (msg.equals("success")) {
                         avatar_done = result;
-                        Glide.with(EditInfoActivity.this).load(avatar_done).into(edit_avatar);
+                        Glide.with(EditInfoActivity.this).load(result).into(edit_avatar);
                     } else {
                         Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
@@ -580,7 +575,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 provinceAdapter = new ArrayAdapter<String>(EditInfoActivity.this,
                                         android.R.layout.simple_spinner_item, province);
                                 provinceSpinner.setAdapter(provinceAdapter);
-                                provinceSpinner.setSelection(18);
 
                             }
                         }
@@ -625,8 +619,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 cityAdapter = new ArrayAdapter<String>(EditInfoActivity.this,
                                         android.R.layout.simple_spinner_item, city);
                                 citySpinner.setAdapter(cityAdapter);
-                                citySpinner.setSelection(0);
-
                             }
                         }
                     }
@@ -671,8 +663,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 countyAdapter = new ArrayAdapter<String>(EditInfoActivity.this,
                                         android.R.layout.simple_spinner_item, county);
                                 countySpinner.setAdapter(countyAdapter);
-                                countySpinner.setSelection(3);
-
                             }
                         }
                     }

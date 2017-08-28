@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +16,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.activity.ActivityActivity;
 import com.huadi.android.ainiyo.activity.EditInfoActivity;
-import com.huadi.android.ainiyo.activity.HelpActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.ManagerActivity;
 import com.huadi.android.ainiyo.activity.PhotoActivity;
@@ -58,8 +57,9 @@ public class MeFragment extends Fragment{
     private LinearLayout vipapply;
     @ViewInject(R.id.vip_lever)
     private LinearLayout vip_lever;
-    @ViewInject(R.id.help)
-    private LinearLayout help;
+    @ViewInject(R.id.activity)
+    private LinearLayout activity;
+
 
 
     private TextView te;
@@ -135,17 +135,17 @@ public class MeFragment extends Fragment{
         return view;
     }
 
-    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever, R.id.manager, R.id.help})
+    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever, R.id.manager,R.id.activity})
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
                startActivityForResult(new Intent(getActivity(), EditInfoActivity.class),1);
                break;
+           case R.id.activity:
+               startActivity(new Intent(getActivity(), ActivityActivity.class));
+               break;
            case R.id.manager:
                startActivity(new Intent(getActivity(), ManagerActivity.class));
-               break;
-           case R.id.help:
-               startActivity(new Intent(getActivity(), HelpActivity.class));
                break;
            case R.id.vip_lever:
                startActivity(new Intent(getActivity(), VipLeverActivity.class));

@@ -26,5 +26,6 @@ public class VipResponActivity extends AppCompatActivity {
                 finish();
             }
         });
+        ok.getBackground().setAlpha(200);
     }
 }

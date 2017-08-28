@@ -24,6 +24,7 @@ public class VipHintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vip_hint);
         ViewUtils.inject(this);
+
     }
 
     @OnClick({R.id.back, R.id.next})

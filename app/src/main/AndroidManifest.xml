@@ -151,8 +151,9 @@
             android:name=".MainActivity"
             android:launchMode="singleTask" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.LoginActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.EditInfoActivity" />
         <activity android:name=".activity.PhotoActivity" />
         <activity android:name=".activity.FindingDetailActivity" />
@@ -169,12 +170,13 @@
         <activity android:name=".activity.VipLeverActivity" />
         <activity android:name=".activity.FindingDataAnlaysisActivity" />
         <activity android:name=".activity.ManagerActivity" />
-        <activity android:name=".activity.HelpActivity"></activity>
         <activity android:name=".activity.FindingUserInfoActivity" />
         <activity android:name=".activity.MovementJoinedActivity" />
-        <activity android:name=".activity.DeleteFriendActivity"
-            android:parentActivityName=".activity.FriendsListActivity"/>
+        <activity
+            android:name=".activity.DeleteFriendActivity"
+            android:parentActivityName=".activity.FriendsListActivity" />
         <activity android:name=".activity.PhoneWallActivity" />
+        <activity android:name=".activity.ActivityActivity"></activity>
     </application>
 
 </manifest>
