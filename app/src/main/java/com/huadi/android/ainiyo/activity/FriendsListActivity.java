@@ -46,6 +46,10 @@ import java.util.List;
 
 /**
  * Created by zhidong on 2017/8/4.
+ * 这里主要有3个工作：
+ * 1.为FriendsList里的每个数据通过拼音工具包得到它们的letter属性
+ * 2.实现RecyclerView对SideBar的监听
+ * 3.实现RecyclerView监听自定义EditText的匹配功能
  */
 
 public class FriendsListActivity extends AppCompatActivity{
@@ -209,10 +213,7 @@ public class FriendsListActivity extends AppCompatActivity{
 
 
     /**
-     * 为RecyclerView填充数据
-     *
-     * @param date
-     * @return
+     * 用拼音工具包为数据设置letters属性
      */
     private List<Friends> filledData(String[] date) {
         List<Friends> mSortList = new ArrayList<>();

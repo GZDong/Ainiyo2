@@ -24,6 +24,7 @@ import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.ModeDetailNineGridActivity;
 import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.ModeLocalData;
 import com.huadi.android.ainiyo.entity.ModeResult;
 import com.huadi.android.ainiyo.entity.ModeWebData;
@@ -190,7 +191,22 @@ public class ModeFragment extends Fragment {
                         mAdapter.setmPicHeadItemClickListener(new ModeAdapter.OnPicHeadItemClickListener() {
                             @Override
                             public void OnPicHeadItemClick(int positon) {
-                                startActivity(new Intent(getActivity(), FriendsInfoActivity.class));
+                                Intent intent = null;
+                                if (!String.valueOf(mList.get(positon).getUserid()).equals(UserInfoLab.get(getActivity()).getUserInfo().getId())) {
+                                    FriendsLab.get(getActivity()).findNameById(String.valueOf(mList.get(positon).getUserid()));
+                                    intent = new Intent(getActivity(), FriendsInfoActivity.class);
+                                    intent.putExtra("name", FriendsLab.get(getActivity()).findNameById(String.valueOf(mList.get(positon).getUserid())));
+                                    intent.putExtra("userInfo",UserInfoLab.get(getActivity()).getUserInfo());
+                                    intent.putExtra("from","ModeFragment");
+                                    intent.putExtra("picture",FriendsLab.get(getActivity()).getFriend(FriendsLab.get(getActivity()).findNameById(String.valueOf(mList.get(positon).getUserid()))).getPicture());
+                                }else {
+                                    intent = new Intent(getActivity(), FriendsInfoActivity.class);
+                                    intent.putExtra("name", UserInfoLab.get(getActivity()).getUserInfo().getUsername());
+                                    intent.putExtra("userInfo",UserInfoLab.get(getActivity()).getUserInfo());
+                                    intent.putExtra("from","ModeFragment");
+                                    intent.putExtra("picture",UserInfoLab.get(getActivity()).getUserInfo().getPicture());
+                                }
+                                startActivity(intent);
                                 //Log.i("testpichead",String.valueOf(positon));
                             }
                         });

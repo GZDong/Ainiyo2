@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.frag.FlagFragment;
 import com.huadi.android.ainiyo.frag.HobbyFragment;
 import com.huadi.android.ainiyo.frag.PhoneFragment;
@@ -53,6 +56,8 @@ public class FriendsInfoActivity extends AppCompatActivity {
     private String from;
     private TextView areaText;
     private TextView phoneText;
+    private Button mChangeBtn;
+    private CardView mFriCard;
 
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
@@ -116,12 +121,19 @@ public class FriendsInfoActivity extends AppCompatActivity {
 
     private void initView(){
 
+        mFriCard = (CardView) findViewById(R.id.friend_card);
+        mChangeBtn = (Button) findViewById(R.id.change_userinfo);
         mImageView = (ImageView) findViewById(R.id.imageView);
         mFloatBtn = (FloatingActionButton) findViewById(R.id.send_msg);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mListViewForOther = (ListView) findViewById(R.id.list);
         areaText = (TextView) findViewById(R.id.area_text);
         phoneText = (TextView) findViewById(R.id.phone_text);
+        if (name.equals(UserInfoLab.get(FriendsInfoActivity.this).getUserInfo().getUsername())){
+            mChangeBtn.setVisibility(View.VISIBLE);
+            mFriCard.setVisibility(View.GONE);
+            mFloatBtn.setVisibility(View.GONE);
+        }
         phoneText.setText("13322223344");
         phoneText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,10 +157,18 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mList.add(tag3);
 
 
-        if (!TextUtils.isEmpty(FriendsLab.get(this, mUserInfo).getFriend(name).getPicUrl())) {
-            Glide.with(this).load(FriendsLab.get(this, mUserInfo).getFriend(name).getPicUrl()).into(mImageView);
-        } else {
-            mImageView.setImageResource(picture);
+        if (!name.equals(UserInfoLab.get(this).getUserInfo().getUsername())) {
+            if (!TextUtils.isEmpty(FriendsLab.get(this, mUserInfo).getFriend(name).getPicUrl())) {
+                Glide.with(this).load(FriendsLab.get(this, mUserInfo).getFriend(name).getPicUrl()).into(mImageView);
+            } else {
+                mImageView.setImageResource(picture);
+            }
+        }else{
+            if (!TextUtils.isEmpty(UserInfoLab.get(this,mUserInfo).getUserInfo().getPicUrl())){
+                Glide.with(this).load(UserInfoLab.get(this).getUserInfo().getPicUrl()).into(mImageView);
+            }else {
+                mImageView.setImageResource(picture);
+            }
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(FriendsInfoActivity.this, android.R.layout.simple_list_item_1, mList);
@@ -196,8 +216,12 @@ public class FriendsInfoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
+        mChangeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(FriendsInfoActivity.this,EditInfoActivity.class));
+            }
+        });
     }
 
 

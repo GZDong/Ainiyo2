@@ -389,7 +389,12 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             rightImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent intent = new Intent(getActivity(),FriendsInfoActivity.class);
+                    intent.putExtra("name",mUserInfo.getUsername());
+                    intent.putExtra("picture",mUserInfo.getPicture());
+                    intent.putExtra("userInfo",mUserInfo);
+                    intent.putExtra("from",TAG);
+                    startActivity(intent);
                 }
             });
 

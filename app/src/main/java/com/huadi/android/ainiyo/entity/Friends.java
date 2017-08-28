@@ -40,6 +40,7 @@ public class Friends extends DataSupport {
         this.newTime = DateUtil.getNowDate();
         this.showInChooseFragment = true;
         this.picUrl = null;
+        this.friId = null;
     }
 
     public Friends(String user, String name, String picUrl,String friId) {
