@@ -350,6 +350,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 .setContentIntent(pi)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVibrate(new long[]{0,1000})
                 .build();
         manager.notify(1,notification);
     }

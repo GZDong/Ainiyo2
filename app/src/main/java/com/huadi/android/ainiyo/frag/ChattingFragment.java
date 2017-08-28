@@ -214,6 +214,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             public void onClick(View v) {
                 String content = mInputEdit.getText().toString().trim();
                 if (!TextUtils.isEmpty(content)) {
+                    String lastMsg = mInputEdit.getText().toString();
                     mInputEdit.setText("");
                     // 创建一条新消息，第一个参数为消息内容，第二个为接受者username
                     EMMessage message = EMMessage.createTxtSendMessage(content, mChatId);
@@ -228,6 +229,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                     intent.putExtra("ID", friends.getName());
                     intent.putExtra("newM", friends.getUnreadMeg());
                     intent.putExtra("newT", DateUtil.getNowDate());
+                    intent.putExtra("lastM",lastMsg);
                     getActivity().sendBroadcast(intent);
 
                     // 调用发送消息的方法

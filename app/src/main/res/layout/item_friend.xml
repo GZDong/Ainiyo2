@@ -3,15 +3,13 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
 
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="wrap_content">
 
-              android:divider="?android:attr/dividerHorizontal"
-              android:showDividers="beginning">
     <android.support.v7.widget.CardView
 
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_marginBottom="1dp"
 
         app:cardElevation="1dp">
@@ -20,67 +18,83 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
+        <FrameLayout
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="12dp">
             <ImageView
                 android:id="@+id/img_friend"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
                 android:cropToPadding="true"
                 android:scaleType="centerCrop"
-
                 />
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="12dp"
-                >
-                <TextView
-                    android:id="@+id/name_fri"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_toEndOf="@+id/img_friend"
-                    android:layout_toRightOf="@+id/img_friend"
-                    android:text="test"
-                    android:textSize="18dp"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
-
-                <TextView
-                    android:id="@+id/text_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="12dp"
-
-                    android:text="2017-8-1 15:32:11"
-                    android:maxLines="1"
-                    android:ellipsize="marquee" />
-            </LinearLayout>
-
             <Button
                 android:id="@+id/unread_btn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
                 style="@style/MsgButton"
+                android:layout_marginLeft="40dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:text="10"
-                android:textSize="13dp"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:textSize="8dp"/>
+        </FrameLayout>
 
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <TextView
+                        android:id="@+id/name_fri"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/img_friend"
+                        android:layout_toRightOf="@+id/img_friend"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="test"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:id="@+id/text_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
+
+                        android:textSize="12sp"
+                        android:ellipsize="marquee"
+                        android:maxLines="1"
+                        android:text="15:32:11"/>
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/last_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:maxLines="1"
+                    android:text=" "/>
+            </LinearLayout>
 
         </LinearLayout>
 

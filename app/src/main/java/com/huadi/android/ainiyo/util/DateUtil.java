@@ -12,7 +12,7 @@ public class DateUtil {
 
     public static String getNowDate(){
         Date currentTime = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         String dateString = format.format(currentTime);
         return dateString;
     }

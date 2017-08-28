@@ -39,6 +39,7 @@ import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
 
 import java.util.List;
 
@@ -55,7 +56,8 @@ public class ChooseFragment extends Fragment {
     private BroadcastReceiver mReceiverForNewMsg;
     private BroadcastReceiver mReceiverForRefresh;
     private ImageButton mPersons;
-
+    private EMConversation mEMConversation;
+    private EMMessage mMessages;
     private UserInfo mUserInfo;
 
     @Override
@@ -118,6 +120,7 @@ public class ChooseFragment extends Fragment {
                         }
                     }
                     mMyAdapter.mList = frdList;
+
                     mMyAdapter.notifyDataSetChanged();  //这里已经意味着必须要在适配器被创建过之后注册
                 }
             };
@@ -248,6 +251,7 @@ public class ChooseFragment extends Fragment {
         ImageView mImageView;
         Button UnreadBtn;
         TextView timeText;
+        TextView lastMag;
 
         public MyViewHolder(View v){
             super(v);
@@ -255,6 +259,8 @@ public class ChooseFragment extends Fragment {
             mImageView = (ImageView) v.findViewById(R.id.img_friend);
             UnreadBtn= (Button) v.findViewById(R.id.unread_btn);
             timeText = (TextView) v.findViewById(R.id.text_time);
+            lastMag = (TextView) v.findViewById(R.id.last_msg);
+
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -353,7 +359,12 @@ public class ChooseFragment extends Fragment {
                 holder.UnreadBtn.setVisibility(View.GONE);
             }
             holder.timeText.setText(newTime);
-
+            mEMConversation = EMClient.getInstance().chatManager().getConversation(name_fri, null, true);
+            if (mEMConversation.getAllMessages().size() > 0){
+                mMessages = mEMConversation.getLastMessage();
+                EMTextMessageBody body = (EMTextMessageBody) mMessages.getBody();
+                holder.lastMag.setText(body.getMessage());
+            }
         }
 
         @Override
