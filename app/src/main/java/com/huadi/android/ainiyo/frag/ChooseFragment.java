@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.WelcomActivity;
 import com.huadi.android.ainiyo.activity.ChattingActivity;
 import com.huadi.android.ainiyo.activity.FriendsListActivity;
 import com.huadi.android.ainiyo.entity.Friends;
@@ -67,8 +68,9 @@ public class ChooseFragment extends Fragment {
             Log.e("test", "onCreate____ChattingActivity");
         }
 
+        Log.e("test","__________________"+UserInfoLab.get(getContext()).getUserInfo().toString());
         //获取当前用户实例
-        mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
+        mUserInfo = UserInfoLab.get(getContext()).getUserInfo();
         //frdList = new ArrayList<>();这里不应该给frdList创建实例，它应该是一个指引而已
 
         frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();

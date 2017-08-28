@@ -17,6 +17,11 @@ import com.huadi.android.ainiyo.R;
 
 /**
  * Created by zhidong on 2017/8/4.
+ * 继承自View的自定义View，SideBar
+ * 主要实现3个方面：
+ * 1.重写Draw方法，定制如何去画出字母表
+ * 2.重写dispatchTouchEvent方法，定制在接收到不同的事件时，如何去做UI响应
+ * 3.设置接口，用于实现外部RecyclerView的响应
  */
 
 public class SideBar extends View {

@@ -26,7 +26,7 @@
 
                 android:layout_marginLeft="5dp"
                 android:cropToPadding="true"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 android:src="@drawable/examplepicture"
                 />
 

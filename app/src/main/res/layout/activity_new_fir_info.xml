@@ -171,6 +171,7 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/friend_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
@@ -206,8 +207,20 @@
                      android:layout_gravity="center"/>
 
              </android.support.v7.widget.CardView>-->
+
         </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
+    <Button
+        android:id="@+id/change_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/soothing_blue"
+        android:layout_gravity="bottom"
+        android:text="@string/change_userinfo"
+        android:textColor="#ffffff"
+        android:visibility="gone"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/send_msg"
