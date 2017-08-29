@@ -11,149 +11,240 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="5dp"
         android:clickable="false"
-        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="0dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="false"
         tools:targetApi="lollipop">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="440dp">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/mode_pic_head"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/left_image" />
 
-            >
+            <!--<de.hdodenhof.circleimageview.CircleImageView -->
+                <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+
+                <!--android:id="@+id/iv_topbar_mode_pic_head"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:src="@drawable/left_image"-->
+                <!--app:civ_border_color="#FFF"-->
+                <!--android:layout_gravity="center" />-->
+
+            <TextView
+                android:id="@+id/mode_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="13dp"
+                android:text="David Joanthen"
+                android:textColor="@color/theme_blue"
+                android:textSize="15sp"
+                android:layout_alignTop="@+id/mode_pic_head"
+                android:layout_toRightOf="@+id/mode_pic_head"
+                android:layout_toEndOf="@+id/mode_pic_head"
+                android:layout_marginStart="13dp" />
+
+            <TextView
+                android:id="@+id/mode_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="June 1,2017"
+                android:textSize="15sp"
+                android:layout_alignBottom="@+id/mode_username"
+                android:layout_alignRight="@+id/mode_pic_content"
+                android:layout_alignEnd="@+id/mode_pic_content" />
+
+            <ImageView
+                android:id="@+id/mode_pic_content"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="70dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="60dp"
+                android:layout_marginRight="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-
-                <ImageView
-                    android:id="@+id/mode_pic_head"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
-                    android:scaleType="centerCrop"
-                    android:layout_marginTop="3dp"
-                    android:src="@drawable/left_image" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:orientation="vertical">
-
-                    <TextView
-
-                        android:id="@+id/mode_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="David Joanthen"
-                        android:textColor="@color/blue"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/mode_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:paddingTop="1dp"
-                        android:text="June 1,2017"
-                        android:textSize="15sp" />
-
-
-                </LinearLayout>
-
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignLeft="@+id/mode_pic_content"
+                android:layout_alignStart="@+id/mode_pic_content"
+                android:layout_below="@+id/mode_content">
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/mode_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:textSize="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:paddingRight="10dp"
-                android:text="contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"
-                android:textColor="#322f2f"
-                android:textSize="17sp" />
-
-            <FrameLayout
+                android:layout_marginRight="10dp"
+                android:layout_alignBottom="@+id/mode_pic_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/mode_pic_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/default_content_pic" />
-                <!--<TextView-->
-                <!--android:paddingLeft="15dp"-->
-                <!--android:paddingTop="3dp"-->
-                <!--android:id="@+id/mode_content"-->
-                <!--android:layout_gravity="bottom"-->
-                <!--android:gravity="top"-->
+        </RelativeLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+
+
+            <!--android:weightSum="1">-->
+
+            <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="50dp"-->
-                <!--android:text="123"-->
-                <!--android:textSize="15dp"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:background="@mipmap/gaosi"-->
-                <!--/>-->
-            </FrameLayout>
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:orientation="horizontal">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+
+                <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/mode_pic_head"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="40dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="40dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="20dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:scaleType="centerCrop"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginTop="3dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@drawable/left_image" />&ndash;&gt;-->
+
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="12dp"-->
+                    <!--android:orientation="vertical">-->
+
+                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;android:id="@+id/mode_username"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="David Joanthen"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:textColor="@color/theme_blue"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:textSize="18sp" />&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/mode_date"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_marginRight="20dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:paddingTop="1dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="June 1,2017"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:textSize="15sp" />&ndash;&gt;-->
+
+
+                <!--</LinearLayout>-->
+
+
+            <!--</LinearLayout>-->
+
+
+
+            <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/mode_pic_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="180dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:scaleType="centerCrop"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@drawable/default_content_pic" />&ndash;&gt;-->
 
                 <!--<ImageView-->
-                <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="90dp"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:layout_gravity="bottom"-->
+                    <!--android:src="@mipmap/pic_background">-->
+
+                <!--&lt;!&ndash;</ImageView>&ndash;&gt;-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_gravity="bottom"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/mode_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginBottom="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="18dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginRight="20dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginTop="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:paddingRight="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textSize="17sp" />&ndash;&gt;-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:paddingLeft="15dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:paddingTop="3dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/mode_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_gravity="bottom"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:gravity="top"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="123"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textSize="15dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:background="@mipmap/gaosi"&ndash;&gt;-->
+                <!--&lt;!&ndash;/>&ndash;&gt;-->
+            <!--</FrameLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
-                <!--android:layout_margin="10dp"-->
-                <!--android:src="@mipmap/ic_mode_zan" />-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_weight="1.46">-->
+
+                <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:src="@mipmap/ic_mode_zan" />&ndash;&gt;-->
 
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
+                <!--&lt;!&ndash;<View&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="1dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_weight="1" />&ndash;&gt;-->
 
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginRight="3dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@mipmap/ic_mode_comment" />
+                <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginTop="7dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginRight="3dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginBottom="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@mipmap/ic_mode_comment" />&ndash;&gt;-->
 
-                <TextView
-                    android:id="@+id/tv_mode_comment_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="3dp"
-                    android:text="10"
-                    android:textColor="#515151"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/tv_mode_comment_num"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginTop="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginBottom="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginRight="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="3dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="10"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="#515151"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textSize="18sp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:visibility="gone" />&ndash;&gt;-->
 
-            </LinearLayout>
-        </LinearLayout>
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
     </android.support.v7.widget.CardView>
 </LinearLayout>
