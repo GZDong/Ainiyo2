@@ -16,4 +16,8 @@
     <color name="theme_statusBar_red1">#812b36</color>
     <color name="smallgray">#dcdce1</color>
     <color name="finding_data_text_color">#5f5a5a</color>
+
+
+    <color name="text_color">#000000</color>
+    <color name="parting_line">#eae7e7</color>
 </resources>
