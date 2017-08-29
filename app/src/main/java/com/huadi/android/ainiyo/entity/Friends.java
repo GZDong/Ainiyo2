@@ -5,6 +5,8 @@ import com.huadi.android.ainiyo.util.DateUtil;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.Date;
+
 /**
  * Created by zhidong on 2017/7/27.
  */
@@ -31,6 +33,8 @@ public class Friends extends DataSupport {
 
     private int flag_delete = 0;   //是否被删除的标记
 
+    private Date mDate;
+
 
     public Friends(String user, String name) {
         this.user = user;
@@ -41,6 +45,7 @@ public class Friends extends DataSupport {
         this.showInChooseFragment = true;
         this.picUrl = null;
         this.friId = null;
+        this.mDate = new Date();
     }
 
     public Friends(String user, String name, String picUrl,String friId) {
@@ -52,6 +57,7 @@ public class Friends extends DataSupport {
         this.showInChooseFragment = true;
         this.picUrl = picUrl;
         this.friId = friId;
+        this.mDate = new Date();
     }
 
     public Friends(String user, String name, int picture, int unread, String time, boolean show) {
@@ -61,6 +67,7 @@ public class Friends extends DataSupport {
         this.unreadMeg = unread;
         this.newTime = time;
         this.showInChooseFragment = show;
+        this.mDate = new Date();
     }
 
     public void setNewTime(String newTime) {
@@ -140,5 +147,13 @@ public class Friends extends DataSupport {
 
     public int getFlag_delete() {
         return flag_delete;
+    }
+
+    public void setDate(Date date) {
+        mDate = date;
+    }
+
+    public Date getDate() {
+        return mDate;
     }
 }

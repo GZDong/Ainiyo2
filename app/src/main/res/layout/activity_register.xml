@@ -3,30 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/theme_blue"
-        >
+        android:background="@color/theme_blue">
+
         <ImageView
             android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/zuojiantou"/>
+            android:src="@drawable/zuojiantou" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="130dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="注册"
-            android:textSize="24sp"
-            android:textColor="#f1ecec"
-            />
+            android:textSize="18sp"
+            android:textColor="@color/white" />
 
-    </LinearLayout>
 
+
+
+    </RelativeLayout>
+
+    
 
     <TextView
         android:layout_width="wrap_content"

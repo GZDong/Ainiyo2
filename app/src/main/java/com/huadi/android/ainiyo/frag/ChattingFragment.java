@@ -228,8 +228,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                     Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
                     intent.putExtra("ID", friends.getName());
                     intent.putExtra("newM", friends.getUnreadMeg());
-                    intent.putExtra("newT", DateUtil.getNowDate());
-                    intent.putExtra("lastM", lastMsg);
+
+                    intent.putExtra("lastM",lastMsg);
                     getActivity().sendBroadcast(intent);
 
                     // 调用发送消息的方法
