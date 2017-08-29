@@ -58,6 +58,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
     private TextView phoneText;
     private Button mChangeBtn;
     private CardView mFriCard;
+    private Button mSendMsg;
 
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
@@ -129,10 +130,12 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mListViewForOther = (ListView) findViewById(R.id.list);
         areaText = (TextView) findViewById(R.id.area_text);
         phoneText = (TextView) findViewById(R.id.phone_text);
+        mSendMsg = (Button) findViewById(R.id.send_btn);
         if (name.equals(UserInfoLab.get(FriendsInfoActivity.this).getUserInfo().getUsername())){
             mChangeBtn.setVisibility(View.VISIBLE);
             mFriCard.setVisibility(View.GONE);
             mFloatBtn.setVisibility(View.GONE);
+            mSendMsg.setVisibility(View.GONE);
         }
         phoneText.setText("13322223344");
         phoneText.setOnClickListener(new View.OnClickListener() {
@@ -198,6 +201,28 @@ public class FriendsInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(FriendsInfoActivity.this, ChattingActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("img", picture);
+                intent.putExtra("userInfo", mUserInfo);
+
+                FriendsLab.get(FriendsInfoActivity.this, mUserInfo).clearUnread(name);
+
+                //****在服务器端置0新信息****
+                EMConversation conversation = EMClient.getInstance().chatManager().getConversation(name);
+                if (conversation != null) {
+                    conversation.markAllMessagesAsRead();
+                }
+                if (FriendsLab.get(FriendsInfoActivity.this, mUserInfo).getFriend(name).isShowInChooseFragment() == false) {
+                    FriendsLab.get(FriendsInfoActivity.this, mUserInfo).addNewDialog(name);
+                }
+                startActivity(intent);
+            }
+        });
+
+        mSendMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(FriendsInfoActivity.this, ChattingActivity.class);
                 intent.putExtra("name", name);
                 intent.putExtra("img", picture);

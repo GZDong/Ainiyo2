@@ -191,22 +191,25 @@
                     android:layout_alignParentStart="true" />
             </android.support.v7.widget.CardView>
 
-            <!-- <android.support.v7.widget.CardView
+             <android.support.v7.widget.CardView
                  android:layout_width="match_parent"
-                 android:layout_height="180dp"
+                 android:layout_height="wrap_content"
                  android:layout_marginBottom="15dp"
                  android:layout_marginLeft="15dp"
                  android:layout_marginRight="15dp"
-                 android:layout_marginTop="20dp"
+                 android:layout_marginTop="40dp"
                  app:cardCornerRadius="10dp">
-                 <TextView
+                 <Button
+                     android:id="@+id/send_btn"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
-                     android:text="待扩展模块"
-                     android:gravity="center"
-                     android:layout_gravity="center"/>
+                     android:background="@color/theme_blue"
+                     android:layout_gravity="bottom"
+                     android:text="@string/send_Msg"
+                     android:textColor="#ffffff"
+                     />
 
-             </android.support.v7.widget.CardView>-->
+             </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
@@ -215,7 +218,7 @@
         android:id="@+id/change_userinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/soothing_blue"
+        android:background="@color/theme_blue"
         android:layout_gravity="bottom"
         android:text="@string/change_userinfo"
         android:textColor="#ffffff"
