@@ -61,7 +61,7 @@
             android:checked="true"
             android:text="基本信息"
             android:gravity="center"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/emotion"
@@ -71,7 +71,7 @@
             android:text="情感经历"
             android:textColor="@drawable/button_textcolor"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:layout_weight="1" />
     </RadioGroup>
 
@@ -105,7 +105,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp">
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/image"
