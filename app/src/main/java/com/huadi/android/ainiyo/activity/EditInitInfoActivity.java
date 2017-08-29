@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -105,6 +106,11 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
     private TextView change;
     @ViewInject(R.id.address)
     private TextView address;
+
+
+
+    @ViewInject(R.id.progress)
+    private ProgressBar progress;
 
 
 
@@ -406,6 +412,14 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
                 }
 
 
+                //如果用户是第一次上传图片，则上传头像,如果用户不是第一次上传头像，则修改头像
+                if(Avatar==null) {
+                    progress.setVisibility(View.VISIBLE);
+                    sendImage(compressImages); //上传头像
+                }
+                else { progress.setVisibility(View.VISIBLE);modifyImage(compressImages);  }//修改头像
+
+
                 //保存个人信息//
                 RequestParams params = new RequestParams();
                 params.addHeader("sessionid", sessionId);
@@ -510,10 +524,49 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
     @Override
     public void onCompressEnd(LGImgCompressor.CompressResult imageOutPath) {
         compressImages.add(imageOutPath.getOutPath());
+        Glide.with(EditInitInfoActivity.this).load(compressImages).into(edit_avatar);
 
-        modifyImage(compressImages); //修改头像
     }
 
+
+
+
+    public void sendImage(final List<String> images) {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("sessionid", sessionId);
+        File file = new File(images.get(0));
+        params.addBodyParameter("avatar", file);
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/uploadavatar", params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                try {
+                    JSONObject object = new JSONObject(responseInfo.result.toString());
+                    int status = object.getInt("Status");
+                    String result = object.getString("Result");
+                    String msg = object.getString("Msg");
+                    if (msg.equals("success")) {
+                        progress.setVisibility(View.GONE);
+                        avatar_done = result;
+                    } else {
+                        progress.setVisibility(View.GONE);
+                        Toast.makeText(EditInitInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                progress.setVisibility(View.GONE);
+                Toast.makeText(EditInitInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
 
 
     public void modifyImage(final List<String> images) {
@@ -530,9 +583,10 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
                     String result = object.getString("Result");
                     String msg = object.getString("Msg");
                     if (msg.equals("success")) {
+                        progress.setVisibility(View.GONE);
                         avatar_done = result;
-                        Glide.with(EditInitInfoActivity.this).load(result).into(edit_avatar);
                     } else {
+                        progress.setVisibility(View.GONE);
                         Toast.makeText(EditInitInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
 
@@ -544,6 +598,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
 
             @Override
             public void onFailure(HttpException error, String msg) {
+                progress.setVisibility(View.GONE);
                 Toast.makeText(EditInitInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
             }

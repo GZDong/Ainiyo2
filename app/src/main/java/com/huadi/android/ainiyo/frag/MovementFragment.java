@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +35,7 @@ import com.huadi.android.ainiyo.entity.MovementData;
 import com.huadi.android.ainiyo.entity.MovementResult;
 import com.huadi.android.ainiyo.entity.ResponseObject;
 
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -50,6 +52,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.huadi.android.ainiyo.util.CONST.FETCH_ACTIVITY;
 
 
@@ -57,6 +61,9 @@ public class MovementFragment extends Fragment {
 
     @ViewInject(R.id.movement_list_view)
     private PullToRefreshListView movement_list_view;
+
+    @ViewInject(R.id.tv_movement_me)
+    private CircleImageView avatar_imag;
 
     private List<MovementContentData> mList = new ArrayList<>();
     private ModeResult modeResult;
@@ -85,6 +92,8 @@ public class MovementFragment extends Fragment {
                 loadDatas(refreshView.getScrollY() < 0);
             }
         });
+
+        Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).into(avatar_imag);
 
         // 首次自动加载数据
         new Handler(new Handler.Callback() {
