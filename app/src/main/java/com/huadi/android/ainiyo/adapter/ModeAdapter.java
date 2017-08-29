@@ -146,7 +146,7 @@ public class ModeAdapter extends BaseAdapter {
         TextView mode_username;
         @ViewInject(R.id.mode_content)
         TextView mode_content;
-//        @ViewInject(R.id.tv_mode_comment_num)
+        //        @ViewInject(R.id.tv_mode_comment_num)
 //        TextView tv_mode_comment_num;
         @ViewInject(R.id.mode_date)
         TextView mode_date;

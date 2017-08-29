@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="姓名"
-                        android:textColor="#6b8747"
+                        android:textColor="@color/blue"
                         android:textSize="18sp" />
 
 

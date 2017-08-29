@@ -360,7 +360,7 @@ public class ChooseFragment extends Fragment {
             }
             holder.timeText.setText(newTime);
             mEMConversation = EMClient.getInstance().chatManager().getConversation(name_fri, null, true);
-            if (mEMConversation.getAllMessages().size() > 0){
+            if (mEMConversation.getAllMessages().size() > 0) {
                 mMessages = mEMConversation.getLastMessage();
                 EMTextMessageBody body = (EMTextMessageBody) mMessages.getBody();
                 holder.lastMag.setText(body.getMessage());

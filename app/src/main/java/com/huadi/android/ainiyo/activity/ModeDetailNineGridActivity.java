@@ -450,7 +450,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick({R.id.btn_mode_nine_grid_comment, R.id.mode_b_save, R.id.mode_detail_nine_grid_back})
+    @OnClick({R.id.btn_mode_nine_grid_comment, R.id.mode_b_save, R.id.mode_detail_nine_grid_back, R.id.mode_nine_grid_pic_head})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_mode_nine_grid_comment:
@@ -462,6 +462,24 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
             case R.id.mode_detail_nine_grid_back:
                 ToolKits.putInt(this, "fragment", 2);
                 finish();
+                break;
+            case R.id.mode_nine_grid_pic_head:
+                Intent intent = null;
+                if (!String.valueOf(mld.getUserid()).equals(UserInfoLab.get(this).getUserInfo().getId())) {
+                    FriendsLab.get(this).findNameById(String.valueOf(mld.getUserid()));
+                    intent = new Intent(this, FriendsInfoActivity.class);
+                    intent.putExtra("name", FriendsLab.get(this).findNameById(String.valueOf(mld.getUserid())));
+                    intent.putExtra("userInfo", UserInfoLab.get(this).getUserInfo());
+                    intent.putExtra("from", "ModeFragment");
+                    intent.putExtra("picture", FriendsLab.get(this).getFriend(FriendsLab.get(this).findNameById(String.valueOf(mld.getUserid()))).getPicture());
+                } else {
+                    intent = new Intent(this, FriendsInfoActivity.class);
+                    intent.putExtra("name", UserInfoLab.get(this).getUserInfo().getUsername());
+                    intent.putExtra("userInfo", UserInfoLab.get(this).getUserInfo());
+                    intent.putExtra("from", "ModeFragment");
+                    intent.putExtra("picture", UserInfoLab.get(this).getUserInfo().getPicture());
+                }
+                startActivity(intent);
                 break;
         }
     }
