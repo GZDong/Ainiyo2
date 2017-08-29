@@ -416,6 +416,13 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     return;
                 }
 
+                   //如果用户是第一次上传图片，则上传头像,如果用户不是第一次上传头像，则修改头像
+                if(Avatar==null) {
+                    progress.setVisibility(View.VISIBLE);
+                    sendImage(compressImages); //上传头像
+                }
+                else { progress.setVisibility(View.VISIBLE);modifyImage(compressImages);  }//修改头像
+
 
                 //保存个人信息//
                 RequestParams params = new RequestParams();
@@ -520,11 +527,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     @Override
     public void onCompressEnd(LGImgCompressor.CompressResult imageOutPath) {
         compressImages.add(imageOutPath.getOutPath());
-         if(Avatar==null&&avatar_done==null) {
-             progress.setVisibility(View.VISIBLE);
-             modifyImage(compressImages); //修改头像
-         }
-         else { progress.setVisibility(View.VISIBLE);sendImage(compressImages);  }
+        Glide.with(EditInfoActivity.this).load(compressImages).into(edit_avatar);//加载选择的图片在头像上
+
     }
 
 
@@ -544,7 +548,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     if (msg.equals("success")) {
                         progress.setVisibility(View.GONE);
                         avatar_done = result;
-                        Glide.with(EditInfoActivity.this).load(result).into(edit_avatar);
                     } else {
                         progress.setVisibility(View.GONE);
                         Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -583,7 +586,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                         if (msg.equals("success")) {
                             progress.setVisibility(View.GONE);
                             avatar_done = result;
-                            Glide.with(EditInfoActivity.this).load(result).into(edit_avatar);
                         } else {
                             progress.setVisibility(View.GONE);
                             Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
