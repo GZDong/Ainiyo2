@@ -124,7 +124,7 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                     if (resultForRqstList.getResult() != null) {
                                         Log.e("test", "申请表有值");
                                         //这一步应该是必执行的
-                                        rqstId = resultForRqstList.getResult().get(0).getUserid();
+                                        rqstId = resultForRqstList.getResult().get(resultForRqstList.getSize()-1).getUserid();
                                         Log.e("test", "申请者的id是：" + rqstId);
                                         //获得申请人ID后进行同意
                                         Retrofit ret = new Retrofit.Builder()
@@ -153,6 +153,8 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                                         Log.e("test", "onNext___同意好友");
                                                         if (resultForAgree.getStatus().equals("330")) {
                                                             Log.e("test", "onNext___好友同意成功了");
+                                                            //在这里重新请求好友列表，并且刷新
+                                                            FriendsLab.get(ChooseYoNActivity.this).reRequsetFriList();
                                                         } else {
                                                             Log.e("test", "onNext__返回的status值不对，是：" + resultForAgree.getStatus());
                                                         }
@@ -167,8 +169,8 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                                 } catch (HyphenateException e) {
                                                     e.printStackTrace();
                                                 }
-                                                Friends friends = new Friends(UserInfoLab.get(ChooseYoNActivity.this).getUserInfo().getUsername(), name);
-                                                FriendsLab.get(ChooseYoNActivity.this, UserInfoLab.get(ChooseYoNActivity.this).getUserInfo()).addFriend(friends);
+                                                /*Friends friends = new Friends(UserInfoLab.get(ChooseYoNActivity.this).getUserInfo().getUsername(), name);
+                                                FriendsLab.get(ChooseYoNActivity.this, UserInfoLab.get(ChooseYoNActivity.this).getUserInfo()).addFriend(friends);*/
                                                 subscriber.onNext(name);
                                             }
                                         }).subscribeOn(Schedulers.io())

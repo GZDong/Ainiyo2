@@ -31,4 +31,8 @@ public class ResultForRqstList {
     public List<Resultitem> getResult() {
         return Result;
     }
+
+    public int getSize(){
+        return Result.size();
+    }
 }

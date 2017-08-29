@@ -361,8 +361,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //把该好友的username上传到自己的服务器，然后加入数据库
         //调整自己服务器的接口，添加好友不需要附加信息
         Log.e("test","onFriendRequestAccepted______");
-        Friends friends = new Friends(UserInfoLab.get(MainActivity.this).getUserInfo().getUsername(),username);
-        FriendsLab.get(MainActivity.this,UserInfoLab.get(MainActivity.this).getUserInfo()).addFriend(friends);
+        FriendsLab.get(MainActivity.this).reRequsetFriList();
         Toast.makeText(getApplication(),"对方同意接受你为好友",Toast.LENGTH_LONG).show();
     }
 

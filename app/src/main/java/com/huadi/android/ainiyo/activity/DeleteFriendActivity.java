@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,8 +79,8 @@ public class DeleteFriendActivity extends AppCompatActivity {
                         //删除数据库，删除服务器数据
                         FriendsLab.get(DeleteFriendActivity.this).deleteFriends(friends.getName());
                     }
-                    mMyAdapter.notifyDataSetChanged();
                 }
+                finish();
             }
         });
         btnNagi.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +127,7 @@ public class DeleteFriendActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
             final Friends friends = mList.get(position);
-            mFriends = friList.get(position);
+
 
             if (!TextUtils.isEmpty(friends.getPicUrl())) {
                 Glide.with(DeleteFriendActivity.this).load(friends.getPicUrl()).into(holder.mImageView);
@@ -138,7 +139,13 @@ public class DeleteFriendActivity extends AppCompatActivity {
             holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    mFriends.setFlag_delete(1);
+                    Log.e("test",friends.getName() + " 点击前：" + friends.getFlag_delete() );
+                    if (b==true) {
+                        friends.setFlag_delete(1);
+                    }else {
+                        friends.setFlag_delete(0);
+                    }
+                    Log.e("test", "点击一次：" + friends.getFlag_delete() );
                     btnPosi.setVisibility(View.VISIBLE);
                     btnNagi.setVisibility(View.VISIBLE);
                 }

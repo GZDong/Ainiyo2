@@ -39,6 +39,8 @@ import rx.schedulers.Schedulers;
 
 public class FriendsLab {
 
+    private static final String TAG = "test";
+
     private static FriendsLab sFriendsLab;
 
     private Context mContext;
@@ -293,14 +295,23 @@ public class FriendsLab {
     }
 
     public String findNameById(String id){
+        Log.e("test", "findNameById: 请求的好友id：" + id );
+        int i = 0;
         for (Friends friends : mFriendses){
-
             if (friends != null) {
-                if (friends.getFriId().equals(id)){
-                    return friends.getName();
+                i++;
+                Log.e("test", "第" + i + "个好友" + friends );
+                Log.e("test", " 好友 "+friends.getName() + "的姓名是：" + friends.getName() );
+                Log.e("test", " 好友 "+friends.getName() + "的id是：" + friends.getFriId() );
+                if (friends.getFriId() != null) {
+                    if (friends.getFriId().equals(id)){
+                        Log.e("test", "最后返回的name是 ： " + friends.getName() );
+                        return friends.getName();
+                    }
                 }
             }
         }
+        Log.e("test", "最后返回的id是 ： " + null );
         return null;
     }
     public String findUrlById(String id){
@@ -327,9 +338,10 @@ public class FriendsLab {
         //数据库删除数据
         for (Friends friends: mFriendses){
             if (friends.getName().equals(name)){
+                Log.e("test","被删除好友的id：" + friends.getName());
                 Log.e("test","被删除好友的id：" + friends.getFriId());
-                DataSupport.deleteAll(Friends.class,"name = ?",name);
-                mFriendses.remove(friends);  //单例移除
+                DataSupport.deleteAll(Friends.class,"name = ? and user = ?",name,mUserInfo.getUsername());
+               // mFriendses.remove(friends);  //单例移除
 
                 //服务器删除数据
                 Retrofit retrofit = new Retrofit.Builder()
@@ -360,8 +372,14 @@ public class FriendsLab {
                                 }
                             }
                         });
+                initFriends();
             }
         }
+    }
 
+    public void reRequsetFriList(){
+        DataSupport.deleteAll(Friends.class,"user = ?",mUserInfo.getUsername());
+        mFriendses = null;
+        initFriends();
     }
 }
