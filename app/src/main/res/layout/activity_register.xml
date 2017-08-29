@@ -24,10 +24,7 @@
             android:textColor="@color/white" />
 
 
-
-
     </RelativeLayout>
-
 
 
     <TextView

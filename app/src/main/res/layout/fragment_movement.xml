@@ -22,8 +22,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:src="@drawable/left_image"
-            app:civ_border_color="#FFF"
-             />
+            app:civ_border_color="#FFF" />
 
         <TextView
             android:id="@+id/textView4"

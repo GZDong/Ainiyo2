@@ -108,7 +108,6 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
     private TextView address;
 
 
-
     @ViewInject(R.id.progress)
     private ProgressBar progress;
 
@@ -413,11 +412,13 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
 
 
                 //如果用户是第一次上传图片，则上传头像,如果用户不是第一次上传头像，则修改头像
-                if(Avatar==null) {
+                if (Avatar == null) {
                     progress.setVisibility(View.VISIBLE);
                     sendImage(compressImages); //上传头像
-                }
-                else { progress.setVisibility(View.VISIBLE);modifyImage(compressImages);  }//修改头像
+                } else {
+                    progress.setVisibility(View.VISIBLE);
+                    modifyImage(compressImages);
+                }//修改头像
 
 
                 //保存个人信息//
@@ -527,8 +528,6 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
         Glide.with(EditInitInfoActivity.this).load(compressImages).into(edit_avatar);
 
     }
-
-
 
 
     public void sendImage(final List<String> images) {

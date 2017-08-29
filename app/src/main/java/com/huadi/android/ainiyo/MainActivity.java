@@ -313,13 +313,14 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             new AlertDialog.Builder(MainActivity.this).setTitle("提示")
                     .setIconAttribute(android.R.attr.alertDialogIcon)
                     .setMessage("确定要退出吗?")
-                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            System.exit(0);
+                            //System.exit(0);
+                            finish();
                         }
                     })
-                    .setNegativeButton("取消", null)
+                    .setPositiveButton("取消", null)
                     .create().show();
             return false;
         } else if (keyCode == KeyEvent.KEYCODE_MENU) {

@@ -186,29 +186,18 @@ public class MeFragment extends Fragment{
                });
                break;
            case R.id.logoff:
-               AlertDialog.Builder dialog=new AlertDialog.Builder(getActivity());
-               dialog.setTitle("提示");
-               dialog.setMessage("是否退出登录？");
-                       dialog.setCancelable(false);
-               dialog.setPositiveButton("退出",new DialogInterface.OnClickListener(){
-                   @Override
-                   public void onClick(DialogInterface dialog,int which){
-                       SharedPreferences.Editor editor=getActivity().getSharedPreferences("data",MODE_PRIVATE).edit();
-                       editor.putBoolean("islogin",false);
-                       editor.apply();
-                       SignInUtil.signOut();
-                       startActivity(new Intent(getActivity(),LoginActivity.class));
-                       Toast.makeText(getActivity(),"你已退出登录",Toast.LENGTH_LONG).show();
-                       getActivity().finish();
-                   }});
-               dialog.setNegativeButton("取消",new DialogInterface.OnClickListener(){
-                   @Override
-                   public void onClick(DialogInterface dialog,int which){
-                   }});
-               dialog.show();
-
-
-
+               new AlertDialog.Builder(getActivity()).setTitle("提示")
+                       .setIconAttribute(android.R.attr.alertDialogIcon)
+                       .setMessage("确定要退出吗?")
+                       .setNegativeButton("确认", new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which) {
+                               //System.exit(0);
+                               getActivity().finish();
+                           }
+                       })
+                       .setPositiveButton("取消", null)
+                       .create().show();
        }
    }
 

@@ -85,7 +85,7 @@ public class MovementDetailActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.movement_detail_back, R.id.btn_join_now,R.id.partyImage})
+    @OnClick({R.id.movement_detail_back, R.id.btn_join_now, R.id.partyImage})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.movement_detail_back:
@@ -115,8 +115,8 @@ public class MovementDetailActivity extends AppCompatActivity {
                 break;
 
             case R.id.partyImage:
-                Intent intent = new Intent(MovementDetailActivity.this,BigImageActivity.class);
-                intent.putExtra("URL",extras.getString("imageUrl"));
+                Intent intent = new Intent(MovementDetailActivity.this, BigImageActivity.class);
+                intent.putExtra("URL", extras.getString("imageUrl"));
                 startActivity(intent);
         }
     }

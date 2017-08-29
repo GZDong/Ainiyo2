@@ -30,7 +30,7 @@
             android:layout_height="38dp"
             android:layout_marginRight="8dp"
             android:background="@color/theme_blue"
-            android:src="@drawable/icon_contact_4"/>
+            android:src="@drawable/icon_contact_4" />
 
 
     </LinearLayout>

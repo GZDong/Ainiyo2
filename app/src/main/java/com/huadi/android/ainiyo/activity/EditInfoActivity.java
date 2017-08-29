@@ -110,7 +110,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     private TextView address;
 
 
-
     @ViewInject(R.id.progress)
     private ProgressBar progress;
 
@@ -416,12 +415,14 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     return;
                 }
 
-                   //如果用户是第一次上传图片，则上传头像,如果用户不是第一次上传头像，则修改头像
-                if(Avatar==null) {
+                //如果用户是第一次上传图片，则上传头像,如果用户不是第一次上传头像，则修改头像
+                if (Avatar == null) {
                     progress.setVisibility(View.VISIBLE);
                     sendImage(compressImages); //上传头像
-                }
-                else { progress.setVisibility(View.VISIBLE);modifyImage(compressImages);  }//修改头像
+                } else {
+                    progress.setVisibility(View.VISIBLE);
+                    modifyImage(compressImages);
+                }//修改头像
 
 
                 //保存个人信息//

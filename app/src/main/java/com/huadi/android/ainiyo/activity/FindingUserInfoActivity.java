@@ -70,7 +70,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }
@@ -100,7 +100,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.btn_finding_add_friend )
+    @OnClick(R.id.btn_finding_add_friend)
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_finding_add_friend:
