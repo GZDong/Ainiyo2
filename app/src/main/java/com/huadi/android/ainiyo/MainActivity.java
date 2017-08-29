@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             case R.id.radio0:
                 index = PAGE_ONE;
                 vpager.setCurrentItem(PAGE_ONE);
-                button0.setTextSize(15);
+                button0.setTextSize(13);
                 button1.setTextSize(0);
                 button2.setTextSize(0);
                 button3.setTextSize(0);
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 index = PAGE_TWO;
                 vpager.setCurrentItem(PAGE_TWO);
                 button0.setTextSize(0);
-                button1.setTextSize(15);
+                button1.setTextSize(13);
                 button2.setTextSize(0);
                 button3.setTextSize(0);
                 button4.setTextSize(0);
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 vpager.setCurrentItem(PAGE_THREE);
                 button0.setTextSize(0);
                 button1.setTextSize(0);
-                button2.setTextSize(15);
+                button2.setTextSize(13);
                 button3.setTextSize(0);
                 button4.setTextSize(0);
                 break;
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 button0.setTextSize(0);
                 button1.setTextSize(0);
                 button2.setTextSize(0);
-                button3.setTextSize(15);
+                button3.setTextSize(13);
                 button4.setTextSize(0);
                 break;
             case R.id.radio4:
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 button1.setTextSize(0);
                 button2.setTextSize(0);
                 button3.setTextSize(0);
-                button4.setTextSize(15);
+                button4.setTextSize(13);
                 break;
 
 
@@ -350,6 +350,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 .setContentIntent(pi)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVibrate(new long[]{0,1000})
                 .build();
         manager.notify(1,notification);
     }

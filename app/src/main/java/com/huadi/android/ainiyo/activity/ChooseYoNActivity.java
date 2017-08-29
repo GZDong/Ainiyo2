@@ -42,8 +42,8 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
 
     private TextView idText;
     private TextView reasonText;
-    private ImageButton acceptBtn;
-    private ImageButton refuseBtn;
+    private Button acceptBtn;
+    private Button refuseBtn;
     private Toolbar mToolbar;
 
     private String name;
@@ -73,8 +73,8 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
 
         idText = (TextView) findViewById(R.id.person_id_text);
         reasonText = (TextView) findViewById(R.id.reason);
-        acceptBtn = (ImageButton) findViewById(R.id.accept_btn);
-        refuseBtn = (ImageButton) findViewById(R.id.refuse_btn);
+        acceptBtn = (Button) findViewById(R.id.accept_btn);
+        refuseBtn = (Button) findViewById(R.id.refuse_btn);
         mToolbar = (Toolbar) findViewById(R.id.toolbar_choose);
 
         setSupportActionBar(mToolbar);
