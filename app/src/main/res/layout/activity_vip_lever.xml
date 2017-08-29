@@ -4,12 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="@color/theme_blue"
-        android:id="@+id/kk">
+        android:background="@color/theme_blue">
 
         <ImageView
             android:id="@+id/back"
@@ -17,7 +15,18 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:src="@drawable/zuojiantou" />
-    </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="用户级别"
+            android:textSize="18sp"
+            android:textColor="@color/white" />
+
+
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -76,7 +76,7 @@ public class MeFragment extends Fragment{
         // Inflate the layout for this fragment
         ViewUtils.inject(this,view);
         SharedPreferences pref = getActivity().getSharedPreferences("data", MODE_PRIVATE);
-        String username = pref.getString("username", "");
+        String username = pref.getString("name", "");
         te = (TextView) view.findViewById(R.id.name);
         te.setText(username);//获取用户名//
 

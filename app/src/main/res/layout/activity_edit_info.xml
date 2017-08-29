@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
     //标题栏//
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/theme_blue">
@@ -18,30 +21,26 @@
             android:src="@drawable/zuojiantou" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="100dp"
-            android:text="个人信息"
-            android:textSize="24sp"
-            android:textColor="#f1ecec" />
-
-        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="个人信息"
+            android:textSize="18sp"
+            android:textColor="@color/white" />
+
 
         <TextView
             android:id="@+id/save"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="保存"
-            android:textSize="20sp"
-            android:textColor="#f1ecec"
+            android:textSize="18sp"
+            android:textColor="@color/white"
             android:layout_marginRight="10dp"
-            android:layout_gravity="center" />
+            android:layout_alignParentRight="true"
+            android:gravity="center" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     //选择//
 
@@ -61,7 +60,7 @@
             android:checked="true"
             android:text="基本信息"
             android:gravity="center"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/emotion"
@@ -71,7 +70,7 @@
             android:text="情感经历"
             android:textColor="@drawable/button_textcolor"
             android:gravity="center"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:layout_weight="1" />
     </RadioGroup>
 
@@ -532,3 +531,12 @@
     </LinearLayout>
 
 </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true" />
+
+
+</RelativeLayout>

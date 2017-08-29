@@ -35,12 +35,14 @@ import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.DateUtil;
 import com.huadi.android.ainiyo.util.ImgScaleUtil;
 import com.huadi.android.ainiyo.util.SignInUtil;
+import com.huadi.android.ainiyo.util.TimeUtil;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,9 +72,9 @@ public class ChooseFragment extends Fragment {
             Log.e("test", "onCreate____ChattingActivity");
         }
 
-        Log.e("test","__________________"+UserInfoLab.get(getContext()).getUserInfo().toString());
+        Log.e("test","__________________"+UserInfoLab.get(getActivity()));
         //获取当前用户实例
-        mUserInfo = UserInfoLab.get(getContext()).getUserInfo();
+        mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
         //frdList = new ArrayList<>();这里不应该给frdList创建实例，它应该是一个指引而已
 
         frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses();
@@ -107,9 +109,9 @@ public class ChooseFragment extends Fragment {
                 public void onReceive(Context context, Intent intent) {
                     int newMsg = intent.getIntExtra("newM", 0);
                     String ID = intent.getStringExtra("ID");
-                    String newTime = intent.getStringExtra("newT");
+                    Date date = new Date();
                     //更新数据库和单例
-                    FriendsLab.get(getActivity(), mUserInfo).updateTimeAndUnread(ID,newTime,newMsg);
+                    FriendsLab.get(getActivity(), mUserInfo).updateTimeAndUnread(ID,date,newMsg);
                     //重新排序一下单例数据
                     FriendsLab.get(getActivity(), mUserInfo).reSort();
                     // frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses(); //其实这句是多余的
@@ -169,7 +171,7 @@ public class ChooseFragment extends Fragment {
                 public void onReceive(Context context, Intent intent) {
                     int newMsg = intent.getIntExtra("newM", 0);
                     String ID = intent.getStringExtra("ID");
-                    String newTime = intent.getStringExtra("newT");
+                    Date newTime = new Date();
                     //更新数据库和单例
                     FriendsLab.get(getActivity(), mUserInfo).updateTimeAndUnread(ID,newTime,newMsg);
                     //重新排序一下单例数据
@@ -343,7 +345,7 @@ public class ChooseFragment extends Fragment {
             String name_fri = friends.getName();
             int unreadM = friends.getUnreadMeg();
             int picture = friends.getPicture();
-            String newTime = friends.getNewTime();
+            String newTime = TimeUtil.getTimeFormatText(friends.getDate());
             holder.textView.setText(name_fri);
             //holder.mImageView.setImageResource(picture);
             if (!TextUtils.isEmpty(friends.getPicUrl())) {
@@ -387,7 +389,6 @@ public class ChooseFragment extends Fragment {
                     Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
                     intent.putExtra("ID",message.getFrom());
                     intent.putExtra("newM",unread);
-                    intent.putExtra("newT", DateUtil.getNowDate());
                     getActivity().sendBroadcast(intent);
                 }
             }

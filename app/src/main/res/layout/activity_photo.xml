@@ -3,31 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
         android:background="@color/theme_blue"
         android:id="@+id/kk">
+
         <ImageView
             android:id="@+id/back"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/zuojiantou"
-            android:padding="5dp" />
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/zuojiantou" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="相册"
+            android:textSize="18sp"
+            android:textColor="@color/white" />
+
+
 
         <ImageView
             android:id="@+id/add_pic"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:src="@drawable/shangchuan"
-            android:padding="5dp" />
-    </LinearLayout>
+            android:padding="5dp"
+            android:layout_marginLeft="340dp"/>
+
+    </RelativeLayout>
+
+
 
 
     <ScrollView
