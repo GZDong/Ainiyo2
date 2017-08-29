@@ -1,6 +1,7 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -84,7 +85,7 @@ public class MovementDetailActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.movement_detail_back, R.id.btn_join_now})
+    @OnClick({R.id.movement_detail_back, R.id.btn_join_now,R.id.partyImage})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.movement_detail_back:
@@ -112,6 +113,11 @@ public class MovementDetailActivity extends AppCompatActivity {
                     }
                 });
                 break;
+
+            case R.id.partyImage:
+                Intent intent = new Intent(MovementDetailActivity.this,BigImageActivity.class);
+                intent.putExtra("URL",extras.getString("imageUrl"));
+                startActivity(intent);
         }
     }
 
