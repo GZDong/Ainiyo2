@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -107,6 +108,11 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     private TextView change;
     @ViewInject(R.id.address)
     private TextView address;
+
+
+
+    @ViewInject(R.id.progress)
+    private ProgressBar progress;
 
 
 
@@ -514,10 +520,51 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     @Override
     public void onCompressEnd(LGImgCompressor.CompressResult imageOutPath) {
         compressImages.add(imageOutPath.getOutPath());
-
-         modifyImage(compressImages); //修改头像
+         if(Avatar==null&&avatar_done==null) {
+             progress.setVisibility(View.VISIBLE);
+             modifyImage(compressImages); //修改头像
+         }
+         else { progress.setVisibility(View.VISIBLE);sendImage(compressImages);  }
     }
 
+
+    public void sendImage(final List<String> images) {
+        RequestParams params = new RequestParams();
+        params.addBodyParameter("sessionid", sessionId);
+        File file = new File(images.get(0));
+        params.addBodyParameter("avatar", file);
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyavatar", params, new RequestCallBack<String>() {
+            @Override
+            public void onSuccess(ResponseInfo<String> responseInfo) {
+                try {
+                    JSONObject object = new JSONObject(responseInfo.result.toString());
+                    int status = object.getInt("Status");
+                    String result = object.getString("Result");
+                    String msg = object.getString("Msg");
+                    if (msg.equals("success")) {
+                        progress.setVisibility(View.GONE);
+                        avatar_done = result;
+                        Glide.with(EditInfoActivity.this).load(result).into(edit_avatar);
+                    } else {
+                        progress.setVisibility(View.GONE);
+                        Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                progress.setVisibility(View.GONE);
+                Toast.makeText(EditInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
 
 
         public void modifyImage(final List<String> images) {
@@ -534,9 +581,11 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                         String result = object.getString("Result");
                         String msg = object.getString("Msg");
                         if (msg.equals("success")) {
+                            progress.setVisibility(View.GONE);
                             avatar_done = result;
                             Glide.with(EditInfoActivity.this).load(result).into(edit_avatar);
                         } else {
+                            progress.setVisibility(View.GONE);
                             Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
 
@@ -548,6 +597,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
 
                 @Override
                 public void onFailure(HttpException error, String msg) {
+                    progress.setVisibility(View.GONE);
                     Toast.makeText(EditInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                 }
