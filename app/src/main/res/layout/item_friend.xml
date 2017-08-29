@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             >
         <FrameLayout
-            android:layout_width="55dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_marginBottom="7dp"
             android:layout_marginLeft="10dp"
@@ -27,15 +27,17 @@
             android:layout_marginRight="12dp">
             <ImageView
                 android:id="@+id/img_friend"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:cropToPadding="true"
                 android:scaleType="centerCrop"
+                android:padding="5dp"
+                android:src="@drawable/examplepicture"
                 />
             <Button
                 android:id="@+id/unread_btn"
                 style="@style/MsgButton"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="45dp"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:text="10"

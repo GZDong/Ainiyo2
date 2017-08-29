@@ -21,6 +21,7 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Retrofit;
@@ -206,10 +207,10 @@ public class FriendsLab {
         Collections.sort(mFriendses, new Comparator<Friends>() {
             @Override
             public int compare(Friends friends, Friends t1) {
-                if (friends.getNewTime().compareTo(t1.getNewTime())>0){
+                if (friends.getDate().compareTo(t1.getDate())>0){
                     return -1;
                 }
-                if (friends.getNewTime().compareTo(t1.getNewTime())==0){
+                if (friends.getDate().compareTo(t1.getDate())==0){
                     return 0;
                 }
                 return 1;
@@ -263,10 +264,10 @@ public class FriendsLab {
     }
 
     //更新最新显示消息和未读数
-    public void updateTimeAndUnread(String ID,String newTime,int unRead){
+    public void updateTimeAndUnread(String ID, Date newTime, int unRead){
        for (Friends friends: mFriendses){
            if (friends != null && friends.getName().equals(ID)){
-               friends.setNewTime(newTime);
+               friends.setDate(newTime);
                friends.setUnreadMeg(unRead);
                friends.save();
            }
