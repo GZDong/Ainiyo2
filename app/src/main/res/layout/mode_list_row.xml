@@ -34,7 +34,7 @@
                 android:orientation="horizontal">
 
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/mode_pic_head"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -44,32 +44,17 @@
                     android:src="@drawable/left_image" />
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:orientation="vertical">
-
                     <TextView
 
                         android:id="@+id/mode_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
                         android:text="David Joanthen"
-                        android:textColor="@color/blue"
+                        android:paddingLeft="18dp"
+                        android:textColor="#332c2c"
                         android:textSize="18sp" />
 
-                    <TextView
-                        android:id="@+id/mode_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:paddingTop="1dp"
-                        android:text="June 1,2017"
-                        android:textSize="15sp" />
-
-
-                </LinearLayout>
 
 
             </LinearLayout>
@@ -125,6 +110,15 @@
                 <!--android:layout_margin="10dp"-->
                 <!--android:src="@mipmap/ic_mode_zan" />-->
 
+                <TextView
+                    android:id="@+id/mode_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:paddingTop="1dp"
+                    android:text="June 1,2017"
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="wrap_content"
@@ -135,9 +129,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="3dp"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="13dp"
                     android:src="@mipmap/ic_mode_comment" />
 
                 <TextView

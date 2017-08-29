@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/finding_data_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/status_bar_finding_data_anlaysis"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/theme_blue"
+        android:orientation="vertical"
+        android:visibility="gone"></LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <com.timqi.windrosediagram.WindRoseDiagramView
+            android:layout_alignParentTop="true"
+            android:id="@+id/windRoseDiagramView"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:anchorColor="#302c2c"
+            app:anchorWidth="5dp"
+            app:foregroundColor="#881888ec"
+            app:outlineColor="#cc323131"
+            app:outlineWidth="1.21dp"
+            app:touchSlop="24dp"
+            app:windRoseBackgroundColor="#00000000"
+            app:windRoseStartAngle="90"
+            app:windRoseTextColor="#cc1e1c1c"
+            app:windRoseTextSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/windRoseDiagramView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_height">
+
+                <ImageView
+                    android:layout_width="@dimen/me_fragment_pic_size"
+                    android:layout_height="@dimen/me_fragment_pic_size"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:src="@mipmap/ic_finding_data_anlaysic_hobby" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:text="爱好"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/me_fragment_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_finding_data_hobby_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingRight="15dp"
+                    android:text="0.95"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+                android:background="@color/parting_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_height">
+
+                <ImageView
+                    android:layout_width="@dimen/me_fragment_pic_size"
+                    android:layout_height="@dimen/me_fragment_pic_size"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:src="@mipmap/ic_finding_data_anlaysic_work" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:text="工作"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/me_fragment_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_finding_data_job_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingRight="15dp"
+                    android:text="0.95"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+                android:background="@color/parting_line" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_clearance_height"
+                android:background="@color/parting_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_height">
+
+                <ImageView
+                    android:layout_width="@dimen/me_fragment_pic_size"
+                    android:layout_height="@dimen/me_fragment_pic_size"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:src="@mipmap/ic_finding_data_anlaysic_living_place" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:text="住处"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/me_fragment_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_finding_data_live_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingRight="15dp"
+                    android:text="0.95"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+                android:background="@color/parting_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_height">
+
+                <ImageView
+                    android:layout_width="@dimen/me_fragment_pic_size"
+                    android:layout_height="@dimen/me_fragment_pic_size"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:src="@mipmap/ic_finding_data_anlaysic_age" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:text="年龄"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/me_fragment_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_finding_data_age_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingRight="15dp"
+                    android:text="0.95"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+                android:background="@color/parting_line" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_clearance_height"
+                android:background="@color/parting_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_height">
+
+                <ImageView
+                    android:layout_width="@dimen/me_fragment_pic_size"
+                    android:layout_height="@dimen/me_fragment_pic_size"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:src="@mipmap/ic_finding_data_anlaysic_character" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:text="性格"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/me_fragment_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_finding_data_character_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingRight="15dp"
+                    android:text="0.95"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+                android:background="@color/parting_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_height">
+
+                <ImageView
+                    android:layout_width="@dimen/me_fragment_pic_size"
+                    android:layout_height="@dimen/me_fragment_pic_size"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:src="@mipmap/ic_finding_data_anlaysic_mood" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:text="情感"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/me_fragment_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_finding_data_emotion_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingRight="15dp"
+                    android:text="0.95"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_height">
+
+                <ImageView
+                    android:layout_width="@dimen/me_fragment_pic_size"
+                    android:layout_height="@dimen/me_fragment_pic_size"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:src="@mipmap/ic_finding_data_anlaysic_outlooking" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:text="颜值"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/me_fragment_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_finding_data_beauty_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingRight="15dp"
+                    android:text="0.95"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/finding_data_anlaysis_pipei_score_text_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+                android:background="@color/parting_line" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

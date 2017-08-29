@@ -207,10 +207,10 @@ public class FriendsLab {
         Collections.sort(mFriendses, new Comparator<Friends>() {
             @Override
             public int compare(Friends friends, Friends t1) {
-                if (friends.getDate().compareTo(t1.getDate())>0){
+                if (friends.getDate().compareTo(t1.getDate()) > 0) {
                     return -1;
                 }
-                if (friends.getDate().compareTo(t1.getDate())==0){
+                if (friends.getDate().compareTo(t1.getDate()) == 0) {
                     return 0;
                 }
                 return 1;
@@ -264,7 +264,7 @@ public class FriendsLab {
     }
 
     //更新最新显示消息和未读数
-    public void updateTimeAndUnread(String ID, Date newTime, int unRead){
+    public void updateTimeAndUnread(String ID, Date newTime, int unRead) {
        for (Friends friends: mFriendses){
            if (friends != null && friends.getName().equals(ID)){
                friends.setDate(newTime);

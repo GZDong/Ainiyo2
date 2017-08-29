@@ -72,7 +72,7 @@ public class ChooseFragment extends Fragment {
             Log.e("test", "onCreate____ChattingActivity");
         }
 
-        Log.e("test","__________________"+UserInfoLab.get(getActivity()));
+        Log.e("test", "__________________" + UserInfoLab.get(getActivity()));
         //获取当前用户实例
         mUserInfo = UserInfoLab.get(getActivity()).getUserInfo();
         //frdList = new ArrayList<>();这里不应该给frdList创建实例，它应该是一个指引而已
@@ -111,7 +111,7 @@ public class ChooseFragment extends Fragment {
                     String ID = intent.getStringExtra("ID");
                     Date date = new Date();
                     //更新数据库和单例
-                    FriendsLab.get(getActivity(), mUserInfo).updateTimeAndUnread(ID,date,newMsg);
+                    FriendsLab.get(getActivity(), mUserInfo).updateTimeAndUnread(ID, date, newMsg);
                     //重新排序一下单例数据
                     FriendsLab.get(getActivity(), mUserInfo).reSort();
                     // frdList = FriendsLab.get(getActivity(), mUserInfo).getFriendses(); //其实这句是多余的

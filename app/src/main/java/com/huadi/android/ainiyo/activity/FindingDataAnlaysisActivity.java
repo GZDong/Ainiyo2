@@ -48,7 +48,7 @@ public class FindingDataAnlaysisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_finding_data_anlaysis);
+        setContentView(R.layout.activity_finding_data_anlaysis_vertical);
         ViewUtils.inject(this);
 
         setImmersive();

@@ -15,8 +15,8 @@ public class TimeUtil {
     private final static long month = 31 * day;
     private final static long year = 12 * month;
 
-    public static String getTimeFormatText(Date date){
-        if (date == null){
+    public static String getTimeFormatText(Date date) {
+        if (date == null) {
             return null;
         }
 
@@ -31,27 +31,27 @@ public class TimeUtil {
         Log.e("test", "getTimeFormatText:  diff :" + diff / minute);*/
         long r = 0;
 
-        if (diff> year){
-            r = ( diff / year);
+        if (diff > year) {
+            r = (diff / year);
             return r + "年前";
         }
 
-        if ( diff > month){
+        if (diff > month) {
             r = (diff / month);
             return r + "月前";
         }
 
-        if ( diff > day){
+        if (diff > day) {
             r = (diff / day);
-            return  r + "天前";
+            return r + "天前";
         }
 
-        if ( diff > hour){
+        if (diff > hour) {
             r = (diff / hour);
             return r + "小时前";
         }
 
-        if ( diff > minute){
+        if (diff > minute) {
             r = (diff / minute);
             return r + "分钟前";
         }

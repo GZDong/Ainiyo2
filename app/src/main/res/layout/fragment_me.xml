@@ -27,7 +27,6 @@
         android:layout_height="match_parent">
 
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -279,8 +278,6 @@
                     android:text="退出"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/me_fragment_text_size" />
-
-
 
 
             </LinearLayout>

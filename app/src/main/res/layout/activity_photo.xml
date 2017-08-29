@@ -26,18 +26,15 @@
             android:textColor="@color/white" />
 
 
-
         <ImageView
             android:id="@+id/add_pic"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:src="@drawable/shangchuan"
             android:padding="5dp"
-            android:layout_marginLeft="340dp"/>
+            android:layout_marginLeft="340dp" />
 
     </RelativeLayout>
-
-
 
 
     <ScrollView
