@@ -537,7 +537,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
         params.addBodyParameter("sessionid", sessionId);
         File file = new File(images.get(0));
         params.addBodyParameter("avatar", file);
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyavatar", params, new RequestCallBack<String>() {
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/uploadavatar", params, new RequestCallBack<String>() {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 try {
