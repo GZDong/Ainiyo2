@@ -178,7 +178,7 @@
         <activity android:name=".activity.PhoneWallActivity" />
         <activity android:name=".activity.ActivityActivity" />
         <activity android:name=".activity.ActivityDetil" />
-        <activity android:name=".activity.EditInitInfoActivity"></activity>
+        <activity android:name=".activity.EditInitInfoActivity" />
     </application>
 
 </manifest>
