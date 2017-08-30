@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/theme_blue">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/zuojiantou" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="月薪"
+            android:textSize="18sp"
+            android:textColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="保存"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center" />
+
+
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_fragment_clearance_height"
+        android:background="@color/parting_line" />
+    <EditText
+        android:id="@+id/salary_edit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:maxLength="15"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+</LinearLayout>

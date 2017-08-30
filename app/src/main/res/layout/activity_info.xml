@@ -7,7 +7,9 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true">
 
 
 
@@ -307,6 +309,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/me_fragment_clearance_height"
                 android:background="@color/parting_line" />
+            <LinearLayout
+                android:id="@+id/Autograph"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="个性签名"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+
+
+                <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/youjiantou"
+                    android:layout_marginRight="20dp"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+                android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                android:layout_height="1dp"
+                android:background="@color/parting_line" />
 
 
             <LinearLayout
@@ -458,7 +492,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-               
+
                 <ImageView
                     android:layout_width="8dp"
                     android:layout_height="wrap_content"

@@ -1,12 +1,12 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
@@ -25,31 +25,36 @@ import org.json.JSONObject;
 
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
-public class EditBirthActivity extends AppCompatActivity {
-    @ViewInject(R.id.birth_layout)
-    private TextInputLayout birth_layout;
-    @ViewInject(R.id.next)
-    private Button next;
-    @ViewInject(R.id.birth)
-    private EditText birth;
+public class SalaryActivity extends AppCompatActivity {
+    @ViewInject(R.id.salary_edit)
+    private EditText salary_edit;
+    @ViewInject(R.id.back)
+    private ImageView back;
+    @ViewInject(R.id.save)
+    private TextView save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_birth);
+        setContentView(R.layout.activity_salary);
         ViewUtils.inject(this);
-        birth_layout.setHint("生日（比如1995-10-22）");
+        Intent intent = getIntent();
+        String money = intent.getStringExtra("salary");
+        salary_edit.setText(money);
     }
 
 
-    @OnClick({R.id.next})
-    public void onClick(View v){
-        switch (v.getId()){
-            case R.id.next:
+    @OnClick({R.id.back, R.id.save})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back:
+                startActivity(new Intent(SalaryActivity.this, InfoActivity.class));
+                break;
+            case R.id.save:
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("birthday",birth.getText().toString());
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifybirthday", params, new RequestCallBack<String>() {
+                params.addBodyParameter("salary", salary_edit.getText().toString());
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifysalary", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         try {
@@ -58,10 +63,10 @@ public class EditBirthActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
-                                startActivity(new Intent(EditBirthActivity.this,EditSalaryActivity.class));
+                                Toast.makeText(SalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
                             } else {
 
-                                Toast.makeText(EditBirthActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
                             }
 
 
@@ -73,7 +78,7 @@ public class EditBirthActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(HttpException error, String msg) {
 
-                        Toast.makeText(EditBirthActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SalaryActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });

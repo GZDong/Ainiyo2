@@ -154,7 +154,6 @@
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activity.EditInfoActivity" />
         <activity android:name=".activity.PhotoActivity" />
         <activity android:name=".activity.FindingDetailActivity" />
         <activity
@@ -178,14 +177,19 @@
         <activity android:name=".activity.PhoneWallActivity" />
         <activity android:name=".activity.ActivityActivity" />
         <activity android:name=".activity.ActivityDetil" />
-        <activity android:name=".activity.EditInitInfoActivity" />
         <activity android:name=".activity.EditAreaActivity" />
         <activity android:name=".activity.EditBirthActivity" />
         <activity android:name=".activity.EditSalaryActivity" />
         <activity android:name=".activity.EditSexActivity" />
         <activity android:name=".activity.InfoActivity" />
         <activity android:name=".activity.SexActivity" />
-        <activity android:name=".activity.JobActivity"></activity>
+        <activity android:name=".activity.JobActivity" />
+        <activity android:name=".activity.SalaryActivity" />
+        <activity android:name=".activity.BirthActivity" />
+        <activity android:name=".activity.AreaActivity" />
+        <activity android:name=".activity.ParentActivity" />
+        <activity android:name=".activity.MarriageActivity" />
+        <activity android:name=".activity.KidActivity"></activity>
     </application>
 
 </manifest>
