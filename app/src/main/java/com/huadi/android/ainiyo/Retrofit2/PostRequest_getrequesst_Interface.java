@@ -15,5 +15,5 @@ public interface PostRequest_getrequesst_Interface {
 
     @POST("getrequest")
     @FormUrlEncoded
-    Observable<ResultForRqstList> getObservable(@Field("sessionid") String sessionid);
+    Observable<ResultForRqstList> getObservable(@Field("sessionid") String sessionid,@Field("page") String page,@Field("pagesize") String pagesize);
 }

@@ -102,7 +102,7 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 PostRequest_getrequesst_Interface getrequesstInterface = retrofit.create(PostRequest_getrequesst_Interface.class);
-                Observable<ResultForRqstList> observable = getrequesstInterface.getObservable(ecApplication.sessionId);
+                Observable<ResultForRqstList> observable = getrequesstInterface.getObservable(ecApplication.sessionId,"1","10");
                 observable.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<ResultForRqstList>() {
@@ -119,12 +119,12 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                             @Override
                             public void onNext(ResultForRqstList resultForRqstList) {
                                 Log.e("test", "onNext___请求申请表");
-                                if (resultForRqstList.getStatus().equals("0")) {
+                                if (resultForRqstList.getStatus().equals("330")) {
                                     Log.e("test", "onNext___申请表返回成功");
                                     if (resultForRqstList.getResult() != null) {
                                         Log.e("test", "申请表有值");
                                         //这一步应该是必执行的
-                                        rqstId = resultForRqstList.getResult().get(resultForRqstList.getSize()-1).getUserid();
+                                        rqstId = resultForRqstList.getResult().getData().get(0).getUserid();
                                         Log.e("test", "申请者的id是：" + rqstId);
                                         //获得申请人ID后进行同意
                                         Retrofit ret = new Retrofit.Builder()
@@ -198,6 +198,8 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                         Log.e("test", "申请表为空");
                                         rqstId = null;
                                     }
+                                }else{
+                                    Log.e("test","返回的状态码是："+ resultForRqstList.getStatus());
                                 }
                             }
                         });
@@ -213,7 +215,7 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 PostRequest_getrequesst_Interface getreqInterface = retrofit2.create(PostRequest_getrequesst_Interface.class);
-                Observable<ResultForRqstList> obs = getreqInterface.getObservable(application.sessionId);
+                Observable<ResultForRqstList> obs = getreqInterface.getObservable(application.sessionId,"1","10");
                 obs.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<ResultForRqstList>() {
@@ -230,12 +232,12 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                             @Override
                             public void onNext(ResultForRqstList resultForRqstList) {
                                 Log.e("test", "onNext___请求申请表");
-                                if (resultForRqstList.getStatus().equals("0")) {
+                                if (resultForRqstList.getStatus().equals("330")) {
                                     Log.e("test", "onNext___申请表返回成功");
                                     if (resultForRqstList.getResult() != null) {
                                         Log.e("test", "申请表有值");
                                         //这一步应该是必执行的
-                                        rqstId = resultForRqstList.getResult().get(0).getUserid();
+                                        rqstId = resultForRqstList.getResult().getData().get(0).getUserid();
                                         //获得申请人ID后进行同意
                                         Retrofit ret2 = new Retrofit.Builder()
                                                 .baseUrl("http://120.24.168.102:8080/")

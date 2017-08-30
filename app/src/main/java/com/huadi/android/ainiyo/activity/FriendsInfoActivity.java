@@ -54,8 +54,13 @@ public class FriendsInfoActivity extends AppCompatActivity {
     private ListView mListViewForOther;
     private List<String> mList;
     private String from;
+
     private TextView areaText;
     private TextView phoneText;
+    private TextView sexAndageText;
+    private ImageView sexImage;
+
+
     private Button mChangeBtn;
     private CardView mFriCard;
     private Button mSendMsg;

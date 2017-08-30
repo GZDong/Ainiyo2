@@ -2,6 +2,7 @@ package com.huadi.android.ainiyo.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,17 +126,17 @@ public class MovementAdapter extends BaseAdapter {
             Glide.with(parent.getContext()).load(image).into(holder.pic);
 
         }
-
+        father = parent.getContext();
         Log.e("MOVEADA",String.valueOf(mcd.getId())+mcd.getTitle()+String.valueOf(mcd.isJoined()));
         if(mcd.isJoined()){
-            holder.join.setText("已参加");
+            holder.join.setText(father.getResources().getString(R.string.has_joined));
             holder.join.setEnabled(false);
-            holder.join.setBackgroundColor(Color.GRAY);
+            holder.join.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_selected_button));
         }
         else {
-            holder.join.setText("我要参加");
+            holder.join.setText(father.getResources().getString(R.string.to_joined));
             holder.join.setEnabled(true);
-            holder.join.setBackgroundColor(Color.parseColor("#478bf8"));
+            holder.join.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_button));
         }
 
         if(isJoinedMode){
@@ -159,9 +160,9 @@ public class MovementAdapter extends BaseAdapter {
                             public void onSuccess(ResponseInfo<String> responseInfo) {
                                 Log.i("MOVEMENT_ADAPTER", "JOINED");
                                 mList.get(position).setJoined(true);
-                                thisView.setText("已参加");
+                                thisView.setText(father.getResources().getString(R.string.has_joined));
                                 thisView.setEnabled(false);
-                                thisView.setBackgroundColor(Color.GRAY);
+                                thisView.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_selected_button));
                             }
 
                             @Override

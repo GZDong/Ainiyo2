@@ -18,11 +18,19 @@ public class UserInfo extends DataSupport implements Serializable {
     private String picUrl;
     private String Id;
 
+    private String sign;
+    private String sex;
+    private int area;
+    private String phone;
 
     public UserInfo(String username, String password) {
         this.username = username;
         this.password = password;
         this.picture = R.drawable.left_image;
+        this.sign = null;
+        this.sex = null;
+        this.area = 0;
+        this.phone = null;
     }
     public UserInfo(String username, String password,String url,String Id) {
         this.username = username;
@@ -30,6 +38,10 @@ public class UserInfo extends DataSupport implements Serializable {
         this.picture = R.drawable.left_image;
         this.picUrl = url;
         this.Id = Id;
+        this.sign = null;
+        this.sex = null;
+        this.area = 0;
+        this.phone = null;
     }
 
     public int getPicture() {
@@ -70,5 +82,37 @@ public class UserInfo extends DataSupport implements Serializable {
 
     public void setId(String id) {
         Id = id;
+    }
+
+    public void setArea(int area) {
+        this.area = area;
+    }
+
+    public int getArea() {
+        return area;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getSign() {
+        return sign;
     }
 }

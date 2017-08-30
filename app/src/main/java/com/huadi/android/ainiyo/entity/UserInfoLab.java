@@ -128,6 +128,9 @@ public class UserInfoLab {
                             Log.e("test", "onNext____获取用户id：" + resultForUserInfo.getResult().getUserid());
                             mUserInfo.setPicUrl(resultForUserInfo.getResult().getAvatar());
                             mUserInfo.setId(resultForUserInfo.getResult().getUserid());
+                            mUserInfo.setSex(resultForUserInfo.getResult().getGentle());
+                            mUserInfo.setSign(resultForUserInfo.getResult().getAutograph());
+                            mUserInfo.setArea(resultForUserInfo.getResult().getArea());
                             mUserInfo.save();
                             //重新到数据库里读取
                            initUser(name, password);
@@ -189,5 +192,14 @@ public class UserInfoLab {
                         mUserInfo.save();
                     }
                 });
+    }
+
+    public boolean IsCurrentUser(String id){
+        if (mUserInfo!=null){
+            if (mUserInfo.getId().equals(id)){
+                return true;
+            }
+        }
+        return false;
     }
 }
