@@ -43,11 +43,13 @@ public class Friends extends DataSupport {
     private String hobby;
     private String areaName;
 
+    private String lastMsg;
+
 
     public Friends(String user, String name) {
         this.user = user;
         this.name = name;
-        this.picture = R.drawable.gagaki;
+        this.picture = R.drawable.init;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
         this.showInChooseFragment = true;
@@ -62,12 +64,13 @@ public class Friends extends DataSupport {
         this.birthday = null;
         this.hobby = null;
         this.areaName = null;
+        this.lastMsg = null;
     }
 
     public Friends(String user, String name, String picUrl,String friId) {
           this.user = user;
         this.name = name;
-        this.picture = R.drawable.gagaki;
+        this.picture = R.drawable.init;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
         this.showInChooseFragment = true;
@@ -82,6 +85,7 @@ public class Friends extends DataSupport {
         this.birthday = null;
         this.hobby = null;
         this.areaName = null;
+        this.lastMsg = null;
     }
 
     public Friends(String user, String name, int picture, int unread, String time, boolean show) {
@@ -100,6 +104,7 @@ public class Friends extends DataSupport {
         this.birthday = null;
         this.hobby = null;
         this.areaName = null;
+        this.lastMsg = null;
     }
 
     public void setNewTime(String newTime) {
@@ -243,5 +248,13 @@ public class Friends extends DataSupport {
 
     public void setAreaName(String areaName) {
         this.areaName = areaName;
+    }
+
+    public void setLastMsg(String lastMsg) {
+        this.lastMsg = lastMsg;
+    }
+
+    public String getLastMsg() {
+        return lastMsg;
     }
 }

@@ -2,6 +2,7 @@ package com.huadi.android.ainiyo.entity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import com.huadi.android.ainiyo.gson.ResultForFriend;
 import com.huadi.android.ainiyo.gson.ResultForUserInfo;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
 
 import org.litepal.crud.DataSupport;
 
@@ -57,8 +60,8 @@ public class FriendsLab {
     private List<String> usernames;
 
     private Map<String,Date> keepTime;
-
     private Map<String,Integer> keepUnread;
+    private Map<String,String> keepLastMsg;
 
     private int isRequsetNewInfo = 1;
 
@@ -147,13 +150,18 @@ public class FriendsLab {
                                             for (Friends friends : mmFriendses) {
                                                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
                                                 int unread;
+                                                String lastMsg;
                                                 if (conversation == null) {
                                                     unread = 0;
+                                                    lastMsg = " ";
                                                 } else {
                                                     unread = conversation.getUnreadMsgCount();
+                                                    EMMessage mMessages = conversation.getLastMessage();
+                                                    EMTextMessageBody body = (EMTextMessageBody) mMessages.getBody();
+                                                    lastMsg = body.getMessage();
                                                 }
                                                 friends.setUnreadMeg(unread);
-
+                                                friends.setLastMsg(lastMsg);
                                             }
 
                                             Log.e("test", "执行把数据放进数据库里");
@@ -170,6 +178,12 @@ public class FriendsLab {
                                                     Integer unread = keepUnread.get(friends.getFriId());
                                                     if (unread!=null){
                                                         friends.setUnreadMeg(unread);
+                                                    }
+                                                }
+                                                if (keepLastMsg!=null){
+                                                    String lastMsg = keepLastMsg.get(friends.getFriId());
+                                                    if (lastMsg!=null){
+                                                        friends.setLastMsg(lastMsg);
                                                     }
                                                 }
                                                 friends.save();
@@ -285,6 +299,7 @@ public class FriendsLab {
         mContext = null;
         keepTime = null;
         keepUnread = null;
+        keepLastMsg = null;
     }
 
     //更新最新显示消息和未读数
@@ -402,10 +417,12 @@ public class FriendsLab {
     public void reRequsetFriList(){
         keepTime = new HashMap<>();
         keepUnread = new HashMap<>();
+        keepLastMsg = new HashMap<>();
         DataSupport.deleteAll(Friends.class,"user = ?",mUserInfo.getUsername());
         for (Friends friends : mFriendses){
             keepTime.put(friends.getFriId(),friends.getDate());
             keepUnread.put(friends.getFriId(),friends.getUnreadMeg());
+            keepLastMsg.put(friends.getFriId(),friends.getLastMsg());
         }
         mFriendses = null;
         initFriends();
@@ -474,6 +491,17 @@ public class FriendsLab {
                                     }
                                 }
                             });
+                }
+            }
+        }
+    }
+
+    public void setLastMsg(String lastmsg,String name){
+        for (Friends friends: mFriendses){
+            if (friends!=null){
+                if (friends.getName().equals(name)){
+                    friends.setLastMsg(lastmsg);
+                    friends.save();
                 }
             }
         }

@@ -29,6 +29,7 @@ import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.frag.FlagFragment;
 import com.huadi.android.ainiyo.gson.ResultForUserInfo;
 import com.huadi.android.ainiyo.util.DateUtil;
+import com.huadi.android.ainiyo.util.ImgScaleUtil;
 import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -76,6 +77,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
         fi = (FindingInfo) t.getSerializableExtra("findinginfo");
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbarLayout.setTitle(fi.getName());
+        mCollapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.gray));
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
 
         initView();
@@ -171,7 +173,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
                             }
                             sexAndageText.setText(sex + " " + age);
 
-                            if (resultForUserInfo.getResult().getAvatar()!= null){
+                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getAvatar())){
                                 Glide.with(FindingUserInfoActivity.this).load(resultForUserInfo.getResult().getAvatar()).into(personImage);
                             }else {
                                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.girl4);

@@ -8,6 +8,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -96,7 +97,12 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
 
         setSupportActionBar(mToolbar);
 
-        reasonText.setText(name + ":" + reason);
+        if (!TextUtils.isEmpty(reason)){
+            reasonText.setText(name + ":" + reason);
+        }else {
+            reasonText.setText(name);
+        }
+
 
         acceptBtn.setOnClickListener(this);
         refuseBtn.setOnClickListener(this);

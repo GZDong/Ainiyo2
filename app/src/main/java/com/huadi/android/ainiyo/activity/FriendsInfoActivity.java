@@ -259,6 +259,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
 
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbarLayout.setTitle(name);
+        mCollapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.gray));
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
 
         mList = new ArrayList<>();
