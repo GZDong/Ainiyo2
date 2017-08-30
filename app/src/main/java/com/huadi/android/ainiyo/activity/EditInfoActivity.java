@@ -416,9 +416,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 }
 
 
-
-
-
                 //保存个人信息//
                 RequestParams params = new RequestParams();
                 params.addHeader("sessionid", sessionId);
@@ -449,8 +446,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 }
 
 
-
-
                 if (edit_emotion.getText().toString().trim().length() > 0) {
                     params.addBodyParameter("emotion", edit_emotion.getText().toString());
                 }
@@ -460,10 +455,6 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 if (edit_requir.toString().trim().length() > 0) {
                     params.addBodyParameter("requir", edit_requir.getText().toString());
                 }
-
-
-
-
 
 
                 HttpUtils http = new HttpUtils();
@@ -526,10 +517,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
         compressImages.add(imageOutPath.getOutPath());
         //修改头像
 
-            progress.setVisibility(View.VISIBLE);
-            modifyImage(compressImages);
-
-
+        progress.setVisibility(View.VISIBLE);
+        modifyImage(compressImages);
 
 
     }
@@ -547,11 +536,11 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 @Override
                 public void onSuccess(ResponseInfo<String> responseInfo) {
                     try {
-                     JSONObject object = new JSONObject(responseInfo.result.toString());
+                        JSONObject object = new JSONObject(responseInfo.result.toString());
                         int status = object.getInt("Status");
                         String result = object.getString("Result");
                         String msg = object.getString("Msg");
-                        if (status==5101) {
+                        if (status == 5101) {
                             progress.setVisibility(View.GONE);
                             Glide.with(EditInfoActivity.this).load(compressImages.get(0)).into(edit_avatar);//加载选择的图片在头像上
                             Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();

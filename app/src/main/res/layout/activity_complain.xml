@@ -1,9 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/parting_line"
     tools:context="com.huadi.android.ainiyo.activity.ComplainActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/version_complain_topbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/theme_blue">
+
+        <ImageView
+            android:id="@+id/version_complain_back"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/zuojiantou" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="投诉"
+            android:textSize="18sp"
+            android:textColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/version_complain_publish"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="发表"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_below="@+id/version_complain_topbar"
+        android:id="@+id/tv_version_complain_tucao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:padding="10dp"
+        android:text="如有不满请尽情吐槽："
+        android:textSize="18dp"
+        android:background="@color/white" />
+
+    <EditText
+        android:id="@+id/et_version_complain"
+        android:layout_below="@+id/tv_version_complain_tucao"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
+        android:gravity="top"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:maxLength="50"
+        android:hint=""
+        android:background="@color/white"
+        android:textColorHint="#726e6e" />
+
+    <TextView
+        android:id="@+id/emotion_experience_text_num"
+        android:layout_below="@+id/et_version_complain"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-20dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50"
+        android:textSize="16sp" />
+
+</RelativeLayout>

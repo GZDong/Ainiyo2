@@ -187,8 +187,12 @@
         <activity android:name=".activity.EditSexActivity" />
         <activity android:name=".activity.InfoActivity" />
         <activity android:name=".activity.SexActivity" />
-        <activity android:name=".activity.JobActivity"></activity>
-        <activity android:name=".activity.VersionCheckingActivity"></activity>
+        <activity android:name=".activity.JobActivity" />
+        <activity android:name=".activity.VersionCheckingActivity" />
+        <activity android:name=".activity.ComplainActivity" />
+        <activity android:name=".activity.EditEmoExprienceActivity" />
+        <activity android:name=".activity.EditHobbyActivity" />
+        <activity android:name=".activity.EditMateSignActivity"></activity>
     </application>
 
 </manifest>

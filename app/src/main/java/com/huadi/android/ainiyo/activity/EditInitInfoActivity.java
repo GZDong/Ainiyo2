@@ -142,13 +142,13 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
     private String Emotion;
     private String Hobby;
     private String Requir;
-    private String Avatar="";
+    private String Avatar = "";
     private int Userid;
 
 
     private List<String> image=new ArrayList<>();//从选择器得到的头像//
     private List<String> compressImages=new ArrayList<>();
-    private String avatar_done="";//上传完成的头像//
+    private String avatar_done = "";//上传完成的头像//
 
     private Animation move_to_left, move_to_right;
 
@@ -379,7 +379,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
 
 
     //事件监听//
-    @OnClick({ R.id.save, R.id.edit_avatar})
+    @OnClick({R.id.save, R.id.edit_avatar})
     public void onClick(View v) {
         switch (v.getId()) {
 
@@ -403,7 +403,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
 
 
                 //如果用户是第一次上传图片，则上传头像,如果用户不是第一次上传头像，则修改头像
-                if (Avatar.equals("") ){
+                if (Avatar.equals("")) {
                     progress.setVisibility(View.VISIBLE);
                     sendImage(compressImages); //上传头像
                 } else {
@@ -456,7 +456,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
                 if (!avatar_done.equals("")) {
                     params.addBodyParameter("avatar", avatar_done);
                 }
-                if((avatar_done.equals(""))&&(!Avatar.equals(""))){
+                if ((avatar_done.equals("")) && (!Avatar.equals(""))) {
                     params.addBodyParameter("avatar", Avatar);
                 }
                 HttpUtils http = new HttpUtils();

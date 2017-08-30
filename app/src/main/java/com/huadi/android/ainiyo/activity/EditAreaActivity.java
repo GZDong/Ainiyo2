@@ -59,6 +59,7 @@ public class EditAreaActivity extends AppCompatActivity {
     private int provinceId = 0;//
     private int cityId = 0;//地址ID
     private int countyId;//
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,19 +132,16 @@ public class EditAreaActivity extends AppCompatActivity {
     }
 
 
-
     @OnClick({R.id.next})
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.next:
-                startActivity(new Intent(EditAreaActivity.this,EditBirthActivity.class));
+                startActivity(new Intent(EditAreaActivity.this, EditBirthActivity.class));
                 //如果点击继续，则保存信息
 
                 finish();
         }
     }
-
-
 
 
     //获得省数组//

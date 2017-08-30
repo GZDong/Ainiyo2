@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -10,13 +11,14 @@
         android:textSize="24sp"
         android:textColor="@color/black"
         android:layout_marginTop="100dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:id="@+id/birth_layout"
-        >
+        android:id="@+id/birth_layout">
+
         <EditText
             android:id="@+id/birth"
             android:layout_width="match_parent"
@@ -30,6 +32,7 @@
 
             />
     </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/next"
         android:layout_width="match_parent"
@@ -40,6 +43,6 @@
         android:layout_marginRight="60dp"
         android:layout_marginTop="80dp"
         android:textSize="18sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
 </LinearLayout>

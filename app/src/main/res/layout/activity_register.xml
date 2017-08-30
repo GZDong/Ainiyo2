@@ -41,11 +41,8 @@
             android:layout_marginRight="30dp"
             android:maxLength="15"
             android:hint="用户名"
-            android:textColorHint="#585454"
-            />
+            android:textColorHint="#585454" />
     </android.support.design.widget.TextInputLayout>
-
-
 
 
     <android.support.design.widget.TextInputLayout

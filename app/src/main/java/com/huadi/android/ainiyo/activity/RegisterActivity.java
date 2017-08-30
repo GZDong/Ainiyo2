@@ -184,10 +184,10 @@ public class RegisterActivity extends AppCompatActivity {
                                                         SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
                                                         editor.putString("username",register_name.getText().toString());
                                                         editor.putString("password",register_pwd1.getText().toString());
-                                                        editor.putBoolean("islogin",true);
+                                                        editor.putBoolean("islogin", true);
                                                         editor.apply();
 
-                                                        startActivity(new Intent(RegisterActivity.this,EditAreaActivity.class));
+                                                        startActivity(new Intent(RegisterActivity.this, EditAreaActivity.class));
                                                         finish();
                                                     }
                                                     Toast.makeText(RegisterActivity.this,msg,Toast.LENGTH_SHORT).show();

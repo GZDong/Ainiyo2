@@ -143,7 +143,7 @@ public class MeFragment extends Fragment{
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
-               startActivityForResult(new Intent(getActivity(),InfoActivity.class),1);
+               startActivityForResult(new Intent(getActivity(), InfoActivity.class), 1);
                break;
            case R.id.activity:
                startActivity(new Intent(getActivity(), ActivityActivity.class));

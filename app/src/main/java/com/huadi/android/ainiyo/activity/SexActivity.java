@@ -40,8 +40,6 @@ public class SexActivity extends AppCompatActivity {
     private LinearLayout female;
 
 
-
-
     private int Gentle;
 
     @Override
@@ -59,7 +57,7 @@ public class SexActivity extends AppCompatActivity {
                 try {
                     JSONObject object = new JSONObject(info);
                     String msg = object.getString("Msg");
-                    if(msg.equals("success")) {
+                    if (msg.equals("success")) {
                         Gson gson = new Gson();
                         UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
                         Gentle = userData.getGentle();
@@ -67,30 +65,30 @@ public class SexActivity extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
+                    e.printStackTrace();
+                }
+            }
 
-                                @Override
-                                public void onFailure(HttpException error, String msg) {
-                                    Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onFailure(HttpException error, String msg) {
+                Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
-                                }
-                            });
-        if(Gentle==1){
+            }
+        });
+        if (Gentle == 1) {
             //男右边的勾出来
             male_select.setVisibility(View.VISIBLE);
         }
-        if(Gentle==2){
+        if (Gentle == 2) {
             //女右边的勾出来
             female_select.setVisibility(View.VISIBLE);
         }
     }
 
 
-    @OnClick({R.id.male,R.id.female})
-    public void onClick(View v){
-        switch (v.getId()){
+    @OnClick({R.id.male, R.id.female})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.male:
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
@@ -161,8 +159,6 @@ public class SexActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
 
 
 }

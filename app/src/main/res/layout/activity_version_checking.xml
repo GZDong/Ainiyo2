@@ -6,6 +6,30 @@
     android:orientation="vertical"
     android:background="@color/parting_line">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@color/theme_blue">
+
+        <ImageView
+            android:id="@+id/version_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/txt_topbar_finding_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="30dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="关于"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/iv_ic_verison"
@@ -21,7 +45,9 @@
         android:layout_height="wrap_content"
         android:text="爱你哟  Ainiyo  1.0.0"
         android:gravity="center"
-        android:textColor="#4f4848" />
+        android:textColor="#4f4848"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp" />
 
     <LinearLayout
         android:id="@+id/ll_version_info"
@@ -34,6 +60,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/version_about"
             android:layout_height="@dimen/me_fragment_height">
 
 
@@ -42,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
-                android:text="去评分"
+                android:text="关于"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/version_activity_text_size" />
 
@@ -63,6 +90,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/version_complain"
             android:layout_height="@dimen/me_fragment_height">
 
 
@@ -92,6 +120,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/version_checking"
             android:layout_height="@dimen/me_fragment_height">
 
 

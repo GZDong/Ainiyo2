@@ -31,10 +31,10 @@ public class EditBirthActivity extends AppCompatActivity {
 
 
     @OnClick({R.id.next})
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.next:
-                startActivity(new Intent(EditBirthActivity.this,EditSalaryActivity.class));
+                startActivity(new Intent(EditBirthActivity.this, EditSalaryActivity.class));
                 //如果点击继续，则保存信息
                 finish();
         }

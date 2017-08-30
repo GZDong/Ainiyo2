@@ -252,22 +252,19 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="30dp"
-                />
+                android:layout_marginLeft="30dp" />
 
             <Spinner
                 android:id="@+id/citySpinner"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
+                android:layout_gravity="center" />
 
             <Spinner
                 android:id="@+id/countySpinner"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
+                android:layout_gravity="center" />
 
         </LinearLayout>
 
