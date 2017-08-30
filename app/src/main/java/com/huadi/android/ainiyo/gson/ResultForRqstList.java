@@ -9,15 +9,28 @@ import java.util.List;
 public class ResultForRqstList {
     private String Status;
     private String Msg;
-    private List<Resultitem> Result;
+    private Result_class Result;
     private String Sessionid;
 
-    public class Resultitem {
+    public class Result_class{
+        private String Page;
+        private String Pagesize;
+        private String Pagecount;
+        private String Sum;
+        private List<Dataitem> Data;
+
+        public List<Dataitem> getData() {
+            return Data;
+        }
+    }
+
+    public class Dataitem {
         public String Id;
         public String Userid;
         public String Requestedid;
         public String Attach;
         public String Agree;
+        public String Date;
 
         public String getUserid() {
             return Userid;
@@ -28,11 +41,13 @@ public class ResultForRqstList {
         return Status;
     }
 
-    public List<Resultitem> getResult() {
+    public Result_class getResult() {
         return Result;
     }
 
+
+
     public int getSize(){
-        return Result.size();
+        return Result.getData().size();
     }
 }
