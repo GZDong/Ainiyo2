@@ -3,6 +3,8 @@ package com.huadi.android.ainiyo.activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,11 +43,17 @@ import rx.schedulers.Schedulers;
 
 public class ChooseYoNActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView idText;
+
     private TextView reasonText;
     private Button acceptBtn;
     private Button refuseBtn;
     private Toolbar mToolbar;
+
+    private CollapsingToolbarLayout mCoordinatorLayout;
+    private ImageView mPersonImg;
+    private TextView mSexAndAge;
+    private ImageView mSexImage;
+    private TextView mAreaText;
 
     private String name;
     private String reason;
@@ -71,15 +80,23 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
 
         Log.e("name","用户："+ name+" 请求添加你为好友，理由是：" + reason);
 
-        idText = (TextView) findViewById(R.id.person_id_text);
+
         reasonText = (TextView) findViewById(R.id.reason);
         acceptBtn = (Button) findViewById(R.id.accept_btn);
         refuseBtn = (Button) findViewById(R.id.refuse_btn);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_choose);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        mPersonImg = (ImageView) findViewById(R.id.person_image);
+        mSexAndAge = (TextView) findViewById(R.id.sex_and_age);
+        mSexImage = (ImageView) findViewById(R.id.sex_image);
+        mAreaText = (TextView) findViewById(R.id.area_text);
+
+        mCoordinatorLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mCoordinatorLayout.setTitle(name);
 
         setSupportActionBar(mToolbar);
-        idText.setText(name);
-        reasonText.setText(reason);
+
+        reasonText.setText(name + ":" + reason);
 
         acceptBtn.setOnClickListener(this);
         refuseBtn.setOnClickListener(this);

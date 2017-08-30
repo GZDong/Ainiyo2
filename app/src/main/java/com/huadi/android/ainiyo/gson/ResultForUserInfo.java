@@ -29,6 +29,12 @@ public class ResultForUserInfo {
         private String Requir;
         private String Avatar;
         private String Userid;
+        private String Phone;
+        private String AreaName;
+
+        public String getPhone() {
+            return Phone;
+        }
 
         public String getAvatar() {
             return Avatar;
@@ -52,6 +58,19 @@ public class ResultForUserInfo {
         public String getAutograph() {
             return Autograph;
         }
+
+        public String getBirthday() {
+            return Birthday;
+        }
+
+        public String getAreaName() {
+            return AreaName;
+        }
+
+        public String getHobby() {
+            return Hobby;
+        }
+
     }
 
     public String getStatus() {

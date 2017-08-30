@@ -16,4 +16,11 @@ public class DateUtil {
         String dateString = format.format(currentTime);
         return dateString;
     }
+
+    public static String getYear(){
+        Date currentTime = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy");
+        String dateString = format.format(currentTime);
+        return dateString;
+    }
 }

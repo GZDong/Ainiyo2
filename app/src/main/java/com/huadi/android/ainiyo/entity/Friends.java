@@ -35,6 +35,14 @@ public class Friends extends DataSupport {
 
     private Date mDate;
 
+    private String sign;
+    private String sex;
+    private int area;
+    private String phone;
+    private String birthday;
+    private String hobby;
+    private String areaName;
+
 
     public Friends(String user, String name) {
         this.user = user;
@@ -46,6 +54,14 @@ public class Friends extends DataSupport {
         this.picUrl = null;
         this.friId = null;
         this.mDate = new Date();
+
+        this.sign = null;
+        this.sex = null;
+        this.area = 0;
+        this.phone = null;
+        this.birthday = null;
+        this.hobby = null;
+        this.areaName = null;
     }
 
     public Friends(String user, String name, String picUrl,String friId) {
@@ -58,6 +74,14 @@ public class Friends extends DataSupport {
         this.picUrl = picUrl;
         this.friId = friId;
         this.mDate = new Date();
+
+        this.sign = null;
+        this.sex = null;
+        this.area = 0;
+        this.phone = null;
+        this.birthday = null;
+        this.hobby = null;
+        this.areaName = null;
     }
 
     public Friends(String user, String name, int picture, int unread, String time, boolean show) {
@@ -68,6 +92,14 @@ public class Friends extends DataSupport {
         this.newTime = time;
         this.showInChooseFragment = show;
         this.mDate = new Date();
+
+        this.sign = null;
+        this.sex = null;
+        this.area = 0;
+        this.phone = null;
+        this.birthday = null;
+        this.hobby = null;
+        this.areaName = null;
     }
 
     public void setNewTime(String newTime) {
@@ -155,5 +187,61 @@ public class Friends extends DataSupport {
 
     public Date getDate() {
         return mDate;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setArea(int area) {
+        this.area = area;
+    }
+
+    public int getArea() {
+        return area;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 }

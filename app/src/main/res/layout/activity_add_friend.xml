@@ -40,6 +40,7 @@
         android:layout_height="wrap_content"
         android:text="@string/search_fri"
         android:visibility="gone"
+        android:textColor="#ffffff"
         android:background="@color/theme_blue"
         />
 </LinearLayout>

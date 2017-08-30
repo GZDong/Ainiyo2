@@ -22,6 +22,8 @@ public class UserInfo extends DataSupport implements Serializable {
     private String sex;
     private int area;
     private String phone;
+    private String birthday;
+    private String areaName;
 
     public UserInfo(String username, String password) {
         this.username = username;
@@ -31,6 +33,8 @@ public class UserInfo extends DataSupport implements Serializable {
         this.sex = null;
         this.area = 0;
         this.phone = null;
+        this.birthday = null;
+        this.areaName = null;
     }
     public UserInfo(String username, String password,String url,String Id) {
         this.username = username;
@@ -42,6 +46,8 @@ public class UserInfo extends DataSupport implements Serializable {
         this.sex = null;
         this.area = 0;
         this.phone = null;
+        this.birthday = null;
+        this.areaName = null;
     }
 
     public int getPicture() {
@@ -114,5 +120,21 @@ public class UserInfo extends DataSupport implements Serializable {
 
     public String getSign() {
         return sign;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
+    }
+
+    public String getAreaName() {
+        return areaName;
     }
 }
