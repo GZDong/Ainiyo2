@@ -16,7 +16,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.FindingInfo;
 import com.huadi.android.ainiyo.frag.FlagFragment;
@@ -28,7 +30,16 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.huadi.android.ainiyo.R.mipmap.girl4;
+
 public class FindingUserInfoActivity extends AppCompatActivity {
+
+    @ViewInject(R.id.iv_finding_userinfo_avatar)
+    ImageView iv_finding_userinfo_avatar;
+    @ViewInject(R.id.tv_finding_userinfo_destribe)
+    TextView tv_finding_userinfo_age;
+    @ViewInject(R.id.tv_finding_userinfo_signField)
+    TextView tv_finding_userinfo_signField;
 
     private ListView mListView;
 
@@ -54,6 +65,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbarLayout.setTitle(fi.getName());
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
+
 
         initView();
     }
@@ -97,7 +109,8 @@ public class FindingUserInfoActivity extends AppCompatActivity {
                 flagFragment.show(fm, "Fri");
             }
         });
-
+        tv_finding_userinfo_age.setText(String.valueOf(fi.getAge()));
+        Glide.with(FindingUserInfoActivity.this).load(fi.getAvatar()).placeholder(girl4).into(iv_finding_userinfo_avatar);
     }
 
     @OnClick(R.id.btn_finding_add_friend)

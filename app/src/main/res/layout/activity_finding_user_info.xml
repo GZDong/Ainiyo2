@@ -61,18 +61,18 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/girl2"
-                    android:background="#00000000" />
+                    android:background="#00000000"
+                    android:src="@drawable/girl2" />
 
                 <TextView
-                    android:id="@+id/tv_finding_userinfo_describe"
+                    android:id="@+id/tv_finding_userinfo_destribe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="女 25"
+                    android:background="#00000000"
                     android:gravity="left"
-                    android:textSize="15sp"
-                    android:background="#00000000" />
+                    android:text="25"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <android.support.v7.widget.CardView
@@ -82,24 +82,26 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="0dp">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
 
                     <TextView
-                        android:text="运气绝不是守株待兔等来的，也不是强求能获得的。"
+                        android:id="@+id/tv_finding_userinfo_signField"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_finding_userinfo_signField"
-                        android:textColor="#696969"
-                        android:textSize="15sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
                         android:padding="5dp"
+                        android:text="运气绝不是守株待兔等来的，也不是强求能获得的。"
                         android:textAlignment="center"
 
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
+                        android:textColor="#696969"
+                        android:textSize="15sp" />
 
                 </RelativeLayout>
 
@@ -118,8 +120,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
-                    android:orientation="vertical"
                     android:divider="?android:attr/dividerHorizontal"
+                    android:orientation="vertical"
                     android:showDividers="middle">
 
                     <LinearLayout
@@ -129,11 +131,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="地区"
-                            android:textSize="16sp"
-                            android:layout_marginLeft="15dp"
                             android:layout_gravity="center"
-                            android:textColor="#000" />
+                            android:layout_marginLeft="15dp"
+                            android:text="地区"
+                            android:textColor="#000"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/area_text"
@@ -153,11 +155,11 @@
                             android:id="@+id/set_flag_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="设置备注和标签"
-                            android:layout_marginLeft="15dp"
                             android:layout_gravity="center"
-                            android:textColor="#000" />
+                            android:layout_marginLeft="15dp"
+                            android:text="设置备注和标签"
+                            android:textColor="#000"
+                            android:textSize="16sp" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -177,8 +179,8 @@
                     android:id="@+id/btn_finding_add_friend"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/theme_blue"
                     android:layout_gravity="bottom"
+                    android:background="@color/theme_blue"
                     android:text="添加好友"
                     android:textColor="#ffffff" />
 
