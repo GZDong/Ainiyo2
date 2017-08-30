@@ -410,4 +410,15 @@ public class FriendsLab {
         mFriendses = null;
         initFriends();
     }
+
+    public boolean findFriById(String id){
+        for (Friends friends: mFriendses){
+            if (friends!=null){
+                if (friends.getFriId().equals(id)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

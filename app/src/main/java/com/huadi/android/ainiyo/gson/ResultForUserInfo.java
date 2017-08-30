@@ -14,7 +14,9 @@ public class ResultForUserInfo {
 
     public class ResultClass{
         private String Id;
+        private String Autograph;
         private boolean Vip;
+        private String Gentle;
         private String Birthday;
         private int Area;
         private String Job;
@@ -38,6 +40,17 @@ public class ResultForUserInfo {
 
         public String getUserid() {
             return Userid;
+        }
+
+        public String getGentle() {
+            return Gentle;
+        }
+
+        public int getArea() {
+            return Area;
+        }
+        public String getAutograph() {
+            return Autograph;
         }
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <litepal>
     <dbname value="UserInfo"></dbname>
-    <version value="10"></version>
+    <version value="11"></version>
 
     <list>
         <mapping class="com.huadi.android.ainiyo.entity.Friends"></mapping>
