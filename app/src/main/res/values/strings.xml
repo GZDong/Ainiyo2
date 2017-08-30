@@ -29,4 +29,7 @@
     <string name="cancel">取消</string>
     <string name="change_userinfo">修改用户信息</string>
     <string name="send_Msg">发起聊天</string>
+
+    <string name="to_joined">参加</string>
+    <string name="has_joined">已参加</string>
 </resources>
