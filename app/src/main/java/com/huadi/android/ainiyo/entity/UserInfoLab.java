@@ -193,4 +193,13 @@ public class UserInfoLab {
                     }
                 });
     }
+
+    public boolean IsCurrentUser(String id){
+        if (mUserInfo!=null){
+            if (mUserInfo.getId().equals(id)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

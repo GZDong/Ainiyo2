@@ -57,6 +57,8 @@ public class FriendsInfoActivity extends AppCompatActivity {
 
     private TextView areaText;
     private TextView phoneText;
+    private TextView sexAndageText;
+    private ImageView sexImage;
 
 
     private Button mChangeBtn;
