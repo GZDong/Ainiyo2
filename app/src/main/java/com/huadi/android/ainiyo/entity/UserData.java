@@ -120,6 +120,25 @@ public class UserData {
     }
 
     private int Id;
+
+    public String getAutograph() {
+        return Autograph;
+    }
+
+    public void setAutograph(String autograph) {
+        Autograph = autograph;
+    }
+
+    public int getGentle() {
+        return Gentle;
+    }
+
+    public void setGentle(int gentle) {
+        Gentle = gentle;
+    }
+
+    private String Autograph;
+    private int Gentle;
     private boolean Vip;
     private String Birthday;
     private int Area;

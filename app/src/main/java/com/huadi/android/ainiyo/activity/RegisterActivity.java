@@ -3,6 +3,7 @@ package com.huadi.android.ainiyo.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,6 +54,16 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView back;
 
 
+    @ViewInject(R.id.namewapper)
+    private TextInputLayout namewapper;
+    @ViewInject(R.id.phonewapper)
+    private TextInputLayout phonewapper;
+    @ViewInject(R.id.passwordwapper)
+    private TextInputLayout passwordwapper;
+    @ViewInject(R.id.againwapper)
+    private TextInputLayout againwapper;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +81,12 @@ public class RegisterActivity extends AppCompatActivity {
             this.getWindow().setStatusBarColor(getResources().getColor(R.color.theme_statusBar_red));
         }
         ViewUtils.inject(this);
+
+        namewapper.setHint("用户名");
+        phonewapper.setHint("手机号");
+        passwordwapper.setHint("密码");
+        againwapper.setHint("确认密码");
+
         register2.getBackground().setAlpha(200);
     }
 
@@ -167,9 +184,10 @@ public class RegisterActivity extends AppCompatActivity {
                                                         SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
                                                         editor.putString("username",register_name.getText().toString());
                                                         editor.putString("password",register_pwd1.getText().toString());
+                                                        editor.putBoolean("islogin",true);
                                                         editor.apply();
 
-                                                        startActivity(new Intent(RegisterActivity.this,EditInitInfoActivity.class));
+                                                        startActivity(new Intent(RegisterActivity.this,EditAreaActivity.class));
                                                         finish();
                                                     }
                                                     Toast.makeText(RegisterActivity.this,msg,Toast.LENGTH_SHORT).show();

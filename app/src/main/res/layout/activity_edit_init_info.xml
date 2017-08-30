@@ -245,23 +245,7 @@
                 android:textSize="17dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp" />
-            <TextView
-                android:id="@+id/address"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:textColor="#131313"/>
-            <TextView
-                android:id="@+id/change"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:text="修改"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/blue"/>
+
 
             <Spinner
                 android:id="@+id/provinceSpinner"
@@ -269,21 +253,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
-                android:visibility="gone"/>
+                />
 
             <Spinner
                 android:id="@+id/citySpinner"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="gone"/>
+                />
 
             <Spinner
                 android:id="@+id/countySpinner"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="gone"/>
+                />
 
         </LinearLayout>
 

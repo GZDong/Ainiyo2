@@ -102,10 +102,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
     private Spinner citySpinner;
     @ViewInject(R.id.countySpinner)
     private Spinner countySpinner;
-    @ViewInject(R.id.change)
-    private TextView change;
-    @ViewInject(R.id.address)
-    private TextView address;
+
 
 
     @ViewInject(R.id.progress)
@@ -145,13 +142,13 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
     private String Emotion;
     private String Hobby;
     private String Requir;
-    private String Avatar;
+    private String Avatar="";
     private int Userid;
 
 
     private List<String> image=new ArrayList<>();//从选择器得到的头像//
     private List<String> compressImages=new ArrayList<>();
-    private String avatar_done;//上传完成的头像//
+    private String avatar_done="";//上传完成的头像//
 
     private Animation move_to_left, move_to_right;
 
@@ -287,7 +284,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
                                                     provincename_get=area.getProvince();
                                                     cityname_get= area.getCountry();
                                                     countyname_get= area.getCounty();
-                                                    address.setText(provincename_get+cityname_get+countyname_get);
+
 
                                                 }
 
@@ -382,16 +379,10 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
 
 
     //事件监听//
-    @OnClick({R.id.back, R.id.save, R.id.edit_avatar,R.id.change})
+    @OnClick({ R.id.save, R.id.edit_avatar})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.change:
-                address.setVisibility(View.GONE);
-                change.setVisibility(View.GONE);
-                provinceSpinner.setVisibility(View.VISIBLE);
-                citySpinner.setVisibility(View.VISIBLE);
-                countySpinner.setVisibility(View.VISIBLE);
-                break;
+
             case R.id.edit_avatar:
                 ImageSelectorUtils.openPhoto(EditInitInfoActivity.this, 1, true, 0);
                 break;
@@ -412,7 +403,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
 
 
                 //如果用户是第一次上传图片，则上传头像,如果用户不是第一次上传头像，则修改头像
-                if (Avatar == null) {
+                if (Avatar.equals("") ){
                     progress.setVisibility(View.VISIBLE);
                     sendImage(compressImages); //上传头像
                 } else {
@@ -462,10 +453,10 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
                 }
                 //如果没有修改头像,则头像参数就用原来的//
 
-                if (avatar_done!=null) {
+                if (!avatar_done.equals("")) {
                     params.addBodyParameter("avatar", avatar_done);
                 }
-                if(avatar_done==null&&Avatar!=null){
+                if((avatar_done.equals(""))&&(!Avatar.equals(""))){
                     params.addBodyParameter("avatar", Avatar);
                 }
                 HttpUtils http = new HttpUtils();
@@ -476,6 +467,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
                                 try {
                                     JSONObject object = new JSONObject(info);
                                     String msg = object.getString("Msg");
+                                    progress.setVisibility(View.GONE);
                                     Toast.makeText(EditInitInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(EditInitInfoActivity.this,MainActivity.class));
 
@@ -525,7 +517,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
     @Override
     public void onCompressEnd(LGImgCompressor.CompressResult imageOutPath) {
         compressImages.add(imageOutPath.getOutPath());
-        Glide.with(EditInitInfoActivity.this).load(compressImages).into(edit_avatar);
+        Glide.with(EditInitInfoActivity.this).load(compressImages.get(0)).into(edit_avatar);
 
     }
 
@@ -544,10 +536,10 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
                     String result = object.getString("Result");
                     String msg = object.getString("Msg");
                     if (msg.equals("success")) {
-                        progress.setVisibility(View.GONE);
+
                         avatar_done = result;
                     } else {
-                        progress.setVisibility(View.GONE);
+
                         Toast.makeText(EditInitInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
 
@@ -559,7 +551,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                progress.setVisibility(View.GONE);
+
                 Toast.makeText(EditInitInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
             }
@@ -582,10 +574,10 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
                     String result = object.getString("Result");
                     String msg = object.getString("Msg");
                     if (msg.equals("success")) {
-                        progress.setVisibility(View.GONE);
+
                         avatar_done = result;
                     } else {
-                        progress.setVisibility(View.GONE);
+
                         Toast.makeText(EditInitInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
 
@@ -597,7 +589,7 @@ public class EditInitInfoActivity extends AppCompatActivity implements LGImgComp
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                progress.setVisibility(View.GONE);
+
                 Toast.makeText(EditInitInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
             }
