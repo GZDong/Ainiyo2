@@ -21,6 +21,7 @@ import com.huadi.android.ainiyo.activity.EditInfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.ManagerActivity;
 import com.huadi.android.ainiyo.activity.PhotoActivity;
+import com.huadi.android.ainiyo.activity.VersionCheckingActivity;
 import com.huadi.android.ainiyo.activity.VipHintActivity;
 import com.huadi.android.ainiyo.activity.VipLeverActivity;
 import com.huadi.android.ainiyo.activity.VipResponActivity;
@@ -59,6 +60,8 @@ public class MeFragment extends Fragment{
     private LinearLayout vip_lever;
     @ViewInject(R.id.activity)
     private LinearLayout activity;
+    @ViewInject(R.id.version)
+    private LinearLayout version;
 
 
 
@@ -135,7 +138,7 @@ public class MeFragment extends Fragment{
         return view;
     }
 
-    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever, R.id.manager,R.id.activity})
+    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever, R.id.manager, R.id.activity, R.id.version})
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
@@ -152,6 +155,9 @@ public class MeFragment extends Fragment{
                break;
            case R.id.xiangce:
                startActivity(new Intent(getActivity(),PhotoActivity.class));
+               break;
+           case R.id.version:
+               startActivity(new Intent(getActivity(), VersionCheckingActivity.class));
                break;
            case R.id.vipapply:
                RequestParams params = new RequestParams();

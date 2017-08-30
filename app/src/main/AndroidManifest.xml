@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huadi.android.ainiyo">
+    package="com.huadi.android.ainiyo"
+    android:versionCode="1"
+    android:versionName="1.0">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -179,6 +181,7 @@
         <activity android:name=".activity.ActivityActivity" />
         <activity android:name=".activity.ActivityDetil" />
         <activity android:name=".activity.EditInitInfoActivity" />
+        <activity android:name=".activity.VersionCheckingActivity"></activity>
     </application>
 
 </manifest>
