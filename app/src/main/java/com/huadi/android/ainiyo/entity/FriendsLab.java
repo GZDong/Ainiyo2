@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -51,6 +53,10 @@ public class FriendsLab {
     private List<Friends> mmFriendses;
 
     private List<String> usernames;
+
+    private Map<String,Date> keepTime;
+
+    private Map<String,Integer> keepUnread;
 
     public static FriendsLab get(Context context, UserInfo userInfo) {
         if (sFriendsLab == null){
@@ -148,6 +154,20 @@ public class FriendsLab {
 
                                             Log.e("test", "执行把数据放进数据库里");
                                             for (Friends friends : mmFriendses) {
+
+                                                if (keepTime!=null){
+                                                    Date date = keepTime.get(friends.getFriId());
+                                                    if (date!=null){
+                                                        friends.setDate(date);
+                                                    }
+                                                }
+
+                                                if (keepUnread!=null){
+                                                    Integer unread = keepUnread.get(friends.getFriId());
+                                                    if (unread!=null){
+                                                        friends.setUnreadMeg(unread);
+                                                    }
+                                                }
                                                 friends.save();
                                             }
                                             //如果来自网络的好友列表不为空，重新根据用户初始化聊天列表
@@ -263,6 +283,8 @@ public class FriendsLab {
         mmFriendses = null;
         mUserInfo = null;
         mContext = null;
+        keepTime = null;
+        keepUnread = null;
     }
 
     //更新最新显示消息和未读数
@@ -378,7 +400,13 @@ public class FriendsLab {
     }
 
     public void reRequsetFriList(){
+        keepTime = new HashMap<>();
+        keepUnread = new HashMap<>();
         DataSupport.deleteAll(Friends.class,"user = ?",mUserInfo.getUsername());
+        for (Friends friends : mFriendses){
+            keepTime.put(friends.getFriId(),friends.getDate());
+            keepUnread.put(friends.getFriId(),friends.getUnreadMeg());
+        }
         mFriendses = null;
         initFriends();
     }
