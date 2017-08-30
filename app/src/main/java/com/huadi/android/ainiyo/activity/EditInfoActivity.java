@@ -415,14 +415,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                     return;
                 }
 
-                //如果用户是第一次上传图片，则上传头像,如果用户不是第一次上传头像，则修改头像
-                if (Avatar == null) {
-                    progress.setVisibility(View.VISIBLE);
-                    sendImage(compressImages); //上传头像
-                } else {
-                    progress.setVisibility(View.VISIBLE);
-                    modifyImage(compressImages);
-                }//修改头像
+
+
 
 
                 //保存个人信息//
@@ -455,6 +449,8 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 }
 
 
+
+
                 if (edit_emotion.getText().toString().trim().length() > 0) {
                     params.addBodyParameter("emotion", edit_emotion.getText().toString());
                 }
@@ -464,14 +460,12 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 if (edit_requir.toString().trim().length() > 0) {
                     params.addBodyParameter("requir", edit_requir.getText().toString());
                 }
-                //如果没有修改头像,则头像参数就用原来的//
 
-                if (avatar_done!=null) {
-                    params.addBodyParameter("avatar", avatar_done);
-                }
-                if(avatar_done==null&&Avatar!=null){
-                    params.addBodyParameter("avatar", Avatar);
-                }
+
+
+
+
+
                 HttpUtils http = new HttpUtils();
                 http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/perfectinfor",params, new RequestCallBack<String>() {
                             @Override
@@ -480,6 +474,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                                 try {
                                     JSONObject object = new JSONObject(info);
                                     String msg = object.getString("Msg");
+
                                     Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                                 } catch (JSONException e) {
@@ -491,6 +486,7 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
 
                             @Override
                             public void onFailure(HttpException error, String msg) {
+
                                 Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                             }
@@ -528,47 +524,18 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
     @Override
     public void onCompressEnd(LGImgCompressor.CompressResult imageOutPath) {
         compressImages.add(imageOutPath.getOutPath());
-        Glide.with(EditInfoActivity.this).load(compressImages).into(edit_avatar);//加载选择的图片在头像上
+        //修改头像
+
+            progress.setVisibility(View.VISIBLE);
+            modifyImage(compressImages);
+
+
+
 
     }
 
 
-    public void sendImage(final List<String> images) {
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("sessionid", sessionId);
-        File file = new File(images.get(0));
-        params.addBodyParameter("avatar", file);
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/uploadavatar", params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInfo) {
-                try {
-                    JSONObject object = new JSONObject(responseInfo.result.toString());
-                    int status = object.getInt("Status");
-                    String result = object.getString("Result");
-                    String msg = object.getString("Msg");
-                    if (msg.equals("success")) {
-                        progress.setVisibility(View.GONE);
-                        avatar_done = result;
-                    } else {
-                        progress.setVisibility(View.GONE);
-                        Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
 
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(HttpException error, String msg) {
-                progress.setVisibility(View.GONE);
-                Toast.makeText(EditInfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-    }
 
 
         public void modifyImage(final List<String> images) {
@@ -580,15 +547,17 @@ public class EditInfoActivity extends AppCompatActivity implements LGImgCompress
                 @Override
                 public void onSuccess(ResponseInfo<String> responseInfo) {
                     try {
-                        JSONObject object = new JSONObject(responseInfo.result.toString());
+                     JSONObject object = new JSONObject(responseInfo.result.toString());
                         int status = object.getInt("Status");
                         String result = object.getString("Result");
                         String msg = object.getString("Msg");
-                        if (msg.equals("success")) {
+                        if (status==5101) {
                             progress.setVisibility(View.GONE);
-                            avatar_done = result;
+                            Glide.with(EditInfoActivity.this).load(compressImages.get(0)).into(edit_avatar);//加载选择的图片在头像上
+                            Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                         } else {
                             progress.setVisibility(View.GONE);
+
                             Toast.makeText(EditInfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
 

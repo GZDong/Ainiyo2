@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <gradient android:startColor="#0d76e1" android:endColor="#0d76e1"
+                 />
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <corners android:radius="6dip" />
-    <solid android:color="@color/theme_blue" />
-    <padding
-        android:left="10dp"
-        android:right="10dp"
-        android:top="10dp"
-        android:bottom="10dp" />
+            <corners android:radius="6dp" />
+            <padding android:left="10dp" android:top="10dp"
+                android:right="10dp" android:bottom="10dp" />
+        </shape>
+    </item>
 
-</shape>
+    <item android:state_focused="true">
+        <shape>
+           <gradient android:startColor="#0d76e1" android:endColor="#0d76e1"
+            />
+
+            <corners android:radius="6dp" />
+            <padding android:left="10dp" android:top="10dp"
+                android:right="10dp" android:bottom="10dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape>
+            <gradient android:startColor="@color/theme_blue" android:endColor="@color/theme_blue"
+                android:angle="180" />
+            <corners android:radius="6dip" />
+            <padding android:left="10dp" android:top="10dp"
+                android:right="10dp" android:bottom="10dp" />
+        </shape>
+    </item>
+</selector>

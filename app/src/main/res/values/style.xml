@@ -4,7 +4,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/theme_blue</item>
         <!--<item name="android:buttonStyle">@style/OralButton</item>-->
         <!--<item name="android:windowTranslucentStatus">true</item>-->
     </style>

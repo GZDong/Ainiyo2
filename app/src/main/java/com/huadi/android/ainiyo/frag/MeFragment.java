@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.ActivityActivity;
 import com.huadi.android.ainiyo.activity.EditInfoActivity;
+import com.huadi.android.ainiyo.activity.InfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.ManagerActivity;
 import com.huadi.android.ainiyo.activity.PhotoActivity;
@@ -139,7 +140,7 @@ public class MeFragment extends Fragment{
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
-               startActivityForResult(new Intent(getActivity(), EditInfoActivity.class),1);
+               startActivityForResult(new Intent(getActivity(),InfoActivity.class),1);
                break;
            case R.id.activity:
                startActivity(new Intent(getActivity(), ActivityActivity.class));
