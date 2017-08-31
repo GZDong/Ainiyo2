@@ -310,7 +310,7 @@
                 android:layout_height="@dimen/me_fragment_clearance_height"
                 android:background="@color/parting_line" />
             <LinearLayout
-                android:id="@+id/Autograph"
+                android:id="@+id/note"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 >

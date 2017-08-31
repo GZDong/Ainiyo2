@@ -65,6 +65,8 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     private LinearLayout hobby;
     @ViewInject(R.id.select)
     private LinearLayout select;
+    @ViewInject(R.id.note)
+    private LinearLayout note;
 
 
 
@@ -260,7 +262,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
 
 
 
-    @OnClick({R.id.back,R.id.avatar,R.id.sex,R.id.job,R.id.salary,R.id.birthday,R.id.address,R.id.parent,R.id.marriage,R.id.kid,R.id.emotion,R.id.hobby,R.id.select})
+    @OnClick({R.id.back,R.id.avatar,R.id.sex,R.id.job,R.id.salary,R.id.birthday,R.id.address,R.id.parent,R.id.marriage,R.id.kid,R.id.emotion,R.id.hobby,R.id.select,R.id.note})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
@@ -324,6 +326,11 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                 Intent intent11=new Intent(InfoActivity.this,EditMateSignActivity.class);
                 intent11.putExtra("select",Requir);
                 startActivity(intent11);
+                break;
+            case R.id.note:
+                Intent intent12=new Intent(InfoActivity.this,EditNoteActivity.class);
+                intent12.putExtra("note",Autograph);
+                startActivity(intent12);
                 break;
 
 

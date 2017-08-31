@@ -294,6 +294,7 @@ public class AreaActivity extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(responseInfo.result.toString());
                             int status = object.getInt("Status");
+                            
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
