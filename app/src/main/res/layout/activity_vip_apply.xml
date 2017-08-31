@@ -158,15 +158,14 @@
 
         <Button
             android:id="@+id/finish"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_width="@dimen/button_weight"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="提交"
             android:layout_marginTop="20dp"
-            android:textSize="23sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:textSize="@dimen/button_text_size"
             android:textColor="#FFFF"
-            android:background="@drawable/button" />
+            android:background="@drawable/button_register" />
     </LinearLayout>
 
     <ProgressBar
