@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -109,9 +110,11 @@ public class MovementFragment extends Fragment {
         return view;
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
+        Log.d("MOVE","start");
         movement_list_view.setMode(PullToRefreshBase.Mode.BOTH);
     }
 
@@ -151,28 +154,31 @@ public class MovementFragment extends Fragment {
                     mwd = object.getResult().getData();
                     int sum = object.getResult().getSum();
                     MovementData mwd1;
+                    if(mwd!=null){
+                        for (int i = 0; i <= mwd.length - 1; ++i) {
+                            mwd1 = mwd[i];
 
-                    if (mwd != null)
-                    for (int i = 0; i <= mwd.length - 1; ++i) {
-                        mwd1 = mwd[i];
+                            String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
+                            if(mwd1.getContent()!=null){
+                                Log.e("MOVEMENT",content);
+                            }
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<MovementContentData>() {
+                            }.getType();
 
-                        String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
-                        if(mwd1.getContent()!=null){
-                            Log.e("MOVEMENT",content);
-                        }
-                        Gson gson = new Gson();
-                        Type type = new TypeToken<MovementContentData>() {
-                        }.getType();
+                            if(content.startsWith("{")) {//排除无效字符串
+                                MovementContentData mcd = gson.fromJson(content, type);
+                                mcd.setId(mwd1.getId());//ID同步校正
+                                mcd.setJoined(mwd1.isAttended());
 
-                        if(content.startsWith("{")) {//排除无效字符串
-                            MovementContentData mcd = gson.fromJson(content, type);
-                            mcd.setId(mwd1.getId());//ID同步校正
-                            mcd.setJoined(mwd1.isAttended());
-
-                            if (mcd != null) {
-                                mList.add(mcd);//
+                                if (mcd != null) {
+                                    mList.add(mcd);//
+                                }
                             }
                         }
+                    }
+                    else {
+                        movement_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                     }
 
                     if(direction){//head refresh
@@ -199,6 +205,12 @@ public class MovementFragment extends Fragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        loadDatas(true);
+    }
+
     @OnItemClick({R.id.movement_list_view})
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), MovementDetailActivity.class);
@@ -212,7 +224,8 @@ public class MovementFragment extends Fragment {
         intent.putExtra("isJoined",mcd.isJoined());
 
 
-        startActivity(intent);
+
+        startActivityForResult(intent,0);
     }
 
     @OnClick({R.id.tv_movement_me})

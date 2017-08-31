@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.huadi.android.ainiyo.util.CONST.ATTEND_ACTIVITY;
+import static com.huadi.android.ainiyo.util.CONST.CANCEL_ACTIVITY;
 import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
 
 /**
@@ -130,12 +131,10 @@ public class MovementAdapter extends BaseAdapter {
         Log.e("MOVEADA",String.valueOf(mcd.getId())+mcd.getTitle()+String.valueOf(mcd.isJoined()));
         if(mcd.isJoined()){
             holder.join.setText(father.getResources().getString(R.string.has_joined));
-            holder.join.setEnabled(false);
             holder.join.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_selected_button));
         }
         else {
             holder.join.setText(father.getResources().getString(R.string.to_joined));
-            holder.join.setEnabled(true);
             holder.join.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_button));
         }
 
@@ -154,15 +153,24 @@ public class MovementAdapter extends BaseAdapter {
                         params.addBodyParameter("aid", String.valueOf(mcd.getId()));
 
 
-                        new HttpUtils().send(HttpRequest.HttpMethod.POST, ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
+                        new HttpUtils().send(HttpRequest.HttpMethod.POST,
+                                mcd.isJoined() ? CANCEL_ACTIVITY : ATTEND_ACTIVITY, params, new RequestCallBack<String>() {
 
                             @Override
                             public void onSuccess(ResponseInfo<String> responseInfo) {
-                                Log.i("MOVEMENT_ADAPTER", "JOINED");
-                                mList.get(position).setJoined(true);
-                                thisView.setText(father.getResources().getString(R.string.has_joined));
-                                thisView.setEnabled(false);
-                                thisView.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_selected_button));
+                                mcd.setJoined(!mcd.isJoined());
+                                //mList.get(position).setJoined();
+//                                thisView.setText(father.getResources().getString(R.string.has_joined));
+//                                thisView.setEnabled(false);
+//                                thisView.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_selected_button));
+                                if(mcd.isJoined()){
+                                    thisView.setText(father.getResources().getString(R.string.has_joined));
+                                    thisView.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_selected_button));
+                                }
+                                else {
+                                    thisView.setText(father.getResources().getString(R.string.to_joined));
+                                    thisView.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_button));
+                                }
                             }
 
                             @Override

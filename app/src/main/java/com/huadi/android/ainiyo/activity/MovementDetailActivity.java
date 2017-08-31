@@ -29,6 +29,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 
 
 import static com.huadi.android.ainiyo.util.CONST.ATTEND_ACTIVITY;
+import static com.huadi.android.ainiyo.util.CONST.CANCEL_ACTIVITY;
 
 public class MovementDetailActivity extends AppCompatActivity {
 
@@ -46,6 +47,8 @@ public class MovementDetailActivity extends AppCompatActivity {
     TextView article;
     @ViewInject(R.id.btn_join_now)
     Button joinButton;
+    @ViewInject(R.id.btn_cancel)
+    Button cancelButton;
 
     private ProgressDialog dialog;
 
@@ -73,19 +76,37 @@ public class MovementDetailActivity extends AppCompatActivity {
 
 
         if(extras.getBoolean("isJoined",false)){
-            SetUnJoinable();
+            AfterJoin();
+        }
+        else {
+            AfterCancel();
         }
 
     }
 
     private void SetUnJoinable(){
-        joinButton.setBackgroundColor(Color.GRAY);
-        joinButton.setText("已参加");
+        joinButton.setBackground(getResources().getDrawable(R.drawable.movement_joined_selected_button));
+        joinButton.setText(getResources().getString(R.string.has_joined));
         joinButton.setEnabled(false);
     }
 
+    private void AfterJoin(){
+        SetUnJoinable();
+        cancelButton.setVisibility(View.VISIBLE);
+        cancelButton.setEnabled(true);
+    }
 
-    @OnClick({R.id.movement_detail_back, R.id.btn_join_now, R.id.partyImage})
+    private void AfterCancel(){
+        cancelButton.setVisibility(View.INVISIBLE);
+        cancelButton.setEnabled(false);
+
+        joinButton.setBackground(getResources().getDrawable(R.drawable.movement_joined_button));
+        joinButton.setText("我要参加");
+        joinButton.setEnabled(true);
+    }
+
+
+    @OnClick({R.id.movement_detail_back, R.id.btn_join_now, R.id.partyImage,R.id.btn_cancel})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.movement_detail_back:
@@ -103,7 +124,31 @@ public class MovementDetailActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
-                        Toast.makeText(MovementDetailActivity.this, "参加成功", Toast.LENGTH_SHORT).show();
+                        AfterJoin();
+                        //Toast.makeText(MovementDetailActivity.this, "参加成功", Toast.LENGTH_SHORT).show();
+                        //?
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+
+                    }
+                });
+                break;
+
+            case R.id.btn_cancel:
+
+                RequestParams cparams = new RequestParams();
+                cparams.addBodyParameter("sessionid", ((ECApplication) getApplication()).sessionId);
+                cparams.addBodyParameter("aid", String.valueOf(extras.getInt("id")));
+
+
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, CANCEL_ACTIVITY, cparams, new RequestCallBack<String>() {
+
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        AfterCancel();
+                        //Toast.makeText(MovementDetailActivity.this, "参加成功", Toast.LENGTH_SHORT).show();
                         //?
                     }
 

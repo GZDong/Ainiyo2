@@ -255,6 +255,7 @@ public class ChooseFragment extends Fragment {
         Button UnreadBtn;
         TextView timeText;
         TextView lastMag;
+        String name;
 
         public MyViewHolder(View v){
             super(v);
@@ -269,7 +270,7 @@ public class ChooseFragment extends Fragment {
                 public void onClick(View view) {
 
 
-                    FriendsLab.get(getActivity(), mUserInfo).clearUnread(textView.getText().toString());
+                    FriendsLab.get(getActivity(), mUserInfo).clearUnread(name);
 
                     //****在服务器端置0新信息****
                     EMConversation conversation = EMClient.getInstance().chatManager().getConversation(textView.getText().toString());
@@ -283,11 +284,10 @@ public class ChooseFragment extends Fragment {
                         Intent intent =  new Intent(getActivity(),ChattingActivity.class);
 
 
-                        intent.putExtra("name",textView.getText());
+                        intent.putExtra("name",name);
                         for (Friends friends : frdList){
                             if (friends.getName() == textView.getText()){
                                 transImg = friends.getPicture();
-
                             }
                         }
                         intent.putExtra("userInfo", mUserInfo);
@@ -314,14 +314,16 @@ public class ChooseFragment extends Fragment {
                         }
 
                         fm.beginTransaction().remove(chatFragment).commit();
-                        Fragment fragment = ChattingFragment.newInstance(textView.getText().toString(), transImg, mUserInfo);
+                        Fragment fragment = ChattingFragment.newInstance(name, transImg, mUserInfo);
                         fm.beginTransaction().add(R.id.fragment_container,fragment).commit();
                         //fm.beginTransaction().replace(R.id.fragment_container,fragment);
                     }
                 }
             });
         }
-
+        public void transName(String name){
+            this.name = name;
+        }
     }
 
     //*********适配器********
@@ -344,10 +346,18 @@ public class ChooseFragment extends Fragment {
         public void onBindViewHolder(MyViewHolder holder, int position) {
             Friends friends = mList.get(position);
             String name_fri = friends.getName();
+            String flag = friends.getTagMsg();
             int unreadM = friends.getUnreadMeg();
             int picture = friends.getPicture();
             String newTime = TimeUtil.getTimeFormatText(friends.getDate());
-            holder.textView.setText(name_fri);
+
+            holder.transName(name_fri);
+            if(!TextUtils.isEmpty(flag)){
+                holder.textView.setText(flag);
+            }else {
+                holder.textView.setText(name_fri);
+            }
+
             //holder.mImageView.setImageResource(picture);
             if (!TextUtils.isEmpty(friends.getPicUrl())) {
                 Glide.with(ChooseFragment.this).load(friends.getPicUrl()).into(holder.mImageView);

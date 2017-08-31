@@ -459,8 +459,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 if (!TextUtils.isEmpty(friends.getPicUrl())) {
                     Glide.with(ChattingFragment.this).load(friends.getPicUrl()).into(holder.leftImage);
                 } else {
-                    Bitmap bm = BitmapFactory.decodeResource(getResources(), mImage);
-                    holder.leftImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
+                    Glide.with(getActivity()).load(mImage).into(holder.leftImage);
+                    //holder.leftImage.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(),mImage,100,100));
                 }
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();
                 holder.leftMsg.setText(body.getMessage());
@@ -471,10 +471,10 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 holder.rightLayout.setVisibility(View.VISIBLE);
 
                 Log.e("test", "用户的Url " + UserInfoLab.get(getActivity()).getUserInfo().getPicUrl());
-                if (UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()==null){
-                    Bitmap bm = BitmapFactory.decodeResource(getResources(),userImage);
+                if (TextUtils.isEmpty(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()) ){
+                    Glide.with(getActivity()).load(R.mipmap.ic_default_avater).into(holder.rightImage);
                     //加载图片
-                    holder.rightImage.setImageBitmap(ImgScaleUtil.ScaleBitmap(bm, 100, 100));
+                  //  holder.rightImage.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(),userImage, 100, 100));
                 }else {
                     Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).into(holder.rightImage);
                 }

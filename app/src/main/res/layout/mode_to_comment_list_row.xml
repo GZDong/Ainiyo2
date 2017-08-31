@@ -17,7 +17,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/left_image"
+            android:src="@mipmap/ic_default_avater"
             app:civ_border_width="2dp"
             app:civ_border_color="#FFF" />
         <!--右侧-->

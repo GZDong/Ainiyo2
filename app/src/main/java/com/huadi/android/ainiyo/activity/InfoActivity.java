@@ -12,13 +12,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.AreaData;
 import com.huadi.android.ainiyo.entity.UserData;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.LGImgCompressor;
-import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -133,6 +134,8 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
         ViewUtils.inject(this);
         LGImgCompressor.getInstance(this).withListener(this);
 
+
+
         //获取用户详细信息//
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
@@ -167,7 +170,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                         Userid = userData.getUserid();
                         //在个人信息里获得用户上次写过的详细信息//
                         if (!Avatar.equals("")) {
-                            Glide.with(InfoActivity.this).load(Avatar).into(avatar_imag);
+                            Glide.with(InfoActivity.this).load(Avatar).placeholder(R.mipmap.ic_default_avater).into(avatar_imag);
                         }
                         if (Gentle == 1) {
                             sex_text.setText("男");
@@ -257,8 +260,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                setResult(100, new Intent());
-                ToolKits.putInt(this, "fragment", 4);
+                startActivity(new Intent(InfoActivity.this, MainActivity.class));
                 finish();
                 break;
             case R.id.avatar:
@@ -379,6 +381,9 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                     if (status == 5101) {
                         progress.setVisibility(View.GONE);
                         Glide.with(InfoActivity.this).load(images.get(0)).into(avatar_imag);//加载选择的图片在头像上
+                        //修改数据库头像
+                        UserInfoLab.get(InfoActivity.this).updateUserUrl(images.get(0));
+
                         Toast.makeText(InfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                     } else {
                         progress.setVisibility(View.GONE);

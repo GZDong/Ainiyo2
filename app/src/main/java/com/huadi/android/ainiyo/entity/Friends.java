@@ -44,15 +44,16 @@ public class Friends extends DataSupport {
     private String areaName;
 
     private String lastMsg;
+    private String tagMsg;
 
 
     public Friends(String user, String name) {
         this.user = user;
         this.name = name;
-        this.picture = R.drawable.init;
+        this.picture = R.mipmap.ic_default_avater;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
-        this.showInChooseFragment = true;
+        this.showInChooseFragment = false;
         this.picUrl = null;
         this.friId = null;
         this.mDate = new Date();
@@ -65,15 +66,16 @@ public class Friends extends DataSupport {
         this.hobby = null;
         this.areaName = null;
         this.lastMsg = null;
+        this.tagMsg = null;
     }
 
     public Friends(String user, String name, String picUrl,String friId) {
           this.user = user;
         this.name = name;
-        this.picture = R.drawable.init;
+        this.picture = R.mipmap.ic_default_avater;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
-        this.showInChooseFragment = true;
+        this.showInChooseFragment = false;
         this.picUrl = picUrl;
         this.friId = friId;
         this.mDate = new Date();
@@ -86,6 +88,7 @@ public class Friends extends DataSupport {
         this.hobby = null;
         this.areaName = null;
         this.lastMsg = null;
+        this.tagMsg = null;
     }
 
     public Friends(String user, String name, int picture, int unread, String time, boolean show) {
@@ -105,6 +108,7 @@ public class Friends extends DataSupport {
         this.hobby = null;
         this.areaName = null;
         this.lastMsg = null;
+        this.tagMsg = null;
     }
 
     public void setNewTime(String newTime) {
@@ -256,5 +260,13 @@ public class Friends extends DataSupport {
 
     public String getLastMsg() {
         return lastMsg;
+    }
+
+    public void setTagMsg(String tagMsg) {
+        this.tagMsg = tagMsg;
+    }
+
+    public String getTagMsg() {
+        return tagMsg;
     }
 }

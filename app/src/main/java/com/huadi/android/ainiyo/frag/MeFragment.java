@@ -20,12 +20,14 @@ import com.huadi.android.ainiyo.activity.ActivityActivity;
 import com.huadi.android.ainiyo.activity.InfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.ManagerActivity;
+import com.huadi.android.ainiyo.activity.MovementJoinedActivity;
 import com.huadi.android.ainiyo.activity.PhotoActivity;
 import com.huadi.android.ainiyo.activity.VersionCheckingActivity;
 import com.huadi.android.ainiyo.activity.VipHintActivity;
 import com.huadi.android.ainiyo.activity.VipLeverActivity;
 import com.huadi.android.ainiyo.activity.VipResponActivity;
 import com.huadi.android.ainiyo.entity.UserData;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.SignInUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -60,15 +62,17 @@ public class MeFragment extends Fragment{
     private LinearLayout vip_lever;
     @ViewInject(R.id.activity)
     private LinearLayout activity;
-    @ViewInject(R.id.version)
+    @ViewInject(R.id.about)
     private LinearLayout version;
+    @ViewInject(R.id.avatar_imag)
+    private CircleImageView avatar_imag;
 
 
 
     private TextView te;
     private TextView job_text;
     private TextView vip_text;
-    private CircleImageView avatar_imag;
+
 
 
 
@@ -81,7 +85,7 @@ public class MeFragment extends Fragment{
         SharedPreferences pref = getActivity().getSharedPreferences("data", MODE_PRIVATE);
         String username = pref.getString("name", "");
         te = (TextView) view.findViewById(R.id.name);
-        te.setText(username);//获取用户名//
+        te.setText(username);//获取用户名
 
         loadData();
 
@@ -109,9 +113,8 @@ public class MeFragment extends Fragment{
                                 String image = userData.getAvatar();
                                 job_text = (TextView) getActivity().findViewById(R.id.job_text);
                                 job_text.setText(job);
-                                avatar_imag = (CircleImageView) getActivity().findViewById(R.id.avatar_imag);
                                 if (!image.equals("")) {
-                                    Glide.with(getActivity()).load(image).into(avatar_imag);
+                                    Glide.with(getActivity()).load(image).placeholder(R.mipmap.ic_default_avater).into(avatar_imag);
                                 }
                                 if (vip) {
                                     vip_text = (TextView) getActivity().findViewById(R.id.vip_text);
@@ -153,14 +156,14 @@ public class MeFragment extends Fragment{
 
     }
 
-    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever, R.id.manager, R.id.activity, R.id.version})
+    @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever, R.id.manager, R.id.activity, R.id.about})
    public void OnClick(View v){
        switch (v.getId()){
            case R.id.info:
                startActivityForResult(new Intent(getActivity(), InfoActivity.class), 1);
                break;
            case R.id.activity:
-               startActivity(new Intent(getActivity(), ActivityActivity.class));
+               startActivity(new Intent(getActivity(), MovementJoinedActivity.class));
                break;
            case R.id.manager:
                startActivity(new Intent(getActivity(), ManagerActivity.class));
@@ -171,7 +174,7 @@ public class MeFragment extends Fragment{
            case R.id.xiangce:
                startActivity(new Intent(getActivity(),PhotoActivity.class));
                break;
-           case R.id.version:
+           case R.id.about:
                startActivity(new Intent(getActivity(), VersionCheckingActivity.class));
                break;
            case R.id.vipapply:
