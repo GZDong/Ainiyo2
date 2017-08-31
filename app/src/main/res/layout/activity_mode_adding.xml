@@ -19,12 +19,14 @@
         android:gravity="center_vertical"
         android:background="@color/theme_blue"
         >
-
         <ImageView
             android:id="@+id/mode_adding_back"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:src="@mipmap/back" />
+            android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_height="@dimen/top_title_pic_size"
+            android:src="@drawable/leftarrow" />
+
 
         <View
             android:layout_width="wrap_content"

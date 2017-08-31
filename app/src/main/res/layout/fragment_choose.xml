@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/bar"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="@dimen/titile_bar_height"
         android:gravity="center_vertical"
         android:background="@color/theme_blue"
         >
@@ -21,16 +21,16 @@
             android:gravity="center"
             android:paddingLeft="38dp"
             android:text="聊天"
-            android:textSize="18sp"
-            android:textColor="#fff"/>
+            android:textSize="@dimen/top_title_text_size"
+            android:textColor="@color/white"/>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_friends"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_height="@dimen/top_title_pic_size"
             android:layout_marginRight="8dp"
             android:background="@color/theme_blue"
-            android:src="@drawable/icon_contact_4" />
+            android:src="@drawable/friend_button" />
 
 
     </LinearLayout>

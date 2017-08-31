@@ -23,6 +23,11 @@
 
     <dimen name="version_activity_text_size">18dp</dimen>
 
-    <dimen name="top_title_pic_size">27dp</dimen>
+    <dimen name="top_title_pic_size">25dp</dimen>
     <dimen name="top_title_text_size">18sp</dimen>
+    <dimen name="button_text_size">18sp</dimen>
+    <dimen name="button_weight">260dp</dimen>
+
+    <dimen name="title_bar_avatar_size">30dp</dimen>
+
 </resources>

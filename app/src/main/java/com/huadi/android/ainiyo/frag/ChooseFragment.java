@@ -58,7 +58,7 @@ public class ChooseFragment extends Fragment {
     private  MyAdapter mMyAdapter;
     private BroadcastReceiver mReceiverForNewMsg;
     private BroadcastReceiver mReceiverForRefresh;
-    private ImageButton mPersons;
+    private ImageView mPersons;
     private EMConversation mEMConversation;
     private EMMessage mMessages;
     private UserInfo mUserInfo;
@@ -87,7 +87,7 @@ public class ChooseFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_choose,container,false);
 
-        mPersons = (ImageButton) v.findViewById(R.id.btn_friends);
+        mPersons = (ImageView) v.findViewById(R.id.btn_friends);
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.fri_recycler_view);
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
