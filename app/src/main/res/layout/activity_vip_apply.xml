@@ -5,73 +5,73 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/theme_blue">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/zuojiantou" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="上传照片"
-            android:textSize="18sp"
-            android:textColor="@color/white" />
-
-
-    </RelativeLayout>
-
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="请上传您的身份证照片"
-            android:textSize="20sp"
-            android:layout_marginLeft="20dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="115dp"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/button"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/titile_bar_height"
+            android:background="@color/theme_blue">
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/zhengmian" />
+                android:id="@+id/back"
+                android:layout_width="@dimen/top_title_pic_size"
+                android:layout_height="@dimen/top_title_pic_size"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/leftarrow" />
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="上传照片"
+                android:textSize="18sp"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="上传身份证正面"
-                android:textSize="15sp"
-                android:layout_gravity="center"
-                android:textColor="#d9d2d2"
-                android:layout_marginLeft="5dp" />
+                android:layout_marginTop="15dp"
+                android:text="请上传您的身份证照片"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp" />
 
-            <ImageView
-                android:id="@+id/first"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/tianjia"
-                android:layout_gravity="center"
-                android:layout_marginLeft="50dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="115dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/button"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/zhengmian" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上传身份证正面"
+                    android:textSize="15sp"
+                    android:layout_gravity="center"
+                    android:textColor="#d9d2d2"
+                    android:layout_marginLeft="5dp" />
+
+                <ImageView
+                    android:id="@+id/first"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/uploadbutton"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="50dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -107,7 +107,7 @@
                 android:id="@+id/second"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/tianjia"
+                android:src="@drawable/uploadbutton"
                 android:layout_gravity="center"
                 android:layout_marginLeft="50dp" />
         </LinearLayout>
@@ -145,7 +145,7 @@
                 android:id="@+id/third"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:src="@drawable/tianjia"
+                android:src="@drawable/uploadbutton"
                 android:layout_gravity="center"
                 android:layout_marginLeft="50dp" />
         </LinearLayout>
