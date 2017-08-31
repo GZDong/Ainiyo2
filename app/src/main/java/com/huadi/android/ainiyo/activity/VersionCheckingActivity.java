@@ -68,7 +68,8 @@ public class VersionCheckingActivity extends AppCompatActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.version_checking:
-                Toast.makeText(this, "已经是最新版本", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "已经是最新版本", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, VersionNewApkActivity.class));
                 break;
             case R.id.version_about:
                 break;

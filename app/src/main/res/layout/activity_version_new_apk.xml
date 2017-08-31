@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/version_checking_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/parting_line">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@color/theme_blue">
+
+        <ImageView
+            android:id="@+id/version_back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/txt_topbar_finding_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="30dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="最新版本"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_ic_verison"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/ic_version"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="爱你哟  Ainiyo  1.0.0"
+        android:gravity="center"
+        android:textColor="#4f4848"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_version_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:text="版本说明："
+            android:textColor="@color/text_color" />
+
+        <TextView
+            android:id="@+id/tv_version_describe_text"
+            android:layout_below="@+id/tv_version_describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="12211111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111" />
+
+        <TextView
+            android:id="@+id/tv_version_download"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/movement_joined_button"
+            android:gravity="center"
+            android:text="立即下载"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:layout_alignParentBottom="true" />
+
+
+    </RelativeLayout>
+</LinearLayout>

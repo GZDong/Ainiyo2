@@ -192,7 +192,9 @@
         <activity android:name=".activity.ComplainActivity" />
         <activity android:name=".activity.EditEmoExprienceActivity" />
         <activity android:name=".activity.EditHobbyActivity" />
-        <activity android:name=".activity.EditMateSignActivity"></activity>
+        <activity android:name=".activity.EditMateSignActivity" />
+        <activity android:name=".activity.VersionNewApkActivity" />
+        <activity android:name=".activity.EditNoteActivity"></activity>
     </application>
 
 </manifest>
