@@ -471,8 +471,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 holder.rightLayout.setVisibility(View.VISIBLE);
 
                 Log.e("test", "用户的Url " + UserInfoLab.get(getActivity()).getUserInfo().getPicUrl());
-                if (UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()==null){
-                    Glide.with(getActivity()).load(userImage).into(holder.rightImage);
+                if (TextUtils.isEmpty(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()) ){
+                    Glide.with(getActivity()).load(R.mipmap.ic_default_avater).into(holder.rightImage);
                     //加载图片
                   //  holder.rightImage.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(),userImage, 100, 100));
                 }else {

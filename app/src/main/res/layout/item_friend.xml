@@ -33,7 +33,7 @@
                 android:cropToPadding="true"
                 android:scaleType="centerCrop"
                 android:padding="5dp"
-                android:src="@drawable/examplepicture"
+
                 />
 
                 <Button
@@ -42,7 +42,7 @@
                     android:layout_marginLeft="45dp"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:text="10"
+
                     android:textColor="#fff"
                     android:textSize="8dp" />
             </FrameLayout>
@@ -70,7 +70,7 @@
                         android:layout_toRightOf="@+id/img_friend"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="test"
+
                         android:textSize="18sp"
                         android:textColor="@color/black" />
                     <TextView
@@ -84,7 +84,7 @@
                         android:textSize="12sp"
                         android:ellipsize="marquee"
                         android:maxLines="1"
-                        android:text="15:32:11" />
+                         />
                 </LinearLayout>
 
 

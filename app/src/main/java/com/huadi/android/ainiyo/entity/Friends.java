@@ -53,7 +53,7 @@ public class Friends extends DataSupport {
         this.picture = R.mipmap.ic_default_avater;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
-        this.showInChooseFragment = true;
+        this.showInChooseFragment = false;
         this.picUrl = null;
         this.friId = null;
         this.mDate = new Date();
@@ -75,7 +75,7 @@ public class Friends extends DataSupport {
         this.picture = R.mipmap.ic_default_avater;
         this.unreadMeg = 0;
         this.newTime = DateUtil.getNowDate();
-        this.showInChooseFragment = true;
+        this.showInChooseFragment = false;
         this.picUrl = picUrl;
         this.friId = friId;
         this.mDate = new Date();

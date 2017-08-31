@@ -170,7 +170,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                         Userid = userData.getUserid();
                         //在个人信息里获得用户上次写过的详细信息//
                         if (!Avatar.equals("")) {
-                            Glide.with(InfoActivity.this).load(Avatar).placeholder(R.drawable.init).into(avatar_imag);
+                            Glide.with(InfoActivity.this).load(Avatar).placeholder(R.mipmap.ic_default_avater).into(avatar_imag);
                         }
                         if (Gentle == 1) {
                             sex_text.setText("男");
@@ -381,6 +381,9 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                     if (status == 5101) {
                         progress.setVisibility(View.GONE);
                         Glide.with(InfoActivity.this).load(images.get(0)).into(avatar_imag);//加载选择的图片在头像上
+                        //修改数据库头像
+                        UserInfoLab.get(InfoActivity.this).updateUserUrl(images.get(0));
+
                         Toast.makeText(InfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                     } else {
                         progress.setVisibility(View.GONE);

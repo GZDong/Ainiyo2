@@ -108,7 +108,7 @@ public class MeFragment extends Fragment{
                                 job_text = (TextView) getActivity().findViewById(R.id.job_text);
                                 job_text.setText(job);
                                 if (!image.equals("")) {
-                                    Glide.with(getActivity()).load(image).placeholder(R.drawable.init).into(avatar_imag);
+                                    Glide.with(getActivity()).load(image).placeholder(R.mipmap.ic_default_avater).into(avatar_imag);
                                 }
                                 if (vip) {
                                     vip_text = (TextView) getActivity().findViewById(R.id.vip_text);

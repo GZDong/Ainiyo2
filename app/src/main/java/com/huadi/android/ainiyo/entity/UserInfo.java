@@ -28,7 +28,7 @@ public class UserInfo extends DataSupport implements Serializable {
     public UserInfo(String username, String password) {
         this.username = username;
         this.password = password;
-        this.picture = R.drawable.left_image;
+        this.picture = R.mipmap.ic_default_avater;
         this.sign = null;
         this.sex = null;
         this.area = 0;
@@ -39,7 +39,7 @@ public class UserInfo extends DataSupport implements Serializable {
     public UserInfo(String username, String password,String url,String Id) {
         this.username = username;
         this.password = password;
-        this.picture = R.drawable.left_image;
+        this.picture = R.mipmap.ic_default_avater;
         this.picUrl = url;
         this.Id = Id;
         this.sign = null;
