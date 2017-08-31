@@ -2,19 +2,24 @@ package com.huadi.android.ainiyo.entity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.Retrofit2.GetRequest_friend_Interface;
 import com.huadi.android.ainiyo.Retrofit2.PostRequest_getFriAvatar_Interface;
+import com.huadi.android.ainiyo.Retrofit2.PostRequest_getuserinfo_byName_Interface;
 import com.huadi.android.ainiyo.Retrofit2.PostRequest_removefriend_Interface;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.gson.FriImg;
 import com.huadi.android.ainiyo.gson.FriendGot;
 import com.huadi.android.ainiyo.gson.ResultForDeleteFri;
 import com.huadi.android.ainiyo.gson.ResultForFriend;
+import com.huadi.android.ainiyo.gson.ResultForUserInfo;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMTextMessageBody;
 
 import org.litepal.crud.DataSupport;
 
@@ -55,8 +60,10 @@ public class FriendsLab {
     private List<String> usernames;
 
     private Map<String,Date> keepTime;
-
     private Map<String,Integer> keepUnread;
+    private Map<String,String> keepLastMsg;
+
+    private int isRequsetNewInfo = 1;
 
     public static FriendsLab get(Context context, UserInfo userInfo) {
         if (sFriendsLab == null){
@@ -143,13 +150,18 @@ public class FriendsLab {
                                             for (Friends friends : mmFriendses) {
                                                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(friends.getName());
                                                 int unread;
+                                                String lastMsg;
                                                 if (conversation == null) {
                                                     unread = 0;
+                                                    lastMsg = " ";
                                                 } else {
                                                     unread = conversation.getUnreadMsgCount();
+                                                    EMMessage mMessages = conversation.getLastMessage();
+                                                    EMTextMessageBody body = (EMTextMessageBody) mMessages.getBody();
+                                                    lastMsg = body.getMessage();
                                                 }
                                                 friends.setUnreadMeg(unread);
-
+                                                friends.setLastMsg(lastMsg);
                                             }
 
                                             Log.e("test", "执行把数据放进数据库里");
@@ -168,8 +180,15 @@ public class FriendsLab {
                                                         friends.setUnreadMeg(unread);
                                                     }
                                                 }
+                                                if (keepLastMsg!=null){
+                                                    String lastMsg = keepLastMsg.get(friends.getFriId());
+                                                    if (lastMsg!=null){
+                                                        friends.setLastMsg(lastMsg);
+                                                    }
+                                                }
                                                 friends.save();
                                             }
+
                                             //如果来自网络的好友列表不为空，重新根据用户初始化聊天列表
                                             initFriends();
                                         } else if (mmFriendses.size() == 0) {
@@ -184,11 +203,6 @@ public class FriendsLab {
                         }
 
                     });
-
-
-
-
-
         }
     }
     //这个方法是返回聊天列表的
@@ -285,6 +299,7 @@ public class FriendsLab {
         mContext = null;
         keepTime = null;
         keepUnread = null;
+        keepLastMsg = null;
     }
 
     //更新最新显示消息和未读数
@@ -402,10 +417,12 @@ public class FriendsLab {
     public void reRequsetFriList(){
         keepTime = new HashMap<>();
         keepUnread = new HashMap<>();
+        keepLastMsg = new HashMap<>();
         DataSupport.deleteAll(Friends.class,"user = ?",mUserInfo.getUsername());
         for (Friends friends : mFriendses){
             keepTime.put(friends.getFriId(),friends.getDate());
             keepUnread.put(friends.getFriId(),friends.getUnreadMeg());
+            keepLastMsg.put(friends.getFriId(),friends.getLastMsg());
         }
         mFriendses = null;
         initFriends();
@@ -420,5 +437,73 @@ public class FriendsLab {
             }
         }
         return false;
+    }
+
+    public void RequestNewInfo(){
+        if (isRequsetNewInfo == 1) {
+            for (final Friends friends: mFriendses){
+                if (friends!=null){
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl("http://120.24.168.102:8080/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .build();
+                    PostRequest_getuserinfo_byName_Interface requestGetuserinfoByNameInterface = retrofit.create(PostRequest_getuserinfo_byName_Interface.class);
+                    Observable<ResultForUserInfo> observable = requestGetuserinfoByNameInterface.getObservable(((ECApplication) mContext.getApplicationContext()).sessionId,friends.getName());
+                    observable.subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<ResultForUserInfo>() {
+                                @Override
+                                public void onCompleted() {
+                                    Log.e(TAG, "onCompleted: 请求新消息结束" );
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    Log.e(TAG, "onError: 请求新消息异常" );
+                                }
+
+                                @Override
+                                public void onNext(ResultForUserInfo resultForUserInfo) {
+                                    Log.e(TAG, "onNext: 请求新消息" );
+                                    if (resultForUserInfo.getStatus().equals("0")){
+                                        Log.e(TAG, "请求好友新信息成功：");
+                                        Log.e(TAG, resultForUserInfo.getResult().getAutograph() );
+                                        Log.e(TAG, resultForUserInfo.getResult().getGentle());
+                                       // Log.e(TAG, resultForUserInfo.getResult().getArea());
+                                        Log.e(TAG, resultForUserInfo.getResult().getPhone() );
+                                        Log.e(TAG, resultForUserInfo.getResult().getBirthday() );
+                                        Log.e(TAG, resultForUserInfo.getResult().getHobby() );
+                                        Log.e(TAG, resultForUserInfo.getResult().getAreaName() );
+                                        friends.setSign(resultForUserInfo.getResult().getAutograph());
+                                        friends.setSex(resultForUserInfo.getResult().getGentle());
+                                        friends.setArea(resultForUserInfo.getResult().getArea());
+                                        friends.setPhone(resultForUserInfo.getResult().getPhone());
+                                        friends.setBirthday(resultForUserInfo.getResult().getBirthday());
+                                        friends.setHobby(resultForUserInfo.getResult().getHobby());
+                                        friends.setAreaName(resultForUserInfo.getResult().getAreaName());
+
+                                        friends.save();
+
+                                        isRequsetNewInfo = 0;
+                                    }else {
+                                        Log.e(TAG, "onNext: 用户没有上传信息" );
+                                    }
+                                }
+                            });
+                }
+            }
+        }
+    }
+
+    public void setLastMsg(String lastmsg,String name){
+        for (Friends friends: mFriendses){
+            if (friends!=null){
+                if (friends.getName().equals(name)){
+                    friends.setLastMsg(lastmsg);
+                    friends.save();
+                }
+            }
+        }
     }
 }

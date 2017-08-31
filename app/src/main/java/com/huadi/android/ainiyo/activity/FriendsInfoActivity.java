@@ -33,10 +33,12 @@ import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.frag.FlagFragment;
 import com.huadi.android.ainiyo.frag.HobbyFragment;
 import com.huadi.android.ainiyo.frag.PhoneFragment;
+import com.huadi.android.ainiyo.util.DateUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,6 +61,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
     private TextView phoneText;
     private TextView sexAndageText;
     private ImageView sexImage;
+    private TextView signText;
 
 
     private Button mChangeBtn;
@@ -133,27 +136,130 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mFloatBtn = (FloatingActionButton) findViewById(R.id.send_msg);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mListViewForOther = (ListView) findViewById(R.id.list);
+
         areaText = (TextView) findViewById(R.id.area_text);
         phoneText = (TextView) findViewById(R.id.phone_text);
+        sexAndageText = (TextView) findViewById(R.id.sex_and_age);
+        sexImage = (ImageView) findViewById(R.id.sex_image);
+        signText = (TextView) findViewById(R.id.signField);
+
         mSendMsg = (Button) findViewById(R.id.send_btn);
         if (name.equals(UserInfoLab.get(FriendsInfoActivity.this).getUserInfo().getUsername())){
             mChangeBtn.setVisibility(View.VISIBLE);
             mFriCard.setVisibility(View.GONE);
             mFloatBtn.setVisibility(View.GONE);
             mSendMsg.setVisibility(View.GONE);
-        }
-        phoneText.setText("13322223344");
-        phoneText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getSupportFragmentManager();
-                PhoneFragment fragment = PhoneFragment.newInstance(phoneText.getText().toString());
-                fragment.show(fm, "Phone");
+            if (UserInfoLab.get(this).getUserInfo().getAreaName()!=null) {
+                areaText.setText(String.valueOf(UserInfoLab.get(this).getUserInfo().getAreaName()));
+            }else {
+                areaText.setText("-");
             }
-        });
+            if (!TextUtils.isEmpty( UserInfoLab.get(this).getUserInfo().getSign())){
+                signText.setText(UserInfoLab.get(this).getUserInfo().getSign());
+            } else {
+                signText.setTextColor(getResources().getColor(R.color.little_gray));
+                signText.setText("你还没有设置签名");
+            }
+            String sex = null;
+            String age = null;
+
+            if (UserInfoLab.get(this).getUserInfo().getSex()!=null) {
+                if (UserInfoLab.get(this).getUserInfo().getSex().equals("0")){
+                    sex = "男";
+                    sexImage.setImageResource(R.drawable.boy2);
+                }else if (UserInfoLab.get(this).getUserInfo().getSex().equals("1")){
+                    sex = "男";
+                    sexImage.setImageResource(R.drawable.boy2);
+                }else if (UserInfoLab.get(this).getUserInfo().getSex().equals("2")){
+                    sex = "女";
+                    sexImage.setImageResource(R.drawable.girl2);
+                }
+            }else {
+                sex = "男";
+                sexImage.setImageResource(R.drawable.boy2);
+            }
+
+            if (UserInfoLab.get(this).getUserInfo().getBirthday()!=null){
+                String subStr = UserInfoLab.get(this).getUserInfo().getBirthday().substring(0,4);
+                int diff = Integer.valueOf(DateUtil.getYear())-Integer.valueOf(subStr);
+                age = String.valueOf(diff);
+            }else {
+                age = "-";
+            }
+            sexAndageText.setText(sex + " " + age);
+
+
+            if (UserInfoLab.get(this).getUserInfo().getPhone()!=null) {
+                phoneText.setText(UserInfoLab.get(this).getUserInfo().getPhone());
+            } else {
+                phoneText.setText("-");
+            }
+        }else {
+            if (FriendsLab.get(this).getFriend(name).getAreaName()!= null) {
+                areaText.setText(FriendsLab.get(this).getFriend(name).getAreaName());
+            }else {
+                areaText.setText("-");
+            }
+            if (!TextUtils.isEmpty(FriendsLab.get(this).getFriend(name).getSign())){
+                signText.setText(FriendsLab.get(this).getFriend(name).getSign());
+            } else {
+                signText.setTextColor(getResources().getColor(R.color.little_gray));
+                signText.setText("该好友还没有设置签名");
+            }
+            String sex = null;
+            String age = null;
+
+            if (FriendsLab.get(this).getFriend(name).getSex()!=null) {
+                if (FriendsLab.get(this).getFriend(name).getSex().equals("0")) {
+                    sex = "男";
+                    sexImage.setImageResource(R.drawable.boy2);
+                } else if (FriendsLab.get(this).getFriend(name).getSex().equals("1")) {
+                    sex = "男";
+                    sexImage.setImageResource(R.drawable.boy2);
+                } else if (FriendsLab.get(this).getFriend(name).getSex().equals("2")) {
+                    sex = "女";
+                    sexImage.setImageResource(R.drawable.girl2);
+                }
+            }else {
+                sex = "女";
+                sexImage.setImageResource(R.drawable.girl2);
+            }
+                if (FriendsLab.get(this).getFriend(name).getBirthday()!=null){
+                    String subStr = FriendsLab.get(this).getFriend(name).getBirthday().substring(0,4);
+                    int diff = Integer.valueOf(DateUtil.getYear())-Integer.valueOf(subStr);
+                    age = String.valueOf(diff);
+                }else {
+                    age = "-";
+                }
+
+            sexAndageText.setText(sex + " " + age);
+
+
+            if (FriendsLab.get(this).getFriend(name).getPhone()!=null) {
+                phoneText.setText(FriendsLab.get(this).getFriend(name).getPhone());
+            } else {
+                phoneText.setText("-");
+            }
+        }
+        //**********
+
+        //***************
+
+
+        if (!TextUtils.isEmpty(phoneText.getText())) {
+            phoneText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager fm = getSupportFragmentManager();
+                    PhoneFragment fragment = PhoneFragment.newInstance(phoneText.getText().toString());
+                    fragment.show(fm, "Phone");
+                }
+            });
+        }
 
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbarLayout.setTitle(name);
+        mCollapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.gray));
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
 
         mList = new ArrayList<>();
@@ -193,7 +299,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
                 }
                 if (mList.get(position).equals("兴趣爱好")) {
                     FragmentManager fm = getSupportFragmentManager();
-                    HobbyFragment hobbyFragment = new HobbyFragment();
+                    HobbyFragment hobbyFragment = HobbyFragment.newInstance(name);
                     hobbyFragment.show(fm, "Hob");
                 }
                 if (mList.get(position).equals("生活照")) {

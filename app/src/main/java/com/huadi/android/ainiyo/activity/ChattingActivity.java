@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.frag.ChattingFragment;
 import com.hyphenate.EMCallBack;
@@ -64,6 +65,8 @@ public class ChattingActivity extends AppCompatActivity {
             fragment = ChattingFragment.newInstance(name, picture, mUserInfo);
             fragmentManager.beginTransaction().add(R.id.fragment_container,fragment).commit();
         }
+
+        FriendsLab.get(this).RequestNewInfo();
     }
 
     @Override

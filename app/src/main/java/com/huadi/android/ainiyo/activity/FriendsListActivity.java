@@ -101,6 +101,8 @@ public class FriendsListActivity extends AppCompatActivity{
             actionBar.setTitle(R.string.contact_title);
         }
 
+        FriendsLab.get(this).RequestNewInfo();
+
     }
 
     @Override

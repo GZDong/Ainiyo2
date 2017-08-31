@@ -18,6 +18,7 @@ public class CONST {
     public static final String DELETE_COMMENT = HOST + "/deletemood/comment";
     public static final String FINDING_USER_DESTINY = HOST + "/search/user/destiny";
     public static final String GETING_APHORISM = HOST + "/getaphorism";
+    public static final String GETING_LAST_EDITION = HOST + "/getlastedition";
     public static final String SESSIONID = "";
 
 }

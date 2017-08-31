@@ -40,6 +40,7 @@ import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMMessageBody;
 import com.hyphenate.chat.EMTextMessageBody;
 
 import java.util.Date;
@@ -361,12 +362,17 @@ public class ChooseFragment extends Fragment {
                 holder.UnreadBtn.setVisibility(View.GONE);
             }
             holder.timeText.setText(newTime);
-            mEMConversation = EMClient.getInstance().chatManager().getConversation(name_fri, null, true);
-            if (mEMConversation.getAllMessages().size() > 0) {
-                mMessages = mEMConversation.getLastMessage();
-                EMTextMessageBody body = (EMTextMessageBody) mMessages.getBody();
-                holder.lastMag.setText(body.getMessage());
+            if (TextUtils.isEmpty(friends.getLastMsg())) {
+                mEMConversation = EMClient.getInstance().chatManager().getConversation(name_fri, null, true);
+                if (mEMConversation.getAllMessages().size() > 0) {
+                    mMessages = mEMConversation.getLastMessage();
+                    EMTextMessageBody body = (EMTextMessageBody) mMessages.getBody();
+                    holder.lastMag.setText(body.getMessage());
+                }
+            }else {
+                holder.lastMag.setText(friends.getLastMsg());
             }
+
         }
 
         @Override
@@ -385,7 +391,11 @@ public class ChooseFragment extends Fragment {
 
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.getFrom());
                 int unread = conversation.getUnreadMsgCount();
+                EMMessage message1 = conversation.getLastMessage();
+                EMTextMessageBody body = (EMTextMessageBody)message1.getBody();
+                String lastMsg = body.getMessage();
                 if (conversation != null && unread > 0 ){
+                    FriendsLab.get(getActivity()).setLastMsg(lastMsg,message1.getFrom());
                     Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
                     intent.putExtra("ID",message.getFrom());
                     intent.putExtra("newM",unread);

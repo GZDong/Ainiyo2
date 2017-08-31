@@ -222,6 +222,8 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                     MyAdapter.notifyItemInserted(mMessages.size() - 1);
                     msgRecyclerView.scrollToPosition(mMessages.size() - 1);
 
+                    FriendsLab.get(getActivity()).setLastMsg(lastMsg,mChatId);
+
                     //更新该好友的最新时间
                     Friends friends = FriendsLab.get(getActivity(), mUserInfo).getFriend(mChatId);
 
@@ -326,6 +328,13 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                 // 设置消息为已读
                 mConversation.markMessageAsRead(message.getMsgId());
 
+                EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.getFrom());
+
+                EMMessage message1 = conversation.getLastMessage();
+                EMTextMessageBody body = (EMTextMessageBody)message1.getBody();
+                String lastMsg = body.getMessage();
+                FriendsLab.get(getActivity()).setLastMsg(lastMsg,message1.getFrom());
+
                 // 因为消息监听回调这里是非ui线程，所以要用handler去更新ui
                 Message msg = mHandler.obtainMessage();
                 msg.what = 0;
@@ -334,13 +343,18 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
             } else {
                 // 如果消息不是当前会话的消息就发送广播，使聊天列表更新未读消息数，同时更新时间
                 EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.getFrom());
+
+                EMMessage message1 = conversation.getLastMessage();
+                EMTextMessageBody body = (EMTextMessageBody)message1.getBody();
+                String lastMsg = body.getMessage();
+                FriendsLab.get(getActivity()).setLastMsg(message1.getFrom(),lastMsg);
+
                 unread = conversation.getUnreadMsgCount();
                 id = message.getFrom();
             }
             Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
             intent.putExtra("ID",id);
             intent.putExtra("newM",unread);
-            intent.putExtra("newT", DateUtil.getNowDate());
             getActivity().sendBroadcast(intent);
         }
     }

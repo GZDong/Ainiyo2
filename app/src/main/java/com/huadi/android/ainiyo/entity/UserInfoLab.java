@@ -126,11 +126,21 @@ public class UserInfoLab {
                         public void onNext(ResultForUserInfo resultForUserInfo) {
                             Log.e("test","onNext____获取用户头像URL: " + resultForUserInfo.getResult().getAvatar());
                             Log.e("test", "onNext____获取用户id：" + resultForUserInfo.getResult().getUserid());
+                            Log.e("test", "onNext____获取用户性别：" + resultForUserInfo.getResult().getGentle());
+                            Log.e("test", "onNext____获取用户性别：" + resultForUserInfo.getResult().getBirthday());
+                            Log.e("test", "onNext____获取用户签名：" + resultForUserInfo.getResult().getAutograph());
+                            Log.e("test", "onNext____获取用户地区：" + resultForUserInfo.getResult().getArea());
+                            Log.e("test", "onNext____获取用户电话：" + resultForUserInfo.getResult().getPhone());
+                            Log.e("test", "onNext____获取用户地区名字：" + resultForUserInfo.getResult().getAreaName());
+
                             mUserInfo.setPicUrl(resultForUserInfo.getResult().getAvatar());
                             mUserInfo.setId(resultForUserInfo.getResult().getUserid());
                             mUserInfo.setSex(resultForUserInfo.getResult().getGentle());
+                            mUserInfo.setBirthday(resultForUserInfo.getResult().getBirthday());
                             mUserInfo.setSign(resultForUserInfo.getResult().getAutograph());
                             mUserInfo.setArea(resultForUserInfo.getResult().getArea());
+                            mUserInfo.setPhone(resultForUserInfo.getResult().getPhone());
+                            mUserInfo.setAreaName(resultForUserInfo.getResult().getAreaName());
                             mUserInfo.save();
                             //重新到数据库里读取
                            initUser(name, password);
@@ -187,8 +197,21 @@ public class UserInfoLab {
                     public void onNext(ResultForUserInfo resultForUserInfo) {
                         Log.e("test","onNext____获取用户头像URL: " + resultForUserInfo.getResult().getAvatar());
                         Log.e("test", "onNext____获取用户id：" + resultForUserInfo.getResult().getUserid());
+                        Log.e("test", "onNext____获取用户性别：" + resultForUserInfo.getResult().getGentle());
+                        Log.e("test", "onNext____获取用户性别：" + resultForUserInfo.getResult().getBirthday());
+                        Log.e("test", "onNext____获取用户签名：" + resultForUserInfo.getResult().getAutograph());
+                        Log.e("test", "onNext____获取用户地区：" + resultForUserInfo.getResult().getArea());
+                        Log.e("test", "onNext____获取用户电话：" + resultForUserInfo.getResult().getPhone());
+                        Log.e("test", "onNext____获取用户地区名字：" + resultForUserInfo.getResult().getAreaName());
+
                         mUserInfo.setPicUrl(resultForUserInfo.getResult().getAvatar());
                         mUserInfo.setId(resultForUserInfo.getResult().getUserid());
+                        mUserInfo.setSex(resultForUserInfo.getResult().getGentle());
+                        mUserInfo.setBirthday(resultForUserInfo.getResult().getBirthday());
+                        mUserInfo.setSign(resultForUserInfo.getResult().getAutograph());
+                        mUserInfo.setArea(resultForUserInfo.getResult().getArea());
+                        mUserInfo.setPhone(resultForUserInfo.getResult().getPhone());
+                        mUserInfo.setAreaName(resultForUserInfo.getResult().getAreaName());
                         mUserInfo.save();
                     }
                 });
