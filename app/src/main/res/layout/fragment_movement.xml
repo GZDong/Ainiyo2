@@ -17,6 +17,7 @@
             android:layout_width="@dimen/top_title_pic_size"
             android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
             android:layout_height="match_parent">
+
             <de.hdodenhof.circleimageview.CircleImageView
 
                 android:id="@+id/tv_movement_me"
@@ -26,8 +27,6 @@
                 android:src="@drawable/left_image"
                 app:civ_border_color="#FFF" />
         </LinearLayout>
-
-
 
 
         <TextView

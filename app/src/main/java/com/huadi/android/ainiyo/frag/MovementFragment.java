@@ -93,7 +93,7 @@ public class MovementFragment extends Fragment {
             }
         });
 
-        Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).into(avatar_imag);
+        Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).placeholder(R.mipmap.ic_default_avater).into(avatar_imag);
 
         // 首次自动加载数据
         new Handler(new Handler.Callback() {

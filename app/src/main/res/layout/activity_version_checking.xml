@@ -11,10 +11,12 @@
         android:layout_height="@dimen/titile_bar_height"
         android:gravity="center_vertical"
         android:background="@color/theme_blue">
+
         <LinearLayout
             android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
             android:layout_width="@dimen/top_title_pic_size"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/version_back"
                 android:layout_gravity="center_vertical"

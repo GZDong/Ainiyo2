@@ -97,11 +97,11 @@ public class ModeCommentAdapter extends BaseAdapter {
                 //Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
                 //Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
                 holder.mode_comment_name.setText(UserInfoLab.get(mContext).getUserInfo().getUsername());
-                Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).into(holder.mode_comment_pic_head);
+                Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).placeholder(R.mipmap.ic_default_avater).into(holder.mode_comment_pic_head);
             } else {
                 //Toast.makeText(mContext,"myid: "+String.valueOf(mc.getId())+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
                 holder.mode_comment_name.setText(FriendsLab.get(mContext).findNameById(mc.getUserid()));
-                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mc.getUserid())).into(holder.mode_comment_pic_head);
+                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mc.getUserid())).placeholder(R.mipmap.ic_default_avater).into(holder.mode_comment_pic_head);
             }
         }
 

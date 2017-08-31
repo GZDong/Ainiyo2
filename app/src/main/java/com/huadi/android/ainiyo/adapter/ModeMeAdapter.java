@@ -95,11 +95,11 @@ public class ModeMeAdapter extends BaseAdapter {
                 // Toast.makeText(mContext,"mymood",Toast.LENGTH_SHORT).show();
                 // Log.i("imagehead", UserInfoLab.get(mContext).getUserInfo().getPicUrl());
                 holder.mode_username.setText(UserInfoLab.get(mContext).getUserInfo().getUsername());
-                Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).placeholder(R.drawable.left_image).into(holder.pic_head);
+                Glide.with(mContext).load(UserInfoLab.get(mContext).getUserInfo().getPicUrl()).placeholder(R.mipmap.ic_default_avater).into(holder.pic_head);
             } else {
                 // Toast.makeText(mContext,"myid: "+mode_me_user_id+"  myLabid: "+String.valueOf(UserInfoLab.get(mContext).getUserInfo().getId()),Toast.LENGTH_SHORT).show();
                 holder.mode_username.setText(FriendsLab.get(mContext).findNameById(mode_me_user_id));
-                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mode_me_user_id)).placeholder(R.drawable.left_image).into(holder.pic_head);
+                Glide.with(mContext).load(FriendsLab.get(mContext).findUrlById(mode_me_user_id)).placeholder(R.mipmap.ic_default_avater).into(holder.pic_head);
             }
         }
 

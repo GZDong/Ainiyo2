@@ -93,7 +93,7 @@ public class ModeFragment extends Fragment {
 
         ViewUtils.inject(this, view);
 
-        Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).into(iv_topbar_mode_pic_head);
+        Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).placeholder(R.mipmap.ic_default_avater_dc).into(iv_topbar_mode_pic_head);
 
         // Set a listener to be invoked when the list should be refreshed.
         mode_list_view.setMode(PullToRefreshBase.Mode.BOTH);

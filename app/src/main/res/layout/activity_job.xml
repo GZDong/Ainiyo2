@@ -12,6 +12,7 @@
             android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
             android:layout_width="@dimen/top_title_pic_size"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/back"
                 android:layout_gravity="center_vertical"
@@ -49,10 +50,9 @@
         android:background="@color/parting_line" />
     <EditText
         android:id="@+id/job_edit"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:maxLength="15"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        android:layout_marginRight="20dp" />
 </LinearLayout>

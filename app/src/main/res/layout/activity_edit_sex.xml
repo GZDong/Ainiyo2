@@ -39,14 +39,14 @@
     </RadioGroup>
 
     <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:background="#878686"-->
-        <!--android:layout_marginLeft="40dp"-->
-        <!--android:layout_marginRight="40dp"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:background="#878686"-->
+    <!--android:layout_marginLeft="40dp"-->
+    <!--android:layout_marginRight="40dp"-->
 
 
-        <!--/>-->
+    <!--/>-->
 
     <Button
         android:id="@+id/next"

@@ -22,7 +22,7 @@
             android:paddingLeft="38dp"
             android:text="聊天"
             android:textSize="@dimen/top_title_text_size"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/btn_friends"
