@@ -64,10 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout againwapper;
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -201,8 +197,8 @@ public class RegisterActivity extends AppCompatActivity {
                                             }
 
                                     @Override
-                                            public void onFailure(HttpException error, String msg) {
-                                                Toast.makeText(RegisterActivity.this, "登陆失败，请重试！", Toast.LENGTH_SHORT).show();
+                                    public void onFailure(HttpException error, String msg) {
+                                        Toast.makeText(RegisterActivity.this, "登陆失败，请重试！", Toast.LENGTH_SHORT).show();
                                             }
 
 

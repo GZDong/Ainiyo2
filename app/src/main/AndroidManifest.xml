@@ -179,7 +179,6 @@
         <activity android:name=".activity.PhoneWallActivity" />
         <activity android:name=".activity.ActivityActivity" />
         <activity android:name=".activity.ActivityDetil" />
-        <activity android:name=".activity.EditInitInfoActivity" />
         <activity android:name=".activity.EditAreaActivity" />
         <activity android:name=".activity.EditBirthActivity" />
         <activity android:name=".activity.EditSalaryActivity" />
@@ -193,7 +192,6 @@
         <activity android:name=".activity.ParentActivity" />
         <activity android:name=".activity.MarriageActivity" />
         <activity android:name=".activity.KidActivity"></activity>
-        <activity android:name=".activity.JobActivity" />
         <activity android:name=".activity.VersionCheckingActivity" />
         <activity android:name=".activity.ComplainActivity" />
         <activity android:name=".activity.EditEmoExprienceActivity" />

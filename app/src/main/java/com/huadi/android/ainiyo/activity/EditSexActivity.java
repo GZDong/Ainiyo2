@@ -41,9 +41,6 @@ public class EditSexActivity extends AppCompatActivity {
     private RadioButton female;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +54,7 @@ public class EditSexActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.next:
 
-                if(male.isChecked()){
+                if (male.isChecked()) {
                     RequestParams params = new RequestParams();
                     params.addBodyParameter("sessionid", sessionId);
                     params.addBodyParameter("gentle", "1");
@@ -71,10 +68,8 @@ public class EditSexActivity extends AppCompatActivity {
                                 String msg = object.getString("Msg");
                                 if (msg.equals("success")) {
 
-                                startActivity(new Intent(EditSexActivity.this,MainActivity.class));
+                                    startActivity(new Intent(EditSexActivity.this, MainActivity.class));
                                     finish();
-
-
 
 
                                 } else {
@@ -97,8 +92,7 @@ public class EditSexActivity extends AppCompatActivity {
                     });
                     finish();
                     break;
-                }
-                else {
+                } else {
                     RequestParams params = new RequestParams();
                     params.addBodyParameter("sessionid", sessionId);
                     params.addBodyParameter("gentle", "2");

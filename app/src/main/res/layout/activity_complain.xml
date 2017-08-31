@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="@dimen/top_title_pic_size"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/version_complain_back"
                 android:layout_width="@dimen/top_title_pic_size"

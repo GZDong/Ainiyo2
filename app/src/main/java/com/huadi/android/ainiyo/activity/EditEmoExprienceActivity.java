@@ -3,9 +3,12 @@ package com.huadi.android.ainiyo.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
@@ -28,6 +31,8 @@ public class EditEmoExprienceActivity extends AppCompatActivity {
 
     @ViewInject(R.id.et_emotion_experience)
     EditText et_emotion_experience;
+    @ViewInject(R.id.emotion_experience_text_num)
+    TextView emotion_experience_text_num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,28 @@ public class EditEmoExprienceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_emo_exprience);
 
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        String text=intent.getStringExtra("emotion");
+        Intent intent = getIntent();
+
+        et_emotion_experience.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+
+                String content = et_emotion_experience.getText().toString();
+                emotion_experience_text_num.setText(String.valueOf(50 - content.length()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        String text = intent.getStringExtra("emotion");
         et_emotion_experience.setText(text);
     }
 
@@ -61,10 +86,9 @@ public class EditEmoExprienceActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                                finish();
+                            finish();
 
-                                Toast.makeText(EditEmoExprienceActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(EditEmoExprienceActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
                         } catch (JSONException e) {

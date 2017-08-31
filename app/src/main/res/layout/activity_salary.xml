@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -36,18 +37,18 @@
             android:gravity="center" />
 
 
-
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/me_fragment_clearance_height"
         android:background="@color/parting_line" />
+
     <EditText
         android:id="@+id/salary_edit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:maxLength="15"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        android:layout_marginRight="20dp" />
 </LinearLayout>

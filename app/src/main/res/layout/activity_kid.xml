@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -24,19 +25,19 @@
             android:textColor="@color/white" />
 
 
-
-
-
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/me_fragment_clearance_height"
         android:background="@color/parting_line" />
+
     <LinearLayout
         android:id="@+id/yes"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white" >
+        android:background="@color/white">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,11 +45,13 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <ImageView
             android:id="@+id/yes_select"
             android:layout_width="20dp"
@@ -56,40 +59,9 @@
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:src="@drawable/select"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
-        android:layout_marginRight="@dimen/me_fragment_clearance_weight"
-        android:background="@color/parting_line" />
-    <LinearLayout
-        android:id="@+id/no"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="否"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/no_select"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/select"
-            android:visibility="gone"/>
-    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -97,6 +69,42 @@
         android:layout_marginRight="@dimen/me_fragment_clearance_weight"
         android:background="@color/parting_line" />
 
+    <LinearLayout
+        android:id="@+id/no"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="否"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/no_select"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/select"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+        android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+        android:background="@color/parting_line" />
 
 
 </LinearLayout>

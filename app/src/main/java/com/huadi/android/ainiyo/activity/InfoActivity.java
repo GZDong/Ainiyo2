@@ -69,8 +69,6 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     private LinearLayout note;
 
 
-
-
     @ViewInject(R.id.sex_text)
     private TextView sex_text;
     @ViewInject(R.id.job_text)
@@ -100,8 +98,6 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
 
     private List<String> image = new ArrayList<>();//从选择器得到的头像
     private List<String> compressImages = new ArrayList<>();//压缩完的头像
-
-
 
 
     private String provincename_get;//
@@ -181,25 +177,24 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                         job_text.setText(Job);
                         salary_text.setText(String.valueOf(Salary));
                         birthday_text.setText(Birthday.substring(0, 10));
-                        if(Parentsalive){
+                        if (Parentsalive) {
                             parent_text.setText("在世");
                         }
-                        if(!Parentsalive){
+                        if (!Parentsalive) {
                             parent_text.setText("去世");
                         }
-                        if(Maritallstatus.equals("未婚")){
+                        if (Maritallstatus.equals("未婚")) {
                             marriage_text.setText("未婚");
                         }
-                        if(Maritallstatus.equals("已婚")){
+                        if (Maritallstatus.equals("已婚")) {
                             marriage_text.setText("已婚");
                         }
-                        if(HaveKids){
+                        if (HaveKids) {
                             kid_text.setText("是");
                         }
-                        if(!HaveKids){
+                        if (!HaveKids) {
                             kid_text.setText("否");
                         }
-
 
 
                         //根据得到的地区代码，返回省，城市，区，然后sp.setSelection(arrayAdapter.getPosition("广东")设置默认值//
@@ -239,32 +234,27 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
 
 
                     }
-                } catch(JSONException e){
-                        e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
 
 
                 }
             }
 
 
-                @Override
-                public void onFailure (HttpException error, String msg){
+            @Override
+            public void onFailure(HttpException error, String msg) {
 
-                }
+            }
 
         });
 
     }
 
 
-
-
-
-
-
-    @OnClick({R.id.back,R.id.avatar,R.id.sex,R.id.job,R.id.salary,R.id.birthday,R.id.address,R.id.parent,R.id.marriage,R.id.kid,R.id.emotion,R.id.hobby,R.id.select,R.id.note})
-    public void onClick(View v){
-        switch (v.getId()){
+    @OnClick({R.id.back, R.id.avatar, R.id.sex, R.id.job, R.id.salary, R.id.birthday, R.id.address, R.id.parent, R.id.marriage, R.id.kid, R.id.emotion, R.id.hobby, R.id.select, R.id.note})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
                 startActivity(new Intent(InfoActivity.this, MainActivity.class));
                 break;
@@ -272,64 +262,64 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                 ImageSelectorUtils.openPhoto(InfoActivity.this, 1, true, 0);
                 break;
             case R.id.sex:
-                Intent intent8=new Intent(InfoActivity.this,SexActivity.class);
-                intent8.putExtra("sex",Gentle+"");
+                Intent intent8 = new Intent(InfoActivity.this, SexActivity.class);
+                intent8.putExtra("sex", Gentle + "");
                 startActivity(intent8);
                 break;
             case R.id.job:
-                Intent intent1=new Intent(InfoActivity.this,JobActivity.class);
-                intent1.putExtra("job",Job);
+                Intent intent1 = new Intent(InfoActivity.this, JobActivity.class);
+                intent1.putExtra("job", Job);
                 startActivity(intent1);
                 break;
             case R.id.salary:
-                Intent intent2=new Intent(InfoActivity.this,SalaryActivity.class);
-                intent2.putExtra("salary",Salary+"");
+                Intent intent2 = new Intent(InfoActivity.this, SalaryActivity.class);
+                intent2.putExtra("salary", Salary + "");
                 startActivity(intent2);
                 break;
             case R.id.birthday:
-                Intent intent3=new Intent(InfoActivity.this,BirthActivity.class);
-                intent3.putExtra("birth",Birthday.substring(0,10));
+                Intent intent3 = new Intent(InfoActivity.this, BirthActivity.class);
+                intent3.putExtra("birth", Birthday.substring(0, 10));
                 startActivity(intent3);
                 break;
             case R.id.address:
-                Intent intent4=new Intent(InfoActivity.this,AreaActivity.class);
-                intent4.putExtra("area",Area+"");
+                Intent intent4 = new Intent(InfoActivity.this, AreaActivity.class);
+                intent4.putExtra("area", Area + "");
                 startActivity(intent4);
                 break;
             case R.id.parent:
-                Intent intent5=new Intent(InfoActivity.this,ParentActivity.class);
-                intent5.putExtra("parent",Parentsalive);
+                Intent intent5 = new Intent(InfoActivity.this, ParentActivity.class);
+                intent5.putExtra("parent", Parentsalive);
                 startActivity(intent5);
                 break;
             case R.id.marriage:
-                Intent intent6=new Intent(InfoActivity.this,MarriageActivity.class);
-                intent6.putExtra("marriage",Maritallstatus);
+                Intent intent6 = new Intent(InfoActivity.this, MarriageActivity.class);
+                intent6.putExtra("marriage", Maritallstatus);
                 startActivity(intent6);
                 break;
             case R.id.kid:
-                Intent intent7=new Intent(InfoActivity.this,KidActivity.class);
-                intent7.putExtra("kid",HaveKids);
+                Intent intent7 = new Intent(InfoActivity.this, KidActivity.class);
+                intent7.putExtra("kid", HaveKids);
                 startActivity(intent7);
                 break;
             case R.id.emotion:
-                Intent intent9=new Intent(InfoActivity.this,EditEmoExprienceActivity.class);
-                intent9.putExtra("emotion",Emotion);
+                Intent intent9 = new Intent(InfoActivity.this, EditEmoExprienceActivity.class);
+                intent9.putExtra("emotion", Emotion);
                 startActivity(intent9);
                 break;
 
             case R.id.hobby:
-                Intent intent10=new Intent(InfoActivity.this,EditHobbyActivity.class);
-                intent10.putExtra("hobby",Hobby);
+                Intent intent10 = new Intent(InfoActivity.this, EditHobbyActivity.class);
+                intent10.putExtra("hobby", Hobby);
                 startActivity(intent10);
                 break;
             case R.id.select:
-                Intent intent11=new Intent(InfoActivity.this,EditMateSignActivity.class);
-                intent11.putExtra("select",Requir);
+                Intent intent11 = new Intent(InfoActivity.this, EditMateSignActivity.class);
+                intent11.putExtra("select", Requir);
                 startActivity(intent11);
                 break;
             case R.id.note:
-                Intent intent12=new Intent(InfoActivity.this,EditNoteActivity.class);
-                intent12.putExtra("note",Autograph);
+                Intent intent12 = new Intent(InfoActivity.this, EditNoteActivity.class);
+                intent12.putExtra("note", Autograph);
                 startActivity(intent12);
                 break;
 

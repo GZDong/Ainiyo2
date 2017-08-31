@@ -45,30 +45,26 @@ public class SexActivity extends AppCompatActivity {
     private ImageView back;
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sex);
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        String situation=intent.getStringExtra("sex");
-        if(situation.equals("1")){
+        Intent intent = getIntent();
+        String situation = intent.getStringExtra("sex");
+        if (situation.equals("1")) {
             male_select.setVisibility(View.VISIBLE);
         }
-        if(situation.equals("2")){
+        if (situation.equals("2")) {
             female_select.setVisibility(View.VISIBLE);
         }
 
     }
 
 
-    @OnClick({R.id.male,R.id.female,R.id.back})
-    public void onClick(View v){
-        switch (v.getId()){
+    @OnClick({R.id.male, R.id.female, R.id.back})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -84,7 +80,7 @@ public class SexActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            startActivity(new Intent(SexActivity.this,InfoActivity.class));
+                            startActivity(new Intent(SexActivity.this, InfoActivity.class));
                                 Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
                             finish();
 
@@ -136,12 +132,10 @@ public class SexActivity extends AppCompatActivity {
 
                     }
                 });
-finish();
+                finish();
                 break;
         }
     }
-
-
 
 
 }

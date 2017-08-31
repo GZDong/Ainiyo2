@@ -41,8 +41,8 @@ public class EditMateSignActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_mate_sign);
 
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        String text=intent.getStringExtra("select");
+        Intent intent = getIntent();
+        String text = intent.getStringExtra("select");
         edit_mate_sign.setText(text);
 
         edit_mate_sign.addTextChangedListener(new TextWatcher() {
@@ -89,7 +89,6 @@ public class EditMateSignActivity extends AppCompatActivity {
                             finish();
 
                             Toast.makeText(EditMateSignActivity.this, msg, Toast.LENGTH_SHORT).show();
-
 
 
                         } catch (JSONException e) {

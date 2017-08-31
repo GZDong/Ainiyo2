@@ -43,12 +43,12 @@ public class EditBirthActivity extends AppCompatActivity {
 
 
     @OnClick({R.id.next})
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.next:
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("birthday",birth.getText().toString());
+                params.addBodyParameter("birthday", birth.getText().toString());
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifybirthday", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -58,7 +58,7 @@ public class EditBirthActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
-                                startActivity(new Intent(EditBirthActivity.this,EditSalaryActivity.class));
+                                startActivity(new Intent(EditBirthActivity.this, EditSalaryActivity.class));
                                 finish();
                             } else {
 

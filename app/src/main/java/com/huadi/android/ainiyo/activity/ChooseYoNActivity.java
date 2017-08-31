@@ -111,7 +111,7 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         PostRequest_getuserinfo_byName_Interface getuserinfo_byName_interface = retrofit.create(PostRequest_getuserinfo_byName_Interface.class);
-        Observable<ResultForUserInfo> observable = getuserinfo_byName_interface.getObservable(((ECApplication)getApplication()).sessionId,name);
+        Observable<ResultForUserInfo> observable = getuserinfo_byName_interface.getObservable(((ECApplication) getApplication()).sessionId, name);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ResultForUserInfo>() {
@@ -122,18 +122,18 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError: 好友信息请求失败" );
+                        Log.e(TAG, "onError: 好友信息请求失败");
                     }
 
                     @Override
                     public void onNext(ResultForUserInfo resultForUserInfo) {
-                        Log.e(TAG, "onNext: 请求正常" );
-                        if (resultForUserInfo.getStatus().equals("0")){
-                            Log.e(TAG, "onNext: 请求成功" );
+                        Log.e(TAG, "onNext: 请求正常");
+                        if (resultForUserInfo.getStatus().equals("0")) {
+                            Log.e(TAG, "onNext: 请求成功");
                             Log.e(TAG, "onNext: " + resultForUserInfo.getResult().getAreaName());
                             if (!TextUtils.isEmpty(resultForUserInfo.getResult().getAreaName())) {
                                 mAreaText.setText(resultForUserInfo.getResult().getAreaName());
-                            }else {
+                            } else {
                                 mAreaText.setText("未知");
                             }
 
@@ -152,31 +152,31 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
                                     sex = "女";
                                     mSexImage.setImageResource(R.drawable.girl2);
                                 }
-                            }else {
+                            } else {
                                 sex = "女";
                                 mSexImage.setImageResource(R.drawable.girl2);
                             }
                             Log.e(TAG, "onNext: " + resultForUserInfo.getResult().getBirthday());
-                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getBirthday())){
-                                String subStr = resultForUserInfo.getResult().getBirthday().substring(0,4);
-                                int diff = Integer.valueOf(DateUtil.getYear())-Integer.valueOf(subStr);
+                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getBirthday())) {
+                                String subStr = resultForUserInfo.getResult().getBirthday().substring(0, 4);
+                                int diff = Integer.valueOf(DateUtil.getYear()) - Integer.valueOf(subStr);
                                 age = String.valueOf(diff);
-                            }else {
+                            } else {
                                 age = "-";
                             }
                             mSexAndAge.setText(sex + " " + age);
 
                             Log.e(TAG, "onNext: " + resultForUserInfo.getResult().getAvatar());
-                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getAvatar())){
+                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getAvatar())) {
                                 Glide.with(ChooseYoNActivity.this).load(resultForUserInfo.getResult().getAvatar()).into(mPersonImg);
-                            }else {
-                                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.girl4);
+                            } else {
+                                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.girl4);
                                 mPersonImg.setImageBitmap(bitmap);
                             }
-                        }else {
+                        } else {
                             mAreaText.setText("未知");
                             mSexAndAge.setText("女" + " " + "-");
-                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.girl4);
+                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.girl4);
                             mPersonImg.setImageBitmap(bitmap);
                         }
                     }
@@ -187,7 +187,7 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
         if (!TextUtils.isEmpty(reason)){
             reasonText.setText(name + "  :   " + reason);
         }else {
-            reasonText.setText(name+ "  :  " );
+            reasonText.setText(name + "  :  ");
         }
 
 

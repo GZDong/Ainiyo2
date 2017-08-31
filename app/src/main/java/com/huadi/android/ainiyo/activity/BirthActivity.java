@@ -38,15 +38,16 @@ public class BirthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birth);
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        String work=intent.getStringExtra("birth");
+        Intent intent = getIntent();
+        String work = intent.getStringExtra("birth");
         birth_edit.setText(work);
     }
-    @OnClick({R.id.back,R.id.save})
-    public void onClick(View v){
-        switch (v.getId()){
+
+    @OnClick({R.id.back, R.id.save})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
-               finish();
+                finish();
                 break;
             case R.id.save:
                 RequestParams params = new RequestParams();
@@ -61,8 +62,8 @@ public class BirthActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(BirthActivity.this,InfoActivity.class));
-                                Toast.makeText(BirthActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(BirthActivity.this, InfoActivity.class));
+                            Toast.makeText(BirthActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                             finish();
 
