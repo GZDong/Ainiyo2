@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +13,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,18 +22,10 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.Retrofit2.PostRequest_getuserinfo_byName_Interface;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.FindingInfo;
-import com.huadi.android.ainiyo.entity.FriendsLab;
-import com.huadi.android.ainiyo.frag.FlagFragment;
 import com.huadi.android.ainiyo.gson.ResultForUserInfo;
 import com.huadi.android.ainiyo.util.DateUtil;
-import com.huadi.android.ainiyo.util.ImgScaleUtil;
-import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -63,6 +52,8 @@ public class FindingUserInfoActivity extends AppCompatActivity {
     private TextView areaText;
     private ImageView sexImage;
     private ImageView personImage;
+
+    private String hobby;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +135,7 @@ public class FindingUserInfoActivity extends AppCompatActivity {
                                 signText.setText(resultForUserInfo.getResult().getAutograph());
                             } else {
                                 signText.setTextColor(getResources().getColor(R.color.little_gray));
-                                signText.setText("该好友还没有设置签名");
+                                signText.setText("对方未设置签名");
                             }
                             String sex = null;
                             String age = null;
@@ -179,6 +170,10 @@ public class FindingUserInfoActivity extends AppCompatActivity {
                                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.girl4);
                                 personImage.setImageBitmap(bitmap);
                             }
+
+                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getHobby())){
+                                hobby = resultForUserInfo.getResult().getHobby();
+                            }
                         }
 
                     }
@@ -193,15 +188,14 @@ public class FindingUserInfoActivity extends AppCompatActivity {
             actionBar.setTitle("个人信息");
         }
 
-        mTextView = (TextView) findViewById(R.id.set_flag_text);
-        mTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getSupportFragmentManager();
-                FlagFragment flagFragment = FlagFragment.newInstance(fi.getName());
-                flagFragment.show(fm, "Fri");
-            }
-        });
+        mTextView = (TextView) findViewById(R.id.hobby_text);
+        if (!TextUtils.isEmpty(hobby)){
+            mTextView.setText(hobby);
+        }else {
+            mTextView.setText("未设置");
+            mTextView.setTextColor( getResources().getColor(R.color.little_gray));
+        }
+
 
     }
 
