@@ -507,10 +507,10 @@ public class FriendsLab {
         }
     }
 
-    public void setFriTag(String name,String tag){
-        for (Friends friends : mFriendses){
-            if (friends!=null){
-                if (friends.getName().equals(name)){
+    public void setFriTag(String name, String tag) {
+        for (Friends friends : mFriendses) {
+            if (friends != null) {
+                if (friends.getName().equals(name)) {
                     friends.setTagMsg(tag);
                     friends.save();
                 }

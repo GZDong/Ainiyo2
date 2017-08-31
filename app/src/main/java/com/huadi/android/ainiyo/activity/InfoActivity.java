@@ -135,7 +135,6 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
         LGImgCompressor.getInstance(this).withListener(this);
 
 
-
         //获取用户详细信息//
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);

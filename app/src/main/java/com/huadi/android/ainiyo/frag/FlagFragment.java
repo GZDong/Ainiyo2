@@ -35,9 +35,9 @@ public class FlagFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final String name = getArguments().getString("name");
         final EditText editText = (EditText) LayoutInflater.from(getActivity()).inflate(R.layout.text_flag, null, false);
-        if (!TextUtils.isEmpty(FriendsLab.get(getActivity()).getFriend(name).getTagMsg())){
+        if (!TextUtils.isEmpty(FriendsLab.get(getActivity()).getFriend(name).getTagMsg())) {
             editText.setText(FriendsLab.get(getActivity()).getFriend(name).getTagMsg());
-        }else {
+        } else {
             editText.setText(name);
         }
         editText.setSelection(editText.getText().length());
@@ -49,16 +49,16 @@ public class FlagFragment extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (TextUtils.isEmpty(editText.getText())) {
                             Toast.makeText(getActivity(), "不能为空！", Toast.LENGTH_LONG).show();
-                        }else {
-                            if (editText.getText().toString().equals(name)){
-                                FriendsLab.get(getActivity()).setFriTag(name,"");
+                        } else {
+                            if (editText.getText().toString().equals(name)) {
+                                FriendsLab.get(getActivity()).setFriTag(name, "");
                                 Intent intent = new Intent("com.huadi.android.ainiyo.refreshName");
-                                intent.putExtra("NewName",name);
+                                intent.putExtra("NewName", name);
                                 getActivity().sendBroadcast(intent);
-                            }else{
-                                FriendsLab.get(getActivity()).setFriTag(name,editText.getText().toString());
+                            } else {
+                                FriendsLab.get(getActivity()).setFriTag(name, editText.getText().toString());
                                 Intent intent = new Intent("com.huadi.android.ainiyo.refreshName");
-                                intent.putExtra("NewName",editText.getText().toString());
+                                intent.putExtra("NewName", editText.getText().toString());
                                 getActivity().sendBroadcast(intent);
                             }
                         }

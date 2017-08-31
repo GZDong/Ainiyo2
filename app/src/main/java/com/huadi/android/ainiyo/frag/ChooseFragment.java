@@ -284,7 +284,7 @@ public class ChooseFragment extends Fragment {
                         Intent intent =  new Intent(getActivity(),ChattingActivity.class);
 
 
-                        intent.putExtra("name",name);
+                        intent.putExtra("name", name);
                         for (Friends friends : frdList){
                             if (friends.getName() == textView.getText()){
                                 transImg = friends.getPicture();
@@ -321,7 +321,8 @@ public class ChooseFragment extends Fragment {
                 }
             });
         }
-        public void transName(String name){
+
+        public void transName(String name) {
             this.name = name;
         }
     }
@@ -352,9 +353,9 @@ public class ChooseFragment extends Fragment {
             String newTime = TimeUtil.getTimeFormatText(friends.getDate());
 
             holder.transName(name_fri);
-            if(!TextUtils.isEmpty(flag)){
+            if (!TextUtils.isEmpty(flag)) {
                 holder.textView.setText(flag);
-            }else {
+            } else {
                 holder.textView.setText(name_fri);
             }
 

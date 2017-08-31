@@ -58,10 +58,10 @@ public class ChattingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         mUserInfo = (UserInfo) intent.getSerializableExtra("userInfo");
-        String tag =  FriendsLab.get(this).getFriend(name).getTagMsg();
-        if (!TextUtils.isEmpty(tag)){
+        String tag = FriendsLab.get(this).getFriend(name).getTagMsg();
+        if (!TextUtils.isEmpty(tag)) {
             actionBar.setTitle(tag);
-        }else {
+        } else {
             actionBar.setTitle(name);
         }
         int picture = intent.getIntExtra("img",0);

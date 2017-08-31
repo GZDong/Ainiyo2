@@ -163,11 +163,10 @@ public class MovementAdapter extends BaseAdapter {
 //                                thisView.setText(father.getResources().getString(R.string.has_joined));
 //                                thisView.setEnabled(false);
 //                                thisView.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_selected_button));
-                                if(mcd.isJoined()){
+                                if (mcd.isJoined()) {
                                     thisView.setText(father.getResources().getString(R.string.has_joined));
                                     thisView.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_selected_button));
-                                }
-                                else {
+                                } else {
                                     thisView.setText(father.getResources().getString(R.string.to_joined));
                                     thisView.setBackground(father.getResources().getDrawable(R.drawable.movement_joined_button));
                                 }

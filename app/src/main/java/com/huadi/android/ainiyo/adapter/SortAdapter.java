@@ -74,10 +74,10 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
 
         }
 
-        if (!TextUtils.isEmpty(this.mData.get(position).getTagMsg())){
-            Log.e("test", "onBindViewHolder: "+this.mData.get(position).getTagMsg());
+        if (!TextUtils.isEmpty(this.mData.get(position).getTagMsg())) {
+            Log.e("test", "onBindViewHolder: " + this.mData.get(position).getTagMsg());
             holder.tagText.setText(this.mData.get(position).getTagMsg());
-        }else{
+        } else {
             holder.tagText.setText(" ");
         }
         holder.tvName.setText(this.mData.get(position).getName());

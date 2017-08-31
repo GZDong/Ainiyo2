@@ -77,8 +77,7 @@ public class MovementDetailActivity extends AppCompatActivity {
 
         if(extras.getBoolean("isJoined",false)){
             AfterJoin();
-        }
-        else {
+        } else {
             AfterCancel();
         }
 
@@ -90,13 +89,13 @@ public class MovementDetailActivity extends AppCompatActivity {
         joinButton.setEnabled(false);
     }
 
-    private void AfterJoin(){
+    private void AfterJoin() {
         SetUnJoinable();
         cancelButton.setVisibility(View.VISIBLE);
         cancelButton.setEnabled(true);
     }
 
-    private void AfterCancel(){
+    private void AfterCancel() {
         cancelButton.setVisibility(View.INVISIBLE);
         cancelButton.setEnabled(false);
 
@@ -106,7 +105,7 @@ public class MovementDetailActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.movement_detail_back, R.id.btn_join_now, R.id.partyImage,R.id.btn_cancel})
+    @OnClick({R.id.movement_detail_back, R.id.btn_join_now, R.id.partyImage, R.id.btn_cancel})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.movement_detail_back:

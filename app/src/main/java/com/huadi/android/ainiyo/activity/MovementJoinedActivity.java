@@ -92,7 +92,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("MOVE","start");
+        Log.d("MOVE", "start");
         movement_list_view.setMode(PullToRefreshBase.Mode.BOTH);
     }
 
@@ -115,7 +115,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 movement_list_view.onRefreshComplete();
-                String newResponse = responseInfo.result.replaceAll("\\n","");
+                String newResponse = responseInfo.result.replaceAll("\\n", "");
                 //Log.e("MOVEMENT", newResponse);
                 ResponseObject<MovementResult> object = new GsonBuilder().create().
                         fromJson(newResponse, new TypeToken<ResponseObject<MovementResult>>() {
@@ -130,19 +130,19 @@ public class MovementJoinedActivity extends AppCompatActivity {
                     mwd = object.getResult().getData();
                     int sum = object.getResult().getSum();
                     MovementData mwd1;
-                    if(mwd!=null){
+                    if (mwd != null) {
                         for (int i = 0; i <= mwd.length - 1; ++i) {
                             mwd1 = mwd[i];
 
-                            String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
-                            if(mwd1.getContent()!=null){
-                                Log.e("MOVEMENT",content);
+                            String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]", "");
+                            if (mwd1.getContent() != null) {
+                                Log.e("MOVEMENT", content);
                             }
                             Gson gson = new Gson();
                             Type type = new TypeToken<MovementContentData>() {
                             }.getType();
 
-                            if(content.startsWith("{")) {//排除无效字符串
+                            if (content.startsWith("{")) {//排除无效字符串
                                 MovementContentData mcd = gson.fromJson(content, type);
                                 mcd.setId(mwd1.getId());//ID同步校正
                                 mcd.setJoined(mwd1.isAttended());
@@ -152,13 +152,12 @@ public class MovementJoinedActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                    }
-                    else {
+                    } else {
                         movement_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
                     }
 
                     if(direction){//head refresh
-                        mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId,false);
+                        mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId, false);
                         movement_list_view.setAdapter(mAdapter);
                     }
                     else {//tail refresh
@@ -215,7 +214,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
 
         intent.putExtra("isJoined",true);
 
-        startActivityForResult(intent,0);
+        startActivityForResult(intent, 0);
     }
 
     @Override

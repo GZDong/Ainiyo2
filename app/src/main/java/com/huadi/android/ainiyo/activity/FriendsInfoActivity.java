@@ -114,7 +114,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
                 mCollapsingToolbarLayout.setTitle(intent.getStringExtra("NewName"));
             }
         };
-        registerReceiver(broadcastReceiver,intentFilter);
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 
 
@@ -270,12 +270,12 @@ public class FriendsInfoActivity extends AppCompatActivity {
 
 
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        if(name.equals(UserInfoLab.get(this).getUserInfo().getUsername())){
+        if (name.equals(UserInfoLab.get(this).getUserInfo().getUsername())) {
             mCollapsingToolbarLayout.setTitle(name);
-        }else {
-            if (!TextUtils.isEmpty(FriendsLab.get(this).getFriend(name).getTagMsg())){
+        } else {
+            if (!TextUtils.isEmpty(FriendsLab.get(this).getFriend(name).getTagMsg())) {
                 mCollapsingToolbarLayout.setTitle(FriendsLab.get(this).getFriend(name).getTagMsg());
-            }else {
+            } else {
                 mCollapsingToolbarLayout.setTitle(name);
             }
         }

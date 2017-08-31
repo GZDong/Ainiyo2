@@ -83,8 +83,7 @@
 
                         android:textSize="12sp"
                         android:ellipsize="marquee"
-                        android:maxLines="1"
-                         />
+                        android:maxLines="1" />
                 </LinearLayout>
 
 
