@@ -62,12 +62,9 @@ public class EditNoteActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            finish();
-
+                            startActivity(new Intent(EditNoteActivity.this,InfoActivity.class));
                             Toast.makeText(EditNoteActivity.this, msg, Toast.LENGTH_SHORT).show();
-
-
-
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -75,12 +72,13 @@ public class EditNoteActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
-                        finish();
+
 
                         Toast.makeText(EditNoteActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });
+
                 break;
             case R.id.edit_note_back:
                 finish();

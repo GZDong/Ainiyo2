@@ -72,7 +72,7 @@ public class KidActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
-                startActivity(new Intent(KidActivity.this, InfoActivity.class));
+               finish();
                 break;
             case R.id.yes:
                 RequestParams params = new RequestParams();
@@ -86,10 +86,9 @@ public class KidActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            finish();
-
+                            startActivity(new Intent(KidActivity.this,InfoActivity.class));
                                 Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+                            finish();
 
 
                         } catch (JSONException e) {
@@ -119,9 +118,9 @@ public class KidActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            finish();
+                            startActivity(new Intent(KidActivity.this,InfoActivity.class));
                                 Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+                            finish();
 
 
                         } catch (JSONException e) {

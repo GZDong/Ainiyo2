@@ -279,7 +279,7 @@ public class AreaActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
-                startActivity(new Intent(AreaActivity.this,InfoActivity.class));
+                finish();
                 break;
             case R.id.save:
 
@@ -294,16 +294,14 @@ public class AreaActivity extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(responseInfo.result.toString());
                             int status = object.getInt("Status");
-                            
+
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
+                            startActivity(new Intent(AreaActivity.this,InfoActivity.class));
                                 Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
 
+                            finish();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -317,7 +315,7 @@ public class AreaActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+
                 break;
         }
     }

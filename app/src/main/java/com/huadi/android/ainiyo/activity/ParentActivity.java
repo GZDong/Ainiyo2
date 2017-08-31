@@ -56,7 +56,7 @@ public class ParentActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
-                startActivity(new Intent(ParentActivity.this, InfoActivity.class));
+                finish();
                 break;
             case R.id.alive://在世
                 RequestParams params = new RequestParams();
@@ -70,12 +70,10 @@ public class ParentActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
+                            startActivity(new Intent(ParentActivity.this,InfoActivity.class));
                                 Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
+                            finish();
 
 
                         } catch (JSONException e) {
@@ -90,7 +88,7 @@ public class ParentActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+
                 break;
             case R.id.dead://不在世
                 RequestParams params1 = new RequestParams();
@@ -104,13 +102,11 @@ public class ParentActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
+                            startActivity(new Intent(ParentActivity.this,InfoActivity.class));
                                 Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
 
+                            finish();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -124,7 +120,7 @@ public class ParentActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+
                 break;
         }
     }
