@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,7 +58,12 @@ public class ChattingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         mUserInfo = (UserInfo) intent.getSerializableExtra("userInfo");
-        actionBar.setTitle(name);
+        String tag =  FriendsLab.get(this).getFriend(name).getTagMsg();
+        if (!TextUtils.isEmpty(tag)){
+            actionBar.setTitle(tag);
+        }else {
+            actionBar.setTitle(name);
+        }
         int picture = intent.getIntExtra("img",0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);

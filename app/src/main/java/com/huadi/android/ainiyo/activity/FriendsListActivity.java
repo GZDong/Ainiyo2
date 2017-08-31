@@ -1,6 +1,9 @@
 package com.huadi.android.ainiyo.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -110,6 +113,8 @@ public class FriendsListActivity extends AppCompatActivity{
         super.onResume();
         String[] names = FriendsLab.get(this, mUserInfo).getNames();
         SourceDateList = filledData(names);
+        // 根据a-z进行排序源数据
+        Collections.sort(SourceDateList, pinyinComparator);
         adapter = new SortAdapter(this, SourceDateList, mUserInfo);
         mRecyclerView.setAdapter(adapter);
     }

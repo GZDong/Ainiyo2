@@ -1,7 +1,10 @@
 package com.huadi.android.ainiyo.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.renderscript.Long2;
@@ -103,7 +106,15 @@ public class FriendsInfoActivity extends AppCompatActivity {
             actionBar.setTitle(getResources().getString(R.string.fri_info));
         }
 
-
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.huadi.android.ainiyo.refreshName");
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                mCollapsingToolbarLayout.setTitle(intent.getStringExtra("NewName"));
+            }
+        };
+        registerReceiver(broadcastReceiver,intentFilter);
     }
 
 
@@ -257,8 +268,17 @@ public class FriendsInfoActivity extends AppCompatActivity {
             });
         }
 
+
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        mCollapsingToolbarLayout.setTitle(name);
+        if(name.equals(UserInfoLab.get(this).getUserInfo().getUsername())){
+            mCollapsingToolbarLayout.setTitle(name);
+        }else {
+            if (!TextUtils.isEmpty(FriendsLab.get(this).getFriend(name).getTagMsg())){
+                mCollapsingToolbarLayout.setTitle(FriendsLab.get(this).getFriend(name).getTagMsg());
+            }else {
+                mCollapsingToolbarLayout.setTitle(name);
+            }
+        }
         mCollapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.gray));
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
         viewHolder.tvTag = (TextView) view.findViewById(R.id.tag);
         viewHolder.tvName = (TextView) view.findViewById(R.id.name);
         viewHolder.imgView = (ImageView) view.findViewById(R.id.image_person);
+        viewHolder.tagText = (TextView) view.findViewById(R.id.fri_tag_text);
         return viewHolder;
     }
 
@@ -72,8 +74,13 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
 
         }
 
+        if (!TextUtils.isEmpty(this.mData.get(position).getTagMsg())){
+            Log.e("test", "onBindViewHolder: "+this.mData.get(position).getTagMsg());
+            holder.tagText.setText(this.mData.get(position).getTagMsg());
+        }else{
+            holder.tagText.setText(" ");
+        }
         holder.tvName.setText(this.mData.get(position).getName());
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +121,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTag, tvName;
         ImageView imgView;
+        TextView tagText;
 
         public ViewHolder(View itemView) {
             super(itemView);

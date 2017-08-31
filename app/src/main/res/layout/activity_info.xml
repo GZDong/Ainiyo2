@@ -82,7 +82,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/init" />
+                    android:src="@mipmap/ic_default_avater" />
 
                 <ImageView
                     android:layout_width="8dp"
