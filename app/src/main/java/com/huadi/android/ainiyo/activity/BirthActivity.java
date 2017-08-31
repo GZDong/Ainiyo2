@@ -3,9 +3,10 @@ package com.huadi.android.ainiyo.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
@@ -24,34 +25,34 @@ import org.json.JSONObject;
 
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
-public class EditHobbyActivity extends AppCompatActivity {
-
-    @ViewInject(R.id.edit_hobby)
-    EditText edit_hobby;
+public class BirthActivity extends AppCompatActivity {
+    @ViewInject(R.id.birth_edit)
+    private EditText birth_edit;
+    @ViewInject(R.id.back)
+    private ImageView back;
+    @ViewInject(R.id.save)
+    private TextView save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_hobby);
-
+        setContentView(R.layout.activity_birth);
         ViewUtils.inject(this);
         Intent intent=getIntent();
-        String text=intent.getStringExtra("hobby");
-        edit_hobby.setText(text);
+        String work=intent.getStringExtra("birth");
+        birth_edit.setText(work);
     }
-
-    @OnClick({R.id.edit_hobby_publish, R.id.edit_hobby_back})
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.edit_hobby_publish:
-                if (TextUtils.isEmpty(edit_hobby.getText())) {
-
-                    Toast.makeText(this, "要输入内容才可以保存哦", Toast.LENGTH_SHORT).show();
-                }
+    @OnClick({R.id.back,R.id.save})
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.back:
+                startActivity(new Intent(BirthActivity.this,InfoActivity.class));
+                break;
+            case R.id.save:
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("hobby", edit_hobby.getText().toString());
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyhobby", params, new RequestCallBack<String>() {
+                params.addBodyParameter("birthday", birth_edit.getText().toString());
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifybirthday", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         try {
@@ -59,10 +60,12 @@ public class EditHobbyActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            finish();
+                            if (msg.equals("success")) {
+                                Toast.makeText(BirthActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            } else {
 
-                            Toast.makeText(EditHobbyActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+                                Toast.makeText(BirthActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
 
 
                         } catch (JSONException e) {
@@ -72,16 +75,14 @@ public class EditHobbyActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
-                        finish();
 
-                        Toast.makeText(EditHobbyActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BirthActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });
-                break;
-            case R.id.edit_hobby_back:
                 finish();
                 break;
+
         }
     }
 }

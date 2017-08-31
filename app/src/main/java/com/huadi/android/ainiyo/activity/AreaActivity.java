@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -34,16 +35,7 @@ import java.util.List;
 
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
-public class EditAreaActivity extends AppCompatActivity {
-    @ViewInject(R.id.provinceSpinner)
-    private Spinner provinceSpinner;
-    @ViewInject(R.id.citySpinner)
-    private Spinner citySpinner;
-    @ViewInject(R.id.countySpinner)
-    private Spinner countySpinner;
-    @ViewInject(R.id.next)
-    private Button next;
-
+public class AreaActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> provinceAdapter = null;  //省级适配器
     private ArrayAdapter<String> cityAdapter = null;    //地级适配器
@@ -52,6 +44,17 @@ public class EditAreaActivity extends AppCompatActivity {
     private List<String> city = new ArrayList<>();
     private List<String> county = new ArrayList<>();
 
+    @ViewInject(R.id.back)
+    private ImageView back;
+    @ViewInject(R.id.save)
+    private TextView save;
+    @ViewInject(R.id.provinceSpinner)
+    private Spinner provinceSpinner;
+    @ViewInject(R.id.citySpinner)
+    private Spinner citySpinner;
+    @ViewInject(R.id.countySpinner)
+    private Spinner countySpinner;
+
     private List<Province> provinces;//省对象
     private List<City> citys;//城市对象
     private List<County> countys;//区对象
@@ -59,12 +62,23 @@ public class EditAreaActivity extends AppCompatActivity {
     private int provinceId = 0;//
     private int cityId = 0;//地址ID
     private int countyId;//
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_area);
+        setContentView(R.layout.activity_area);
         ViewUtils.inject(this);
 
+
+
+
+
+
+
+        //province下拉框选择
         provinceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             // 表示选项被改变的时候触发此方法
@@ -125,52 +139,8 @@ public class EditAreaActivity extends AppCompatActivity {
             }
 
         });
-
-
         getallprovince();
-    }
 
-
-
-    @OnClick({R.id.next})
-    public void onClick(View v){
-        switch (v.getId()){
-            case R.id.next:
-                //如果点击继续，则保存信息
-                RequestParams params = new RequestParams();
-                params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("area", (provinceId+"")+(cityId+"")+(countyId+""));
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
-                    @Override
-                    public void onSuccess(ResponseInfo<String> responseInfo) {
-                        try {
-                            JSONObject object = new JSONObject(responseInfo.result.toString());
-                            int status = object.getInt("Status");
-                            String result = object.getString("Result");
-                            String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                startActivity(new Intent(EditAreaActivity.this,EditBirthActivity.class));
-                                finish();
-                            } else {
-
-                                Toast.makeText(EditAreaActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(HttpException error, String msg) {
-
-                        Toast.makeText(EditAreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-                break;
-        }
     }
 
 
@@ -195,7 +165,7 @@ public class EditAreaActivity extends AppCompatActivity {
                             province.add(provinces.get(i).getName());
                             if (province.size() == provinces.size()) {
                                 //设置province适配器
-                                provinceAdapter = new ArrayAdapter<String>(EditAreaActivity.this,
+                                provinceAdapter = new ArrayAdapter<String>(AreaActivity.this,
                                         android.R.layout.simple_spinner_item, province);
                                 provinceSpinner.setAdapter(provinceAdapter);
 
@@ -211,7 +181,7 @@ public class EditAreaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                Toast.makeText(EditAreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -239,7 +209,7 @@ public class EditAreaActivity extends AppCompatActivity {
                             city.add(citys.get(i).getName());
                             if (city.size() == citys.size()) {
                                 //设置city适配器
-                                cityAdapter = new ArrayAdapter<String>(EditAreaActivity.this,
+                                cityAdapter = new ArrayAdapter<String>(AreaActivity.this,
                                         android.R.layout.simple_spinner_item, city);
                                 citySpinner.setAdapter(cityAdapter);
                             }
@@ -254,7 +224,7 @@ public class EditAreaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                Toast.makeText(EditAreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -283,7 +253,7 @@ public class EditAreaActivity extends AppCompatActivity {
                             county.add(countys.get(i).getName());
                             if (county.size() == countys.size()) {
                                 //设置county适配器
-                                countyAdapter = new ArrayAdapter<String>(EditAreaActivity.this,
+                                countyAdapter = new ArrayAdapter<String>(AreaActivity.this,
                                         android.R.layout.simple_spinner_item, county);
                                 countySpinner.setAdapter(countyAdapter);
                             }
@@ -298,12 +268,60 @@ public class EditAreaActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(HttpException error, String msg) {
-                Toast.makeText(EditAreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
     }
+    @OnClick({R.id.back,R.id.save})
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.back:
+                startActivity(new Intent(AreaActivity.this,InfoActivity.class));
+                break;
+            case R.id.save:
+
+
+
+                RequestParams params = new RequestParams();
+                params.addBodyParameter("sessionid", sessionId);
+                params.addBodyParameter("area", (provinceId+"")+(cityId+"")+(countyId+""));
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        try {
+                            JSONObject object = new JSONObject(responseInfo.result.toString());
+                            int status = object.getInt("Status");
+                            
+                            String result = object.getString("Result");
+                            String msg = object.getString("Msg");
+                            if (msg.equals("success")) {
+                                Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            } else {
+
+                                Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+
+                        Toast.makeText(AreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                finish();
+                break;
+        }
+    }
+
+
 
 }

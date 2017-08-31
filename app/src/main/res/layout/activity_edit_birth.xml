@@ -29,7 +29,6 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:textColorHint="#585454"
-
             />
     </android.support.design.widget.TextInputLayout>
 

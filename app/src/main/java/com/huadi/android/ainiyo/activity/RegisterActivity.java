@@ -64,6 +64,10 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout againwapper;
 
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,25 +152,24 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 //如果自己的服务器注册成功，就拿数据去环形服务器注册
                                 SignInUtil.signUp(RegisterActivity.this, register_name.getText().toString(), register_pwd1.getText().toString());
-                                //如果注册成功就登陆
-
-                                RequestParams params1=new RequestParams();
-                                params1.addBodyParameter("name",register_name.getText().toString());
-                                params1.addBodyParameter("pwd",register_pwd1.getText().toString());
+                                //如果注册成功就保存用户账号和密码,以便自动登陆
+                                RequestParams params = new RequestParams();
+                                params.addBodyParameter("name", register_name.getText().toString());
+                                params.addBodyParameter("pwd", register_pwd1.getText().toString());
 
                                 final UserInfo userInfo = new UserInfo(register_name.getText().toString(), register_pwd1.getText().toString());
-                                UserInfoLab.get(RegisterActivity.this,userInfo).clearUserInfo();
-                                UserInfoLab.get(RegisterActivity.this,userInfo);
+                                UserInfoLab.get(RegisterActivity.this, userInfo).clearUserInfo();
+                                UserInfoLab.get(RegisterActivity.this, userInfo);
 
                                 // Log.e("test","onLoginActivity "+userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
-                                HttpUtils http=new HttpUtils();
-                                http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login",params1,new RequestCallBack<String>() {
+                                HttpUtils http = new HttpUtils();
+                                http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login", params, new RequestCallBack<String>() {
                                             @Override
-                                            public void onSuccess(ResponseInfo<String> responseInFo){
-                                                String info=responseInFo.result.toString();
-                                                try{
-                                                    JSONObject object=new JSONObject(info);
-                                                    String msg=object.getString("Msg");
+                                            public void onSuccess(ResponseInfo<String> responseInFo) {
+                                                String info = responseInFo.result.toString();
+                                                try {
+                                                    JSONObject object = new JSONObject(info);
+                                                    String msg = object.getString("Msg");
 
                                                     //获得sessionId，保存在Application里作为全局变量
                                                     ECApplication application = (ECApplication) getApplication();
@@ -176,51 +179,51 @@ public class RegisterActivity extends AppCompatActivity {
                                                     FriendsLab.get(RegisterActivity.this, userInfo).setFriListNull();
                                                     FriendsLab.get(RegisterActivity.this, userInfo).initFriends();
 
-                                                    Log.e("test",application.sessionId);
+                                                    Log.e("test", application.sessionId);
 
-                                                    if(msg.equals("success")){
+                                                    if (msg.equals("success")) {
 
 
-                                                        SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
-                                                        editor.putString("username",register_name.getText().toString());
-                                                        editor.putString("password",register_pwd1.getText().toString());
+                                                        SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
+                                                        editor.putString("name", register_name.getText().toString());
+                                                        editor.putString("pwd", register_pwd1.getText().toString());
                                                         editor.putBoolean("islogin", true);
                                                         editor.apply();
 
                                                         startActivity(new Intent(RegisterActivity.this, EditAreaActivity.class));
                                                         finish();
                                                     }
-                                                    Toast.makeText(RegisterActivity.this,msg,Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
 
-                                                }
-                                                catch (JSONException e){
+                                                } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
                                             }
-                                            @Override
-                                            public void onFailure(HttpException error,String msg){
-                                                Toast.makeText(RegisterActivity.this,"登陆失败，请重试！",Toast.LENGTH_SHORT).show();
+
+                                    @Override
+                                            public void onFailure(HttpException error, String msg) {
+                                                Toast.makeText(RegisterActivity.this, "登陆失败，请重试！", Toast.LENGTH_SHORT).show();
                                             }
 
 
                                         }
                                 );
-
                             }
-                            Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
-                        }catch (JSONException e) {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
-                        Toast.makeText(RegisterActivity.this, "注册失败，请重试！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "登陆失败，请重试！", Toast.LENGTH_SHORT).show();
                     }
 
                 });
-        }
     }
+    }
+
 }
+
+
+

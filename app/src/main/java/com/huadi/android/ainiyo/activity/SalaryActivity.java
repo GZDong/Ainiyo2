@@ -3,9 +3,10 @@ package com.huadi.android.ainiyo.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
@@ -24,34 +25,36 @@ import org.json.JSONObject;
 
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
-public class EditHobbyActivity extends AppCompatActivity {
-
-    @ViewInject(R.id.edit_hobby)
-    EditText edit_hobby;
+public class SalaryActivity extends AppCompatActivity {
+    @ViewInject(R.id.salary_edit)
+    private EditText salary_edit;
+    @ViewInject(R.id.back)
+    private ImageView back;
+    @ViewInject(R.id.save)
+    private TextView save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_hobby);
-
+        setContentView(R.layout.activity_salary);
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        String text=intent.getStringExtra("hobby");
-        edit_hobby.setText(text);
+        Intent intent = getIntent();
+        String money = intent.getStringExtra("salary");
+        salary_edit.setText(money);
     }
 
-    @OnClick({R.id.edit_hobby_publish, R.id.edit_hobby_back})
+
+    @OnClick({R.id.back, R.id.save})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.edit_hobby_publish:
-                if (TextUtils.isEmpty(edit_hobby.getText())) {
-
-                    Toast.makeText(this, "要输入内容才可以保存哦", Toast.LENGTH_SHORT).show();
-                }
+            case R.id.back:
+                startActivity(new Intent(SalaryActivity.this, InfoActivity.class));
+                break;
+            case R.id.save:
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("hobby", edit_hobby.getText().toString());
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyhobby", params, new RequestCallBack<String>() {
+                params.addBodyParameter("salary", salary_edit.getText().toString());
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifysalary", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         try {
@@ -59,10 +62,12 @@ public class EditHobbyActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            finish();
+                            if (msg.equals("success")) {
+                                Toast.makeText(SalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            } else {
 
-                            Toast.makeText(EditHobbyActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+                                Toast.makeText(SalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
 
 
                         } catch (JSONException e) {
@@ -72,14 +77,11 @@ public class EditHobbyActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
-                        finish();
 
-                        Toast.makeText(EditHobbyActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SalaryActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });
-                break;
-            case R.id.edit_hobby_back:
                 finish();
                 break;
         }

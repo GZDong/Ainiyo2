@@ -31,20 +31,21 @@ import java.io.File;
 
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
-public class SexActivity extends AppCompatActivity {
+public class KidActivity extends AppCompatActivity {
 
-    @ViewInject(R.id.male_select)
-    private ImageView male_select;
-    @ViewInject(R.id.female_select)
-    private ImageView female_select;
-    @ViewInject(R.id.male)
-    private LinearLayout male;
-    @ViewInject(R.id.female)
-    private LinearLayout female;
+    @ViewInject(R.id.yes_select)
+    private ImageView yes_select;
+    @ViewInject(R.id.no_select)
+    private ImageView no_select;
+    @ViewInject(R.id.yes)
+    private LinearLayout yes;
+    @ViewInject(R.id.no)
+    private LinearLayout no;
     @ViewInject(R.id.back)
     private ImageView back;
 
 
+    private Boolean situation;
 
 
 
@@ -52,31 +53,32 @@ public class SexActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sex);
+        setContentView(R.layout.activity_kid);
+        //获取用户详细信息//
+
         ViewUtils.inject(this);
         Intent intent=getIntent();
-        String situation=intent.getStringExtra("sex");
-        if(situation.equals("1")){
-            male_select.setVisibility(View.VISIBLE);
+        situation=intent.getBooleanExtra("kid",false);
+        if(situation){
+            yes_select.setVisibility(View.VISIBLE);
         }
-        if(situation.equals("2")){
-            female_select.setVisibility(View.VISIBLE);
+        if(!situation){
+            no_select.setVisibility(View.VISIBLE);
         }
-
     }
 
 
-    @OnClick({R.id.male,R.id.female,R.id.back})
+    @OnClick({R.id.yes,R.id.no,R.id.back})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
-                startActivity(new Intent(SexActivity.this, InfoActivity.class));
+                startActivity(new Intent(KidActivity.this, InfoActivity.class));
                 break;
-            case R.id.male:
+            case R.id.yes:
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("gentle", "1");
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifygentle", params, new RequestCallBack<String>() {
+                params.addBodyParameter("havekids", "1");
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyhavekids", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         try {
@@ -85,8 +87,8 @@ public class SexActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
                             finish();
-                                Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
 
+                                Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
 
@@ -99,17 +101,17 @@ public class SexActivity extends AppCompatActivity {
                     public void onFailure(HttpException error, String msg) {
                         finish();
 
-                        Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(KidActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });
+
                 break;
-            case R.id.female:
+            case R.id.no:
                 RequestParams params1 = new RequestParams();
                 params1.addBodyParameter("sessionid", sessionId);
-                params1.addBodyParameter("gentle", "2");
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifygentle", params1, new RequestCallBack<String>() {
+                params1.addBodyParameter("havekids", "2");
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyhavekids", params1, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         try {
@@ -118,7 +120,7 @@ public class SexActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
                             finish();
-                                Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
 
@@ -131,7 +133,7 @@ public class SexActivity extends AppCompatActivity {
                     public void onFailure(HttpException error, String msg) {
                         finish();
 
-                        Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(KidActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -144,5 +146,3 @@ public class SexActivity extends AppCompatActivity {
 
 
 }
-
-
