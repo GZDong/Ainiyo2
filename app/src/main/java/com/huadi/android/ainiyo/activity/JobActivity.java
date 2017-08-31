@@ -47,7 +47,7 @@ public class JobActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
-                startActivity(new Intent(JobActivity.this,InfoActivity.class));
+                finish();
                 break;
             case R.id.save:
                 RequestParams params = new RequestParams();
@@ -61,12 +61,11 @@ public class JobActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
+                            startActivity(new Intent(JobActivity.this,InfoActivity.class));
                                 Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
+                            finish();
+
 
 
                         } catch (JSONException e) {
@@ -81,7 +80,7 @@ public class JobActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+
                 break;
 
         }

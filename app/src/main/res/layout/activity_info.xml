@@ -123,7 +123,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="未填写"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -165,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="未填写"
+
                     android:textSize="18sp" />
 
                 <ImageView
@@ -207,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="未填写"
+
                     android:textSize="18sp" />
 
                 <ImageView
@@ -250,7 +249,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="未填写"
+
                     android:textSize="18sp" />
 
                 <ImageView
@@ -293,7 +292,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="未填写"
+
                     android:textSize="18sp" />
 
                 <ImageView
@@ -373,7 +372,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="未填写"
+
                     android:textSize="18sp" />
 
                 <ImageView
@@ -415,7 +414,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="未填写"
+
                     android:textSize="18sp" />
 
                 <ImageView
@@ -457,7 +456,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="未填写"
+                    
                     android:textSize="18sp" />
 
                 <ImageView

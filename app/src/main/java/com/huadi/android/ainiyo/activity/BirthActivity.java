@@ -46,7 +46,7 @@ public class BirthActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
-                startActivity(new Intent(BirthActivity.this,InfoActivity.class));
+               finish();
                 break;
             case R.id.save:
                 RequestParams params = new RequestParams();
@@ -60,13 +60,11 @@ public class BirthActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                Toast.makeText(BirthActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
+                            startActivity(new Intent(BirthActivity.this,InfoActivity.class));
                                 Toast.makeText(BirthActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
 
+                            finish();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -80,7 +78,7 @@ public class BirthActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+
                 break;
 
         }

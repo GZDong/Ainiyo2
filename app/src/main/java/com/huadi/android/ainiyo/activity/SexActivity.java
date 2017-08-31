@@ -70,7 +70,7 @@ public class SexActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
-                startActivity(new Intent(SexActivity.this, InfoActivity.class));
+                finish();
                 break;
             case R.id.male:
                 RequestParams params = new RequestParams();
@@ -84,9 +84,9 @@ public class SexActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            finish();
+                            startActivity(new Intent(SexActivity.this,InfoActivity.class));
                                 Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+                            finish();
 
 
 
@@ -97,13 +97,14 @@ public class SexActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
-                        finish();
+
 
                         Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
 
                     }
                 });
+
                 break;
             case R.id.female:
                 RequestParams params1 = new RequestParams();
@@ -135,7 +136,7 @@ public class SexActivity extends AppCompatActivity {
 
                     }
                 });
-
+finish();
                 break;
         }
     }

@@ -57,7 +57,7 @@ public class MarriageActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
-                startActivity(new Intent(MarriageActivity.this, InfoActivity.class));
+                finish();
                 break;
             case R.id.notyet:
                 RequestParams params = new RequestParams();
@@ -71,14 +71,11 @@ public class MarriageActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                finish();
-                                Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
+                            startActivity(new Intent(MarriageActivity.this,InfoActivity.class));
                                 Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
 
+                            finish();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -106,13 +103,10 @@ public class MarriageActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                finish();
-                                Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
+                            startActivity(new Intent(MarriageActivity.this,InfoActivity.class));
                                 Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
+                            finish();
 
 
                         } catch (JSONException e) {
