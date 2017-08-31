@@ -194,7 +194,7 @@ public class EditAreaActivity extends AppCompatActivity {
                             if (province.size() == provinces.size()) {
                                 //设置province适配器
                                 provinceAdapter = new ArrayAdapter<String>(EditAreaActivity.this,
-                                        android.R.layout.simple_spinner_item, province);
+                                        R.layout.simple_spinner_item, province);
                                 provinceSpinner.setAdapter(provinceAdapter);
 
                             }
@@ -238,7 +238,7 @@ public class EditAreaActivity extends AppCompatActivity {
                             if (city.size() == citys.size()) {
                                 //设置city适配器
                                 cityAdapter = new ArrayAdapter<String>(EditAreaActivity.this,
-                                        android.R.layout.simple_spinner_item, city);
+                                        R.layout.simple_spinner_item, city);
                                 citySpinner.setAdapter(cityAdapter);
                             }
                         }
@@ -282,7 +282,7 @@ public class EditAreaActivity extends AppCompatActivity {
                             if (county.size() == countys.size()) {
                                 //设置county适配器
                                 countyAdapter = new ArrayAdapter<String>(EditAreaActivity.this,
-                                        android.R.layout.simple_spinner_item, county);
+                                       R.layout.simple_spinner_item, county);
                                 countySpinner.setAdapter(countyAdapter);
                             }
                         }
