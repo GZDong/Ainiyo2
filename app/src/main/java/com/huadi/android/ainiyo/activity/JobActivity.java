@@ -39,13 +39,14 @@ public class JobActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job);
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        String work=intent.getStringExtra("job");
+        Intent intent = getIntent();
+        String work = intent.getStringExtra("job");
         job_edit.setText(work);
     }
-    @OnClick({R.id.back,R.id.save})
-    public void onClick(View v){
-        switch (v.getId()){
+
+    @OnClick({R.id.back, R.id.save})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -62,10 +63,9 @@ public class JobActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(JobActivity.this,InfoActivity.class));
-                                Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(JobActivity.this, InfoActivity.class));
+                            Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
                             finish();
-
 
 
                         } catch (JSONException e) {

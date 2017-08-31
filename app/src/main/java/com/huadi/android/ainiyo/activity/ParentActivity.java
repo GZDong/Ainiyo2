@@ -42,19 +42,20 @@ public class ParentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent);
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        situation=intent.getBooleanExtra("parent",false);
-        if(situation){
+        Intent intent = getIntent();
+        situation = intent.getBooleanExtra("parent", false);
+        if (situation) {
             alive_select.setVisibility(View.VISIBLE);
         }
-        if(!situation){
+        if (!situation) {
             dead_select.setVisibility(View.VISIBLE);
         }
 
     }
-    @OnClick({R.id.alive,R.id.dead,R.id.back})
-    public void onClick(View v){
-        switch (v.getId()){
+
+    @OnClick({R.id.alive, R.id.dead, R.id.back})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -71,8 +72,8 @@ public class ParentActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(ParentActivity.this,InfoActivity.class));
-                                Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ParentActivity.this, InfoActivity.class));
+                            Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
                             finish();
 
 
@@ -103,8 +104,8 @@ public class ParentActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(ParentActivity.this,InfoActivity.class));
-                                Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ParentActivity.this, InfoActivity.class));
+                            Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                             finish();
 

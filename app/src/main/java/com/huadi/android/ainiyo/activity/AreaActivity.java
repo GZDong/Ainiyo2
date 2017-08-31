@@ -64,18 +64,11 @@ public class AreaActivity extends AppCompatActivity {
     private int countyId;//
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_area);
         ViewUtils.inject(this);
-
-
-
-
-
 
 
         //province下拉框选择
@@ -142,8 +135,6 @@ public class AreaActivity extends AppCompatActivity {
         getallprovince();
 
     }
-
-
 
 
     //获得省数组//
@@ -275,19 +266,19 @@ public class AreaActivity extends AppCompatActivity {
 
 
     }
-    @OnClick({R.id.back,R.id.save})
-    public void onClick(View v){
-        switch (v.getId()){
+
+    @OnClick({R.id.back, R.id.save})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.save:
 
 
-
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("area", (provinceId+"")+(cityId+"")+(countyId+""));
+                params.addBodyParameter("area", (provinceId + "") + (cityId + "") + (countyId + ""));
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -298,8 +289,8 @@ public class AreaActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(AreaActivity.this,InfoActivity.class));
-                                Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(AreaActivity.this, InfoActivity.class));
+                            Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                             finish();
 
@@ -319,7 +310,6 @@ public class AreaActivity extends AppCompatActivity {
                 break;
         }
     }
-
 
 
 }

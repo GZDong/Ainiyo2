@@ -3,17 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/titile_bar_height"
         android:background="@color/theme_blue">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/zuojiantou" />
+        <LinearLayout
+            android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_gravity="center_vertical"
+                android:layout_width="@dimen/top_title_pic_size"
+                android:layout_height="@dimen/top_title_pic_size"
+                android:src="@drawable/leftarrow" />
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -39,39 +47,39 @@
             android:gravity="center" />
 
 
-
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/me_fragment_clearance_height"
         android:background="@color/parting_line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_marginTop="20dp">
+
         <Spinner
             android:id="@+id/provinceSpinner"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            />
+            android:layout_marginLeft="30dp" />
 
         <Spinner
             android:id="@+id/citySpinner"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
 
         <Spinner
             android:id="@+id/countySpinner"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

@@ -3,9 +3,12 @@ package com.huadi.android.ainiyo.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
@@ -28,6 +31,9 @@ public class EditMateSignActivity extends AppCompatActivity {
 
     @ViewInject(R.id.edit_mate_sign)
     EditText edit_mate_sign;
+    @ViewInject(R.id.edit_mate_sign_text_num)
+    TextView edit_mate_sign_text_num;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +41,28 @@ public class EditMateSignActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_mate_sign);
 
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        String text=intent.getStringExtra("select");
+        Intent intent = getIntent();
+        String text = intent.getStringExtra("select");
         edit_mate_sign.setText(text);
+
+        edit_mate_sign.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+
+                String content = edit_mate_sign.getText().toString();
+                edit_mate_sign_text_num.setText(String.valueOf(50 - content.length()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
     }
 
@@ -66,7 +91,6 @@ public class EditMateSignActivity extends AppCompatActivity {
                             Toast.makeText(EditMateSignActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -87,4 +111,5 @@ public class EditMateSignActivity extends AppCompatActivity {
                 break;
         }
     }
+
 }

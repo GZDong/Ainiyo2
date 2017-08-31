@@ -48,8 +48,6 @@ public class KidActivity extends AppCompatActivity {
     private Boolean situation;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,22 +55,22 @@ public class KidActivity extends AppCompatActivity {
         //获取用户详细信息//
 
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        situation=intent.getBooleanExtra("kid",false);
-        if(situation){
+        Intent intent = getIntent();
+        situation = intent.getBooleanExtra("kid", false);
+        if (situation) {
             yes_select.setVisibility(View.VISIBLE);
         }
-        if(!situation){
+        if (!situation) {
             no_select.setVisibility(View.VISIBLE);
         }
     }
 
 
-    @OnClick({R.id.yes,R.id.no,R.id.back})
-    public void onClick(View v){
-        switch (v.getId()){
+    @OnClick({R.id.yes, R.id.no, R.id.back})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
-               finish();
+                finish();
                 break;
             case R.id.yes:
                 RequestParams params = new RequestParams();
@@ -86,8 +84,8 @@ public class KidActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            startActivity(new Intent(KidActivity.this,InfoActivity.class));
-                                Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(KidActivity.this, InfoActivity.class));
+                            Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
                             finish();
 
 
@@ -118,8 +116,8 @@ public class KidActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            startActivity(new Intent(KidActivity.this,InfoActivity.class));
-                                Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(KidActivity.this, InfoActivity.class));
+                            Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
                             finish();
 
 
@@ -140,8 +138,6 @@ public class KidActivity extends AppCompatActivity {
                 break;
         }
     }
-
-
 
 
 }

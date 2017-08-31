@@ -3,17 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/theme_blue">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/zuojiantou" />
+        <LinearLayout
+            android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_gravity="center_vertical"
+                android:layout_width="@dimen/top_title_pic_size"
+                android:layout_height="@dimen/top_title_pic_size"
+                android:src="@drawable/leftarrow" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -24,19 +31,19 @@
             android:textColor="@color/white" />
 
 
-
-
-
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/me_fragment_clearance_height"
         android:background="@color/parting_line" />
+
     <LinearLayout
         android:id="@+id/notyet"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white" >
+        android:background="@color/white">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,11 +51,13 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="20dp" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <ImageView
             android:id="@+id/notyet_select"
             android:layout_width="20dp"
@@ -56,40 +65,9 @@
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:src="@drawable/select"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
-        android:layout_marginRight="@dimen/me_fragment_clearance_weight"
-        android:background="@color/parting_line" />
-    <LinearLayout
-        android:id="@+id/already"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="已婚"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/already_select"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/select"
-            android:visibility="gone"/>
-    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -97,6 +75,42 @@
         android:layout_marginRight="@dimen/me_fragment_clearance_weight"
         android:background="@color/parting_line" />
 
+    <LinearLayout
+        android:id="@+id/already"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已婚"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/already_select"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/select"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+        android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+        android:background="@color/parting_line" />
 
 
 </LinearLayout>

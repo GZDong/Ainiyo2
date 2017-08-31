@@ -43,19 +43,20 @@ public class MarriageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marriage);
         ViewUtils.inject(this);
-        Intent intent=getIntent();
-        situation=intent.getStringExtra("marriage");
-        if(situation.equals("未婚")){
+        Intent intent = getIntent();
+        situation = intent.getStringExtra("marriage");
+        if (situation.equals("未婚")) {
             notyet_select.setVisibility(View.VISIBLE);
         }
-        if(situation.equals("已婚")){
+        if (situation.equals("已婚")) {
             already_select.setVisibility(View.VISIBLE);
         }
 
     }
-    @OnClick({R.id.notyet,R.id.already,R.id.back})
-    public void onClick(View v){
-        switch (v.getId()){
+
+    @OnClick({R.id.notyet, R.id.already, R.id.back})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.back:
                 finish();
                 break;
@@ -72,8 +73,8 @@ public class MarriageActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(MarriageActivity.this,InfoActivity.class));
-                                Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(MarriageActivity.this, InfoActivity.class));
+                            Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                             finish();
 
@@ -104,8 +105,8 @@ public class MarriageActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(MarriageActivity.this,InfoActivity.class));
-                                Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(MarriageActivity.this, InfoActivity.class));
+                            Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
                             finish();
 
 

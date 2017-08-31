@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.huadi.android.ainiyo.frag.ModeFragment">
 
@@ -12,15 +13,19 @@
         android:layout_height="@dimen/titile_bar_height"
         android:background="@color/theme_blue">
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        <LinearLayout
+            android:layout_width="@dimen/title_bar_avatar_size"
+            android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+            android:layout_height="match_parent">
 
-            android:id="@+id/iv_topbar_mode_pic_head"
-            android:layout_marginLeft="10dp"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/left_image"
-            app:civ_border_color="#FFF"
-            android:layout_gravity="center" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_topbar_mode_pic_head"
+                android:layout_width="@dimen/title_bar_avatar_size"
+                android:layout_height="@dimen/title_bar_avatar_size"
+                android:layout_gravity="center"
+                android:src="@drawable/left_image"
+                app:civ_border_color="#FFF" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_topbar_mode"

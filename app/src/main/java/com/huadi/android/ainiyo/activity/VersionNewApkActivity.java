@@ -12,8 +12,10 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.huadi.android.ainiyo.BuildConfig;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.FindingAphorism;
@@ -75,12 +78,13 @@ public class VersionNewApkActivity extends AppCompatActivity {
                         tv_version_describe_text.setText(vwi.getUpdatecontent());
                         ApkUrl = vwi.getUrl();
                         try {
-//                            if (vwi.getEditon()>=getVersionCode())
-//                            {
-//                                tv_version_download.setText("已经最新版本");
-//                                tv_version_download.setEnabled(false);
-//                                tv_version_download.setBackground(getResources().getDrawable(R.drawable.movement_joined_selected_button));
-//                            }
+                            if (vwi.getEditon() <= getVersionCode()) {
+                                //Log.i("1234",ApkUrl);
+                                //Log.i("hihi","vwi: "+vwi.getEditon()+"  version: "+getVersionCode());
+                                tv_version_download.setText("已经最新版本");
+                                tv_version_download.setEnabled(false);
+                                tv_version_download.setBackground(getResources().getDrawable(R.drawable.movement_joined_selected_button));
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -200,7 +204,9 @@ public class VersionNewApkActivity extends AppCompatActivity {
     protected void installAPK(File file) {
         if (!file.exists()) return;
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = Uri.parse("file://" + file.toString());
+        intent.addCategory("android.intent.category.DEFAULT");
+        Uri uri = Uri.parse("content://" + file.toString());
+        //Uri uri= FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID+"fileProvider",file);
         intent.setDataAndType(uri, "application/vnd.android.package-archive");
         //在服务中开启activity必须设置flag,后面解释
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

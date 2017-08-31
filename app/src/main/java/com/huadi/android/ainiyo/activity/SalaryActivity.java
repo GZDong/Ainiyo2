@@ -62,9 +62,9 @@ public class SalaryActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            startActivity(new Intent(SalaryActivity.this,InfoActivity.class));
+                            startActivity(new Intent(SalaryActivity.this, InfoActivity.class));
 
-                                Toast.makeText(SalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
                             finish();
 
 

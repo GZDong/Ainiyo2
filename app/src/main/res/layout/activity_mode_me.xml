@@ -20,11 +20,18 @@
         android:background="@color/theme_blue"
         >
 
-        <ImageView
-            android:id="@+id/mode_me_back"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:src="@mipmap/back" />
+        <LinearLayout
+            android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/mode_me_back"
+                android:layout_gravity="center_vertical"
+                android:layout_width="@dimen/top_title_pic_size"
+                android:layout_height="@dimen/top_title_pic_size"
+                android:src="@drawable/leftarrow" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_topbar_mode_me"
