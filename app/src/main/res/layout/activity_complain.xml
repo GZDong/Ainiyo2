@@ -68,7 +68,7 @@
         android:textColorHint="#726e6e" />
 
     <TextView
-        android:id="@+id/emotion_experience_text_num"
+        android:id="@+id/version_complain_text_num"
         android:layout_below="@+id/et_version_complain"
         android:layout_alignParentRight="true"
         android:layout_marginTop="-20dp"

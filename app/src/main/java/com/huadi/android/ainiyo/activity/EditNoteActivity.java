@@ -2,9 +2,12 @@ package com.huadi.android.ainiyo.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
@@ -16,6 +19,8 @@ public class EditNoteActivity extends AppCompatActivity {
 
     @ViewInject(R.id.edit_note)
     EditText edit_note;
+    @ViewInject(R.id.edit_note_text_num)
+    TextView edit_note_text_num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,25 @@ public class EditNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_note);
 
         ViewUtils.inject(this);
+
+        edit_note.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+
+                String content = edit_note.getText().toString();
+                edit_note_text_num.setText(String.valueOf(50 - content.length()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @OnClick({R.id.edit_note_publish, R.id.edit_note_back})
