@@ -11,6 +11,7 @@ public class CONST {
     public static final String FETCH_ACTIVITY = HOST + "/getallactivity";
     public static final String FETCH_JOINED_ACTIVITY = HOST + "/getuseractivity";
     public static final String ATTEND_ACTIVITY = HOST + "/attendactivity";
+    public static final String CANCEL_ACTIVITY = HOST + "/cancelactivity";
     public static final String UPLOAD_PHOTO = HOST + "/uploadphoto";
     public static final String DELETE_MODE = HOST + "/deletemood";
     public static final String COMMIT_COMMENT = HOST + "/publishmood/comment";

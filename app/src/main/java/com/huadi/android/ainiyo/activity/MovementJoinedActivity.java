@@ -90,8 +90,9 @@ public class MovementJoinedActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
+        Log.d("MOVE","start");
         movement_list_view.setMode(PullToRefreshBase.Mode.BOTH);
     }
 
@@ -109,16 +110,17 @@ public class MovementJoinedActivity extends AppCompatActivity {
         params.addBodyParameter("pagesize", "10");
         //params.addBodyParameter("type", "1");
 
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, FETCH_JOINED_ACTIVITY, params, new RequestCallBack<String>() {
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, FETCH_ACTIVITY, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 movement_list_view.onRefreshComplete();
+                String newResponse = responseInfo.result.replaceAll("\\n","");
+                //Log.e("MOVEMENT", newResponse);
                 ResponseObject<MovementResult> object = new GsonBuilder().create().
-                        fromJson(responseInfo.result, new TypeToken<ResponseObject<MovementResult>>() {
+                        fromJson(newResponse, new TypeToken<ResponseObject<MovementResult>>() {
                         }.getType());
-
-                //Log.e("MOVEMENT_JOINED",object.getStatus());
+                //Log.e("MOVEMENT", String.valueOf(object.getResult().getData()[0].getDate()));
                 if (object.getStatus() == 0) {
                     if(direction){//head refresh
                         mList.clear();
@@ -128,31 +130,35 @@ public class MovementJoinedActivity extends AppCompatActivity {
                     mwd = object.getResult().getData();
                     int sum = object.getResult().getSum();
                     MovementData mwd1;
+                    if(mwd!=null){
+                        for (int i = 0; i <= mwd.length - 1; ++i) {
+                            mwd1 = mwd[i];
 
-                    for (int i = 0; i <= mwd.length - 1; ++i) {
-                        mwd1 = mwd[i];
+                            String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
+                            if(mwd1.getContent()!=null){
+                                Log.e("MOVEMENT",content);
+                            }
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<MovementContentData>() {
+                            }.getType();
 
-                        String content = mwd1.getContent().replaceAll("[\\n]|[\\t]|[ ]","");
-                        if(mwd1.getContent()!=null){
-                            Log.e("MOVEMENT",content);
-                        }
-                        Gson gson = new Gson();
-                        Type type = new TypeToken<MovementContentData>() {
-                        }.getType();
+                            if(content.startsWith("{")) {//排除无效字符串
+                                MovementContentData mcd = gson.fromJson(content, type);
+                                mcd.setId(mwd1.getId());//ID同步校正
+                                mcd.setJoined(mwd1.isAttended());
 
-                        if(content.startsWith("{")) {//排除无效字符串
-                            MovementContentData mcd = gson.fromJson(content, type);
-                            mcd.setId(mwd1.getId());//ID同步校正
-                            mcd.setJoined(mwd1.isAttended());
-
-                            if (mcd != null) {
-                                mList.add(mcd);//
+                                if (mcd != null) {
+                                    mList.add(mcd);//
+                                }
                             }
                         }
                     }
+                    else {
+                        movement_list_view.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
+                    }
 
                     if(direction){//head refresh
-                        mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId,true);
+                        mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId,false);
                         movement_list_view.setAdapter(mAdapter);
                     }
                     else {//tail refresh
@@ -168,7 +174,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
             @Override
             public void onFailure(HttpException error, String msg) {
                 movement_list_view.onRefreshComplete();
-                Toast.makeText(MovementJoinedActivity.this, "HTTP ERROR "+msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MovementJoinedActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -209,8 +215,12 @@ public class MovementJoinedActivity extends AppCompatActivity {
 
         intent.putExtra("isJoined",true);
 
-        startActivity(intent);
+        startActivityForResult(intent,0);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        loadDatas(true);
+    }
 }

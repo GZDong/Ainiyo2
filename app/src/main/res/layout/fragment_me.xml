@@ -259,7 +259,7 @@
                 android:background="@color/parting_line" />
 
             <LinearLayout
-                android:id="@+id/version"
+                android:id="@+id/about"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/me_fragment_height">
 

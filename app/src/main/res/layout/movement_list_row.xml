@@ -102,7 +102,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
                 android:text="      本周日我们将联合广旅组织一次大夫山联谊活动,届时有丰富的游戏环节和交流活动让会员间更好地了解对方..."
-                android:textSize="15dp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
