@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/edit_mate_sign_topbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/titile_bar_height"
         android:background="@color/theme_blue">
 
 
