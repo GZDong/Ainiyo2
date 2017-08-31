@@ -217,13 +217,16 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                     mCommentList = new ArrayList<>();
 
                     for (int i = 0; i < sum; i++) {
-                        ModeComment mc = null;
-                        mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), "");
-                        mCommentList.add(mc);
+                        //判断该好友是否被删除了
+                        if (FriendsLab.get(ModeDetailNineGridActivity.this).findFriById(String.valueOf(mcd[i].getUserid()))
+                                || UserInfoLab.get(ModeDetailNineGridActivity.this).IsCurrentUser(String.valueOf(mcd[i].getUserid()))) {
+                            ModeComment mc = null;
+                            mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), "");
+                            mCommentList.add(mc);
 
-                        if (flag) {
-                            initToCommentData(mcd[i].getId(), mcd[i].getUserid(), i);
-                        }
+                            if (flag) {
+                                initToCommentData(mcd[i].getId(), mcd[i].getUserid(), i);
+                            }
 //                        Myhandle=new Handler(){
 //                            public void handleMessage(Message msg)
 //                            {
@@ -233,6 +236,7 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
 //                                //Log.i("test Comment",msg.getData().getString("hi"));
 //                            }
 //                        };
+                        }
                     }
 
                     initCommentAdapter();
@@ -276,18 +280,23 @@ public class ModeDetailNineGridActivity extends AppCompatActivity {
                     //Toast.makeText(ModeDetailNineGridActivity.this, "ToCommentsum:  "+String.valueOf(sum), Toast.LENGTH_SHORT).show();
 
                     for (int i = 0; i < sum; i++) {
-                        ModeComment mc = null;
+                        Log.i("test123", "id: " + String.valueOf(mcd[i].getUserid()) + " boolean:" + FriendsLab.get(ModeDetailNineGridActivity.this).findFriById(String.valueOf(mcd[i].getUserid())));
 
-                        //定义回复者的名字
-                        String replyed_username;
-                        if (String.valueOf(userid).equals(UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getId())) {
-                            replyed_username = UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getUsername();
-                        } else {
-                            replyed_username = FriendsLab.get(ModeDetailNineGridActivity.this).findNameById(String.valueOf(userid));
+                        if (FriendsLab.get(ModeDetailNineGridActivity.this).findFriById(String.valueOf(mcd[i].getUserid()))
+                                || UserInfoLab.get(ModeDetailNineGridActivity.this).IsCurrentUser(String.valueOf(mcd[i].getUserid()))) {
+                            ModeComment mc = null;
+
+                            //定义回复者的名字
+                            String replyed_username;
+                            if (String.valueOf(userid).equals(UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getId())) {
+                                replyed_username = UserInfoLab.get(ModeDetailNineGridActivity.this).getUserInfo().getUsername();
+                            } else {
+                                replyed_username = FriendsLab.get(ModeDetailNineGridActivity.this).findNameById(String.valueOf(userid));
+                            }
+                            mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), replyed_username);
+                            mToCommentList.add(mc);
+                            initToCommentData(mcd[i].getId(), mcd[i].getUserid(), 1);
                         }
-                        mc = new ModeComment(String.valueOf(mcd[i].getId()), String.valueOf(mcd[i].getUserid()), "", mcd[i].getContent(), mcd[i].getDate(), replyed_username);
-                        mToCommentList.add(mc);
-                        initToCommentData(mcd[i].getId(), mcd[i].getUserid(), 1);
                     }
 
 //                    Bundle bundle =new Bundle();

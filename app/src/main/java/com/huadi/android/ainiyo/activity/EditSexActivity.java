@@ -40,9 +40,10 @@ public class EditSexActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_sex);
         ViewUtils.inject(this);
     }
+
     @OnClick({R.id.next})
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.next:
 
                 if(male.isChecked()){

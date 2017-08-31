@@ -259,6 +259,37 @@
                 android:background="@color/parting_line" />
 
             <LinearLayout
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/me_fragment_height">
+
+                <ImageView
+                    android:layout_width="@dimen/me_fragment_pic_size"
+                    android:layout_height="@dimen/me_fragment_pic_size"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:src="@mipmap/ic_frag_me_version" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                    android:text="关于"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/me_fragment_text_size" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginRight="@dimen/me_fragment_clearance_weight"
+                android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+                android:layout_height="1dp"
+                android:background="@color/parting_line" />
+
+            <LinearLayout
                 android:id="@+id/logoff"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/me_fragment_height">

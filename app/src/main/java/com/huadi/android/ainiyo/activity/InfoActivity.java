@@ -40,7 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
-public class InfoActivity extends AppCompatActivity implements LGImgCompressor.CompressListener{
+public class InfoActivity extends AppCompatActivity implements LGImgCompressor.CompressListener {
     @ViewInject(R.id.avatar)
     private LinearLayout avatar;
     @ViewInject(R.id.sex)
@@ -81,7 +81,6 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     private TextView kid_text;
 
 
-
     @ViewInject(R.id.avatar_imag)
     private CircleImageView avatar_imag;
     @ViewInject(R.id.progress)
@@ -91,8 +90,8 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
 
 
 
-    private List<String> image=new ArrayList<>();//从选择器得到的头像
-    private List<String> compressImages=new ArrayList<>();//压缩完的头像
+    private List<String> image = new ArrayList<>();//从选择器得到的头像
+    private List<String> compressImages = new ArrayList<>();//压缩完的头像
 
 
 
@@ -261,13 +260,17 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
             case R.id.back:
                 startActivity(new Intent(InfoActivity.this, MainActivity.class));
                 break;
+    @OnClick({R.id.avatar, R.id.sex, R.id.job})
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.avatar:
                 ImageSelectorUtils.openPhoto(InfoActivity.this, 1, true, 0);
                 break;
             case R.id.sex:
-                startActivity(new Intent(InfoActivity.this,SexActivity.class));
+                startActivity(new Intent(InfoActivity.this, SexActivity.class));
                 break;
             case R.id.job:
+                startActivity(new Intent(InfoActivity.this, JobActivity.class));
                 Intent intent1=new Intent(InfoActivity.this,JobActivity.class);
                 intent1.putExtra("job",Job);
                 startActivity(intent1);
@@ -303,10 +306,9 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                 startActivity(intent7);
                 break;
 
+
         }
     }
-
-
 
 
     //得到从相册选择的图片//
@@ -339,9 +341,8 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
         modifyImage(compressImages);
 
 
-
-
     }
+
     public void modifyImage(final List<String> images) {
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
@@ -355,7 +356,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                     int status = object.getInt("Status");
                     String result = object.getString("Result");
                     String msg = object.getString("Msg");
-                    if (status==5101) {
+                    if (status == 5101) {
                         progress.setVisibility(View.GONE);
                         Glide.with(InfoActivity.this).load(images.get(0)).into(avatar_imag);//加载选择的图片在头像上
                         Toast.makeText(InfoActivity.this, msg, Toast.LENGTH_SHORT).show();

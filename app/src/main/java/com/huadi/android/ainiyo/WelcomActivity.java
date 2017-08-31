@@ -12,7 +12,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.Retrofit2.PostRequest_login_Interface;
@@ -22,6 +24,7 @@ import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.gson.ResultForLogin;
+import com.huadi.android.ainiyo.util.ToolKits;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -44,6 +47,8 @@ public class WelcomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcom);
 
         Log.e("test", "一闪而过的WelcomeActivity");
+
+        setImmersive();
 
         //改成在开始界面请求必要的权限
         if (ContextCompat.checkSelfPermission(WelcomActivity.this,"android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED){
@@ -140,6 +145,15 @@ public class WelcomActivity extends AppCompatActivity {
             }
         }
     };
+
+    public void setImmersive() {
+        //设置状态栏沉浸
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
