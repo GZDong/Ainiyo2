@@ -7,7 +7,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_add_friend"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/titile_bar_height"
         android:background="@color/theme_blue"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
