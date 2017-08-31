@@ -14,7 +14,7 @@
         android:background="@color/theme_blue">
 
         <LinearLayout
-            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_width="@dimen/title_bar_avatar_size"
             android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
             android:layout_height="match_parent">
             <de.hdodenhof.circleimageview.CircleImageView

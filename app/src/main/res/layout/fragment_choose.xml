@@ -26,8 +26,8 @@
 
         <ImageView
             android:id="@+id/btn_friends"
-            android:layout_width="@dimen/top_title_pic_size"
-            android:layout_height="@dimen/top_title_pic_size"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginRight="8dp"
             android:background="@color/theme_blue"
             android:src="@drawable/friend_button" />
