@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -34,7 +35,7 @@ public class HobbyFragment extends DialogFragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.text_hobby, null, false);
         TextView textView = (TextView) view;
         String name = (String) getArguments().get("name");
-        if (FriendsLab.get(getActivity()).getFriend(name).getHobby()!= null) {
+        if (!TextUtils.isEmpty(FriendsLab.get(getActivity()).getFriend(name).getHobby())) {
             textView.setText(FriendsLab.get(getActivity()).getFriend(name).getHobby());
         }else {
             textView.setText("该好友没有设置兴趣爱好");

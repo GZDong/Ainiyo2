@@ -20,6 +20,7 @@ import com.huadi.android.ainiyo.entity.FriendsLab;
  */
 
 public class FlagFragment extends DialogFragment {
+    private int flag = 1;
 
     public static FlagFragment newInstance(String name) {
 

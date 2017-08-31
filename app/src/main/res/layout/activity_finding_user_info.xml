@@ -150,14 +150,23 @@
                         android:layout_height="45dp">
 
                         <TextView
-                            android:id="@+id/set_flag_text"
+
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:text="设置备注和标签"
+                            android:text="兴趣爱好"
                             android:layout_marginLeft="15dp"
                             android:layout_gravity="center"
                             android:textColor="#000" />
+                        <TextView
+                            android:id="@+id/hobby_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="20dp"
+                            android:maxLines="1"
+                            android:ellipsize="marquee"
+                            android:text=" " />
 
                     </LinearLayout>
                 </LinearLayout>
