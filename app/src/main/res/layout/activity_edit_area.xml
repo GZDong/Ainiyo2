@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:text="你的地址是哪里？"
         android:textSize="24sp"
-        android:textColor="@color/black"
+        android:textColor="@color/gray"
         android:layout_marginTop="100dp"
         android:layout_gravity="center" />
 

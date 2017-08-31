@@ -3,18 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/theme_blue">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/zuojiantou" />
+        <LinearLayout
+            android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_gravity="center_vertical"
+                android:layout_width="@dimen/top_title_pic_size"
+                android:layout_height="@dimen/top_title_pic_size"
+                android:src="@drawable/leftarrow" />
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -36,19 +41,18 @@
             android:layout_alignParentRight="true"
             android:gravity="center" />
 
-
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/me_fragment_clearance_height"
         android:background="@color/parting_line" />
-
     <EditText
         android:id="@+id/job_edit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
         android:maxLength="15"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        />
 </LinearLayout>

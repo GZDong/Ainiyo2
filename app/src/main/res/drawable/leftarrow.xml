@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/grayarrow" android:state_pressed="true" />
-    <item android:drawable="@mipmap/grayarrow" android:state_focused="true" />
-    <item android:drawable="@mipmap/whitearrow"></item>
+    <item android:drawable="@mipmap/grayarrowleft" android:state_pressed="true" />
+    <item android:drawable="@mipmap/grayarrowleft" android:state_focused="true" />
+    <item android:drawable="@mipmap/whitearrowleft"></item>
 </selector>

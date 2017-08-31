@@ -9,12 +9,17 @@
         android:layout_height="50dp"
         android:background="@color/theme_blue">
 
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/zuojiantou" />
+        <LinearLayout
+            android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/back"
+                android:layout_gravity="center_vertical"
+                android:layout_width="@dimen/top_title_pic_size"
+                android:layout_height="@dimen/top_title_pic_size"
+                android:src="@drawable/leftarrow" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -38,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="申请VIP"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="#151414"
         android:gravity="center" />
 
@@ -62,13 +67,12 @@
 
     <Button
         android:id="@+id/next"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_width="@dimen/button_weight"
+        android:layout_height="wrap_content"
         android:text="下一步"
         android:layout_marginTop="20dp"
-        android:textSize="19sp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="#FFFF"
+        android:textSize="@dimen/button_text_size"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
         android:background="@drawable/button_register" />
 </LinearLayout>
