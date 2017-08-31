@@ -14,21 +14,20 @@
         android:background="@color/theme_blue">
 
         <LinearLayout
-            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_width="@dimen/title_bar_avatar_size"
             android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
             android:layout_height="match_parent">
-
             <de.hdodenhof.circleimageview.CircleImageView
 
                 android:id="@+id/tv_movement_me"
                 android:layout_width="@dimen/title_bar_avatar_size"
                 android:layout_height="@dimen/title_bar_avatar_size"
+
                 android:layout_gravity="center"
                 android:src="@drawable/left_image"
                 app:civ_border_color="#FFF" />
+
         </LinearLayout>
-
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
@@ -38,23 +37,6 @@
             android:text="活动圈"
             android:textColor="@color/white"
             android:textSize="19sp" />
-
-        <TextView
-            android:id="@+id/txt_topbar_movement"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white" />
 
     </RelativeLayout>
 

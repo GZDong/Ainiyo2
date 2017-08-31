@@ -18,6 +18,7 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.AreaData;
 import com.huadi.android.ainiyo.entity.UserData;
 import com.huadi.android.ainiyo.util.LGImgCompressor;
+import com.huadi.android.ainiyo.util.ToolKits;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -256,7 +257,9 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                startActivity(new Intent(InfoActivity.this, MainActivity.class));
+                setResult(100, new Intent());
+                ToolKits.putInt(this, "fragment", 4);
+                finish();
                 break;
             case R.id.avatar:
                 ImageSelectorUtils.openPhoto(InfoActivity.this, 1, true, 0);

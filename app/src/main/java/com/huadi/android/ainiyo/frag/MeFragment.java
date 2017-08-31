@@ -83,7 +83,12 @@ public class MeFragment extends Fragment{
         te = (TextView) view.findViewById(R.id.name);
         te.setText(username);//获取用户名//
 
+        loadData();
 
+        return view;
+    }
+
+    private void loadData() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
         HttpUtils http = new HttpUtils();
@@ -95,10 +100,10 @@ public class MeFragment extends Fragment{
                             JSONObject object = new JSONObject(info);
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
-                            Gson gson = new Gson();
-                            UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
+                                Gson gson = new Gson();
+                                UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
 
-                            //如果获取数据成功，则把数据加载到各项
+                                //如果获取数据成功，则把数据加载到各项
                                 String job = userData.getJob();
                                 Boolean vip = userData.isVip();
                                 String image = userData.getAvatar();
@@ -135,7 +140,17 @@ public class MeFragment extends Fragment{
 
                 }
         );
-        return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case 100:
+                loadData();
+                break;
+        }
+
     }
 
     @OnClick({R.id.info, R.id.logoff, R.id.xiangce, R.id.vipapply, R.id.vip_lever, R.id.manager, R.id.activity, R.id.version})

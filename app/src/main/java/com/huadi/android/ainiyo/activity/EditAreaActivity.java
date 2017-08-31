@@ -196,7 +196,7 @@ public class EditAreaActivity extends AppCompatActivity {
                                 provinceAdapter = new ArrayAdapter<String>(EditAreaActivity.this,
                                         android.R.layout.simple_spinner_item, province);
                                 provinceSpinner.setAdapter(provinceAdapter);
-
+                                provinceSpinner.setSelection(0);
                             }
                         }
                     }
@@ -240,6 +240,7 @@ public class EditAreaActivity extends AppCompatActivity {
                                 cityAdapter = new ArrayAdapter<String>(EditAreaActivity.this,
                                         android.R.layout.simple_spinner_item, city);
                                 citySpinner.setAdapter(cityAdapter);
+                                citySpinner.setSelection(0);
                             }
                         }
                     }
@@ -284,6 +285,7 @@ public class EditAreaActivity extends AppCompatActivity {
                                 countyAdapter = new ArrayAdapter<String>(EditAreaActivity.this,
                                         android.R.layout.simple_spinner_item, county);
                                 countySpinner.setAdapter(countyAdapter);
+                                countySpinner.setSelection(0);
                             }
                         }
                     }

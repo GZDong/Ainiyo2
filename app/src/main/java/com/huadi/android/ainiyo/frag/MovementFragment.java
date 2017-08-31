@@ -152,6 +152,7 @@ public class MovementFragment extends Fragment {
                     int sum = object.getResult().getSum();
                     MovementData mwd1;
 
+                    if (mwd != null)
                     for (int i = 0; i <= mwd.length - 1; ++i) {
                         mwd1 = mwd[i];
 
