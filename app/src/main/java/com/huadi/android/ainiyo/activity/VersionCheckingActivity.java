@@ -72,6 +72,7 @@ public class VersionCheckingActivity extends AppCompatActivity {
                 startActivity(new Intent(this, VersionNewApkActivity.class));
                 break;
             case R.id.version_about:
+                startActivity(new Intent(this,AboutActivity.class));
                 break;
             case R.id.version_complain:
                 startActivity(new Intent(this, ComplainActivity.class));

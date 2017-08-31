@@ -110,7 +110,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
         params.addBodyParameter("pagesize", "10");
         //params.addBodyParameter("type", "1");
 
-        new HttpUtils().send(HttpRequest.HttpMethod.POST, FETCH_ACTIVITY, params, new RequestCallBack<String>() {
+        new HttpUtils().send(HttpRequest.HttpMethod.POST, FETCH_JOINED_ACTIVITY, params, new RequestCallBack<String>() {
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -157,7 +157,7 @@ public class MovementJoinedActivity extends AppCompatActivity {
                     }
 
                     if(direction){//head refresh
-                        mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId, false);
+                        mAdapter = new MovementAdapter(mList, ((ECApplication) getApplication()).sessionId, true);
                         movement_list_view.setAdapter(mAdapter);
                     }
                     else {//tail refresh

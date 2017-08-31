@@ -43,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import mehdi.sakout.aboutpage.AboutPage;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;

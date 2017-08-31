@@ -231,7 +231,7 @@ public class MovementFragment extends Fragment {
         switch (v.getId()) {
             case R.id.tv_movement_me:
                 //Toast.makeText(getActivity(), "tap me", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getActivity(), MovementJoinedActivity.class));
+                startActivityForResult(new Intent(getActivity(), MovementJoinedActivity.class),0);
         }
     }
 

@@ -191,14 +191,15 @@
         <activity android:name=".activity.AreaActivity" />
         <activity android:name=".activity.ParentActivity" />
         <activity android:name=".activity.MarriageActivity" />
-        <activity android:name=".activity.KidActivity"></activity>
+        <activity android:name=".activity.KidActivity"/>
         <activity android:name=".activity.VersionCheckingActivity" />
         <activity android:name=".activity.ComplainActivity" />
         <activity android:name=".activity.EditEmoExprienceActivity" />
         <activity android:name=".activity.EditHobbyActivity" />
         <activity android:name=".activity.EditMateSignActivity" />
         <activity android:name=".activity.VersionNewApkActivity" />
-        <activity android:name=".activity.EditNoteActivity"></activity>
+        <activity android:name=".activity.EditNoteActivity"/>
+        <activity android:name=".activity.AboutActivity"/>
     </application>
 
 </manifest>
