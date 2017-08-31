@@ -26,6 +26,7 @@ import com.huadi.android.ainiyo.activity.VipHintActivity;
 import com.huadi.android.ainiyo.activity.VipLeverActivity;
 import com.huadi.android.ainiyo.activity.VipResponActivity;
 import com.huadi.android.ainiyo.entity.UserData;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.SignInUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -62,13 +63,15 @@ public class MeFragment extends Fragment{
     private LinearLayout activity;
     @ViewInject(R.id.version)
     private LinearLayout version;
+    @ViewInject(R.id.avatar_imag)
+    private CircleImageView avatar_imag;
 
 
 
     private TextView te;
     private TextView job_text;
     private TextView vip_text;
-    private CircleImageView avatar_imag;
+
 
 
 
@@ -81,7 +84,7 @@ public class MeFragment extends Fragment{
         SharedPreferences pref = getActivity().getSharedPreferences("data", MODE_PRIVATE);
         String username = pref.getString("name", "");
         te = (TextView) view.findViewById(R.id.name);
-        te.setText(username);//获取用户名//
+        te.setText(username);//获取用户名
 
 
         RequestParams params = new RequestParams();
@@ -104,9 +107,8 @@ public class MeFragment extends Fragment{
                                 String image = userData.getAvatar();
                                 job_text = (TextView) getActivity().findViewById(R.id.job_text);
                                 job_text.setText(job);
-                                avatar_imag = (CircleImageView) getActivity().findViewById(R.id.avatar_imag);
                                 if (!image.equals("")) {
-                                    Glide.with(getActivity()).load(image).into(avatar_imag);
+                                    Glide.with(getActivity()).load(image).placeholder(R.drawable.init).into(avatar_imag);
                                 }
                                 if (vip) {
                                     vip_text = (TextView) getActivity().findViewById(R.id.vip_text);

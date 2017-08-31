@@ -12,11 +12,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.AreaData;
 import com.huadi.android.ainiyo.entity.UserData;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.util.LGImgCompressor;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -132,6 +134,8 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
         ViewUtils.inject(this);
         LGImgCompressor.getInstance(this).withListener(this);
 
+
+
         //获取用户详细信息//
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
@@ -166,7 +170,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                         Userid = userData.getUserid();
                         //在个人信息里获得用户上次写过的详细信息//
                         if (!Avatar.equals("")) {
-                            Glide.with(InfoActivity.this).load(Avatar).into(avatar_imag);
+                            Glide.with(InfoActivity.this).load(Avatar).placeholder(R.drawable.init).into(avatar_imag);
                         }
                         if (Gentle == 1) {
                             sex_text.setText("男");
@@ -257,6 +261,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
         switch (v.getId()) {
             case R.id.back:
                 startActivity(new Intent(InfoActivity.this, MainActivity.class));
+                finish();
                 break;
             case R.id.avatar:
                 ImageSelectorUtils.openPhoto(InfoActivity.this, 1, true, 0);
