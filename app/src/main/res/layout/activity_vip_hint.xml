@@ -70,5 +70,5 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:textColor="#FFFF"
-        android:background="@drawable/button" />
+        android:background="@drawable/button_register" />
 </LinearLayout>

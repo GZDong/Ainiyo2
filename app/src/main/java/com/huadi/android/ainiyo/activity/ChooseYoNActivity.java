@@ -1,5 +1,7 @@
 package com.huadi.android.ainiyo.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,8 +20,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.Retrofit2.PostRequest_getrequesst_Interface;
+import com.huadi.android.ainiyo.Retrofit2.PostRequest_getuserinfo_byName_Interface;
 import com.huadi.android.ainiyo.Retrofit2.PostRequset_agreerequest_Interface;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.entity.Friends;
@@ -27,6 +31,8 @@ import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.gson.ResultForAgree;
 import com.huadi.android.ainiyo.gson.ResultForRqstList;
+import com.huadi.android.ainiyo.gson.ResultForUserInfo;
+import com.huadi.android.ainiyo.util.DateUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 
@@ -44,6 +50,7 @@ import rx.schedulers.Schedulers;
 
 public class ChooseYoNActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private static final String TAG = "test";
 
     private TextView reasonText;
     private Button acceptBtn;
@@ -93,14 +100,94 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
         mAreaText = (TextView) findViewById(R.id.area_text);
 
         mCoordinatorLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mCoordinatorLayout.setExpandedTitleColor(getResources().getColor(R.color.gray));
+        mCoordinatorLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.black));
         mCoordinatorLayout.setTitle(name);
+
+        //这里做请求数据，只在这里用的，不储存进数据库，所以就不单独用类包装了
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://120.24.168.102:8080/")
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        PostRequest_getuserinfo_byName_Interface getuserinfo_byName_interface = retrofit.create(PostRequest_getuserinfo_byName_Interface.class);
+        Observable<ResultForUserInfo> observable = getuserinfo_byName_interface.getObservable(((ECApplication)getApplication()).sessionId,name);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResultForUserInfo>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.e(TAG, "onCompleted: 完成好友信息请求");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError: 好友信息请求失败" );
+                    }
+
+                    @Override
+                    public void onNext(ResultForUserInfo resultForUserInfo) {
+                        Log.e(TAG, "onNext: 请求正常" );
+                        if (resultForUserInfo.getStatus().equals("0")){
+                            Log.e(TAG, "onNext: 请求成功" );
+                            Log.e(TAG, "onNext: " + resultForUserInfo.getResult().getAreaName());
+                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getAreaName())) {
+                                mAreaText.setText(resultForUserInfo.getResult().getAreaName());
+                            }else {
+                                mAreaText.setText("未知");
+                            }
+
+                            String sex = null;
+                            String age = null;
+
+                            Log.e(TAG, "onNext: " + resultForUserInfo.getResult().getGentle());
+                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getGentle())) {
+                                if (resultForUserInfo.getResult().getGentle().equals("0")) {
+                                    sex = "男";
+                                    mSexImage.setImageResource(R.drawable.boy2);
+                                } else if (resultForUserInfo.getResult().getGentle().equals("1")) {
+                                    sex = "男";
+                                    mSexImage.setImageResource(R.drawable.boy2);
+                                } else if (resultForUserInfo.getResult().getGentle().equals("2")) {
+                                    sex = "女";
+                                    mSexImage.setImageResource(R.drawable.girl2);
+                                }
+                            }else {
+                                sex = "女";
+                                mSexImage.setImageResource(R.drawable.girl2);
+                            }
+                            Log.e(TAG, "onNext: " + resultForUserInfo.getResult().getBirthday());
+                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getBirthday())){
+                                String subStr = resultForUserInfo.getResult().getBirthday().substring(0,4);
+                                int diff = Integer.valueOf(DateUtil.getYear())-Integer.valueOf(subStr);
+                                age = String.valueOf(diff);
+                            }else {
+                                age = "-";
+                            }
+                            mSexAndAge.setText(sex + " " + age);
+
+                            Log.e(TAG, "onNext: " + resultForUserInfo.getResult().getAvatar());
+                            if (!TextUtils.isEmpty(resultForUserInfo.getResult().getAvatar())){
+                                Glide.with(ChooseYoNActivity.this).load(resultForUserInfo.getResult().getAvatar()).into(mPersonImg);
+                            }else {
+                                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.girl4);
+                                mPersonImg.setImageBitmap(bitmap);
+                            }
+                        }else {
+                            mAreaText.setText("未知");
+                            mSexAndAge.setText("女" + " " + "-");
+                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.mipmap.girl4);
+                            mPersonImg.setImageBitmap(bitmap);
+                        }
+                    }
+                });
 
         setSupportActionBar(mToolbar);
 
         if (!TextUtils.isEmpty(reason)){
-            reasonText.setText(name + ":" + reason);
+            reasonText.setText(name + "  :   " + reason);
         }else {
-            reasonText.setText(name);
+            reasonText.setText(name+ "  :  " );
         }
 
 

@@ -59,7 +59,6 @@ public class EditAreaActivity extends AppCompatActivity {
     private int provinceId = 0;//
     private int cityId = 0;//地址ID
     private int countyId;//
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,16 +131,49 @@ public class EditAreaActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.next})
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.next:
-                startActivity(new Intent(EditAreaActivity.this, EditBirthActivity.class));
-                //如果点击继续，则保存信息
 
-                finish();
+    @OnClick({R.id.next})
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.next:
+                //如果点击继续，则保存信息
+                RequestParams params = new RequestParams();
+                params.addBodyParameter("sessionid", sessionId);
+                params.addBodyParameter("area", (provinceId+"")+(cityId+"")+(countyId+""));
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        try {
+                            JSONObject object = new JSONObject(responseInfo.result.toString());
+                            int status = object.getInt("Status");
+                            String result = object.getString("Result");
+                            String msg = object.getString("Msg");
+                            if (msg.equals("success")) {
+                                startActivity(new Intent(EditAreaActivity.this,EditBirthActivity.class));
+                                finish();
+                            } else {
+
+                                Toast.makeText(EditAreaActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+
+                        Toast.makeText(EditAreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                break;
         }
     }
+
+
 
 
     //获得省数组//

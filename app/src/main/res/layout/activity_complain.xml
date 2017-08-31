@@ -9,22 +9,27 @@
     <RelativeLayout
         android:id="@+id/version_complain_topbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/titile_bar_height"
         android:background="@color/theme_blue">
 
-        <ImageView
-            android:id="@+id/version_complain_back"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/zuojiantou" />
+        <LinearLayout
+            android:layout_width="@dimen/top_title_pic_size"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/version_complain_back"
+                android:layout_width="@dimen/top_title_pic_size"
+                android:layout_height="@dimen/top_title_pic_size"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/leftarrow" />
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="投诉"
-            android:textSize="18sp"
+            android:textSize="@dimen/top_title_text_size"
             android:textColor="@color/white" />
 
 
@@ -33,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="发表"
-            android:textSize="18sp"
+            android:textSize="@dimen/top_title_text_size"
             android:textColor="@color/white"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
