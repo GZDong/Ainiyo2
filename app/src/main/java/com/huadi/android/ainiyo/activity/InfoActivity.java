@@ -108,8 +108,6 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
 
 
 
-
-
     private int Id;
     private String Autograph;
     private int Gentle;
@@ -259,7 +257,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                startActivity(new Intent(InfoActivity.this, MainActivity.class));
+                setResult(100, new Intent());
                 finish();
                 break;
             case R.id.avatar:
