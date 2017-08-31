@@ -53,12 +53,12 @@ public class KidActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sex);
+        setContentView(R.layout.activity_kid);
         //获取用户详细信息//
 
         ViewUtils.inject(this);
         Intent intent=getIntent();
-        situation=intent.getBooleanExtra("parent",false);
+        situation=intent.getBooleanExtra("kid",false);
         if(situation){
             yes_select.setVisibility(View.VISIBLE);
         }
@@ -77,7 +77,7 @@ public class KidActivity extends AppCompatActivity {
             case R.id.yes:
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("gentle", "1");
+                params.addBodyParameter("havekids", "1");
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyhavekids", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -86,12 +86,10 @@ public class KidActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
+                            finish();
 
                                 Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
+
 
 
                         } catch (JSONException e) {
@@ -101,17 +99,18 @@ public class KidActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
+                        finish();
 
                         Toast.makeText(KidActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });
-                finish();
+
                 break;
             case R.id.no:
                 RequestParams params1 = new RequestParams();
                 params1.addBodyParameter("sessionid", sessionId);
-                params1.addBodyParameter("gentle", "2");
+                params1.addBodyParameter("havekids", "2");
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyhavekids", params1, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -120,12 +119,9 @@ public class KidActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
+                            finish();
                                 Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
-                                Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
 
 
                         } catch (JSONException e) {
@@ -135,12 +131,13 @@ public class KidActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
+                        finish();
 
                         Toast.makeText(KidActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });
-                finish();
+
                 break;
         }
     }

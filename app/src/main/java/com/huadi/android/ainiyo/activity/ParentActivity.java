@@ -61,8 +61,8 @@ public class ParentActivity extends AppCompatActivity {
             case R.id.alive://在世
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("avatar", "1");
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifygentle", params, new RequestCallBack<String>() {
+                params.addBodyParameter("parentsalive", "1");
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyparentsalive", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         try {
@@ -95,8 +95,8 @@ public class ParentActivity extends AppCompatActivity {
             case R.id.dead://不在世
                 RequestParams params1 = new RequestParams();
                 params1.addBodyParameter("sessionid", sessionId);
-                params1.addBodyParameter("avatar", "2");
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifygentle", params1, new RequestCallBack<String>() {
+                params1.addBodyParameter("parentsalive", "2");
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyparentsalive", params1, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         try {

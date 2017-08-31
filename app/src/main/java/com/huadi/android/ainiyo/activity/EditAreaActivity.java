@@ -139,7 +139,7 @@ public class EditAreaActivity extends AppCompatActivity {
                 //如果点击继续，则保存信息
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("area", (provinceId+"")+(cityId+countyId+"")+(countyId+""));
+                params.addBodyParameter("area", (provinceId+"")+(cityId+"")+(countyId+""));
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
@@ -150,6 +150,7 @@ public class EditAreaActivity extends AppCompatActivity {
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
                                 startActivity(new Intent(EditAreaActivity.this,EditBirthActivity.class));
+                                finish();
                             } else {
 
                                 Toast.makeText(EditAreaActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -168,7 +169,6 @@ public class EditAreaActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
                 break;
         }
     }

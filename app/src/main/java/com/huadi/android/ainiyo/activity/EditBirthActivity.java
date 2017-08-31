@@ -59,6 +59,7 @@ public class EditBirthActivity extends AppCompatActivity {
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
                                 startActivity(new Intent(EditBirthActivity.this,EditSalaryActivity.class));
+                                finish();
                             } else {
 
                                 Toast.makeText(EditBirthActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -77,7 +78,7 @@ public class EditBirthActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+
                 break;
         }
     }

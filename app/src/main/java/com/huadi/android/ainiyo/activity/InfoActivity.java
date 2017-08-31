@@ -49,8 +49,8 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     private LinearLayout job;
     @ViewInject(R.id.salary)
     private LinearLayout salary;
-    @ViewInject(R.id.birth)
-    private LinearLayout birth;
+    @ViewInject(R.id.birthday)
+    private LinearLayout birthday;
     @ViewInject(R.id.address)
     private LinearLayout address;
     @ViewInject(R.id.parent)
@@ -59,6 +59,12 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     private LinearLayout marriage;
     @ViewInject(R.id.kid)
     private LinearLayout kid;
+    @ViewInject(R.id.emotion)
+    private LinearLayout emotion;
+    @ViewInject(R.id.hobby)
+    private LinearLayout hobby;
+    @ViewInject(R.id.select)
+    private LinearLayout select;
 
 
 
@@ -254,23 +260,21 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
 
 
 
-    @OnClick({R.id.back,R.id.avatar,R.id.sex,R.id.job,R.id.salary,R.id.birth,R.id.address,R.id.parent,R.id.marriage,R.id.kid})
+    @OnClick({R.id.back,R.id.avatar,R.id.sex,R.id.job,R.id.salary,R.id.birthday,R.id.address,R.id.parent,R.id.marriage,R.id.kid,R.id.emotion,R.id.hobby,R.id.select})
     public void onClick(View v){
         switch (v.getId()){
             case R.id.back:
                 startActivity(new Intent(InfoActivity.this, MainActivity.class));
                 break;
-    @OnClick({R.id.avatar, R.id.sex, R.id.job})
-    public void onClick(View v) {
-        switch (v.getId()) {
             case R.id.avatar:
                 ImageSelectorUtils.openPhoto(InfoActivity.this, 1, true, 0);
                 break;
             case R.id.sex:
-                startActivity(new Intent(InfoActivity.this, SexActivity.class));
+                Intent intent8=new Intent(InfoActivity.this,SexActivity.class);
+                intent8.putExtra("sex",Gentle+"");
+                startActivity(intent8);
                 break;
             case R.id.job:
-                startActivity(new Intent(InfoActivity.this, JobActivity.class));
                 Intent intent1=new Intent(InfoActivity.this,JobActivity.class);
                 intent1.putExtra("job",Job);
                 startActivity(intent1);
@@ -280,7 +284,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                 intent2.putExtra("salary",Salary+"");
                 startActivity(intent2);
                 break;
-            case R.id.birth:
+            case R.id.birthday:
                 Intent intent3=new Intent(InfoActivity.this,BirthActivity.class);
                 intent3.putExtra("birth",Birthday.substring(0,10));
                 startActivity(intent3);
@@ -304,6 +308,22 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                 Intent intent7=new Intent(InfoActivity.this,KidActivity.class);
                 intent7.putExtra("kid",HaveKids);
                 startActivity(intent7);
+                break;
+            case R.id.emotion:
+                Intent intent9=new Intent(InfoActivity.this,EditEmoExprienceActivity.class);
+                intent9.putExtra("emotion",Emotion);
+                startActivity(intent9);
+                break;
+
+            case R.id.hobby:
+                Intent intent10=new Intent(InfoActivity.this,EditHobbyActivity.class);
+                intent10.putExtra("hobby",Hobby);
+                startActivity(intent10);
+                break;
+            case R.id.select:
+                Intent intent11=new Intent(InfoActivity.this,EditMateSignActivity.class);
+                intent11.putExtra("select",Requir);
+                startActivity(intent11);
                 break;
 
 

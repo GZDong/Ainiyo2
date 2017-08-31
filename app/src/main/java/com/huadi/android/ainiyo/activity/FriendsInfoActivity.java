@@ -249,7 +249,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
         mChangeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(FriendsInfoActivity.this,EditInfoActivity.class));
+                startActivity(new Intent(FriendsInfoActivity.this,InfoActivity.class));
             }
         });
     }

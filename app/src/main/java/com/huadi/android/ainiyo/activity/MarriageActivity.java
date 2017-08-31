@@ -41,7 +41,7 @@ public class MarriageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parent);
+        setContentView(R.layout.activity_marriage);
         ViewUtils.inject(this);
         Intent intent=getIntent();
         situation=intent.getStringExtra("marriage");
@@ -72,6 +72,7 @@ public class MarriageActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
+                                finish();
                                 Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
                             } else {
 
@@ -91,7 +92,7 @@ public class MarriageActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+
                 break;
             case R.id.already:
                 RequestParams params1 = new RequestParams();
@@ -106,6 +107,7 @@ public class MarriageActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
+                                finish();
                                 Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
                             } else {
 
@@ -125,7 +127,7 @@ public class MarriageActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+
                 break;
         }
     }

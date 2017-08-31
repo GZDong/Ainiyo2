@@ -64,7 +64,7 @@ public class AreaActivity extends AppCompatActivity {
     private int countyId;//
 
 
-    private String location;//area的ID
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +72,8 @@ public class AreaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_area);
         ViewUtils.inject(this);
 
-        Intent intent=getIntent();
-        location=intent.getStringExtra("area");//得到上次用户保存的地址ID
+
+
 
 
 
@@ -282,12 +282,12 @@ public class AreaActivity extends AppCompatActivity {
                 startActivity(new Intent(AreaActivity.this,InfoActivity.class));
                 break;
             case R.id.save:
-                location=(provinceId+"")+(cityId+countyId+"")+(countyId+"");
+
 
 
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("area", location);
+                params.addBodyParameter("area", (provinceId+"")+(cityId+"")+(countyId+""));
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {

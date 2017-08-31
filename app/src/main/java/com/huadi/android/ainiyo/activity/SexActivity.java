@@ -15,6 +15,7 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.AreaData;
 import com.huadi.android.ainiyo.entity.UserData;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -46,49 +47,22 @@ public class SexActivity extends AppCompatActivity {
 
 
 
-    private int Gentle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sex);
-        //获取用户详细信息//
-        RequestParams params = new RequestParams();
-        params.addBodyParameter("sessionid", sessionId);
-        HttpUtils http = new HttpUtils();
-        http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/getuserinfo", params, new RequestCallBack<String>() {
-            @Override
-            public void onSuccess(ResponseInfo<String> responseInFo) {
-                String info = responseInFo.result.toString();
-                try {
-                    JSONObject object = new JSONObject(info);
-                    String msg = object.getString("Msg");
-                    if(msg.equals("success")) {
-                        Gson gson = new Gson();
-                        UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
-                        Gentle = userData.getGentle();
-                    }
-
-
-                } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(HttpException error, String msg) {
-                                    Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
-        if(Gentle==1){
-            //男右边的勾出来
+        ViewUtils.inject(this);
+        Intent intent=getIntent();
+        String situation=intent.getStringExtra("sex");
+        if(situation.equals("1")){
             male_select.setVisibility(View.VISIBLE);
         }
-        if(Gentle==2){
-            //女右边的勾出来
+        if(situation.equals("2")){
             female_select.setVisibility(View.VISIBLE);
         }
+
     }
 
 
@@ -110,12 +84,10 @@ public class SexActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
+                            finish();
                                 Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
-                                Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
+
 
 
                         } catch (JSONException e) {
@@ -125,12 +97,13 @@ public class SexActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
+                        finish();
 
                         Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
+
                     }
                 });
-                finish();
                 break;
             case R.id.female:
                 RequestParams params1 = new RequestParams();
@@ -144,12 +117,9 @@ public class SexActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
+                            finish();
                                 Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
 
-                                Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
 
 
                         } catch (JSONException e) {
@@ -159,12 +129,13 @@ public class SexActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
+                        finish();
 
                         Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });
-                finish();
+
                 break;
         }
     }

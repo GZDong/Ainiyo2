@@ -1,15 +1,22 @@
 package com.huadi.android.ainiyo.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.application.ECApplication;
+import com.huadi.android.ainiyo.entity.FriendsLab;
+import com.huadi.android.ainiyo.entity.UserInfo;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -34,11 +41,15 @@ public class EditSexActivity extends AppCompatActivity {
     private RadioButton female;
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_sex);
         ViewUtils.inject(this);
+
     }
 
     @OnClick({R.id.next})
@@ -59,7 +70,13 @@ public class EditSexActivity extends AppCompatActivity {
                                 String result = object.getString("Result");
                                 String msg = object.getString("Msg");
                                 if (msg.equals("success")) {
-                                    startActivity(new Intent(EditSexActivity.this, MainActivity.class));
+
+                                startActivity(new Intent(EditSexActivity.this,MainActivity.class));
+                                    finish();
+
+
+
+
                                 } else {
 
                                     Toast.makeText(EditSexActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -95,6 +112,7 @@ public class EditSexActivity extends AppCompatActivity {
                                 String msg = object.getString("Msg");
                                 if (msg.equals("success")) {
                                     startActivity(new Intent(EditSexActivity.this, MainActivity.class));
+                                    finish();
                                 } else {
 
                                     Toast.makeText(EditSexActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -113,7 +131,7 @@ public class EditSexActivity extends AppCompatActivity {
 
                         }
                     });
-                    finish();
+
                     break;
                 }
         }

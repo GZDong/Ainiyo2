@@ -60,6 +60,7 @@ public class EditSalaryActivity extends AppCompatActivity {
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
                                 startActivity(new Intent(EditSalaryActivity.this, EditSexActivity.class));
+                                finish();
                             } else {
 
                                 Toast.makeText(EditSalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
@@ -78,7 +79,7 @@ public class EditSalaryActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+
                 break;
         }
     }
