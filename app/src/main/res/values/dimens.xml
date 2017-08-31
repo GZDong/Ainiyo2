@@ -15,11 +15,12 @@
     <dimen name="finding_data_anlaysis_pipei_score_text_size">16dp</dimen>
 
 
+
     <dimen name="me_fragment_height">40dp</dimen>
     <dimen name="me_fragment_clearance_height">15dp</dimen>
     <dimen name="me_fragment_pic_size">25dp</dimen>
     <dimen name="me_fragment_clearance_weight">18dp</dimen>
-    <dimen name="me_fragment_text_size">13dp</dimen>
+    <dimen name="me_fragment_text_size">15sp</dimen>
 
     <dimen name="version_activity_text_size">18dp</dimen>
 
