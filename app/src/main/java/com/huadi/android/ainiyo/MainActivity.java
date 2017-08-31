@@ -361,6 +361,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //把该好友的username上传到自己的服务器，然后加入数据库
         //调整自己服务器的接口，添加好友不需要附加信息
         Log.e("test","onFriendRequestAccepted______");
+        FriendsLab.get(MainActivity.this).setNewFriShow(username);
         FriendsLab.get(MainActivity.this).reRequsetFriList();
         Toast.makeText(getApplication(),"对方同意接受你为好友",Toast.LENGTH_LONG).show();
     }
@@ -379,6 +380,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         //点击同意后，上传服务器，更新本地数据库和单例
         //刷新好友列表
         Log.e("test","onContactAdded______");
+        FriendsLab.get(MainActivity.this).setNewFriShow(username);
         Toast.makeText(getApplication(),"联系人增加了",Toast.LENGTH_LONG).show();
     }
     //好友请求被拒绝

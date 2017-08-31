@@ -64,6 +64,7 @@ public class FriendsLab {
     private Map<String,String> keepLastMsg;
 
     private int isRequsetNewInfo = 1;
+    private String NewFriName = null;
 
     public static FriendsLab get(Context context, UserInfo userInfo) {
         if (sFriendsLab == null){
@@ -184,6 +185,12 @@ public class FriendsLab {
                                                     String lastMsg = keepLastMsg.get(friends.getFriId());
                                                     if (lastMsg!=null){
                                                         friends.setLastMsg(lastMsg);
+                                                    }
+                                                }
+
+                                                if (NewFriName!=null){
+                                                    if (NewFriName.equals(friends.getName())){
+                                                        friends.setShowInChooseFragment(true);
                                                     }
                                                 }
                                                 friends.save();
@@ -516,5 +523,9 @@ public class FriendsLab {
                 }
             }
         }
+    }
+
+    public void setNewFriShow(String newFriName) {
+        NewFriName = newFriName;
     }
 }

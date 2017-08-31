@@ -80,6 +80,12 @@ public class ChooseYoNActivity extends AppCompatActivity implements View.OnClick
             //设置状态栏的颜色
             this.getWindow().setStatusBarColor(getResources().getColor(R.color.theme_statusBar_red));
         }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+                    localLayoutParams.flags);
+        }
+
 
     }
     private void initView(){
