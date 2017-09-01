@@ -410,6 +410,7 @@ public class ChooseFragment extends Fragment {
                     Intent intent = new Intent("com.huadi.android.ainiyo.newMessage");
                     intent.putExtra("ID",message.getFrom());
                     intent.putExtra("newM",unread);
+                    FriendsLab.get(getActivity()).setFriShow(message.getFrom());
                     getActivity().sendBroadcast(intent);
                 }
             }

@@ -538,4 +538,15 @@ public class FriendsLab {
     public void setNewFriShow(String newFriName) {
         NewFriName = newFriName;
     }
+
+    public void setFriShow(String name){
+        for (Friends friends: mFriendses){
+            if (friends!=null){
+                if (friends.getName().equals(name)){
+                    friends.setShowInChooseFragment(true);
+                    friends.save();
+                }
+            }
+        }
+    }
 }
