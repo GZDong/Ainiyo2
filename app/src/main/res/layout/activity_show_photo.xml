@@ -19,6 +19,6 @@
         android:layout_height="match_parent"
         android:src="@drawable/examplepicture"
         android:background="@color/black"
-        android:scaleType="centerCrop"/>
+        />
 
 </FrameLayout>
