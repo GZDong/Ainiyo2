@@ -289,10 +289,13 @@ public class AreaActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(AreaActivity.this, InfoActivity.class));
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return",(provinceId + "") + (cityId + "") + (countyId + ""));
+                            setResult(RESULT_OK,intent);
+                            finish();
                             Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
 
-                            finish();
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();

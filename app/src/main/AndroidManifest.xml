@@ -177,14 +177,12 @@
             android:name=".activity.DeleteFriendActivity"
             android:parentActivityName=".activity.FriendsListActivity" />
         <activity android:name=".activity.PhoneWallActivity" />
-        <activity android:name=".activity.ActivityActivity" />
-        <activity android:name=".activity.ActivityDetil" />
         <activity android:name=".activity.EditAreaActivity" />
         <activity android:name=".activity.EditBirthActivity" />
         <activity android:name=".activity.EditSalaryActivity" />
-        <activity android:name=".activity.EditSexActivity" />
+        <activity android:name=".activity.EditGentleActivity" />
         <activity android:name=".activity.InfoActivity" />
-        <activity android:name=".activity.SexActivity" />
+        <activity android:name=".activity.GentleActivity" />
         <activity android:name=".activity.JobActivity" />
         <activity android:name=".activity.SalaryActivity" />
         <activity android:name=".activity.BirthActivity" />

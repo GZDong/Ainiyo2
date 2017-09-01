@@ -72,9 +72,12 @@ public class ParentActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(ParentActivity.this, InfoActivity.class));
-                            Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return","在世");
+                            setResult(RESULT_OK,intent);
                             finish();
+                            Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
                         } catch (JSONException e) {

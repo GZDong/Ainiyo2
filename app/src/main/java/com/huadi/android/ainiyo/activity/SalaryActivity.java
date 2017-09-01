@@ -62,10 +62,13 @@ public class SalaryActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            startActivity(new Intent(SalaryActivity.this, InfoActivity.class));
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return",salary_edit.getText().toString());
+                            setResult(RESULT_OK,intent);
+                            finish();
 
                             Toast.makeText(SalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            finish();
+
 
 
                         } catch (JSONException e) {

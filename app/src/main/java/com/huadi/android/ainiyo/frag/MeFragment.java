@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.activity.ActivityActivity;
 import com.huadi.android.ainiyo.activity.InfoActivity;
 import com.huadi.android.ainiyo.activity.LoginActivity;
 import com.huadi.android.ainiyo.activity.ManagerActivity;
@@ -43,7 +42,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import mehdi.sakout.aboutpage.AboutPage;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;

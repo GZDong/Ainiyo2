@@ -63,9 +63,12 @@ public class JobActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(JobActivity.this, InfoActivity.class));
-                            Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return",job_edit.getText().toString());
+                            setResult(RESULT_OK,intent);
                             finish();
+                            Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
                         } catch (JSONException e) {

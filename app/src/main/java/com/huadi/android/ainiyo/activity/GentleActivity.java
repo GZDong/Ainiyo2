@@ -8,12 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
-import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.entity.AreaData;
-import com.huadi.android.ainiyo.entity.UserData;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -27,11 +22,9 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
 
-public class SexActivity extends AppCompatActivity {
+public class GentleActivity extends AppCompatActivity {
 
     @ViewInject(R.id.male_select)
     private ImageView male_select;
@@ -80,9 +73,12 @@ public class SexActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            startActivity(new Intent(SexActivity.this, InfoActivity.class));
-                                Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
+                           Intent intent=new Intent();
+                            intent.putExtra("data_return","男");
+                                    setResult(RESULT_OK,intent);
                             finish();
+                                Toast.makeText(GentleActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -95,7 +91,7 @@ public class SexActivity extends AppCompatActivity {
                     public void onFailure(HttpException error, String msg) {
 
 
-                        Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GentleActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -114,8 +110,12 @@ public class SexActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return","女");
+                            setResult(RESULT_OK,intent);
                             finish();
-                                Toast.makeText(SexActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(GentleActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
 
@@ -128,7 +128,7 @@ public class SexActivity extends AppCompatActivity {
                     public void onFailure(HttpException error, String msg) {
                         finish();
 
-                        Toast.makeText(SexActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GentleActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
                     }
                 });
