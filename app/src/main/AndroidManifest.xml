@@ -198,6 +198,8 @@
         <activity android:name=".activity.VersionNewApkActivity" />
         <activity android:name=".activity.EditNoteActivity"/>
         <activity android:name=".activity.AboutActivity"/>
+        <activity android:name=".activity.PhotoShowActivity"
+            android:parentActivityName=".activity.PhotoWallActivity"/>
     </application>
 
 </manifest>

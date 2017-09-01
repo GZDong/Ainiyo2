@@ -2,18 +2,15 @@ package com.huadi.android.ainiyo.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.renderscript.Long2;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -41,7 +38,6 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -323,7 +319,9 @@ public class FriendsInfoActivity extends AppCompatActivity {
                     hobbyFragment.show(fm, "Hob");
                 }
                 if (mList.get(position).equals("生活照")) {
-                    Intent intent = new Intent(FriendsInfoActivity.this, PhoneWallActivity.class);
+                    Intent intent = new Intent(FriendsInfoActivity.this, PhotoWallActivity.class);
+                    String FriId =  FriendsLab.get(FriendsInfoActivity.this).getFriend(name).getFriId();
+                    intent.putExtra("id",FriId);
                     startActivity(intent);
                 }
             }
