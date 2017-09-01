@@ -62,6 +62,7 @@ public class FriendsLab {
     private Map<String,Date> keepTime;
     private Map<String,Integer> keepUnread;
     private Map<String,String> keepLastMsg;
+    private Map<String,Boolean> keepConversation;
 
     private int isRequsetNewInfo = 1;
     private String NewFriName = null;
@@ -173,6 +174,11 @@ public class FriendsLab {
                                                     if (date!=null){
                                                         friends.setDate(date);
                                                     }
+                                                }
+
+                                                if (keepConversation!=null){
+                                                    boolean isShow = keepConversation.get(friends.getFriId());
+                                                    friends.setShowInChooseFragment(isShow);
                                                 }
 
                                                 if (keepUnread!=null){
@@ -425,11 +431,13 @@ public class FriendsLab {
         keepTime = new HashMap<>();
         keepUnread = new HashMap<>();
         keepLastMsg = new HashMap<>();
+        keepConversation = new HashMap<>();
         DataSupport.deleteAll(Friends.class,"user = ?",mUserInfo.getUsername());
         for (Friends friends : mFriendses){
             keepTime.put(friends.getFriId(),friends.getDate());
             keepUnread.put(friends.getFriId(),friends.getUnreadMeg());
             keepLastMsg.put(friends.getFriId(),friends.getLastMsg());
+            keepConversation.put(friends.getFriId(),friends.isShowInChooseFragment());
         }
         mFriendses = null;
         initFriends();
