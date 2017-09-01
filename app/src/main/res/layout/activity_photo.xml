@@ -34,11 +34,12 @@
 
         <ImageView
             android:id="@+id/add_pic"
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/shangchuan"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/add"
+            android:layout_marginTop="5dp"
             android:padding="5dp"
-            android:layout_marginLeft="340dp" />
+            android:layout_marginLeft="320dp" />
 
     </RelativeLayout>
 

@@ -89,6 +89,7 @@ public class MeFragment extends Fragment{
         te.setText(username);//获取用户名
 
         loadData();
+        Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).placeholder(R.mipmap.ic_default_avater_dc).into(avatar_imag);
 
         return view;
     }
