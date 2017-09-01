@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -37,6 +39,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
 import java.lang.reflect.Type;
@@ -50,6 +53,8 @@ public class MovementJoinedActivity extends AppCompatActivity {
 
     @ViewInject(R.id.movement_list_view)
     private PullToRefreshListView movement_list_view;
+    @ViewInject(R.id.back_topbar_movement)
+    private TextView back_button;
 
     private List<MovementContentData> mList = new ArrayList<>();
     private ModeResult modeResult;
@@ -222,4 +227,15 @@ public class MovementJoinedActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         loadDatas(true);
     }
+
+    @OnClick({R.id.back_topbar_movement})
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back_topbar_movement:
+                ToolKits.putInt(MovementJoinedActivity.this, "fragment", 3);
+                finish();
+                break;
+        }
+    }
+
 }

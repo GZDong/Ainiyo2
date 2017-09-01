@@ -18,8 +18,7 @@ public class AboutActivity extends AppCompatActivity {
 
         View aboutPage = new AboutPage(this)
                 .addEmail("email@email.com","联系我们")
-                .addGroup("这啥")
-                .addGitHub("http://git.oschina.net/geange_code/Ainiyo")
+                .addWebsite("http://git.oschina.net/geange_code/Ainiyo","关注Oschina")
                 .setDescription("FBI CAUTION\n此软件受美国法律，大概")
                 .create();
 

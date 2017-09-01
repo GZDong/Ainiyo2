@@ -17,6 +17,7 @@
             android:layout_width="@dimen/title_bar_avatar_size"
             android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
             android:layout_height="match_parent">
+
             <de.hdodenhof.circleimageview.CircleImageView
 
                 android:id="@+id/tv_movement_me"
@@ -25,6 +26,7 @@
 
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_default_avater"
+                android:visibility="gone"
                 app:civ_border_color="#FFF" />
 
         </LinearLayout>
