@@ -177,8 +177,10 @@ public class FriendsLab {
                                                 }
 
                                                 if (keepConversation!=null){
-                                                    boolean isShow = keepConversation.get(friends.getFriId());
-                                                    friends.setShowInChooseFragment(isShow);
+                                                    Boolean isShow = keepConversation.get(friends.getFriId());
+                                                    if (isShow!=null) {
+                                                        friends.setShowInChooseFragment(isShow);
+                                                    }
                                                 }
 
                                                 if (keepUnread!=null){
