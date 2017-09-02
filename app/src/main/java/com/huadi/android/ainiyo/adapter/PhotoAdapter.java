@@ -21,7 +21,7 @@ import java.util.List;
  * Created by 45990 on 2017/8/13.
  */
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
 
     private Context mContext;
     private List<String> mList;
@@ -38,7 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    public MyAdapter(Context context, List<String> data) {
+    public PhotoAdapter(Context context, List<String> data) {
         mContext = context;
         mList=data;
     }

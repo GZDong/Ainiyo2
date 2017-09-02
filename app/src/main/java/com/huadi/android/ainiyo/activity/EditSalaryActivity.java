@@ -59,7 +59,7 @@ public class EditSalaryActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
-                                startActivity(new Intent(EditSalaryActivity.this, EditSexActivity.class));
+                                startActivity(new Intent(EditSalaryActivity.this, EditGentleActivity.class));
                                 finish();
                             } else {
 

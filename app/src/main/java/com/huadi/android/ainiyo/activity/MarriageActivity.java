@@ -73,10 +73,13 @@ public class MarriageActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(MarriageActivity.this, InfoActivity.class));
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return","未婚");
+                            setResult(RESULT_OK,intent);
+                            finish();
                             Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
 
-                            finish();
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -105,9 +108,12 @@ public class MarriageActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(MarriageActivity.this, InfoActivity.class));
-                            Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return","已婚");
+                            setResult(RESULT_OK,intent);
                             finish();
+                            Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
                         } catch (JSONException e) {

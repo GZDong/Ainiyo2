@@ -84,9 +84,12 @@ public class KidActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            startActivity(new Intent(KidActivity.this, InfoActivity.class));
-                            Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return","是");
+                            setResult(RESULT_OK,intent);
                             finish();
+                            Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
                         } catch (JSONException e) {
@@ -116,9 +119,12 @@ public class KidActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
-                            startActivity(new Intent(KidActivity.this, InfoActivity.class));
-                            Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return","否");
+                            setResult(RESULT_OK,intent);
                             finish();
+                            Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
                         } catch (JSONException e) {

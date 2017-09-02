@@ -12,9 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.gson.Gson;
-import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.AreaData;
 import com.huadi.android.ainiyo.entity.UserData;
@@ -32,7 +30,6 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -261,47 +258,47 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                 finish();
                 break;
             case R.id.avatar:
-                ImageSelectorUtils.openPhoto(InfoActivity.this, 1, true, 0);
+                ImageSelectorUtils.openPhoto(InfoActivity.this, 111, true, 0);
                 break;
             case R.id.sex:
-                Intent intent8 = new Intent(InfoActivity.this, SexActivity.class);
+                Intent intent8 = new Intent(InfoActivity.this, GentleActivity.class);
                 intent8.putExtra("sex", Gentle + "");
-                startActivity(intent8);
+                startActivityForResult(intent8,1);
                 break;
             case R.id.job:
                 Intent intent1 = new Intent(InfoActivity.this, JobActivity.class);
                 intent1.putExtra("job", Job);
-                startActivity(intent1);
+                startActivityForResult(intent1,2);
                 break;
             case R.id.salary:
                 Intent intent2 = new Intent(InfoActivity.this, SalaryActivity.class);
                 intent2.putExtra("salary", Salary + "");
-                startActivity(intent2);
+                startActivityForResult(intent2,3);
                 break;
             case R.id.birthday:
                 Intent intent3 = new Intent(InfoActivity.this, BirthActivity.class);
                 intent3.putExtra("birth", Birthday.substring(0, 10));
-                startActivity(intent3);
+                startActivityForResult(intent3,4);
                 break;
             case R.id.address:
                 Intent intent4 = new Intent(InfoActivity.this, AreaActivity.class);
                 intent4.putExtra("area", Area + "");
-                startActivity(intent4);
+                startActivityForResult(intent4,5);
                 break;
             case R.id.parent:
                 Intent intent5 = new Intent(InfoActivity.this, ParentActivity.class);
                 intent5.putExtra("parent", Parentsalive);
-                startActivity(intent5);
+                startActivityForResult(intent5,6);
                 break;
             case R.id.marriage:
                 Intent intent6 = new Intent(InfoActivity.this, MarriageActivity.class);
                 intent6.putExtra("marriage", Maritallstatus);
-                startActivity(intent6);
+                startActivityForResult(intent6,7);
                 break;
             case R.id.kid:
                 Intent intent7 = new Intent(InfoActivity.this, KidActivity.class);
                 intent7.putExtra("kid", HaveKids);
-                startActivity(intent7);
+                startActivityForResult(intent7,8);
                 break;
             case R.id.emotion:
                 Intent intent9 = new Intent(InfoActivity.this, EditEmoExprienceActivity.class);
@@ -330,13 +327,124 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     }
 
 
-    //得到从相册选择的图片//
+    //回调
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        image.clear();
-        if (requestCode == 1 && data != null) {
-            image = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
-            propressImg(image);//讲选择图片进行压缩//
+
+
+        switch (requestCode){
+            case 111:
+                image.clear();
+                image = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
+                propressImg(image);//讲选择图片进行压缩//
+                break;
+            case 1:
+                if(resultCode==RESULT_OK){
+                    String returnedData=data.getStringExtra("data_return");
+                    sex_text.setText(returnedData);
+                    if(returnedData.equals("男")){
+                        Gentle=1;
+                    }
+                    if(returnedData.equals("女")){
+                        Gentle=2;
+                    }
+
+                }
+                break;
+            case 2:
+                if(resultCode==RESULT_OK){
+                    String returnedData=data.getStringExtra("data_return");
+                    job_text.setText(returnedData);
+                    Job=returnedData;
+
+                }
+                break;
+            case 3:
+                if(resultCode==RESULT_OK){
+                    String returnedData=data.getStringExtra("data_return");
+                    salary_text.setText(returnedData);
+                    Salary=Double.parseDouble(returnedData);
+                }
+                break;
+            case 4:
+                if(resultCode==RESULT_OK){
+                    String returnedData=data.getStringExtra("data_return");
+                    birthday_text.setText(returnedData);
+                    Birthday=returnedData;
+
+                }
+                break;
+            case 5:
+                if(resultCode==RESULT_OK){
+                    String returnedData=data.getStringExtra("data_return");
+
+
+                    RequestParams params1 = new RequestParams();
+                    params1.addBodyParameter("sessionid", sessionId);
+                    params1.addBodyParameter("areaid", returnedData);
+                    new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/search/area/id", params1, new RequestCallBack<String>() {
+                        @Override
+                        public void onSuccess(ResponseInfo<String> responseInfo) {
+                            try {
+                                JSONObject object = new JSONObject(responseInfo.result.toString());
+                                int status = object.getInt("Status");
+                                if (status == 1000) {
+                                    Gson gson = new Gson();
+                                    AreaData area = gson.fromJson(object.getJSONObject("Result").toString(), AreaData.class);
+                                    provincename_get = area.getProvince();
+                                    cityname_get = area.getCountry();
+                                    countyname_get = area.getCounty();
+                                    address_text.setText(provincename_get + cityname_get + countyname_get);
+
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(HttpException error, String msg) {
+                            Toast.makeText(InfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                }
+                break;
+
+            case 6:
+                if(resultCode==RESULT_OK){
+                    String returnedData=data.getStringExtra("data_return");
+                    parent_text.setText(returnedData);
+                    if(returnedData.equals("在世")){
+                        Parentsalive=true;
+                    }
+                    else {Parentsalive=false;}
+
+                }
+                break;
+            case 7:
+                if(resultCode==RESULT_OK){
+                    String returnedData=data.getStringExtra("data_return");
+                    marriage_text.setText(returnedData);
+                    Maritallstatus=returnedData;
+                }
+                break;
+            case 8:
+                if(resultCode==RESULT_OK){
+                    String returnedData=data.getStringExtra("data_return");
+                    kid_text.setText(returnedData);
+                    if(returnedData.equals("是")){
+                        HaveKids=true;
+                    }
+                    else { HaveKids=false;}
+
+                }
+                break;
+
+
         }
     }
 
@@ -403,5 +511,6 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
         });
 
     }
+
 
 }

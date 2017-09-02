@@ -62,10 +62,13 @@ public class BirthActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
 
-                            startActivity(new Intent(BirthActivity.this, InfoActivity.class));
+                            Intent intent=new Intent();
+                            intent.putExtra("data_return",birth_edit.getText().toString());
+                            setResult(RESULT_OK,intent);
+                            finish();
                             Toast.makeText(BirthActivity.this, msg, Toast.LENGTH_SHORT).show();
 
-                            finish();
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();

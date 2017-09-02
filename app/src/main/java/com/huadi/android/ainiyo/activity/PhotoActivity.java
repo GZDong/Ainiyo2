@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,7 +16,7 @@ import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.R;
-import com.huadi.android.ainiyo.adapter.MyAdapter;
+import com.huadi.android.ainiyo.adapter.PhotoAdapter;
 import com.huadi.android.ainiyo.util.LGImgCompressor;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -198,7 +197,7 @@ public class PhotoActivity extends AppCompatActivity implements LGImgCompressor.
                             show.add(result);
                             if(show.size()==picName.size()) {
                                 RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recy_img);
-                                MyAdapter adapter = new MyAdapter(PhotoActivity.this, show);
+                                PhotoAdapter adapter = new PhotoAdapter(PhotoActivity.this, show);
                                 GridLayoutManager layoutManager = new GridLayoutManager(PhotoActivity.this, 3);
                                 mRecyclerView.setLayoutManager(layoutManager);
                                 mRecyclerView.setAdapter(adapter);
