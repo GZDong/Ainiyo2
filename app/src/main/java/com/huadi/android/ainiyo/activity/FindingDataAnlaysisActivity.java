@@ -84,13 +84,7 @@ public class FindingDataAnlaysisActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //透明导航栏
-            LinearLayout linear_bar = (LinearLayout) findViewById(R.id.status_bar_finding_data_anlaysis);
-            linear_bar.setVisibility(View.VISIBLE);
-            //获取到状态栏的高度
-            int statusHeight = ToolKits.getStatusBarHeight(this);
-            //动态的设置隐藏布局的高度
-            linear_bar.getLayoutParams().height = statusHeight;
+
         }
     }
 

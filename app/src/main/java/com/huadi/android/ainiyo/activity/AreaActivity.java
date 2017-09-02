@@ -137,7 +137,7 @@ public class AreaActivity extends AppCompatActivity {
     }
 
 
-    //获得省数组//
+    //获得省数组
     public void getallprovince() {
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
