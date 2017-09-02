@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -66,12 +68,17 @@ public class MeFragment extends Fragment{
     @ViewInject(R.id.avatar_imag)
     private CircleImageView avatar_imag;
 
-
-
+    @ViewInject(R.id.name)
     private TextView te;
+    @ViewInject(R.id.job_text)
     private TextView job_text;
+    @ViewInject(R.id.vip_text)
     private TextView vip_text;
 
+    public static final int UPDATE_ME_INFO = 10101;
+
+    //线程
+    Handler handler;
 
 
 
@@ -83,12 +90,38 @@ public class MeFragment extends Fragment{
         ViewUtils.inject(this,view);
         SharedPreferences pref = getActivity().getSharedPreferences("data", MODE_PRIVATE);
         String username = pref.getString("name", "");
-        te = (TextView) view.findViewById(R.id.name);
+
         te.setText(username);//获取用户名
 
+        //加载数据
         loadData();
-        Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).placeholder(R.mipmap.ic_default_avater_dc).into(avatar_imag);
+        //Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).placeholder(R.mipmap.ic_default_avater_dc).into(avatar_imag);
 
+        //在主线程修改UI
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case UPDATE_ME_INFO:
+                        UserData userData = (UserData) msg.obj;
+                        //如果获取数据成功，则把数据加载到各项
+                        String job = userData.getJob();
+                        Boolean vip = userData.isVip();
+                        String image = userData.getAvatar();
+
+                        job_text.setText(job);
+                        if (!image.equals("")) {
+                            Glide.with(getActivity()).load(image).placeholder(R.mipmap.ic_default_avater).into(avatar_imag);
+                        }
+                        if (vip) {
+                            vip_text.setText("VIP用户");
+                        }
+                        if (!vip) {
+                            vip_text.setText("普通用户");
+                        }
+                }
+            }
+        };
         return view;
     }
 
@@ -105,25 +138,36 @@ public class MeFragment extends Fragment{
                             String msg = object.getString("Msg");
                             if (msg.equals("success")) {
                                 Gson gson = new Gson();
-                                UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
+                                final UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
 
-                                //如果获取数据成功，则把数据加载到各项
-                                String job = userData.getJob();
-                                Boolean vip = userData.isVip();
-                                String image = userData.getAvatar();
-                                job_text = (TextView) getActivity().findViewById(R.id.job_text);
-                                job_text.setText(job);
-                                if (!image.equals("")) {
-                                    Glide.with(getActivity()).load(image).placeholder(R.mipmap.ic_default_avater).into(avatar_imag);
-                                }
-                                if (vip) {
-                                    vip_text = (TextView) getActivity().findViewById(R.id.vip_text);
-                                    vip_text.setText("VIP用户");
-                                }
-                                if (!vip) {
-                                    vip_text = (TextView) getActivity().findViewById(R.id.vip_text);
-                                    vip_text.setText("普通用户");
-                                }
+                                //去主线程修改UI
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Message message = new Message();
+                                        message.what = UPDATE_ME_INFO;
+                                        message.obj = userData;
+                                        handler.sendMessage(message);
+                                    }
+                                }).start();
+
+
+                                //不要在子线程修改UI，会修改失败或报错
+//                                //如果获取数据成功，则把数据加载到各项
+//                                String job = userData.getJob();
+//                                Boolean vip = userData.isVip();
+//                                String image = userData.getAvatar();
+//
+//                                job_text.setText(job);
+//                                if (!image.equals("")) {
+//                                    Glide.with(getActivity()).load(image).placeholder(R.mipmap.ic_default_avater).into(avatar_imag);
+//                                }
+//                                if (vip) {
+//                                    vip_text.setText("VIP用户");
+//                                }
+//                                if (!vip) {
+//                                    vip_text.setText("普通用户");
+//                                }
 
 
                             }
