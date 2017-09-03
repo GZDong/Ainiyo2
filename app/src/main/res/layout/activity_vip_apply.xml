@@ -8,23 +8,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/titile_bar_height"
             android:background="@color/theme_blue">
 
-            <LinearLayout
-                android:layout_marginLeft="@dimen/me_fragment_clearance_weight"
+            <ImageView
+                android:id="@+id/back"
+                android:layout_gravity="center_vertical"
                 android:layout_width="@dimen/top_title_pic_size"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/back"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="@dimen/top_title_pic_size"
-                    android:layout_height="@dimen/top_title_pic_size"
-                    android:src="@drawable/leftarrow" />
-            </LinearLayout>
+                android:layout_height="@dimen/top_title_pic_size"
+                android:src="@drawable/leftarrow"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -32,10 +28,11 @@
                 android:gravity="center"
                 android:text="上传照片"
                 android:textSize="18sp"
+
                 android:textColor="@color/white" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
         <TextView

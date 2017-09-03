@@ -142,6 +142,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                     JSONObject object = new JSONObject(info);
                     String msg = object.getString("Msg");
                     Gson gson = new Gson();
+                    
                     UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
 
                     //如果获取数据成功，则把数据加载到各项

@@ -326,6 +326,7 @@ public class AreaActivity extends AppCompatActivity {
                                 intent.putExtra("data_return",areaId+"");
                                 setResult(RESULT_OK,intent);
                                 finish();
+                                Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
                             } else {
 
                                 Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
