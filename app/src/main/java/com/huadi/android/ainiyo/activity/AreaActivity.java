@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.AreaData;
 import com.huadi.android.ainiyo.entity.City;
 import com.huadi.android.ainiyo.entity.County;
 import com.huadi.android.ainiyo.entity.Province;
@@ -62,6 +63,9 @@ public class AreaActivity extends AppCompatActivity {
     private int provinceId = 0;//
     private int cityId = 0;//地址ID
     private int countyId;//
+
+
+    private int areaId;
 
 
     @Override
@@ -274,27 +278,58 @@ public class AreaActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.save:
+                //得到地区ID
+                RequestParams params1 = new RequestParams();
+                params1.addBodyParameter("sessionid", sessionId);
+                params1.addBodyParameter("province", provinceId + "");
+                params1.addBodyParameter("country", cityId + "");
+                params1.addBodyParameter("county", countyId + "");
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/search/area/id", params1, new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        try {
+                            JSONObject object = new JSONObject(responseInfo.result.toString());
+                            int status = object.getInt("Status");
+                            if (status == 1000) {
+                                Gson gson = new Gson();
+                                AreaData area = gson.fromJson(object.getJSONObject("Result").toString(), AreaData.class);
+                                areaId=area.getId();
+                            }
 
 
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+                        Toast.makeText(AreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+//修改地区
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("area", (provinceId + "") + (cityId + "") + (countyId + ""));
+                params.addBodyParameter("area", areaId+"");
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
                         try {
                             JSONObject object = new JSONObject(responseInfo.result.toString());
                             int status = object.getInt("Status");
-
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
+                            if (msg.equals("success")) {
+                                Intent intent=new Intent();
+                                intent.putExtra("data_return",areaId+"");
+                                setResult(RESULT_OK,intent);
+                                finish();
+                            } else {
 
-                            Intent intent=new Intent();
-                            intent.putExtra("data_return",(provinceId + "") + (cityId + "") + (countyId + ""));
-                            setResult(RESULT_OK,intent);
-                            finish();
-                            Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+                                Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            }
 
 
                         } catch (JSONException e) {

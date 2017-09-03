@@ -389,6 +389,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                                 JSONObject object = new JSONObject(responseInfo.result.toString());
                                 int status = object.getInt("Status");
                                 if (status == 1000) {
+                                    
                                     Gson gson = new Gson();
                                     AreaData area = gson.fromJson(object.getJSONObject("Result").toString(), AreaData.class);
                                     provincename_get = area.getProvince();
