@@ -129,7 +129,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
         ViewUtils.inject(this);
         LGImgCompressor.getInstance(this).withListener(this);
 
-
+        Glide.with(InfoActivity.this).load(UserInfoLab.get(InfoActivity.this).getUserInfo().getPicUrl()).placeholder(R.mipmap.ic_default_avater_dc).into(avatar_imag);
         //获取用户详细信息//
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
@@ -142,6 +142,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                     JSONObject object = new JSONObject(info);
                     String msg = object.getString("Msg");
                     Gson gson = new Gson();
+                    
                     UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
 
                     //如果获取数据成功，则把数据加载到各项
@@ -163,9 +164,6 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                         Avatar = userData.getAvatar();
                         Userid = userData.getUserid();
                         //在个人信息里获得用户上次写过的详细信息//
-                        if (!Avatar.equals("")) {
-                            Glide.with(InfoActivity.this).load(Avatar).placeholder(R.mipmap.ic_default_avater).into(avatar_imag);
-                        }
                         if (Gentle == 1) {
                             sex_text.setText("男");
                         }
@@ -254,7 +252,10 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                setResult(100, new Intent());
+                Intent intent=new Intent();
+                intent.putExtra("avatar",UserInfoLab.get(InfoActivity.this).getUserInfo().getPicUrl());
+                intent.putExtra("job",Job);
+                setResult(100, intent);
                 finish();
                 break;
             case R.id.avatar:
@@ -389,6 +390,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                                 JSONObject object = new JSONObject(responseInfo.result.toString());
                                 int status = object.getInt("Status");
                                 if (status == 1000) {
+                                    
                                     Gson gson = new Gson();
                                     AreaData area = gson.fromJson(object.getJSONObject("Result").toString(), AreaData.class);
                                     provincename_get = area.getProvince();

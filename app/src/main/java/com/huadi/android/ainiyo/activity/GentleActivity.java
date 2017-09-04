@@ -132,7 +132,6 @@ public class GentleActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
                 break;
         }
     }

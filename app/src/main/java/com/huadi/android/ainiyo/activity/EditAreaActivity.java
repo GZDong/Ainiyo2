@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.AreaData;
 import com.huadi.android.ainiyo.entity.City;
 import com.huadi.android.ainiyo.entity.County;
 import com.huadi.android.ainiyo.entity.Province;
@@ -43,6 +44,8 @@ public class EditAreaActivity extends AppCompatActivity {
     private Spinner countySpinner;
     @ViewInject(R.id.next)
     private Button next;
+
+    private int areaId;
 
 
     private ArrayAdapter<String> provinceAdapter = null;  //省级适配器
@@ -137,9 +140,40 @@ public class EditAreaActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.next:
                 //如果点击继续，则保存信息
+                RequestParams params1 = new RequestParams();
+                params1.addBodyParameter("sessionid", sessionId);
+                params1.addBodyParameter("province", provinceId + "");
+                params1.addBodyParameter("country", cityId + "");
+                params1.addBodyParameter("county", countyId + "");
+                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/search/area/id", params1, new RequestCallBack<String>() {
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+                        try {
+                            JSONObject object = new JSONObject(responseInfo.result.toString());
+                            int status = object.getInt("Status");
+                            if (status == 1000) {
+                                Gson gson = new Gson();
+                                AreaData area = gson.fromJson(object.getJSONObject("Result").toString(), AreaData.class);
+                                areaId=area.getId();
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+                        Toast.makeText(EditAreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("area", (provinceId + "") + (cityId + "") + (countyId + ""));
+                params.addBodyParameter("area", areaId+"");
                 new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
