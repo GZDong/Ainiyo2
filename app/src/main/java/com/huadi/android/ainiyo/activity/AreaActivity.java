@@ -290,11 +290,47 @@ public class AreaActivity extends AppCompatActivity {
                         try {
                             JSONObject object = new JSONObject(responseInfo.result.toString());
                             int status = object.getInt("Status");
-                            if (status == 1000) {
+                            String msg=object.getString("Msg");
                                 Gson gson = new Gson();
                                 AreaData area = gson.fromJson(object.getJSONObject("Result").toString(), AreaData.class);
+
                                 areaId=area.getId();
-                            }
+                            RequestParams params = new RequestParams();
+                            params.addBodyParameter("sessionid", sessionId);
+                            params.addBodyParameter("area", areaId+"");
+                            new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
+                                @Override
+                                public void onSuccess(ResponseInfo<String> responseInfo) {
+                                    try {
+                                        JSONObject object = new JSONObject(responseInfo.result.toString());
+                                        int status = object.getInt("Status");
+                                        String result = object.getString("Result");
+                                        String msg = object.getString("Msg");
+                                        if (msg.equals("success")) {
+                                            Intent intent=new Intent();
+                                            intent.putExtra("data_return",areaId+"");
+                                            setResult(RESULT_OK,intent);
+                                            finish();
+                                            Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                        }
+
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(HttpException error, String msg) {
+
+                                    Toast.makeText(AreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
 
 
                         } catch (JSONException e) {
@@ -310,41 +346,6 @@ public class AreaActivity extends AppCompatActivity {
                 });
 
 //修改地区
-                RequestParams params = new RequestParams();
-                params.addBodyParameter("sessionid", sessionId);
-                params.addBodyParameter("area", areaId+"");
-                new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/modifyarea", params, new RequestCallBack<String>() {
-                    @Override
-                    public void onSuccess(ResponseInfo<String> responseInfo) {
-                        try {
-                            JSONObject object = new JSONObject(responseInfo.result.toString());
-                            int status = object.getInt("Status");
-                            String result = object.getString("Result");
-                            String msg = object.getString("Msg");
-                            if (msg.equals("success")) {
-                                Intent intent=new Intent();
-                                intent.putExtra("data_return",areaId+"");
-                                setResult(RESULT_OK,intent);
-                                finish();
-                                Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            } else {
-
-                                Toast.makeText(AreaActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(HttpException error, String msg) {
-
-                        Toast.makeText(AreaActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
 
                 break;
         }

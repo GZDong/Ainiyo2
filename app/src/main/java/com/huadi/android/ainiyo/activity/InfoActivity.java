@@ -142,7 +142,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                     JSONObject object = new JSONObject(info);
                     String msg = object.getString("Msg");
                     Gson gson = new Gson();
-                    
+
                     UserData userData = gson.fromJson(object.getJSONObject("Result").toString(), UserData.class);
 
                     //如果获取数据成功，则把数据加载到各项
@@ -336,8 +336,11 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
         switch (requestCode){
             case 111:
                 image.clear();
-                image = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
-                propressImg(image);//讲选择图片进行压缩//
+                if(data!=null) {
+                    image = data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
+
+                    propressImg(image);//讲选择图片进行压缩//
+                }
                 break;
             case 1:
                 if(resultCode==RESULT_OK){
