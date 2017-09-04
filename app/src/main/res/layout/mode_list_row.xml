@@ -44,17 +44,16 @@
                     android:src="@mipmap/ic_default_avater" />
 
 
-                    <TextView
+                <TextView
 
-                        android:id="@+id/mode_username"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:text="David Joanthen"
-                        android:paddingLeft="18dp"
-                        android:textColor="#332c2c"
-                        android:textSize="18sp" />
-
+                    android:id="@+id/mode_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="18dp"
+                    android:text="David Joanthen"
+                    android:textColor="#332c2c"
+                    android:textSize="18sp" />
 
 
             </LinearLayout>
@@ -80,8 +79,8 @@
                 <ImageView
                     android:id="@+id/mode_pic_content"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="15dp"
                     android:layout_height="300dp"
+                    android:layout_marginTop="15dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_content_pic" />
                 <!--<TextView-->
@@ -114,8 +113,8 @@
                     android:id="@+id/mode_date"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
                     android:layout_marginLeft="20dp"
+                    android:gravity="center_vertical"
                     android:paddingTop="1dp"
                     android:text="June 1,2017"
                     android:textSize="15sp" />
