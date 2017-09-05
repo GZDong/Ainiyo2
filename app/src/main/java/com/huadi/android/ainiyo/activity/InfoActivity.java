@@ -130,6 +130,14 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
         LGImgCompressor.getInstance(this).withListener(this);
 
         Glide.with(InfoActivity.this).load(UserInfoLab.get(InfoActivity.this).getUserInfo().getPicUrl()).placeholder(R.mipmap.ic_default_avater_dc).into(avatar_imag);
+      if(UserInfoLab.get(InfoActivity.this).getUserInfo().getSex().equals("1")){
+          sex_text.setText("男");
+      }
+      else{sex_text.setText("女");}
+
+
+        birthday_text.setText(UserInfoLab.get(InfoActivity.this).getUserInfo().getBirthday().substring(0,10));
+
         //获取用户详细信息//
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
@@ -164,15 +172,11 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                         Avatar = userData.getAvatar();
                         Userid = userData.getUserid();
                         //在个人信息里获得用户上次写过的详细信息//
-                        if (Gentle == 1) {
-                            sex_text.setText("男");
-                        }
-                        if (Gentle == 2) {
-                            sex_text.setText("女");
+
                         }
                         job_text.setText(Job);
                         salary_text.setText(String.valueOf(Salary));
-                        birthday_text.setText(Birthday.substring(0, 10));
+
                         if (Parentsalive) {
                             parent_text.setText("在世");
                         }
@@ -191,45 +195,45 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                         if (!HaveKids) {
                             kid_text.setText("否");
                         }
+                    RequestParams params1 = new RequestParams();
+                    params1.addBodyParameter("sessionid", sessionId);
+                    params1.addBodyParameter("areaid", Area+"");
+                    new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/search/area/id", params1, new RequestCallBack<String>() {
+                        @Override
+                        public void onSuccess(ResponseInfo<String> responseInfo) {
+                            try {
+                                JSONObject object = new JSONObject(responseInfo.result.toString());
+                                int status = object.getInt("Status");
+                                if (status == 1000) {
 
-
-                        //根据得到的地区代码，返回省，城市，区，然后sp.setSelection(arrayAdapter.getPosition("广东")设置默认值//
-                        if (Area != 0) {
-                            RequestParams params1 = new RequestParams();
-                            params1.addBodyParameter("sessionid", sessionId);
-                            params1.addBodyParameter("areaid", Area + "");
-                            new HttpUtils().send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/search/area/id", params1, new RequestCallBack<String>() {
-                                @Override
-                                public void onSuccess(ResponseInfo<String> responseInfo) {
-                                    try {
-                                        JSONObject object = new JSONObject(responseInfo.result.toString());
-                                        int status = object.getInt("Status");
-                                        if (status == 1000) {
-                                            Gson gson = new Gson();
-                                            AreaData area = gson.fromJson(object.getJSONObject("Result").toString(), AreaData.class);
-                                            provincename_get = area.getProvince();
-                                            cityname_get = area.getCountry();
-                                            countyname_get = area.getCounty();
-                                            address_text.setText(provincename_get + cityname_get + countyname_get);
-
-                                        }
-
-
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(HttpException error, String msg) {
-                                    Toast.makeText(InfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
+                                    Gson gson = new Gson();
+                                    AreaData area = gson.fromJson(object.getJSONObject("Result").toString(), AreaData.class);
+                                    provincename_get = area.getProvince();
+                                    cityname_get = area.getCountry();
+                                    countyname_get = area.getCounty();
+                                    address_text.setText(provincename_get + cityname_get + countyname_get);
 
                                 }
-                            });
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
 
+                        @Override
+                        public void onFailure(HttpException error, String msg) {
+                            Toast.makeText(InfoActivity.this, "连接错误", Toast.LENGTH_SHORT).show();
 
-                    }
+                        }
+                    });
+
+
+
+
+
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
 
@@ -254,7 +258,7 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
             case R.id.back:
                 Intent intent=new Intent();
                 intent.putExtra("avatar",UserInfoLab.get(InfoActivity.this).getUserInfo().getPicUrl());
-                intent.putExtra("job",Job);
+                intent.putExtra("job",sex_text.getText().toString());
                 setResult(100, intent);
                 finish();
                 break;

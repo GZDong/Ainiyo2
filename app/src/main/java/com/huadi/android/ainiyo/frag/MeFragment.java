@@ -94,6 +94,11 @@ public class MeFragment extends Fragment{
 
         te.setText(username);//获取用户名
 
+        if(UserInfoLab.get(getActivity()).getUserInfo().getSex().equals("1")){
+            job_text.setText("男");
+        }
+        else{job_text.setText("女");}
+
 
         RequestParams params = new RequestParams();
         params.addBodyParameter("sessionid", sessionId);
@@ -118,7 +123,7 @@ public class MeFragment extends Fragment{
                                     Glide.with(getActivity()).load(image).into(avatar_imag);
                                 }
 
-                                job_text.setText(job);
+
 
                                 if (vip) {
                                     vip_text.setText("VIP用户");
