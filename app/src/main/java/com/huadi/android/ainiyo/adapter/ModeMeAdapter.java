@@ -143,7 +143,7 @@ public class ModeMeAdapter extends BaseAdapter {
         @ViewInject(R.id.mode_me_content)
         TextView mode_content;
         @ViewInject(R.id.mode_me_delete)
-        TextView mode_me_delete;
+        ImageView mode_me_delete;
         @ViewInject(R.id.mode_me_date)
         TextView mode_me_date;
     }

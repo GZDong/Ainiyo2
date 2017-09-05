@@ -46,7 +46,9 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.huadi.android.ainiyo.util.CONST.RETURN_MODE;
@@ -304,7 +306,8 @@ public class ModeMeActivity extends AppCompatActivity {
                         + "  content: " + return_content);
 
                 ModeInfo mi = new ModeInfo("", return_content, "", return_images);
-                ModeLocalData mld = new ModeLocalData(0, Integer.parseInt(UserInfoLab.get(this).getUserInfo().getId()), mi, "", 0);
+                ModeLocalData mld = new ModeLocalData(0, Integer.parseInt(UserInfoLab.get(this).getUserInfo().getId()), mi,
+                        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), 0);
                 mList.add(0, mld);
                 mAdapter.notifyDataSetChanged();
                 break;

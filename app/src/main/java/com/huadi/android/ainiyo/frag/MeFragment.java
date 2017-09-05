@@ -48,7 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.huadi.android.ainiyo.application.ECApplication.sessionId;
-
+ 
 public class MeFragment extends Fragment{
     @ViewInject(R.id.info)
     private LinearLayout info;

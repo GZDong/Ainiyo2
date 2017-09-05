@@ -176,7 +176,6 @@
         <activity
             android:name=".activity.DeleteFriendActivity"
             android:parentActivityName=".activity.FriendsListActivity" />
-        <activity android:name=".activity.PhoneWallActivity" />
         <activity android:name=".activity.EditAreaActivity" />
         <activity android:name=".activity.EditBirthActivity" />
         <activity android:name=".activity.EditSalaryActivity" />
@@ -198,6 +197,7 @@
         <activity android:name=".activity.VersionNewApkActivity" />
         <activity android:name=".activity.EditNoteActivity"/>
         <activity android:name=".activity.AboutActivity"/>
+        <activity android:name=".activity.PhotoWallActivity"/>
         <activity android:name=".activity.PhotoShowActivity"
             android:parentActivityName=".activity.PhotoWallActivity"/>
     </application>
