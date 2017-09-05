@@ -12,6 +12,7 @@ import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.Retrofit2.PostRequest_getuserinfo_Interface;
 import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.gson.ResultForUserInfo;
+import com.huadi.android.ainiyo.util.CONST;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -101,7 +102,7 @@ public class UserInfoLab {
             mUserInfo.save();
             Log.e("test", "数据库没有该用户");
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://120.24.168.102:8080/")
+                    .baseUrl(CONST.NEW_HOST)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -172,7 +173,7 @@ public class UserInfoLab {
 
     public void refreshSessionid(String sessionid){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://120.24.168.102:8080/")
+                .baseUrl(CONST.NEW_HOST)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

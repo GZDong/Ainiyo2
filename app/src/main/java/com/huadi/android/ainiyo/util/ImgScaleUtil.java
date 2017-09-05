@@ -32,16 +32,6 @@ public class ImgScaleUtil {
         final int oldHeight = options.outHeight;
         //初始化采样率为1，先从原图和需求的大小开始比较
         int inSampleSize = 1;
-        /*//长宽里，只要有一边以上是超出需求大小的，就尝试缩放图片
-        while(oldHeight > reqHeight || oldWidth > reqWidth){
-            //先缩放一次
-            final int halfHeight = oldHeight/2;
-            final int halfWidth = oldWidth/2;
-            //如果缩放一次后发现长宽都还是比需求的大，那就继续缩放，同时得到临时的采样率
-            while ((halfHeight/inSampleSize) >= reqHeight && (halfWidth/inSampleSize) >= reqWidth){
-                inSampleSize = inSampleSize *2;
-            }
-        }*/
 
         int inSampleSizeW = oldWidth / reqWidth;
         int inSampleSizeH = oldHeight / reqHeight;
@@ -54,7 +44,6 @@ public class ImgScaleUtil {
         //得到最终的采样率
         return inSampleSize;
 
-        //说明：结合2个while知道，只有当图片宽和长都大于需求时才会压缩
     }
 
     //裁剪

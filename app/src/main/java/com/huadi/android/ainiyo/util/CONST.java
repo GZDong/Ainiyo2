@@ -22,4 +22,6 @@ public class CONST {
     public static final String GETING_LAST_EDITION = HOST + "/getlastedition";
     public static final String SESSIONID = "";
 
+    public static final String NEW_HOST = "http://120.24.168.102:8080/";
+
 }
