@@ -76,7 +76,6 @@ public class ParentActivity extends AppCompatActivity {
                             intent.putExtra("data_return","在世");
                             setResult(RESULT_OK,intent);
                             finish();
-                            Toast.makeText(ParentActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
 

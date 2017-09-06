@@ -117,6 +117,7 @@ public class VipApplyActivity extends AppCompatActivity implements LGImgCompress
                                         String msg = object.getString("Msg");
                                         int status = object.getInt("Status");
                                         if (status == 0) {
+                                            
                                             Toast.makeText(VipApplyActivity.this, "提交成功，等待审核", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(VipApplyActivity.this, MainActivity.class));
 

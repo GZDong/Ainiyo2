@@ -77,7 +77,6 @@ public class MarriageActivity extends AppCompatActivity {
                             intent.putExtra("data_return","未婚");
                             setResult(RESULT_OK,intent);
                             finish();
-                            Toast.makeText(MarriageActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
 

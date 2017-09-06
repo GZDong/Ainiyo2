@@ -66,7 +66,7 @@ public class BirthActivity extends AppCompatActivity {
                             intent.putExtra("data_return",birth_edit.getText().toString());
                             setResult(RESULT_OK,intent);
                             finish();
-                            Toast.makeText(BirthActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
 

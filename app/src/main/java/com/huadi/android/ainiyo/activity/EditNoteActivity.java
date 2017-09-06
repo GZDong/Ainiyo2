@@ -86,7 +86,7 @@ public class EditNoteActivity extends AppCompatActivity {
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
                             startActivity(new Intent(EditNoteActivity.this, InfoActivity.class));
-                            Toast.makeText(EditNoteActivity.this, msg, Toast.LENGTH_SHORT).show();
+
                             finish();
                         } catch (JSONException e) {
                             e.printStackTrace();

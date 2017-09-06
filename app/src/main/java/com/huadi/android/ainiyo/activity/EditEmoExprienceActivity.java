@@ -88,7 +88,6 @@ public class EditEmoExprienceActivity extends AppCompatActivity {
                             String msg = object.getString("Msg");
                             finish();
 
-                            Toast.makeText(EditEmoExprienceActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
                         } catch (JSONException e) {

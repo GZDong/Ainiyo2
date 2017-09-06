@@ -88,7 +88,6 @@ public class KidActivity extends AppCompatActivity {
                             intent.putExtra("data_return","是");
                             setResult(RESULT_OK,intent);
                             finish();
-                            Toast.makeText(KidActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
 

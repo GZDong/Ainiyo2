@@ -77,7 +77,7 @@ public class GentleActivity extends AppCompatActivity {
                             intent.putExtra("data_return","男");
                                     setResult(RESULT_OK,intent);
                             finish();
-                                Toast.makeText(GentleActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
 

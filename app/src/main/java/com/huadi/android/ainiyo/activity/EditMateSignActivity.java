@@ -88,7 +88,6 @@ public class EditMateSignActivity extends AppCompatActivity {
                             String msg = object.getString("Msg");
                             finish();
 
-                            Toast.makeText(EditMateSignActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
                         } catch (JSONException e) {

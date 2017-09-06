@@ -67,7 +67,6 @@ public class SalaryActivity extends AppCompatActivity {
                             setResult(RESULT_OK,intent);
                             finish();
 
-                            Toast.makeText(SalaryActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
 

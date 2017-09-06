@@ -498,7 +498,6 @@ public class InfoActivity extends AppCompatActivity implements LGImgCompressor.C
                         //修改数据库头像
                         UserInfoLab.get(InfoActivity.this).updateUserUrl(images.get(0));
 
-                        Toast.makeText(InfoActivity.this, msg, Toast.LENGTH_SHORT).show();
                     } else {
                         progress.setVisibility(View.GONE);
 

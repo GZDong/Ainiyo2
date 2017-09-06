@@ -85,7 +85,6 @@ public class EditHobbyActivity extends AppCompatActivity {
                             String msg = object.getString("Msg");
                             finish();
 
-                            Toast.makeText(EditHobbyActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
                         } catch (JSONException e) {

@@ -67,7 +67,7 @@ public class JobActivity extends AppCompatActivity {
                             intent.putExtra("data_return",job_edit.getText().toString());
                             setResult(RESULT_OK,intent);
                             finish();
-                            Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
+
 
 
 
