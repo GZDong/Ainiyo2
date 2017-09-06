@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huadi.android.ainiyo.MainActivity;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.activity.FriendsInfoActivity;
@@ -476,7 +477,7 @@ public class ChattingFragment extends Fragment implements EMMessageListener{
                     //加载图片
                     //  holder.rightImage.setImageBitmap(ImgScaleUtil.decodeBitmapFromResource(getResources(),userImage, 100, 100));
                 }else {
-                    Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).into(holder.rightImage);
+                    Glide.with(getActivity()).load(UserInfoLab.get(getActivity()).getUserInfo().getPicUrl()).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(holder.rightImage);
                 }
 
                 EMTextMessageBody body = (EMTextMessageBody) msg.getBody();

@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.huadi.android.ainiyo.R;
 import com.huadi.android.ainiyo.entity.FriendsLab;
 import com.huadi.android.ainiyo.entity.UserInfo;
@@ -295,7 +296,7 @@ public class FriendsInfoActivity extends AppCompatActivity {
             }
         }else{
             if (!TextUtils.isEmpty(UserInfoLab.get(this,mUserInfo).getUserInfo().getPicUrl())){
-                Glide.with(this).load(UserInfoLab.get(this).getUserInfo().getPicUrl()).into(mImageView);
+                Glide.with(this).load(UserInfoLab.get(this).getUserInfo().getPicUrl()).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(mImageView);
             }else {
                 mImageView.setImageResource(picture);
             }
