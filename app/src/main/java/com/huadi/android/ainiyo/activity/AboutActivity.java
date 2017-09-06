@@ -17,9 +17,9 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         View aboutPage = new AboutPage(this)
-                .addEmail("email@email.com","联系我们")
+                .addEmail("35897293849@qq.com","联系我们")
                 .addWebsite("http://git.oschina.net/geange_code/Ainiyo","关注Oschina")
-                .setDescription("FBI CAUTION\n此软件根本不受美国法律保护")
+                .setDescription("©Ainiyo 2017~ 版权所有\n沟通联系你我，相会成就婚姻")
                 .create();
 
         setContentView(aboutPage);
