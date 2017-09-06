@@ -29,6 +29,7 @@ import com.huadi.android.ainiyo.entity.UserInfo;
 import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.huadi.android.ainiyo.gson.ResultForCheckName;
 import com.huadi.android.ainiyo.gson.ResultForRequset;
+import com.huadi.android.ainiyo.util.CONST;
 import com.huadi.android.ainiyo.util.SignInUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
@@ -143,7 +144,7 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
 
             if (!TextUtils.isEmpty(mClearEditText.getText().toString())) {
                 ECApplication ecApplication =(ECApplication) getApplication();
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://120.24.168.102:8080/")
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(CONST.NEW_HOST)
                                                           .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                                                           .build();
@@ -176,7 +177,7 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                                     }
                                     ECApplication ecApplication = (ECApplication) getApplication();
                                     Retrofit retrofit = new Retrofit.Builder()
-                                            .baseUrl("http://120.24.168.102:8080/")
+                                            .baseUrl(CONST.NEW_HOST)
                                             .addConverterFactory(GsonConverterFactory.create())
                                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                                             .build();

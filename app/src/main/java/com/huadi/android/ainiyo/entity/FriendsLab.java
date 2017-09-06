@@ -16,6 +16,7 @@ import com.huadi.android.ainiyo.gson.FriendGot;
 import com.huadi.android.ainiyo.gson.ResultForDeleteFri;
 import com.huadi.android.ainiyo.gson.ResultForFriend;
 import com.huadi.android.ainiyo.gson.ResultForUserInfo;
+import com.huadi.android.ainiyo.util.CONST;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
@@ -110,7 +111,7 @@ public class FriendsLab {
 
             //**********RxJava + Retrofit*******
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://120.24.168.102:8080/")
+                    .baseUrl(CONST.NEW_HOST)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
@@ -397,7 +398,7 @@ public class FriendsLab {
 
                 //服务器删除数据
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://120.24.168.102:8080/")
+                        .baseUrl(CONST.NEW_HOST)
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                         .build();
@@ -461,7 +462,7 @@ public class FriendsLab {
             for (final Friends friends: mFriendses){
                 if (friends!=null){
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("http://120.24.168.102:8080/")
+                            .baseUrl(CONST.NEW_HOST)
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                             .build();

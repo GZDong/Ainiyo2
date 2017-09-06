@@ -21,16 +21,7 @@ import com.hyphenate.exceptions.HyphenateException;
 public class SignInUtil {
 
     public static void signIn(final String username, final String password, final Activity mContext) {
-       /* mDialog = new ProgressDialog(this);
-        mDialog.setMessage("正在登陆，请稍后...");
-        mDialog.show();*/
-        /*String username = mUsernameEdit.getText().toString().trim();
-        String password = mPasswordEdit.getText().toString().trim();*/
 
-        /*if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-            Toast.makeText(ECLoginActivity.this, "用户名和密码不能为空", Toast.LENGTH_LONG).show();
-            return;
-        }*/
         EMClient.getInstance().login(username, password, new EMCallBack() {
             /**
              * 登陆成功的回调
@@ -47,10 +38,6 @@ public class SignInUtil {
                         // 加载所有群组到内存，如果使用了群组的话
                         // EMClient.getInstance().groupManager().loadAllGroups();
 
-                        // 登录成功跳转界面
-                       /* Intent intent = new Intent(ECLoginActivity.this, ECMainActivity.class);
-                        startActivity(intent);
-                        finish();*/
                     }
                 });
             }

@@ -23,4 +23,6 @@ public class CONST {
     public static final String LOG_IN = HOST + "/login";
     public static final String SESSIONID = "";
 
+    public static final String NEW_HOST = "http://120.24.168.102:8080/";
+
 }

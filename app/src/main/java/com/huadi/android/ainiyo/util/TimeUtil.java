@@ -21,14 +21,6 @@ public class TimeUtil {
         }
 
         long diff = new Date().getTime() - date.getTime();
-        /*Log.e("test", "getTimeFormatText:  now Time :" + new Date().getTime());
-        Log.e("test", "getTimeFormatText:  old Time :" + date.getTime());
-        Log.e("test", "getTimeFormatText:  diff :" + diff);
-        Log.e("test", "getTimeFormatText:  diff :" + diff / year);
-        Log.e("test", "getTimeFormatText:  diff :" + diff / month);
-        Log.e("test", "getTimeFormatText:  diff :" + diff / day );
-        Log.e("test", "getTimeFormatText:  diff :" + diff / hour);
-        Log.e("test", "getTimeFormatText:  diff :" + diff / minute);*/
         long r = 0;
 
         if (diff > year) {

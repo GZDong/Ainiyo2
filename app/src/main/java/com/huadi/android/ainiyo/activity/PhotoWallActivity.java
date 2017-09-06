@@ -34,6 +34,7 @@ import com.huadi.android.ainiyo.application.ECApplication;
 import com.huadi.android.ainiyo.gson.AlbumsName;
 import com.huadi.android.ainiyo.gson.ResultForFriAlbums;
 import com.huadi.android.ainiyo.gson.ResultForFriUrl;
+import com.huadi.android.ainiyo.util.CONST;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -409,7 +410,7 @@ public class PhotoWallActivity extends AppCompatActivity {
         final String sessionid = ((ECApplication)getApplication()).sessionId;
 
         final Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://120.24.168.102:8080/")
+                .baseUrl(CONST.NEW_HOST)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
