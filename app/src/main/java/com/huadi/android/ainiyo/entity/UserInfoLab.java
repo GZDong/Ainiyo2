@@ -226,4 +226,21 @@ public class UserInfoLab {
         }
         return false;
     }
+
+    public void ChangeSign(String sign){
+        mUserInfo.setSign(sign);
+        mUserInfo.save();
+        Log.e("test", "ChangeSign: "+ mUserInfo.getSign() );
+    }
+
+    public void ChangeSex(String sex) {
+        mUserInfo.setSex(sex);
+        mUserInfo.save();
+        Log.e("test", "ChangeSign: "+ mUserInfo.getSex() );
+    }
+    public void ChangeBirthday(String day){
+        mUserInfo.setBirthday(day);
+        mUserInfo.save();
+        Log.e("test", "ChangeSign: "+ mUserInfo.getBirthday() );
+    }
 }

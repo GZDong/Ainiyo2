@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -62,6 +63,8 @@ public class GentleActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.male:
+
+                UserInfoLab.get(GentleActivity.this).ChangeSex("1");
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);
                 params.addBodyParameter("gentle", "1");
@@ -99,6 +102,7 @@ public class GentleActivity extends AppCompatActivity {
 
                 break;
             case R.id.female:
+                UserInfoLab.get(GentleActivity.this).ChangeSex("2");
                 RequestParams params1 = new RequestParams();
                 params1.addBodyParameter("sessionid", sessionId);
                 params1.addBodyParameter("gentle", "2");

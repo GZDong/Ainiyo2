@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -72,7 +73,7 @@ public class EditNoteActivity extends AppCompatActivity {
 
                     Toast.makeText(this, "要输入内容才可以保存哦", Toast.LENGTH_SHORT).show();
                 }
-
+                UserInfoLab.get(EditNoteActivity.this).ChangeSign(edit_note.getText().toString());
 
                 RequestParams params = new RequestParams();
                 params.addBodyParameter("sessionid", sessionId);

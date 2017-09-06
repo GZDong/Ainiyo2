@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huadi.android.ainiyo.R;
+import com.huadi.android.ainiyo.entity.FriendsLab;
+import com.huadi.android.ainiyo.entity.UserInfoLab;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -86,6 +88,7 @@ public class EditMateSignActivity extends AppCompatActivity {
                             int status = object.getInt("Status");
                             String result = object.getString("Result");
                             String msg = object.getString("Msg");
+
                             finish();
 
 
