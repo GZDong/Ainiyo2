@@ -17,6 +17,16 @@
             android:layout_height="fill_parent"
             android:src="@mipmap/back" />
 
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="活动详情        "
+            android:textColor="@color/white"
+            android:textSize="@dimen/top_title_text_size" />
+
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
@@ -93,7 +103,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_bar"
-        android:layout_below="@id/title_bar">
+        android:layout_below="@id/title_bar"
+        android:background="#FFF">
 
         <LinearLayout
             android:layout_width="fill_parent"
