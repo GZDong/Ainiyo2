@@ -56,5 +56,6 @@
         android:layout_height="50dp"
         android:maxLength="15"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        android:inputType="number"/>
 </LinearLayout>

@@ -36,6 +36,8 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.huadi.android.ainiyo.util.CONST.LOG_IN;
+
 public class RegisterActivity extends AppCompatActivity {
 
     @ViewInject(R.id.register2)
@@ -159,7 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 // Log.e("test","onLoginActivity "+userInfo.getUsername()+UserInfoLab.get(LoginActivity.this).getUserInfo().getUsername());
                                 HttpUtils http = new HttpUtils();
-                                http.send(HttpRequest.HttpMethod.POST, "http://120.24.168.102:8080/login", params, new RequestCallBack<String>() {
+                                http.send(HttpRequest.HttpMethod.POST, LOG_IN, params, new RequestCallBack<String>() {
                                             @Override
                                             public void onSuccess(ResponseInfo<String> responseInFo) {
                                                 String info = responseInFo.result.toString();
